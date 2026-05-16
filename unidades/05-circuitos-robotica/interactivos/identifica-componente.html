@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#8C2A3D">
+<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<title>Identifica el componente · U05 · TyD 3º ESO</title>
+<meta name="description" content="12 componentes electrónicos. Identifica cada uno por su descripción y función.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/common.css">
+<link rel="stylesheet" href="../../../assets/css/unidad.css">
+<style>
+.ic-wrap{max-width:880px;margin:30px auto;padding:0 20px 60px}
+.ic-hero{text-align:center;margin-bottom:24px}
+.ic-hero h1{font-family:var(--cond);font-size:2rem;color:var(--principal);margin:0 0 8px}
+.ic-hero p{font-size:.95rem;color:var(--texto2);margin:0;line-height:1.55}
+.ic-progress{display:flex;justify-content:space-between;align-items:center;background:#F4F6F9;padding:10px 16px;border-radius:8px;margin-bottom:18px;font-family:var(--cond);font-size:.92rem}
+.ic-progress strong{color:var(--principal)}
+.ic-card{background:#fff;border:1px solid var(--borde);border-radius:12px;padding:22px;box-shadow:0 1px 6px rgba(0,0,0,.05);margin-bottom:20px;text-align:center}
+.ic-emoji{font-size:5rem;margin:8px 0 4px;line-height:1}
+.ic-desc{font-size:1rem;line-height:1.6;color:var(--texto);margin:0 14px 16px;padding:14px 18px;background:#FBEEEF;border-left:4px solid var(--principal);border-radius:0 6px 6px 0;text-align:left}
+.ic-opts{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:14px 0;text-align:left}
+@media(max-width:560px){.ic-opts{grid-template-columns:1fr}}
+.ic-opt{font-family:var(--cond);background:#fff;border:2px solid var(--borde);border-radius:8px;padding:11px 14px;cursor:pointer;font-size:.92rem;color:var(--texto);transition:all .15s}
+.ic-opt:hover:not(:disabled){border-color:var(--principal);background:#FBEEEF}
+.ic-opt:disabled{cursor:not-allowed}
+.ic-opt.ok{background:#E1F5EE;border-color:#1E8E3E;color:#0F6E56}
+.ic-opt.ko{background:#FCEBEB;border-color:#C44536;color:#9A2A2A}
+.ic-fb{display:none;margin-top:12px;padding:14px 18px;border-radius:8px;font-size:.93rem;line-height:1.55;text-align:left}
+.ic-fb.show{display:block}
+.ic-fb.acierto{background:#E1F5EE;color:#0F6E56;border-left:5px solid #1E8E3E}
+.ic-fb.fallo{background:#FCEBEB;color:#9A2A2A;border-left:5px solid #C44536}
+.ic-actions{display:flex;gap:10px;justify-content:center;margin-top:14px}
+.ic-btn{font-family:var(--cond);padding:9px 22px;border-radius:22px;cursor:pointer;border:2px solid var(--principal);background:var(--principal);color:#fff;font-weight:600}
+.ic-btn:hover{background:var(--principal2)}
+.ic-resumen{text-align:center;background:linear-gradient(180deg,#FBEEEF,#fff);border:2px solid var(--principal);border-radius:10px;padding:28px 24px}
+.ic-resumen .puntos{font-family:var(--cond);font-size:2.6rem;color:var(--principal);margin:6px 0}
+.ic-resumen .puntos small{color:var(--texto);font-size:1.4rem}
+.ic-resumen p{color:var(--texto2);font-size:.95rem;line-height:1.55;margin:6px 0 14px}
+</style>
+</head>
+<body>
+<header class="curso-hd"><span class="curso-sb">U05 · Circuitos · Identifica componente</span></header>
+<nav class="curso-navcross" role="navigation">
+  <a href="../../../index.html"><span>🏠</span><span class="nc-lbl">Índice</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../index.html"><span>📋</span><span class="nc-lbl">Hub U05</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../libro-digital.html"><span>📖</span><span class="nc-lbl">Libro digital</span></a>
+  <span class="nc-sep">·</span>
+  <span class="nc-current"><span>🔍</span><span class="nc-lbl">Componentes</span></span>
+</nav>
+
+<main id="main-content" class="ic-wrap">
+  <section class="ic-hero">
+    <h1>🔍 Identifica el componente</h1>
+    <p>12 componentes electrónicos. Lee la descripción y elige cuál es.</p>
+  </section>
+
+  <div class="ic-progress">
+    <span>Pregunta <strong id="num">1</strong> de <strong id="tot">12</strong></span>
+    <span>Aciertos: <strong id="ac">0</strong></span>
+  </div>
+
+  <div class="ic-card" id="card">
+    <div class="ic-emoji" id="emoji">—</div>
+    <p class="ic-desc" id="desc">—</p>
+    <div class="ic-opts" id="opts"></div>
+    <div class="ic-fb" id="fb"></div>
+    <div class="ic-actions" id="acciones" style="display:none">
+      <button class="ic-btn" id="siguiente">Siguiente →</button>
+    </div>
+  </div>
+
+  <section class="ic-resumen" id="resumen" style="display:none">
+    <h2 style="font-family:var(--cond);color:var(--principal);margin:0 0 6px">¡Has terminado!</h2>
+    <div class="puntos"><span id="r-ac">0</span><small> / <span id="r-tot">12</span></small></div>
+    <p id="r-msg">—</p>
+    <button class="ic-btn" id="rein">🔁 Volver a empezar</button>
+  </section>
+</main>
+
+<script>
+(function(){'use strict';
+var componentes=[
+  {id:'resistencia',nombre:'Resistencia',exp:'Componente pasivo que limita el paso de la corriente. Se mide en ohmios (Ω). Identificable por sus bandas de colores.'},
+  {id:'led',nombre:'LED',exp:'Diodo emisor de luz. Necesita siempre resistencia limitadora en serie.'},
+  {id:'condensador',nombre:'Condensador',exp:'Almacena energía en forma de campo eléctrico. Se mide en faradios (μF, nF).'},
+  {id:'diodo',nombre:'Diodo',exp:'Deja pasar la corriente solo en un sentido. Sirve para rectificar y proteger.'},
+  {id:'transistor',nombre:'Transistor',exp:'Interruptor o amplificador electrónico. Base de toda la electrónica digital.'},
+  {id:'ldr',nombre:'LDR',exp:'Resistencia que varía con la luz: más oscuro, más resistencia.'},
+  {id:'ntc',nombre:'NTC',exp:'Termistor: su resistencia baja al calentarse.'},
+  {id:'ultrasonido',nombre:'HC-SR04',exp:'Sensor de distancia por ultrasonidos. Rango ~2 cm a 4 m.'},
+  {id:'servomotor',nombre:'Servomotor',exp:'Motor que gira hasta un ángulo concreto (0-180º) y se mantiene ahí.'},
+  {id:'rele',nombre:'Relé',exp:'Interruptor electrónico que permite a un Arduino controlar 230 V.'},
+  {id:'zumbador',nombre:'Zumbador',exp:'Emite sonidos. Para alarmas, avisos, melodías sencillas.'},
+  {id:'potenciometro',nombre:'Potenciómetro',exp:'Resistencia variable que el usuario ajusta con una rueda o palanca.'},
+  {id:'pulsador',nombre:'Pulsador',exp:'Interruptor momentáneo: cerrado mientras se pulsa, abierto al soltar.'}
+];
+
+var preguntas=[
+  {emoji:'💡',desc:'Necesita una resistencia en serie obligatoriamente para no quemarse. Cuando conduce, emite luz visible. Tiene polaridad: si lo conectas al revés, no funciona.',correcto:'led'},
+  {emoji:'🪜',desc:'Componente pasivo con bandas de colores que indican su valor. Limita el paso de la corriente para proteger otros componentes.',correcto:'resistencia'},
+  {emoji:'🔋',desc:'Almacena pequeñas cantidades de carga eléctrica. Se usa en filtros, fuentes de alimentación y para «suavizar» señales. Se mide en faradios.',correcto:'condensador'},
+  {emoji:'☀️',desc:'Su resistencia interna depende de la luz que recibe. Útil para hacer farolas que se encienden cuando se hace de noche.',correcto:'ldr'},
+  {emoji:'🌡️',desc:'Su resistencia disminuye cuando aumenta la temperatura. Se usa en termostatos, frigoríficos y para detectar sobrecalentamiento.',correcto:'ntc'},
+  {emoji:'🚦',desc:'Componente activo con tres patillas. Funciona como interruptor electrónico (lo controlas con poca corriente y maneja mucha) o como amplificador. Es la base de todo procesador.',correcto:'transistor'},
+  {emoji:'📡',desc:'Emite chasquidos inaudibles y mide el tiempo del eco para calcular la distancia a un obstáculo. Muy usado en robótica para evitar choques.',correcto:'ultrasonido'},
+  {emoji:'🎯',desc:'Tipo de motor que gira hasta el ángulo exacto que tú le ordenes (típicamente entre 0 y 180º) y se queda fijo en esa posición. Ideal para brazos robóticos.',correcto:'servomotor'},
+  {emoji:'🔌',desc:'Permite que un Arduino (de solo 5 V) encienda y apague aparatos conectados a la red eléctrica (230 V), aislando las dos partes para protección.',correcto:'rele'},
+  {emoji:'🔊',desc:'Cuando le aplicas una señal eléctrica oscilante, emite un sonido. Se usa para alarmas, melodías sencillas o avisos en aparatos.',correcto:'zumbador'},
+  {emoji:'🎛️',desc:'Resistencia variable que el usuario ajusta girando una rueda o desplazando una palanca. Se usa para controlar volumen, brillo o velocidad.',correcto:'potenciometro'},
+  {emoji:'🔘',desc:'Interruptor momentáneo: cerrado mientras lo aprietas con el dedo, abierto al soltarlo. Es la entrada digital más común en Arduino.',correcto:'pulsador'}
+];
+
+var i=0,aciertos=0,respondida=false;
+var n=document.getElementById('num'),tot=document.getElementById('tot'),ac=document.getElementById('ac'),emoji=document.getElementById('emoji'),desc=document.getElementById('desc'),op=document.getElementById('opts'),fb=document.getElementById('fb'),acc=document.getElementById('acciones'),sig=document.getElementById('siguiente'),card=document.getElementById('card'),resumen=document.getElementById('resumen'),rac=document.getElementById('r-ac'),rtot=document.getElementById('r-tot'),rmsg=document.getElementById('r-msg'),rein=document.getElementById('rein');
+tot.textContent=preguntas.length;rtot.textContent=preguntas.length;
+
+function shuffle(a){var b=a.slice();for(var k=b.length-1;k>0;k--){var j=Math.floor(Math.random()*(k+1));var t=b[k];b[k]=b[j];b[j]=t;}return b;}
+
+function pintar(){
+  var p=preguntas[i];
+  n.textContent=i+1;
+  emoji.textContent=p.emoji;
+  desc.innerHTML=p.desc;
+  fb.className='ic-fb';fb.innerHTML='';acc.style.display='none';respondida=false;
+  op.innerHTML='';
+  var corr=componentes.find(function(c){return c.id===p.correcto;});
+  var resto=componentes.filter(function(c){return c.id!==p.correcto;});
+  var todas=shuffle([corr].concat(shuffle(resto).slice(0,3)));
+  todas.forEach(function(c){
+    var b=document.createElement('button');
+    b.className='ic-opt';b.dataset.id=c.id;
+    b.textContent=c.nombre;
+    b.addEventListener('click',function(){responder(c.id,b);});
+    op.appendChild(b);
+  });
+}
+
+function responder(elegida,btn){
+  if(respondida)return;respondida=true;
+  var p=preguntas[i];
+  var corr=componentes.find(function(c){return c.id===p.correcto;});
+  op.querySelectorAll('.ic-opt').forEach(function(b){
+    b.disabled=true;
+    if(b.dataset.id===p.correcto)b.classList.add('ok');
+    else if(b===btn)b.classList.add('ko');
+  });
+  if(elegida===p.correcto){
+    aciertos++;
+    fb.className='ic-fb show acierto';
+    fb.innerHTML='<strong>✓ ¡Correcto!</strong> <strong>'+corr.nombre+'</strong>: '+corr.exp;
+  } else {
+    var elec=componentes.find(function(c){return c.id===elegida;});
+    fb.className='ic-fb show fallo';
+    fb.innerHTML='<strong>✗ No.</strong> Era <strong>'+corr.nombre+'</strong>: '+corr.exp+'<br><br>Tu respuesta (<em>'+elec.nombre+'</em>): '+elec.exp;
+  }
+  ac.textContent=aciertos;
+  acc.style.display='flex';
+}
+
+sig.addEventListener('click',function(){
+  i++;
+  if(i>=preguntas.length){
+    card.style.display='none';
+    document.querySelector('.ic-progress').style.display='none';
+    resumen.style.display='block';
+    rac.textContent=aciertos;
+    var p=Math.round(aciertos/preguntas.length*100);
+    var msg=p>=90?'🌟 ¡Excelente! Identificas componentes al vuelo.':p>=70?'👍 Muy bien. Repasa los que has fallado.':p>=50?'🙂 Aprobado. Vuelve al libro digital, parte 3.':'📚 Tranquilo: repasa la sección de electrónica.';
+    rmsg.innerHTML=msg+'<br><small>'+aciertos+' aciertos de '+preguntas.length+' ('+p+'%)</small>';
+    resumen.scrollIntoView({behavior:'smooth'});
+  } else {
+    pintar();
+  }
+});
+
+rein.addEventListener('click',function(){
+  i=0;aciertos=0;
+  resumen.style.display='none';
+  card.style.display='block';
+  document.querySelector('.ic-progress').style.display='flex';
+  ac.textContent='0';
+  pintar();
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+pintar();
+})();
+</script>
+</body>
+</html>

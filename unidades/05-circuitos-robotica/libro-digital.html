@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#8C2A3D">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>Libro digital · U05 Circuitos y robótica · TyD 3º ESO</title>
+<meta name="description" content="Libro digital de la unidad 5: ley de Ohm, circuitos mixtos, electrónica básica, sensores, Arduino y robótica.">
+<link rel="canonical" href="https://tyd3-ies-jdq.malonso72.workers.dev/unidades/05-circuitos-robotica/libro-digital.html">
+<script>
+window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},svg:{fontCache:'global'}};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/common.css">
+<link rel="stylesheet" href="../../assets/css/unidad.css">
+<style>
+.parte-titulo{font-family:var(--cond);font-size:.78rem;letter-spacing:2.5px;color:var(--principal);text-transform:uppercase;font-weight:700;margin:30px 0 10px;padding-bottom:5px;border-bottom:1px dashed var(--principal)}
+.parte-titulo:first-of-type{margin-top:0}
+.tipo-box{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:14px 0}
+.tipo-box .ti{background:#fff;border:1px solid var(--borde);border-radius:8px;padding:14px 16px}
+.tipo-box .ti h4{margin:0 0 6px;font-family:var(--cond);color:var(--principal);font-size:1.05rem}
+.tipo-box .ti p{margin:0;font-size:.92rem;color:var(--texto2);line-height:1.5}
+.tipo-box .ti.azul h4{color:var(--principal2)}
+table.tipo-tabla{width:100%;border-collapse:collapse;margin:14px 0;font-size:.94rem}
+table.tipo-tabla th{background:var(--principal);color:#fff;padding:8px 10px;text-align:left;font-family:var(--cond);font-weight:600}
+table.tipo-tabla td{padding:8px 10px;border-bottom:1px solid var(--borde);vertical-align:top}
+table.tipo-tabla tr:nth-child(even){background:#FAFAFA}
+table.tipo-tabla td strong{color:var(--principal2)}
+.callout{display:flex;gap:12px;align-items:flex-start;background:#F4F6F9;border-left:4px solid var(--principal2);border-radius:0 6px 6px 0;padding:12px 16px;margin:14px 0}
+.callout .ic{font-size:1.4rem;flex-shrink:0;line-height:1}
+.callout p{margin:0;font-size:.94rem;line-height:1.55}
+.callout-warn{background:#FFF4E6;border-left-color:#F59E0B}
+.callout-info{background:#E6F1FB;border-left-color:#378ADD}
+.callout-ok{background:#E1F5EE;border-left-color:var(--verde)}
+.callout-danger{background:#FCEBEB;border-left-color:#E24B4A}
+.formula{background:#FBEEEF;border-left:3px solid var(--principal);border-radius:0 6px 6px 0;padding:10px 16px;margin:10px 0;font-size:1rem;line-height:1.7}
+.formula .et{display:block;font-family:var(--cond);font-size:.72rem;letter-spacing:1.5px;color:var(--principal);text-transform:uppercase;margin-bottom:4px}
+.ejemplo{background:#FFFCF5;border:1px solid #E8DCB8;border-radius:8px;padding:14px 18px;margin:16px 0}
+.ejemplo .et{display:inline-block;font-family:var(--cond);font-size:.74rem;letter-spacing:1.5px;color:#A47B0C;background:#FBEBC2;padding:3px 9px;border-radius:10px;margin-bottom:6px}
+.ejemplo h5{font-family:var(--cond);color:var(--texto);margin:0 0 8px;font-size:1.05rem}
+.code{display:block;font-family:'JetBrains Mono',monospace;background:#1E1E2A;color:#E6E6F0;padding:14px 18px;border-radius:8px;margin:12px 0;font-size:.88rem;line-height:1.6;overflow-x:auto;white-space:pre}
+.code .k{color:#FF9DB5}
+.code .c{color:#8C97A8;font-style:italic}
+.code .v{color:#9ED3FF}
+.code .s{color:#FFD080}
+.glosario-tabla{width:100%;border-collapse:collapse;margin:14px 0;font-size:.92rem}
+.glosario-tabla th{background:#FBEEEF;color:var(--principal);font-family:var(--cond);padding:8px 10px;text-align:left;font-weight:600}
+.glosario-tabla td{padding:8px 10px;border-bottom:1px solid var(--borde)}
+.glosario-tabla td:first-child{font-weight:600;color:var(--principal2);white-space:nowrap;width:25%}
+@media print{.curso-hd,.curso-navcross,.sb-side{display:none!important}.apartado{break-inside:avoid}}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+<header class="curso-hd"><span class="curso-sb">U05 · Circuitos y robótica · Libro digital</span></header>
+
+<nav class="curso-navcross" role="navigation">
+  <a href="../../index.html"><span>🏠</span><span class="nc-lbl">Índice</span></a>
+  <span class="nc-sep">·</span>
+  <a href="index.html"><span>📋</span><span class="nc-lbl">Hub U05</span></a>
+  <span class="nc-sep">·</span>
+  <span class="nc-current"><span>📖</span><span class="nc-lbl">Libro digital</span></span>
+  <span class="nc-sep">·</span>
+  <a href="actividades/index.html"><span>✏️</span><span class="nc-lbl">Actividades</span></a>
+  <span class="nc-sep">·</span>
+  <a href="autocomprobacion/index.html"><span>✅</span><span class="nc-lbl">Autocomp</span></a>
+</nav>
+
+<div class="unidad-layout">
+
+<aside class="sb-side">
+  <h3>Apartados</h3>
+  <div class="parte-titulo">Parte 1 · Repaso</div>
+  <a href="#s1">1. Corriente, tensión y resistencia</a>
+  <a href="#s2">2. Ley de Ohm</a>
+  <a href="#s3">3. Serie y paralelo (repaso)</a>
+  <div class="parte-titulo">Parte 2 · Mixtos y potencia</div>
+  <a href="#s4">4. Circuitos mixtos: método</a>
+  <a href="#s5">5. Ejemplos resueltos</a>
+  <a href="#s6">6. Potencia y energía</a>
+  <div class="parte-titulo">Parte 3 · Electrónica</div>
+  <a href="#s7">7. Componentes pasivos</a>
+  <a href="#s8">8. Componentes activos</a>
+  <a href="#s9">9. Sensores</a>
+  <a href="#s10">10. Actuadores</a>
+  <div class="parte-titulo">Parte 4 · Arduino</div>
+  <a href="#s11">11. Qué es Arduino</a>
+  <a href="#s12">12. Estructura del programa</a>
+  <a href="#s13">13. Entradas y salidas</a>
+  <a href="#s14">14. Ejemplos comentados</a>
+  <div class="parte-titulo">Parte 5 · Robótica</div>
+  <a href="#s15">15. Qué es un robot</a>
+  <a href="#s16">16. Sense-think-act</a>
+  <a href="#s17">17. Del Arduino al robot</a>
+  <div class="parte-titulo">Cierre</div>
+  <a href="#glosario">📖 Glosario</a>
+</aside>
+
+<main class="ct" id="main-content">
+
+  <h1 class="unidad-titulo">U05 · Circuitos eléctricos, electrónica y robótica</h1>
+  <p class="unidad-subt">De la ley de Ohm a un robot autónomo. Ampliamos los circuitos serie y paralelo con los mixtos, introducimos la electrónica analógica y digital, programamos un Arduino y construimos un dispositivo que reacciona al entorno.</p>
+
+  <div class="callout callout-info">
+    <span class="ic">⏮️</span>
+    <p><strong>Repaso previo:</strong> esta unidad continúa la U5 «Electricidad» de 2º ESO. Si no recuerdas qué es voltaje o resistencia, repásalo primero en <a href="https://tyd2-ies-jdq.malonso72.workers.dev/unidades/05-electricidad/libro-digital.html" target="_blank">el libro digital de 2º ESO</a>.</p>
+  </div>
+
+  <section class="apartado" id="s1">
+    <h2>1. Corriente, tensión y resistencia</h2>
+    <p>Las tres magnitudes que tienes que tener clarísimas:</p>
+    <table class="tipo-tabla">
+      <thead><tr><th>Magnitud</th><th>Símbolo</th><th>Unidad</th><th>Idea intuitiva</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Corriente</strong></td><td>I</td><td>Amperio (A)</td><td>Cantidad de electrones que pasan por segundo. El "caudal".</td></tr>
+        <tr><td><strong>Tensión</strong></td><td>V</td><td>Voltio (V)</td><td>La "presión" que empuja los electrones. La diferencia entre dos puntos.</td></tr>
+        <tr><td><strong>Resistencia</strong></td><td>R</td><td>Ohmio (Ω)</td><td>Lo que se opone al paso de la corriente. La "fricción".</td></tr>
+      </tbody>
+    </table>
+    <div class="callout callout-info">
+      <span class="ic">💧</span>
+      <p><strong>Analogía hidráulica:</strong> imagina una manguera. La <strong>tensión</strong> es la presión del grifo, la <strong>corriente</strong> es el caudal (litros/segundo) y la <strong>resistencia</strong> es lo estrecha que es la manguera.</p>
+    </div>
+  </section>
+
+  <section class="apartado" id="s2">
+    <h2>2. Ley de Ohm</h2>
+    <p>La ecuación más importante de la electricidad. Relaciona las tres magnitudes:</p>
+    <div class="formula">
+      <span class="et">Ley de Ohm</span>
+      $$V = I \cdot R$$
+      Despejando: $I = V/R$ y $R = V/I$.
+    </div>
+    <div class="ejemplo">
+      <span class="et">EJEMPLO</span>
+      <h5>Bombilla de R = 6 Ω conectada a pila de 12 V</h5>
+      <p>$I = V/R = 12/6 = \boldsymbol{2\ \text{A}}$. Si la pila fuera de 6 V, la corriente sería 1 A: brillaría menos.</p>
+    </div>
+  </section>
+
+  <section class="apartado" id="s3">
+    <h2>3. Asociación de resistencias: serie y paralelo (repaso)</h2>
+    <h3>Serie (una detrás de otra)</h3>
+    <div class="formula">
+      <span class="et">Resistencias en serie</span>
+      $$R_{eq} = R_1 + R_2 + R_3 + \ldots$$
+      Por todas pasa la <strong>misma corriente I</strong>. Las tensiones se suman: $V_{total} = V_1 + V_2 + \ldots$
+    </div>
+    <h3>Paralelo (ramas que comparten los mismos dos nodos)</h3>
+    <div class="formula">
+      <span class="et">Resistencias en paralelo</span>
+      $$\dfrac{1}{R_{eq}} = \dfrac{1}{R_1} + \dfrac{1}{R_2} + \ldots \quad\text{o para dos: } R_{eq} = \dfrac{R_1 \cdot R_2}{R_1 + R_2}$$
+      Todas tienen la <strong>misma tensión V</strong>. Las corrientes se suman: $I_{total} = I_1 + I_2 + \ldots$
+    </div>
+    <div class="callout callout-info">
+      <span class="ic">💡</span>
+      <p><strong>Truco:</strong> en serie $R_{eq}$ es <em>mayor</em> que cualquiera (se acumula resistencia). En paralelo $R_{eq}$ es <em>menor</em> que la más pequeña (la corriente tiene más caminos).</p>
+    </div>
+  </section>
+
+  <section class="apartado" id="s4">
+    <h2>4. Circuitos mixtos: el método paso a paso</h2>
+    <p>Un <strong>circuito mixto</strong> combina tramos en serie y en paralelo. Se resuelve con un método sistemático:</p>
+    <ol style="margin-left:20px;line-height:1.7">
+      <li><strong>Identifica grupos</strong>: localiza qué resistencias están en serie entre sí y cuáles en paralelo.</li>
+      <li><strong>Simplifica de dentro hacia fuera</strong>: empieza por el grupo más alejado de la pila. Calcula su $R_{eq}$ y dibuja un nuevo circuito sustituyéndolas.</li>
+      <li><strong>Repite</strong> hasta tener una única resistencia: la $R_{eq}$ total.</li>
+      <li><strong>Calcula la corriente total</strong>: $I = V/R_{eq}$.</li>
+      <li><strong>Vuelve atrás</strong> aplicando la ley de Ohm en cada tramo para encontrar V e I parciales.</li>
+    </ol>
+    <div class="callout callout-warn">
+      <span class="ic">📝</span>
+      <p>El <strong>orden importa</strong>. Dos resistencias unidas por un nodo no siempre están en paralelo: solo lo están si comparten <em>los dos nodos extremos</em>. Dibuja siempre el circuito limpio antes de calcular.</p>
+    </div>
+  </section>
+
+  <section class="apartado" id="s5">
+    <h2>5. Ejemplos resueltos</h2>
+    <div class="ejemplo">
+      <span class="et">EJEMPLO 1 · Serie con paralelo dentro</span>
+      <h5>Pila 12 V; R₁ = 4 Ω en serie con (R₂ = 6 Ω || R₃ = 12 Ω)</h5>
+      <p><strong>1.</strong> Paralelo R₂||R₃: $R_p = \dfrac{6 \cdot 12}{6+12} = 4\ \Omega$.<br>
+      <strong>2.</strong> R₁ + R_p en serie: $R_{eq} = 4 + 4 = 8\ \Omega$.<br>
+      <strong>3.</strong> $I_{total} = 12/8 = 1{,}5$ A.<br>
+      <strong>4.</strong> $V_1 = 1{,}5 \cdot 4 = 6$ V. Tensión en el paralelo $V_p = 12 - 6 = 6$ V.<br>
+      <strong>5.</strong> $I_2 = 6/6 = 1$ A. $I_3 = 6/12 = 0{,}5$ A. Comprueba: $I_2+I_3 = 1{,}5$ A ✓</p>
+    </div>
+    <div class="ejemplo">
+      <span class="et">EJEMPLO 2 · Paralelo con serie dentro</span>
+      <h5>Pila 9 V; (R₁=2 Ω en serie con R₂=4 Ω) en paralelo con R₃=12 Ω</h5>
+      <p><strong>1.</strong> Serie R₁+R₂ = 6 Ω.<br>
+      <strong>2.</strong> Paralelo con R₃: $R_{eq} = \dfrac{6 \cdot 12}{6+12} = 4\ \Omega$.<br>
+      <strong>3.</strong> $I_{total} = 9/4 = 2{,}25$ A.<br>
+      <strong>4.</strong> Las dos ramas tienen 9 V. Por la rama R₁+R₂: $I_{12} = 9/6 = 1{,}5$ A. Por R₃: $I_3 = 9/12 = 0{,}75$ A. Suma = 2,25 A ✓</p>
+    </div>
+  </section>
+
+  <section class="apartado" id="s6">
+    <h2>6. Potencia y energía eléctrica</h2>
+    <p>La <strong>potencia</strong> es la rapidez con que se consume energía. Su unidad es el <strong>vatio</strong> (W = J/s).</p>
+    <div class="formula">
+      <span class="et">Potencia eléctrica</span>
+      $$P = V \cdot I = I^2 \cdot R = \dfrac{V^2}{R}$$
+      Tres expresiones equivalentes. Usa la que tenga los datos que ya conoces.
+    </div>
+    <div class="formula">
+      <span class="et">Energía consumida</span>
+      $$E = P \cdot t$$
+      Con $P$ en kW y $t$ en h, $E$ en kWh (el de la factura).
+    </div>
+    <div class="ejemplo">
+      <span class="et">EJEMPLO · Factura de la lavadora</span>
+      <h5>Lavadora 2200 W · 1,5 h/día</h5>
+      <p>$P = 2{,}2$ kW · $t = 1{,}5 \cdot 30 = 45$ h → $E = 2{,}2 \cdot 45 = \boldsymbol{99\ \text{kWh}}$ al mes.<br>
+      A 0,15 €/kWh → <strong>14,85 €/mes</strong>.</p>
+    </div>
+  </section>
+
+  <section class="apartado" id="s7">
+    <h2>7. Componentes pasivos</h2>
+    <p>Los componentes <strong>pasivos</strong> no amplifican señal: solo consumen, almacenan o limitan corriente.</p>
+    <div class="tipo-box">
+      <div class="ti"><h4>📏 Resistencia</h4><p>Limita el paso de la corriente. Marcada por bandas de colores. Se mide en Ω.</p></div>
+      <div class="ti azul"><h4>🔋 Condensador</h4><p>Almacena carga eléctrica temporalmente. Se mide en faradios (F), normalmente μF o nF.</p></div>
+      <div class="ti"><h4>🌀 Bobina</h4><p>Almacena energía en forma de campo magnético. Se mide en henrios (H).</p></div>
+    </div>
+    <h3>Código de colores de las resistencias</h3>
+    <p>Las resistencias llevan 4 (o 5) bandas: las dos primeras son cifras, la tercera el multiplicador, la cuarta la tolerancia. <strong>Negro = 0, Marrón = 1, Rojo = 2, Naranja = 3, Amarillo = 4, Verde = 5, Azul = 6, Violeta = 7, Gris = 8, Blanco = 9</strong>.</p>
+    <div class="ejemplo">
+      <span class="et">EJEMPLO</span>
+      <h5>Bandas: rojo - violeta - rojo - dorado</h5>
+      <p>Rojo = 2, Violeta = 7, Rojo = ×100, Dorado = ±5%.<br>
+      Valor = 27 × 100 = <strong>2 700 Ω = 2,7 kΩ</strong> ±5%.</p>
+    </div>
+  </section>
+
+  <section class="apartado" id="s8">
+    <h2>8. Componentes activos</h2>
+    <p>Los componentes <strong>activos</strong> necesitan alimentación externa y pueden amplificar señales o tomar decisiones.</p>
+    <div class="tipo-box">
+      <div class="ti"><h4>💡 LED</h4><p>Diodo emisor de luz. Solo deja pasar la corriente en un sentido (polaridad). Casi siempre necesita una resistencia en serie para no quemarse.</p></div>
+      <div class="ti azul"><h4>↪️ Diodo</h4><p>Permite el paso de corriente en un solo sentido. Usado para rectificar (convertir CA en CC) y proteger.</p></div>
+      <div class="ti"><h4>🚦 Transistor</h4><p>Interruptor o amplificador electrónico. Base de toda la electrónica digital.</p></div>
+      <div class="ti azul"><h4>📱 Circuito integrado (IC)</h4><p>Una "pastilla" que contiene miles o millones de transistores. Microprocesadores, memorias, sensores complejos.</p></div>
+    </div>
+    <div class="callout callout-warn">
+      <span class="ic">⚠️</span>
+      <p>Un <strong>LED</strong> conectado directamente a 5 V se quema. Necesita una resistencia limitadora en serie. Para un LED rojo típico (Vf ≈ 2 V, If ≈ 20 mA): $R = (5 - 2)/0{,}02 = 150\ \Omega$. Se usa 220 Ω por seguridad.</p>
+    </div>
+  </section>
+
+  <section class="apartado" id="s9">
+    <h2>9. Sensores</h2>
+    <p>Los <strong>sensores</strong> convierten una magnitud física (luz, temperatura, distancia, sonido, presión...) en una señal eléctrica.</p>
+    <table class="tipo-tabla">
+      <thead><tr><th>Sensor</th><th>Mide</th><th>Aplicación típica</th></tr></thead>
+      <tbody>
+        <tr><td><strong>LDR</strong></td><td>Luz ambiente (resistencia que varía con la luz)</td><td>Encendido automático de farolas</td></tr>
+        <tr><td><strong>NTC</strong></td><td>Temperatura (resistencia que baja al calentarse)</td><td>Termostatos, frigoríficos</td></tr>
+        <tr><td><strong>HC-SR04</strong></td><td>Distancia por ultrasonidos</td><td>Aparcamiento de coches, robots</td></tr>
+        <tr><td><strong>IR</strong></td><td>Presencia / movimiento por infrarrojos</td><td>Mandos a distancia, alarmas</td></tr>
+        <tr><td><strong>DHT11</strong></td><td>Temperatura y humedad</td><td>Estación meteorológica casera</td></tr>
+        <tr><td><strong>Pulsador</strong></td><td>Estado abierto / cerrado (digital)</td><td>Interruptores, botoneras</td></tr>
+        <tr><td><strong>Potenciómetro</strong></td><td>Posición angular (resistencia variable)</td><td>Volumen, brillo, dimmer</td></tr>
+      </tbody>
+    </table>
+    <div class="callout callout-info">
+      <span class="ic">📡</span>
+      <p>Los sensores se clasifican en <strong>analógicos</strong> (señal continua, como un LDR) y <strong>digitales</strong> (solo dos estados, como un pulsador). Arduino tiene pines distintos para cada tipo.</p>
+    </div>
+  </section>
+
+  <section class="apartado" id="s10">
+    <h2>10. Actuadores</h2>
+    <p>Los <strong>actuadores</strong> son lo contrario: convierten una señal eléctrica en una acción física.</p>
+    <div class="tipo-box">
+      <div class="ti"><h4>💡 LED</h4><p>Emite luz. Usado para señales, indicadores, displays.</p></div>
+      <div class="ti azul"><h4>🔊 Zumbador / Buzzer</h4><p>Emite sonidos. Alarmas, avisos, melodías sencillas.</p></div>
+      <div class="ti"><h4>⚙️ Motor de CC</h4><p>Gira al aplicar tensión. Velocidad proporcional. Ruedas, ventiladores.</p></div>
+      <div class="ti azul"><h4>🎯 Servomotor</h4><p>Gira hasta un ángulo concreto que tú le indiques (0-180º).</p></div>
+      <div class="ti"><h4>👣 Motor paso a paso</h4><p>Gira en pasos discretos. Impresoras 3D, escáneres.</p></div>
+      <div class="ti azul"><h4>📺 Pantalla LCD/OLED</h4><p>Muestra texto o gráficos.</p></div>
+      <div class="ti"><h4>🧲 Relé</h4><p>Interruptor electrónico para que Arduino controle dispositivos de 230 V.</p></div>
+      <div class="ti azul"><h4>💧 Bomba / electroválvula</h4><p>Mueve líquidos o gases controladamente.</p></div>
+    </div>
+  </section>
+
+  <section class="apartado" id="s11">
+    <h2>11. ¿Qué es Arduino?</h2>
+    <p><strong>Arduino</strong> es una placa con un microcontrolador (un mini-ordenador del tamaño de una uña). La conectas al ordenador por USB, escribes un programa, lo subes a la placa y la placa lo ejecuta sin necesidad de seguir conectada.</p>
+    <h3>Anatomía del Arduino UNO</h3>
+    <div class="tipo-box">
+      <div class="ti"><h4>🔌 Pines digitales (0-13)</h4><p>Solo manejan dos estados: HIGH (5 V) o LOW (0 V). Para LEDs, pulsadores, relés.</p></div>
+      <div class="ti azul"><h4>📊 Pines analógicos (A0-A5)</h4><p>Leen valores entre 0 y 1023 (= 0 V a 5 V). Para LDR, NTC, potenciómetros.</p></div>
+      <div class="ti"><h4>⚡ Alimentación</h4><p>Pines 5 V, 3,3 V y GND para alimentar componentes.</p></div>
+      <div class="ti azul"><h4>💻 USB</h4><p>Programación y alimentación de la placa desde el PC.</p></div>
+    </div>
+    <div class="callout callout-info">
+      <span class="ic">🆚</span>
+      <p><strong>Arduino vs. micro:bit:</strong> micro:bit es más sencilla, tiene sensores y matriz de LEDs integrados, y se programa por bloques (MakeCode) o Python. Arduino es más profesional pero más "pelada" (sin sensores propios) y usa C/C++. Ambas valen.</p>
+    </div>
+  </section>
+
+  <section class="apartado" id="s12">
+    <h2>12. Estructura de un programa Arduino</h2>
+    <p>Todo programa Arduino (llamado <em>sketch</em>) tiene <strong>dos funciones obligatorias</strong>:</p>
+<pre class="code"><span class="c">// Variables globales (opcionales)</span>
+<span class="k">int</span> ledPin = 13;
+
+<span class="k">void</span> setup() {
+  <span class="c">// Se ejecuta UNA VEZ al encender o reset</span>
+  pinMode(ledPin, OUTPUT);
+}
+
+<span class="k">void</span> loop() {
+  <span class="c">// Se ejecuta CONTINUAMENTE en bucle</span>
+  digitalWrite(ledPin, HIGH);
+  delay(1000);
+  digitalWrite(ledPin, LOW);
+  delay(1000);
+}</pre>
+    <ul style="margin-left:20px;line-height:1.7">
+      <li><strong>setup()</strong>: configuración inicial. Decir qué pines son entradas y cuáles salidas.</li>
+      <li><strong>loop()</strong>: lo que hace tu dispositivo una y otra vez. Se ejecuta sin parar.</li>
+    </ul>
+  </section>
+
+  <section class="apartado" id="s13">
+    <h2>13. Entradas y salidas: los 4 verbos básicos</h2>
+    <table class="tipo-tabla">
+      <thead><tr><th>Instrucción</th><th>Tipo</th><th>Hace</th></tr></thead>
+      <tbody>
+        <tr><td><code>digitalRead(pin)</code></td><td>Entrada digital</td><td>Lee HIGH (5 V) o LOW (0 V) en ese pin.</td></tr>
+        <tr><td><code>digitalWrite(pin, valor)</code></td><td>Salida digital</td><td>Pone el pin a HIGH o LOW.</td></tr>
+        <tr><td><code>analogRead(pin)</code></td><td>Entrada analógica</td><td>Lee un valor entre 0 y 1023 (= 0 V a 5 V).</td></tr>
+        <tr><td><code>analogWrite(pin, valor)</code></td><td>Salida PWM</td><td>Simula salida analógica entre 0 y 255 (= 0 V a 5 V medio).</td></tr>
+      </tbody>
+    </table>
+    <p>Con estas 4 instrucciones + condicionales + bucles + funciones, puedes programar cualquier dispositivo electrónico.</p>
+  </section>
+
+  <section class="apartado" id="s14">
+    <h2>14. Ejemplos comentados</h2>
+    <div class="ejemplo">
+      <span class="et">EJEMPLO 1</span>
+      <h5>«Pulsador enciende LED»</h5>
+<pre class="code"><span class="k">int</span> led = 13;
+<span class="k">int</span> boton = 2;
+
+<span class="k">void</span> setup() {
+  pinMode(led, OUTPUT);
+  pinMode(boton, INPUT_PULLUP);  <span class="c">// resistencia interna</span>
+}
+
+<span class="k">void</span> loop() {
+  <span class="k">if</span> (digitalRead(boton) == LOW) {  <span class="c">// pulsado</span>
+    digitalWrite(led, HIGH);
+  } <span class="k">else</span> {
+    digitalWrite(led, LOW);
+  }
+}</pre>
+    </div>
+    <div class="ejemplo">
+      <span class="et">EJEMPLO 2</span>
+      <h5>«Farola automática con LDR»</h5>
+<pre class="code"><span class="k">int</span> led = 9;
+<span class="k">int</span> ldr = A0;
+<span class="k">int</span> umbral = 400;
+
+<span class="k">void</span> setup() {
+  pinMode(led, OUTPUT);
+}
+
+<span class="k">void</span> loop() {
+  <span class="k">int</span> luz = analogRead(ldr);
+  <span class="k">if</span> (luz &lt; umbral) {       <span class="c">// está oscuro</span>
+    digitalWrite(led, HIGH);
+  } <span class="k">else</span> {
+    digitalWrite(led, LOW);
+  }
+}</pre>
+    </div>
+    <div class="ejemplo">
+      <span class="et">EJEMPLO 3</span>
+      <h5>«Servo siguiendo a un potenciómetro»</h5>
+<pre class="code"><span class="c">#include &lt;Servo.h&gt;</span>
+Servo miServo;
+<span class="k">int</span> pot = A0;
+
+<span class="k">void</span> setup() {
+  miServo.attach(9);
+}
+
+<span class="k">void</span> loop() {
+  <span class="k">int</span> val = analogRead(pot);
+  <span class="k">int</span> ang = map(val, 0, 1023, 0, 180);
+  miServo.write(ang);
+  delay(15);
+}</pre>
+    </div>
+  </section>
+
+  <section class="apartado" id="s15">
+    <h2>15. ¿Qué es un robot?</h2>
+    <p>Un <strong>robot</strong> es una máquina con tres ingredientes:</p>
+    <div class="tipo-box">
+      <div class="ti"><h4>👁️ Sensores</h4><p>Para percibir el entorno.</p></div>
+      <div class="ti azul"><h4>🧠 Microcontrolador</h4><p>El "cerebro": decide qué hacer.</p></div>
+      <div class="ti"><h4>💪 Actuadores</h4><p>Para actuar sobre el entorno.</p></div>
+    </div>
+    <p>Sin sensor, es solo un mecanismo automatizado. Sin actuador, es solo un instrumento de medida. Sin cerebro, es un objeto pasivo.</p>
+    <div class="callout callout-info">
+      <span class="ic">🤖</span>
+      <p>Una <strong>impresora 3D</strong> no es exactamente un robot: ejecuta órdenes pero no <em>decide</em>. Un <strong>aspirador Roomba</strong> sí lo es: percibe obstáculos, decide rutas y actúa en consecuencia.</p>
+    </div>
+  </section>
+
+  <section class="apartado" id="s16">
+    <h2>16. Sense-Think-Act (Percibir-Decidir-Actuar)</h2>
+    <p>El bucle fundamental que ejecutan TODOS los robots:</p>
+    <div class="formula">
+      <span class="et">Bucle del robot</span>
+      <p style="margin:6px 0;font-size:1.05rem"><strong>Percibir → Decidir → Actuar → Percibir → Decidir → Actuar → …</strong></p>
+      Es exactamente el bucle <code>loop()</code> de Arduino: leer sensores, pensar (condicionales), mover actuadores.
+    </div>
+    <div class="ejemplo">
+      <span class="et">EJEMPLO · Coche que evita obstáculos</span>
+      <h5>Sense-Think-Act</h5>
+      <p><strong>Sense:</strong> sensor ultrasonidos detecta obstáculo a 15 cm.<br>
+      <strong>Think:</strong> «Si distancia &lt; 20 cm, parar y girar».<br>
+      <strong>Act:</strong> motor izquierdo gira hacia atrás → el coche gira a la derecha.<br>
+      <strong>Sense de nuevo:</strong> ¿obstáculo? No. Sigue avanzando.</p>
+    </div>
+  </section>
+
+  <section class="apartado" id="s17">
+    <h2>17. Del Arduino al robot</h2>
+    <p>Un robot sencillo se monta con muy pocas piezas:</p>
+    <ul style="margin-left:20px;line-height:1.7">
+      <li><strong>Cerebro:</strong> Arduino UNO o Nano.</li>
+      <li><strong>Sensores:</strong> 1-2 (ultrasonido HC-SR04, IR, LDR, pulsador).</li>
+      <li><strong>Actuadores:</strong> 2 motores DC (con driver L298N o L9110) o 1-2 servos.</li>
+      <li><strong>Alimentación:</strong> 4 pilas AA (6 V) o batería de litio 7,4 V.</li>
+      <li><strong>Chasis:</strong> impreso en 3D, cartón pluma, MDF cortado a láser.</li>
+    </ul>
+    <h3>Pasos para programar un comportamiento</h3>
+    <ol style="margin-left:20px;line-height:1.7">
+      <li>Describe en español lo que quieres (pseudocódigo).</li>
+      <li>Tradúcelo a estructura: variables, condicionales, bucles.</li>
+      <li>Escríbelo en Arduino usando las 4 instrucciones básicas + librerías.</li>
+      <li>Súbelo y prueba. Casi seguro algo falla. <strong>Itera</strong>.</li>
+    </ol>
+    <div class="callout callout-ok">
+      <span class="ic">🎯</span>
+      <p>El mejor consejo en robótica: <strong>empieza por lo más simple</strong>. Primero un LED parpadeante. Después un LED con botón. Después con sensor. Después dos motores. Después motores + sensor.</p>
+    </div>
+  </section>
+
+  <section class="apartado" id="glosario">
+    <h2>📖 Glosario</h2>
+    <table class="glosario-tabla">
+      <tbody>
+        <tr><td>Actuador</td><td>Componente que produce una acción física (motor, LED, zumbador, servo...).</td></tr>
+        <tr><td>analogRead()</td><td>Instrucción Arduino que lee un valor entre 0 y 1023 de un pin analógico.</td></tr>
+        <tr><td>Arduino</td><td>Plataforma de hardware abierto basada en un microcontrolador, programable en C/C++.</td></tr>
+        <tr><td>Circuito mixto</td><td>Circuito que combina tramos en serie y en paralelo.</td></tr>
+        <tr><td>Condensador</td><td>Componente pasivo que almacena energía en forma de campo eléctrico.</td></tr>
+        <tr><td>Corriente (I)</td><td>Flujo de electrones. Medida en amperios (A).</td></tr>
+        <tr><td>digitalWrite()</td><td>Instrucción Arduino que pone un pin digital a HIGH o LOW.</td></tr>
+        <tr><td>Diodo</td><td>Componente que solo deja pasar corriente en un sentido.</td></tr>
+        <tr><td>LDR</td><td>Resistencia dependiente de la luz.</td></tr>
+        <tr><td>LED</td><td>Diodo emisor de luz. Necesita resistencia limitadora en serie.</td></tr>
+        <tr><td>Ley de Ohm</td><td>V = I · R. Relación entre tensión, corriente y resistencia.</td></tr>
+        <tr><td>loop()</td><td>Función de Arduino que se ejecuta repetidamente.</td></tr>
+        <tr><td>Microcontrolador</td><td>Chip que contiene CPU, memoria y E/S en un solo encapsulado.</td></tr>
+        <tr><td>NTC</td><td>Termistor: resistencia que disminuye con la temperatura.</td></tr>
+        <tr><td>Paralelo</td><td>Configuración de componentes que comparten los mismos dos nodos.</td></tr>
+        <tr><td>Potencia (P)</td><td>Energía consumida por unidad de tiempo. P = V·I. Medida en vatios (W).</td></tr>
+        <tr><td>Pulsador</td><td>Interruptor momentáneo: cerrado mientras se pulsa.</td></tr>
+        <tr><td>PWM</td><td>Modulación por ancho de pulso. Forma de "fingir" voltajes intermedios.</td></tr>
+        <tr><td>Resistencia (R)</td><td>Oposición al paso de corriente. Medida en ohmios (Ω).</td></tr>
+        <tr><td>Sense-Think-Act</td><td>Bucle fundamental de todo robot: percibir-decidir-actuar.</td></tr>
+        <tr><td>Sensor</td><td>Componente que convierte una magnitud física en señal eléctrica.</td></tr>
+        <tr><td>Serie</td><td>Configuración de componentes uno detrás del otro: misma corriente para todos.</td></tr>
+        <tr><td>Servomotor</td><td>Motor que gira a un ángulo concreto ordenado (0-180º).</td></tr>
+        <tr><td>setup()</td><td>Función de Arduino que se ejecuta una sola vez al arrancar.</td></tr>
+        <tr><td>Tensión (V)</td><td>Diferencia de potencial. Medida en voltios (V).</td></tr>
+        <tr><td>Transistor</td><td>Componente activo que actúa como interruptor o amplificador.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+</div>
+
+<script src="../../assets/js/common.js"></script>
+<script src="../../assets/js/header.js"></script>
+</body>
+</html>

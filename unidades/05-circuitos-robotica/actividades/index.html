@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#8C2A3D">
+<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<title>Actividades · U05 Circuitos y robótica · TyD 3º ESO</title>
+<meta name="description" content="14 actividades resueltas: ley de Ohm, mixtos, electrónica básica, Arduino.">
+<script>
+window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},svg:{fontCache:'global'}};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/common.css">
+<link rel="stylesheet" href="../../../assets/css/unidad.css">
+<style>
+.act-wrap{max-width:900px;margin:24px auto 50px;padding:0 20px}
+.act-intro{background:#FBEEEF;border-left:4px solid var(--principal);padding:14px 18px;border-radius:0 6px 6px 0;margin-bottom:24px;font-size:.94rem;line-height:1.55}
+.act-intro strong{color:var(--principal)}
+.seccion{background:#fff;border:1px solid var(--borde);border-radius:8px;padding:18px 22px;margin-bottom:18px}
+.seccion h2{font-family:var(--cond);color:var(--principal);font-size:1.15rem;margin:0 0 12px;display:flex;align-items:center;gap:8px}
+.seccion h2 .num{display:inline-block;width:32px;height:32px;line-height:32px;text-align:center;background:var(--principal);color:#fff;border-radius:50%;font-size:.9rem}
+.bloque-titulo{font-family:var(--cond);font-size:.78rem;letter-spacing:2px;color:var(--principal);text-transform:uppercase;margin:28px 0 12px;padding-bottom:4px;border-bottom:1px dashed var(--principal)}
+.bloque-titulo:first-of-type{margin-top:0}
+.enunciado{margin-bottom:10px;font-size:.96rem;line-height:1.55}
+.enunciado code{background:#F4F6F9;padding:1px 6px;border-radius:3px;font-family:monospace;font-size:.88rem}
+.code{display:block;font-family:'JetBrains Mono',monospace;background:#1E1E2A;color:#E6E6F0;padding:12px 16px;border-radius:6px;margin:10px 0;font-size:.85rem;line-height:1.6;white-space:pre-wrap;overflow-x:auto}
+.sol-btn{font-family:var(--cond);font-size:.85rem;letter-spacing:.5px;padding:7px 16px;border-radius:18px;cursor:pointer;border:1.5px solid var(--principal);background:#fff;color:var(--principal);font-weight:600;margin-top:4px}
+.sol-btn:hover{background:var(--principal);color:#fff}
+.sol-btn.open{background:var(--principal);color:#fff}
+.sol-btn::before{content:"▶ ";font-size:.7rem}
+.sol-btn.open::before{content:"▼ "}
+.sol-content{display:none;margin-top:12px;padding:14px 16px;background:#F4F6F9;border-left:4px solid var(--verde);border-radius:0 6px 6px 0;font-size:.92rem;line-height:1.55}
+.sol-content.show{display:block}
+@media print{.sol-btn{display:none}.sol-content{display:block!important;background:#fafafa}}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+<header class="curso-hd"><span class="curso-sb">U05 · Circuitos y robótica · Actividades</span></header>
+<nav class="curso-navcross" role="navigation">
+  <a href="../../../index.html"><span>🏠</span><span class="nc-lbl">Índice</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../index.html"><span>📋</span><span class="nc-lbl">Hub U05</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../libro-digital.html"><span>📖</span><span class="nc-lbl">Libro digital</span></a>
+  <span class="nc-sep">·</span>
+  <span class="nc-current"><span>✏️</span><span class="nc-lbl">Actividades</span></span>
+  <span class="nc-sep">·</span>
+  <a href="../autocomprobacion/index.html"><span>✅</span><span class="nc-lbl">Autocomp</span></a>
+</nav>
+
+<main id="main-content" class="act-wrap">
+  <h1 class="unidad-titulo">Actividades · U05 Circuitos y robótica</h1>
+  <div class="act-intro"><p><strong>14 actividades</strong> en 5 bloques. Trabaja la ley de Ohm, los circuitos serie/paralelo/<strong>mixtos</strong>, la electrónica básica y la programación de Arduino. Cada una con solución colapsable.</p></div>
+
+  <div class="bloque-titulo">Bloque 1 · Ley de Ohm</div>
+
+  <section class="seccion">
+    <h2><span class="num">1</span>Ohm directo</h2>
+    <div class="enunciado">Una bombilla de R = 25 Ω se conecta a una pila de 5 V. Calcula la corriente.</div>
+    <button class="sol-btn">Ver solución</button>
+    <div class="sol-content"><p>$I = V/R = 5/25 = \boldsymbol{0{,}2\ \text{A}} = 200\ \text{mA}$.</p></div>
+  </section>
+
+  <section class="seccion">
+    <h2><span class="num">2</span>Ohm con despeje</h2>
+    <div class="enunciado">Por una resistencia desconocida pasa 0,4 A cuando se conecta a 12 V. ¿Cuál es su valor?</div>
+    <button class="sol-btn">Ver solución</button>
+    <div class="sol-content"><p>$R = V/I = 12/0{,}4 = \boldsymbol{30\ \Omega}$.</p></div>
+  </section>
+
+  <div class="bloque-titulo">Bloque 2 · Serie y paralelo</div>
+
+  <section class="seccion">
+    <h2><span class="num">3</span>Serie</h2>
+    <div class="enunciado">Tres resistencias R₁ = 10 Ω, R₂ = 20 Ω y R₃ = 30 Ω están en serie con una pila de 12 V. Calcula R_eq, I total y V en R₂.</div>
+    <button class="sol-btn">Ver solución</button>
+    <div class="sol-content"><p>$R_{eq} = 10 + 20 + 30 = \boldsymbol{60\ \Omega}$.<br>$I = 12/60 = \boldsymbol{0{,}2\ \text{A}}$ (igual en todas).<br>$V_2 = I \cdot R_2 = 0{,}2 \cdot 20 = \boldsymbol{4\ \text{V}}$.</p></div>
+  </section>
+
+  <section class="seccion">
+    <h2><span class="num">4</span>Paralelo</h2>
+    <div class="enunciado">R₁ = 6 Ω y R₂ = 3 Ω en paralelo, alimentadas por 9 V. Calcula R_eq, las corrientes parciales y la total.</div>
+    <button class="sol-btn">Ver solución</button>
+    <div class="sol-content"><p>$R_{eq} = \dfrac{6 \cdot 3}{6+3} = \dfrac{18}{9} = \boldsymbol{2\ \Omega}$.<br>$I_1 = 9/6 = \boldsymbol{1{,}5\ \text{A}}$ · $I_2 = 9/3 = \boldsymbol{3\ \text{A}}$.<br>$I_{total} = I_1 + I_2 = \boldsymbol{4{,}5\ \text{A}}$. Comprobación: $9/2 = 4{,}5$ A ✓</p></div>
+  </section>
+
+  <div class="bloque-titulo">Bloque 3 · Circuitos mixtos</div>
+
+  <section class="seccion">
+    <h2><span class="num">5</span>Mixto básico (serie con paralelo dentro)</h2>
+    <div class="enunciado">Pila 12 V. R₁ = 2 Ω en serie con un paralelo formado por R₂ = 8 Ω y R₃ = 8 Ω. Calcula R_eq, I total y V en R₂.</div>
+    <button class="sol-btn">Ver solución</button>
+    <div class="sol-content"><p>Paralelo: $R_p = \dfrac{8 \cdot 8}{8+8} = 4\ \Omega$.<br>Serie: $R_{eq} = 2 + 4 = \boldsymbol{6\ \Omega}$.<br>$I_{total} = 12/6 = \boldsymbol{2\ \text{A}}$.<br>$V_1 = 2 \cdot 2 = 4$ V. $V_p = 12 - 4 = \boldsymbol{8\ \text{V}}$ (= $V_2 = V_3$).</p></div>
+  </section>
+
+  <section class="seccion">
+    <h2><span class="num">6</span>Mixto inverso (paralelo con serie dentro)</h2>
+    <div class="enunciado">Pila 10 V. Una rama: R₁ = 3 Ω + R₂ = 7 Ω en serie. En paralelo con esa rama, R₃ = 5 Ω. Calcula R_eq, I total e I que circula por R₁.</div>
+    <button class="sol-btn">Ver solución</button>
+    <div class="sol-content"><p>Serie rama 1: $R_{12} = 3+7 = 10\ \Omega$.<br>Paralelo con R₃: $R_{eq} = \dfrac{10 \cdot 5}{15} = \boldsymbol{3{,}33\ \Omega}$.<br>$I_{total} = 10/3{,}33 = \boldsymbol{3\ \text{A}}$.<br>Tensión en cada rama: 10 V. Por rama 1+2: $I_1 = 10/10 = \boldsymbol{1\ \text{A}}$. Por R₃: $I_3 = 10/5 = 2$ A. Suma = 3 A ✓</p></div>
+  </section>
+
+  <section class="seccion">
+    <h2><span class="num">7</span>Mixto con 4 resistencias</h2>
+    <div class="enunciado">Pila 24 V. R₁ = 4 Ω en serie con (R₂ = 6 Ω || R₃ = 6 Ω || R₄ = 6 Ω). Calcula R_eq, I total y la corriente por cada paralela.</div>
+    <button class="sol-btn">Ver solución</button>
+    <div class="sol-content"><p>3 resistencias iguales en paralelo: $R_p = 6/3 = 2\ \Omega$ (truco: N resistencias iguales R en paralelo = R/N).<br>Serie: $R_{eq} = 4 + 2 = \boldsymbol{6\ \Omega}$.<br>$I_{total} = 24/6 = \boldsymbol{4\ \text{A}}$.<br>$V_1 = 16$ V. $V_p = 8$ V. Por cada paralela: $I = 8/6 \approx \boldsymbol{1{,}33\ \text{A}}$. Comprueba: 1,33 × 3 ≈ 4 A ✓</p></div>
+  </section>
+
+  <section class="seccion">
+    <h2><span class="num">8</span>Mixto con potencia</h2>
+    <div class="enunciado">Mismo circuito que la actividad 5 (12 V, R₁ = 2 Ω en serie con (R₂ = 8 || R₃ = 8)). Calcula la potencia disipada en R₁ y la total.</div>
+    <button class="sol-btn">Ver solución</button>
+    <div class="sol-content"><p>Del ej. 5: $I = 2$ A, $V_1 = 4$ V.<br>$P_1 = V_1 \cdot I = 4 \cdot 2 = \boldsymbol{8\ \text{W}}$. Comprueba con $I^2 R = 4 \cdot 2 = 8$ W ✓<br>Potencia total: $P_{total} = V \cdot I_{total} = 12 \cdot 2 = \boldsymbol{24\ \text{W}}$.</p></div>
+  </section>
+
+  <div class="bloque-titulo">Bloque 4 · Electrónica</div>
+
+  <section class="seccion">
+    <h2><span class="num">9</span>Código de colores</h2>
+    <div class="enunciado">Calcula el valor de estas resistencias por sus bandas:<ol><li>Marrón - Negro - Rojo - Dorado</li><li>Amarillo - Violeta - Naranja - Dorado</li><li>Verde - Azul - Marrón - Plateado</li></ol></div>
+    <button class="sol-btn">Ver solución</button>
+    <div class="sol-content"><p>1. 1 - 0 - ×100 - 5% = <strong>1 000 Ω = 1 kΩ ±5%</strong>.<br>2. 4 - 7 - ×1000 - 5% = <strong>47 000 Ω = 47 kΩ ±5%</strong>.<br>3. 5 - 6 - ×10 - 10% = <strong>560 Ω ±10%</strong>.</p></div>
+  </section>
+
+  <section class="seccion">
+    <h2><span class="num">10</span>Resistencia limitadora para un LED</h2>
+    <div class="enunciado">Quieres conectar un LED rojo (V_f = 2 V, I_f = 20 mA) a una pila de 9 V. ¿Qué resistencia limitadora necesitas? Elige el valor comercial más cercano <em>por encima</em> entre: 220 Ω, 330 Ω, 470 Ω, 1 kΩ.</div>
+    <button class="sol-btn">Ver solución</button>
+    <div class="sol-content"><p>La resistencia «consume» la diferencia de tensión: $V_R = 9 - 2 = 7$ V.<br>$R = V_R / I_f = 7 / 0{,}02 = \boldsymbol{350\ \Omega}$.<br>Valor comercial por encima: <strong>470 Ω</strong> (para que circule un poco menos de los 20 mA y el LED no fuerce).</p></div>
+  </section>
+
+  <section class="seccion">
+    <h2><span class="num">11</span>Sensores y actuadores</h2>
+    <div class="enunciado">Asocia cada caso con el sensor/actuador adecuado (LDR, NTC, ultrasonidos, IR, servomotor, motor CC, zumbador, LED):<ol><li>App para abrir la puerta del garaje desde el coche.</li><li>Detectar si una habitación está iluminada.</li><li>Que un robot aspirador detecte la pared antes de chocar.</li><li>Avisador acústico cuando se enciende una alarma.</li><li>Mover el brazo de un robot a un ángulo concreto.</li><li>Mover las ruedas de un robot a distintas velocidades.</li></ol></div>
+    <button class="sol-btn">Ver solución</button>
+    <div class="sol-content"><p>1. <strong>IR</strong>. 2. <strong>LDR</strong>. 3. <strong>Ultrasonidos</strong> (HC-SR04). 4. <strong>Zumbador</strong>. 5. <strong>Servomotor</strong>. 6. <strong>Motor CC</strong> (con PWM para velocidad variable).</p></div>
+  </section>
+
+  <div class="bloque-titulo">Bloque 5 · Arduino y robótica</div>
+
+  <section class="seccion">
+    <h2><span class="num">12</span>Lee y predice</h2>
+    <div class="enunciado">¿Qué hace este programa de Arduino?<div class="code">int led = 9;
+
+void setup() {
+  pinMode(led, OUTPUT);
+}
+
+void loop() {
+  for (int i = 0; i &lt;= 255; i++) {
+    analogWrite(led, i);
+    delay(10);
+  }
+  for (int i = 255; i &gt;= 0; i--) {
+    analogWrite(led, i);
+    delay(10);
+  }
+}</div></div>
+    <button class="sol-btn">Ver solución</button>
+    <div class="sol-content"><p>El LED hace un <strong>efecto de respiración</strong> (fade in / fade out): se enciende gradualmente desde apagado hasta brillo máximo (255) en 2,5 s, y se apaga gradualmente hasta cero en otros 2,5 s. Se repite indefinidamente. Usa <strong>PWM</strong> con <code>analogWrite</code> en el pin 9 (los pines PWM en Arduino UNO son 3, 5, 6, 9, 10 y 11).</p></div>
+  </section>
+
+  <section class="seccion">
+    <h2><span class="num">13</span>Encuentra el error</h2>
+    <div class="enunciado">El programa debería encender un LED cuando se pulsa un botón. No funciona: el LED está siempre apagado. ¿Cuál es el error?<div class="code">int led = 13;
+int boton = 2;
+
+void setup() {
+  pinMode(led, INPUT);
+  pinMode(boton, OUTPUT);
+}
+
+void loop() {
+  if (digitalRead(boton) == HIGH) {
+    digitalWrite(led, HIGH);
+  } else {
+    digitalWrite(led, LOW);
+  }
+}</div></div>
+    <button class="sol-btn">Ver solución</button>
+    <div class="sol-content"><p>Los <strong>pinModes están al revés</strong>: el led está como INPUT (entrada, no puede generar señal) y el botón como OUTPUT (salida, no puede leer). Lo correcto:<br><code>pinMode(led, OUTPUT);</code><br><code>pinMode(boton, INPUT_PULLUP);</code><br>Y la condición debe ser <code>== LOW</code> (con INPUT_PULLUP, el pin está en HIGH y baja a LOW al pulsar).</p></div>
+  </section>
+
+  <section class="seccion">
+    <h2><span class="num">14</span>Diseña el programa</h2>
+    <div class="enunciado">Diseña un programa Arduino para un <strong>parking inteligente</strong>: si un sensor de ultrasonidos detecta que se acerca un coche a menos de 30 cm, se enciende un LED rojo y suena un zumbador. Si está más lejos, todo apagado. LED en pin 9, zumbador en pin 8, trig en 12, echo en 11.</div>
+    <button class="sol-btn">Ver solución posible</button>
+    <div class="sol-content"><div class="code">int led = 9;
+int buzz = 8;
+int trig = 12;
+int echo = 11;
+
+void setup() {
+  pinMode(led, OUTPUT);
+  pinMode(buzz, OUTPUT);
+  pinMode(trig, OUTPUT);
+  pinMode(echo, INPUT);
+}
+
+long medirDistancia() {
+  digitalWrite(trig, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trig, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trig, LOW);
+  long dur = pulseIn(echo, HIGH);
+  return dur * 0.0343 / 2; // cm
+}
+
+void loop() {
+  long d = medirDistancia();
+  if (d &lt; 30) {
+    digitalWrite(led, HIGH);
+    tone(buzz, 1000);
+  } else {
+    digitalWrite(led, LOW);
+    noTone(buzz);
+  }
+  delay(100);
+}</div><p>Comentarios: el sensor HC-SR04 mide la duración del eco; se convierte a cm con la velocidad del sonido (0,0343 cm/μs / 2 porque va y vuelve). La función <code>tone()</code> emite una onda cuadrada a la frecuencia indicada.</p></div>
+  </section>
+
+</main>
+<script src="../../../assets/js/common.js"></script>
+<script src="../../../assets/js/header.js"></script>
+</body>
+</html>
