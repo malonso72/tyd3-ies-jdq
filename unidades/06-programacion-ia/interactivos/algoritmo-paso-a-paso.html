@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#8C2A3D">
+<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<title>Algoritmo paso a paso · U06 · TyD 3º ESO</title>
+<meta name="description" content="Predice la salida de pequeños algoritmos con variables, condicionales y bucles. 10 retos progresivos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/common.css">
+<link rel="stylesheet" href="../../../assets/css/unidad.css">
+<style>
+.ap-wrap{max-width:780px;margin:30px auto;padding:0 20px 60px}
+.ap-hero{text-align:center;margin-bottom:24px}
+.ap-hero h1{font-family:var(--cond);font-size:2rem;color:var(--principal);margin:0 0 8px}
+.ap-hero p{font-size:.95rem;color:var(--texto2);margin:0;line-height:1.55}
+.ap-progress{display:flex;justify-content:space-between;align-items:center;background:#F4F6F9;padding:10px 16px;border-radius:8px;margin-bottom:18px;font-family:var(--cond);font-size:.92rem}
+.ap-progress strong{color:var(--principal)}
+.ap-card{background:#fff;border:1px solid var(--borde);border-radius:12px;padding:22px;box-shadow:0 1px 6px rgba(0,0,0,.05);margin-bottom:20px}
+.ap-titulo{font-family:var(--cond);font-size:1.05rem;color:var(--principal);margin:0 0 10px}
+.ap-cod{font-family:'JetBrains Mono',monospace;background:#1E1E2A;color:#E6E6F0;padding:14px 18px;border-radius:8px;margin:8px 0 14px;font-size:.9rem;line-height:1.7;white-space:pre-wrap;overflow-x:auto}
+.ap-cod .k{color:#FF9DB5}
+.ap-cod .c{color:#8C97A8;font-style:italic}
+.ap-cod .v{color:#9ED3FF}
+.ap-cod .s{color:#FFD080}
+.ap-pregunta{font-size:.96rem;color:var(--texto);margin:0 0 10px;line-height:1.5}
+.ap-opts{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:10px 0}
+@media(max-width:560px){.ap-opts{grid-template-columns:1fr}}
+.ap-opt{font-family:'JetBrains Mono',monospace;background:#fff;border:2px solid var(--borde);border-radius:8px;padding:10px 12px;cursor:pointer;font-size:.92rem;text-align:left;color:var(--texto);transition:all .15s}
+.ap-opt:hover:not(:disabled){border-color:var(--principal);background:#FBEEEF}
+.ap-opt:disabled{cursor:not-allowed}
+.ap-opt.ok{background:#E1F5EE;border-color:#1E8E3E;color:#0F6E56}
+.ap-opt.ko{background:#FCEBEB;border-color:#C44536;color:#9A2A2A}
+.ap-fb{display:none;margin-top:12px;padding:14px 18px;border-radius:8px;font-size:.93rem;line-height:1.55}
+.ap-fb.show{display:block}
+.ap-fb.acierto{background:#E1F5EE;color:#0F6E56;border-left:5px solid #1E8E3E}
+.ap-fb.fallo{background:#FCEBEB;color:#9A2A2A;border-left:5px solid #C44536}
+.ap-actions{display:flex;gap:10px;justify-content:center;margin-top:12px}
+.ap-btn{font-family:var(--cond);padding:9px 22px;border-radius:22px;cursor:pointer;border:2px solid var(--principal);background:var(--principal);color:#fff;font-weight:600}
+.ap-btn.sec{background:#fff;color:var(--principal)}
+.ap-btn:hover{background:var(--principal2)}
+.ap-resumen{text-align:center;background:linear-gradient(180deg,#FBEEEF,#fff);border:2px solid var(--principal);border-radius:10px;padding:28px 24px}
+.ap-resumen .puntos{font-family:var(--cond);font-size:2.6rem;color:var(--principal);margin:6px 0}
+.ap-resumen .puntos small{color:var(--texto);font-size:1.4rem}
+.ap-resumen p{color:var(--texto2);font-size:.95rem;line-height:1.55;margin:6px 0 14px}
+</style>
+</head>
+<body>
+<header class="curso-hd"><span class="curso-sb">U06 · Programación · Algoritmo paso a paso</span></header>
+<nav class="curso-navcross" role="navigation">
+  <a href="../../../index.html"><span>🏠</span><span class="nc-lbl">Índice</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../index.html"><span>📋</span><span class="nc-lbl">Hub U06</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../libro-digital.html"><span>📖</span><span class="nc-lbl">Libro digital</span></a>
+  <span class="nc-sep">·</span>
+  <span class="nc-current"><span>🧩</span><span class="nc-lbl">Algoritmo</span></span>
+</nav>
+
+<main id="main-content" class="ap-wrap">
+  <section class="ap-hero">
+    <h1>🧩 Algoritmo paso a paso</h1>
+    <p>Lee cada algoritmo, simula su ejecución mentalmente y elige la salida correcta. 10 retos en dificultad creciente.</p>
+  </section>
+
+  <div class="ap-progress">
+    <span>Reto <strong id="num">1</strong> de <strong id="tot">10</strong></span>
+    <span>Aciertos: <strong id="ac">0</strong></span>
+  </div>
+
+  <div class="ap-card" id="card">
+    <h2 class="ap-titulo" id="titulo">—</h2>
+    <pre class="ap-cod" id="codigo"></pre>
+    <p class="ap-pregunta" id="pregunta">¿Qué se imprime?</p>
+    <div class="ap-opts" id="opts"></div>
+    <div class="ap-fb" id="fb"></div>
+    <div class="ap-actions" id="acciones" style="display:none">
+      <button class="ap-btn" id="siguiente">Siguiente →</button>
+    </div>
+  </div>
+
+  <section class="ap-resumen" id="resumen" style="display:none">
+    <h2 style="font-family:var(--cond);color:var(--principal);margin:0 0 6px">¡Has terminado!</h2>
+    <div class="puntos"><span id="r-ac">0</span><small> / <span id="r-tot">10</span></small></div>
+    <p id="r-msg">—</p>
+    <button class="ap-btn" id="rein">🔁 Volver a empezar</button>
+  </section>
+</main>
+
+<script>
+(function(){'use strict';
+var retos=[
+  {titulo:'Reto 1 · Variables', codigo:'var a = 10\nvar b = 3\nimprimir a + b', pregunta:'¿Qué se imprime?', correcto:'13', opts:['13','103','10+3','7'], exp:'Suma aritmética: 10 + 3 = 13. La variable a vale 10, la b vale 3.'},
+  {titulo:'Reto 2 · Concatenación de textos', codigo:'var nombre = "Manu"\nimprimir "Hola, " + nombre', pregunta:'¿Qué se imprime?', correcto:'Hola, Manu', opts:['Hola, Manu','Hola, "Manu"','Hola nombre','Manu Hola'], exp:'El "+" con textos los une (concatena). "Hola, " + "Manu" → "Hola, Manu".'},
+  {titulo:'Reto 3 · Condicional simple', codigo:'var x = 7\nsi x > 5:\n  imprimir "grande"\nsi no:\n  imprimir "pequeño"', pregunta:'¿Qué se imprime?', correcto:'grande', opts:['grande','pequeño','grande y pequeño','nada'], exp:'7 > 5 es verdadero, así que entra en el "si" y solo se ejecuta la rama "grande".'},
+  {titulo:'Reto 4 · Condicional con igualdad', codigo:'var nota = 5\nsi nota >= 5:\n  imprimir "aprobado"\nsi no:\n  imprimir "suspenso"', pregunta:'¿Qué se imprime?', correcto:'aprobado', opts:['aprobado','suspenso','nada','error'], exp:'5 >= 5 es verdadero (≥ incluye el igual). Imprime "aprobado".'},
+  {titulo:'Reto 5 · Bucle simple', codigo:'para i de 1 a 3:\n  imprimir i', pregunta:'¿Qué se imprime?', correcto:'1\n2\n3', opts:['1\n2\n3','3','1, 2, 3','1\n2'], exp:'El bucle "para" recorre los valores 1, 2 y 3, imprimiendo cada uno en una línea distinta.'},
+  {titulo:'Reto 6 · Acumulador en bucle', codigo:'var suma = 0\npara n de 1 a 4:\n  suma = suma + n\nimprimir suma', pregunta:'¿Qué se imprime?', correcto:'10', opts:['10','4','24','1234'], exp:'En cada vuelta suma se actualiza: 0+1=1, 1+2=3, 3+3=6, 6+4=10. Al final imprime 10.'},
+  {titulo:'Reto 7 · Bucle + condicional', codigo:'para n de 1 a 5:\n  si n % 2 == 0:\n    imprimir n', pregunta:'¿Qué se imprime?', correcto:'2\n4', opts:['2\n4','1\n3\n5','1\n2\n3\n4\n5','0\n2\n4'], exp:'"%" es el resto. n%2==0 son pares. En 1..5 los pares son 2 y 4.'},
+  {titulo:'Reto 8 · Lista', codigo:'lista = [3, 5, 7, 9]\nimprimir lista[2]', pregunta:'¿Qué se imprime?', correcto:'7', opts:['7','5','9','3'], exp:'Las listas se indexan desde 0. lista[0]=3, lista[1]=5, lista[2]=7. ¡Cuidado con el "off by one"!'},
+  {titulo:'Reto 9 · Función con parámetros', codigo:'función doble(x):\n  devolver x * 2\nimprimir doble(6) + doble(2)', pregunta:'¿Qué se imprime?', correcto:'16', opts:['16','12','64','8'], exp:'doble(6) devuelve 12, doble(2) devuelve 4. Suma: 12 + 4 = 16.'},
+  {titulo:'Reto 10 · Mezcla completa', codigo:'var lista = [4, 7, 2, 9, 5]\nvar max = lista[0]\npara cada n en lista:\n  si n > max:\n    max = n\nimprimir max', pregunta:'¿Qué se imprime?', correcto:'9', opts:['9','4','27','5'], exp:'Algoritmo clásico para hallar el máximo: empezamos con el primero (4) como máximo, recorremos la lista y actualizamos cuando vemos uno mayor. El máximo es 9.'}
+];
+
+var i=0,aciertos=0,respondida=false;
+var n=document.getElementById('num'),tot=document.getElementById('tot'),ac=document.getElementById('ac'),titulo=document.getElementById('titulo'),codigo=document.getElementById('codigo'),preg=document.getElementById('pregunta'),op=document.getElementById('opts'),fb=document.getElementById('fb'),acc=document.getElementById('acciones'),sig=document.getElementById('siguiente'),card=document.getElementById('card'),resumen=document.getElementById('resumen'),rac=document.getElementById('r-ac'),rtot=document.getElementById('r-tot'),rmsg=document.getElementById('r-msg'),rein=document.getElementById('rein');
+tot.textContent=retos.length;rtot.textContent=retos.length;
+
+function shuffle(a){var b=a.slice();for(var k=b.length-1;k>0;k--){var j=Math.floor(Math.random()*(k+1));var t=b[k];b[k]=b[j];b[j]=t;}return b;}
+
+function pintar(){
+  var r=retos[i];
+  n.textContent=i+1;
+  titulo.textContent=r.titulo;
+  codigo.textContent=r.codigo;
+  preg.textContent=r.pregunta;
+  fb.className='ap-fb';fb.innerHTML='';
+  acc.style.display='none';respondida=false;
+  op.innerHTML='';
+  shuffle(r.opts).forEach(function(o){
+    var b=document.createElement('button');
+    b.className='ap-opt';
+    b.textContent=o;
+    b.addEventListener('click',function(){responder(o,b);});
+    op.appendChild(b);
+  });
+}
+
+function responder(elegida,btn){
+  if(respondida)return;respondida=true;
+  var r=retos[i];
+  op.querySelectorAll('.ap-opt').forEach(function(b){
+    b.disabled=true;
+    if(b.textContent===r.correcto)b.classList.add('ok');
+    else if(b===btn)b.classList.add('ko');
+  });
+  if(elegida===r.correcto){
+    aciertos++;
+    fb.className='ap-fb show acierto';
+    fb.innerHTML='<strong>✓ ¡Correcto!</strong> '+r.exp;
+  } else {
+    fb.className='ap-fb show fallo';
+    fb.innerHTML='<strong>✗ La respuesta era:</strong> <code style="background:#fff;padding:2px 6px;border-radius:3px;white-space:pre">'+r.correcto+'</code><br><br>'+r.exp;
+  }
+  ac.textContent=aciertos;
+  acc.style.display='flex';
+}
+
+sig.addEventListener('click',function(){
+  i++;
+  if(i>=retos.length){
+    card.style.display='none';
+    document.querySelector('.ap-progress').style.display='none';
+    resumen.style.display='block';
+    rac.textContent=aciertos;
+    var p=Math.round(aciertos/retos.length*100);
+    var msg=p>=90?'🌟 ¡Excelente! Lees código como un profesional.':p>=70?'👍 Muy bien. Repasa los retos que has fallado.':p>=50?'🙂 Vas por buen camino. Vuelve a leer el apartado «Estructuras básicas».':'📚 Tranquilo: practica con Scratch primero y vuelve.';
+    rmsg.innerHTML=msg+'<br><small>'+aciertos+' aciertos de '+retos.length+' ('+p+'%)</small>';
+    resumen.scrollIntoView({behavior:'smooth'});
+  } else {
+    pintar();
+    card.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+});
+
+rein.addEventListener('click',function(){
+  i=0;aciertos=0;
+  resumen.style.display='none';
+  card.style.display='block';
+  document.querySelector('.ap-progress').style.display='flex';
+  ac.textContent='0';
+  pintar();
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+pintar();
+})();
+</script>
+</body>
+</html>

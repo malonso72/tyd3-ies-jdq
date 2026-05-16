@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#8C2A3D">
+<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<title>Tu red doméstica · U03 · TyD 3º ESO</title>
+<meta name="description" content="Identifica los componentes y conceptos de una red wifi doméstica.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/common.css">
+<link rel="stylesheet" href="../../../assets/css/unidad.css">
+<style>
+.q-wrap{max-width:780px;margin:30px auto;padding:0 20px 50px}
+.q-hero{text-align:center;margin-bottom:24px}
+.q-hero h1{font-family:var(--cond);font-size:2rem;color:var(--principal);margin:0 0 8px}
+.q-progress{display:flex;justify-content:space-between;align-items:center;background:#F4F6F9;padding:10px 16px;border-radius:8px;margin-bottom:20px;font-family:var(--cond)}
+.q-score{color:var(--principal)}
+.q-card{background:#fff;border:1px solid var(--borde);border-radius:12px;padding:22px;box-shadow:0 1px 6px rgba(0,0,0,.05);margin-bottom:20px}
+.q-emoji{font-size:3rem;text-align:center;margin-bottom:8px}
+.q-titulo{font-family:var(--cond);font-size:1.3rem;color:var(--principal);text-align:center;margin:0 0 8px}
+.q-pregunta{font-size:.96rem;text-align:center;margin:0 0 14px;color:var(--texto2);line-height:1.55}
+.q-opciones{display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:6px}
+.q-opt{font-family:var(--sans);font-size:.95rem;padding:11px 14px;background:#FAFAFA;border:2px solid var(--borde);border-radius:8px;cursor:pointer;text-align:left;color:var(--texto);transition:all .15s}
+.q-opt:hover:not(:disabled){background:#FBEEEF;border-color:var(--principal)}
+.q-opt:disabled{cursor:default}
+.q-opt.correct{background:#E1F5EE;border-color:#1E8E3E;color:#0F6E56;font-weight:600}
+.q-opt.wrong{background:#FCEBEB;border-color:#C44536;color:#9A2A2A}
+.q-fb{display:none;margin-top:14px;padding:14px 18px;border-radius:8px;font-size:.94rem;line-height:1.55}
+.q-fb.show{display:block}
+.q-fb.acierto{background:#E1F5EE;color:#0F6E56;border-left:5px solid #1E8E3E}
+.q-fb.fallo{background:#FCEBEB;color:#9A2A2A;border-left:5px solid #C44536}
+.q-next{margin-top:14px;text-align:center}
+.q-next button{font-family:var(--cond);padding:9px 22px;border-radius:22px;cursor:pointer;border:2px solid var(--principal);background:var(--principal);color:#fff;font-weight:600}
+.q-resumen{background:linear-gradient(180deg,#FBEEEF,#fff);border:2px solid var(--principal);border-radius:12px;padding:24px;text-align:center;margin-top:24px;display:none}
+.q-resumen.show{display:block}
+.q-resumen .num{font-family:var(--cond);font-size:3rem;color:var(--principal);line-height:1;margin:10px 0}
+.q-resumen .num small{font-size:1.5rem;color:var(--texto2)}
+.q-resumen button{font-family:var(--cond);padding:10px 22px;border-radius:22px;cursor:pointer;border:2px solid var(--principal);background:var(--principal);color:#fff;font-weight:600;margin-top:8px}
+</style>
+</head>
+<body>
+<header class="curso-hd"><span class="curso-sb">U03 · Redes · Interactivo: tu red doméstica</span></header>
+<nav class="curso-navcross" role="navigation">
+  <a href="../../../index.html"><span>🏠</span><span class="nc-lbl">Índice</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../index.html"><span>📋</span><span class="nc-lbl">Hub U03</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../libro-digital.html"><span>📖</span><span class="nc-lbl">Libro digital</span></a>
+  <span class="nc-sep">·</span>
+  <span class="nc-current"><span>🏠</span><span class="nc-lbl">Red doméstica</span></span>
+</nav>
+
+<main id="main-content" class="q-wrap">
+  <section class="q-hero">
+    <h1>🏠 Tu red doméstica</h1>
+    <p>10 preguntas para entender qué hay detrás del wifi de tu casa.</p>
+  </section>
+  <div class="q-progress"><span id="counter">1 de 10</span><span class="q-score">Aciertos: <span id="aciertos">0</span> / 10</span></div>
+  <div id="actual"></div>
+  <div class="q-resumen" id="resumen"><h2 style="font-family:var(--cond);color:var(--principal);margin:0 0 8px">¡Has terminado!</h2><div class="num"><span id="final">0</span><small> / 10 aciertos</small></div><p id="veredicto">—</p><button id="reset">🔁 Volver a empezar</button></div>
+</main>
+
+<script>
+(function(){'use strict';
+var preguntas=[
+  {emoji:'📡',titulo:'Router',pregunta:'¿Cuál es la función principal del router de tu casa?',ok:1,opts:['Solo emitir wifi','Conectar tu LAN (casa) con internet, asignar IPs privadas y dirigir el tráfico','Almacenar tus archivos','Filtrar virus'],fb:'El <strong>router</strong> conecta tu red local con internet. Asigna IPs privadas (192.168.x.x) a los dispositivos, hace de cortafuegos básico y enruta los paquetes. Casi todos integran además el punto de acceso wifi.'},
+  {emoji:'🔐',titulo:'Cifrado wifi',pregunta:'De estos protocolos de cifrado wifi, ¿cuál es el MÁS SEGURO?',ok:2,opts:['Abierta (sin contraseña)','WEP','WPA3','Bluetooth'],fb:'<strong>WPA3</strong> es el más moderno (2018). WPA2 es aceptable. WEP está roto desde hace años, no usarlo. Una wifi "abierta" es como dejar la puerta de casa sin llave.'},
+  {emoji:'📶',titulo:'2,4 GHz vs 5 GHz',pregunta:'Tu router emite wifi en dos bandas. La de 5 GHz...',ok:0,opts:['Es más rápida pero llega menos lejos','Es más lenta pero llega más lejos','Es ilegal en España','Solo funciona con Apple'],fb:'<strong>5 GHz</strong>: más velocidad, menos alcance, menos interferencias. <strong>2,4 GHz</strong>: menos velocidad, más alcance, más interferencias (microondas, otros wifis). Para móvil cerca, mejor 5 GHz; para una habitación lejana, 2,4 GHz.'},
+  {emoji:'🌐',titulo:'IP pública',pregunta:'En tu casa hay 5 dispositivos conectados a internet. ¿Cuántas IPs públicas usan?',ok:0,opts:['Una sola, compartida','5, una por dispositivo','Ninguna','Depende del operador'],fb:'<strong>Una sola IP pública</strong> compartida por todos. Cada dispositivo tiene su IP privada (192.168.x.x) dentro de casa, pero al salir a internet, el router hace NAT y todos aparecen con la misma IP pública.'},
+  {emoji:'📞',titulo:'DNS',pregunta:'Escribes "iesjdq.es" en el navegador. ¿Qué hace tu PC ANTES de pedir la página?',ok:1,opts:['Llama al servidor por su nombre directamente','Pregunta al DNS qué IP tiene ese nombre','Pide ayuda al wifi','Manda un correo'],fb:'El navegador consulta primero al <strong>DNS</strong> (típicamente el del proveedor de internet o de Google 8.8.8.8) para traducir el nombre a una IP. Sin esa traducción no hay conexión.'},
+  {emoji:'🔌',titulo:'Ethernet vs wifi',pregunta:'¿Por qué los gamers suelen jugar online con cable ethernet en vez de wifi?',ok:1,opts:['Es más bonito','Es más estable y rápido, con menos latencia (ping)','El wifi no funciona en consolas','Por seguridad de virus'],fb:'El <strong>cable ethernet</strong> da conexión más estable y con menor latencia (tiempo de respuesta). Para juegos competitivos online, milisegundos cuentan. El wifi tiene picos y caídas.'},
+  {emoji:'⛔',titulo:'WPS',pregunta:'El botón WPS del router permite conectar dispositivos sin escribir la contraseña. ¿Es seguro tenerlo activado?',ok:1,opts:['Sí, totalmente seguro','No: tiene vulnerabilidades conocidas. Es preferible desactivarlo y conectar manualmente','Solo si tienes WPA3','Solo de noche'],fb:'El <strong>WPS</strong> es cómodo pero tiene vulnerabilidades documentadas que permiten saltar la contraseña. Recomendable desactivarlo desde la configuración del router.'},
+  {emoji:'🔋',titulo:'Bluetooth vs wifi',pregunta:'Para auriculares inalámbricos en el móvil, ¿qué tecnología es la adecuada?',ok:0,opts:['Bluetooth: bajo consumo y corto alcance, ideal para periféricos personales','Wifi: alto consumo pero más rápido','Ethernet: con un cable largo','5G: la red móvil'],fb:'<strong>Bluetooth</strong> está pensado precisamente para esto: distancias cortas (≤10 m) y muy bajo consumo. Wifi sería matar moscas a cañonazos: gasta mucha batería para tan poca distancia.'},
+  {emoji:'💾',titulo:'NAS',pregunta:'Un NAS doméstico es...',ok:1,opts:['Un tipo de virus','Un servidor de almacenamiento en tu propia red, accesible por todos los dispositivos de casa','Un programa antivirus','Un dispositivo solo para Apple'],fb:'<strong>NAS</strong> (Network Attached Storage) = "disco duro de red". Lo conectas al router y puedes acceder desde cualquier dispositivo de tu casa (e incluso fuera, con configuración). Útil para fotos familiares, copias, streaming local.'},
+  {emoji:'🚫',titulo:'Wifi pública',pregunta:'Estás en una cafetería con wifi gratis. ¿Qué deberías EVITAR hacer?',ok:1,opts:['Leer el periódico online','Acceder a tu banca online o hacer compras sin VPN','Ver YouTube','Consultar el tiempo'],fb:'Las wifis públicas (incluso las legítimas) son inseguras: cualquiera puede espiar el tráfico no cifrado. Para banca o compras, mejor usar tus datos móviles o, si necesitas wifi pública, conectarte primero a una <strong>VPN</strong>.'}
+];
+
+var idx=0,ac=0;
+var cont=document.getElementById('actual'),cnt=document.getElementById('counter'),acel=document.getElementById('aciertos'),res=document.getElementById('resumen'),fnl=document.getElementById('final'),vrd=document.getElementById('veredicto');
+document.getElementById('reset').addEventListener('click',function(){idx=0;ac=0;res.classList.remove('show');render();window.scrollTo({top:0,behavior:'smooth'});});
+function render(){
+  if(idx>=preguntas.length){cnt.textContent='Completado';fnl.textContent=ac;var p=ac/preguntas.length;vrd.textContent=p===1?'🌟 Perfecto.':p>=0.75?'👍 Muy bien.':p>=0.5?'🙂 Aceptable.':'📚 Repasa el libro digital.';res.classList.add('show');cont.innerHTML='';return;}
+  var q=preguntas[idx];
+  cnt.textContent=(idx+1)+' de '+preguntas.length;acel.textContent=ac;
+  var html='<div class="q-card"><div class="q-emoji">'+q.emoji+'</div><h2 class="q-titulo">'+q.titulo+'</h2><p class="q-pregunta">'+q.pregunta+'</p><div class="q-opciones">';
+  q.opts.forEach(function(o,i){html+='<button class="q-opt" data-i="'+i+'">'+o+'</button>';});
+  html+='</div><div class="q-fb"></div></div>';
+  cont.innerHTML=html;
+  cont.querySelectorAll('.q-opt').forEach(function(b){b.addEventListener('click',function(){contestar(parseInt(b.dataset.i));});});
+}
+function contestar(i){
+  var q=preguntas[idx],ok=(i===q.ok);
+  if(ok)ac++;
+  cont.querySelectorAll('.q-opt').forEach(function(b,j){b.disabled=true;if(j===q.ok)b.classList.add('correct');else if(j===i)b.classList.add('wrong');});
+  var fb=cont.querySelector('.q-fb');
+  fb.innerHTML='<p>'+(ok?'✓ ':'✗ ')+q.fb+'</p><div class="q-next"><button>Siguiente →</button></div>';
+  fb.classList.add('show');fb.classList.add(ok?'acierto':'fallo');
+  acel.textContent=ac;
+  fb.querySelector('button').addEventListener('click',function(){idx++;render();window.scrollTo({top:0,behavior:'smooth'});});
+}
+render();
+})();
+</script>
+</body>
+</html>

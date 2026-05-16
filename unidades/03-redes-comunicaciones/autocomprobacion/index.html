@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#8C2A3D">
+<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<title>Autocomprobación · U03 Redes · TyD 3º ESO</title>
+<meta name="description" content="Autocomprobación de la unidad 3 de TyD 3º ESO · 18 preguntas con feedback inmediato sobre redes, internet, ciberseguridad y privacidad.">
+<link rel="canonical" href="https://tyd3-ies-jdq.malonso72.workers.dev/unidades/03-redes-comunicaciones/autocomprobacion/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/common.css">
+<link rel="stylesheet" href="../../../assets/css/unidad.css">
+<style>
+.ac-hero{max-width:1100px;margin:22px auto 8px;padding:0 20px;text-align:center}
+.ac-hero h1{font-family:var(--cond);font-size:1.9rem;color:var(--principal);margin:0 0 6px;letter-spacing:.5px}
+.ac-hero .subt{font-size:.95rem;color:var(--texto2);margin:0 0 16px}
+.ac-camino{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;font-family:var(--cond);font-size:.78rem;letter-spacing:.4px;margin-bottom:10px}
+.ac-camino span{padding:4px 12px;border-radius:14px;background:#F4F6F9;color:#8C97A8;border:1px solid #D8DDE5}
+.ac-camino span.activo{background:linear-gradient(135deg,var(--principal),var(--principal2));color:#fff;border-color:var(--principal)}
+.ac-camino .sep{background:transparent;border:none;color:#B8C0CC;padding:4px 2px}
+.ac-instrucciones{max-width:900px;margin:0 auto 18px;padding:14px 20px;background:#FBEEEF;border-left:4px solid var(--principal);border-radius:6px;font-size:.92rem;color:var(--texto2);line-height:1.55}
+.ac-instrucciones strong{color:var(--principal)}
+.ac-wrap{max-width:900px;margin:0 auto;padding:0 16px 50px}
+.bloque-encabezado{display:flex;align-items:baseline;gap:10px;margin:22px 0 6px;padding:0 4px}
+.bloque-encabezado .num{font-family:var(--cond);font-size:1.05rem;background:var(--principal);color:#fff;padding:3px 11px;border-radius:14px}
+.bloque-encabezado h2{font-family:var(--cond);font-size:1.4rem;color:var(--texto);margin:0;flex:1}
+.bloque-encabezado .meta{font-size:.8rem;color:var(--texto2)}
+.bloque-ancla{font-size:.88rem;color:var(--texto2);margin:0 4px 10px}
+.bloque-ancla a{color:var(--principal2);text-decoration:none;border-bottom:1px dotted var(--principal2)}
+.bloque-marcador{margin-top:8px;padding:9px 14px;background:#F4F6F9;border-radius:6px;font-size:.88rem;color:var(--texto2);display:none;text-align:right;font-family:var(--cond);letter-spacing:.3px}
+.bloque-marcador.activo{display:block}
+.bloque-marcador .acierto{color:var(--verde);font-weight:600}
+.bloque-marcador .fallo{color:var(--rojo);font-weight:600}
+.test-q .test-num{display:inline-block;font-family:var(--cond);font-size:.78rem;color:var(--principal);background:#FBEEEF;padding:2px 8px;border-radius:10px;margin-right:7px;vertical-align:1px}
+.test-q .test-tipo-tag{display:inline-block;font-family:var(--cond);font-size:.7rem;color:var(--texto2);background:#EEF1F5;padding:2px 7px;border-radius:10px;margin-left:6px;vertical-align:1px}
+.ac-resumen{max-width:900px;margin:28px auto 0;padding:22px 24px;background:linear-gradient(180deg,#FBEEEF,#fff);border:2px solid var(--principal);border-radius:10px;text-align:center}
+.ac-resumen h2{font-family:var(--cond);font-size:1.5rem;color:var(--principal);margin:0 0 8px}
+.ac-resumen .puntuacion{font-family:var(--cond);font-size:2.3rem;color:var(--texto);margin:6px 0}
+.ac-resumen .puntuacion .num-grande{color:var(--principal);font-size:3rem}
+.ac-resumen .veredicto{font-size:1rem;color:var(--texto2);margin:0 0 14px;min-height:1.4em}
+.ac-resumen .progreso-barra{height:14px;background:#F4F6F9;border-radius:7px;overflow:hidden;margin:14px 0;border:1px solid #E0E5EC}
+.ac-resumen .progreso-barra-fill{height:100%;background:linear-gradient(90deg,var(--principal),var(--principal2));width:0;transition:width .5s ease}
+.ac-resumen .acciones{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.ac-resumen button,.ac-resumen .btn-link{font-family:var(--cond);font-size:.88rem;letter-spacing:.5px;padding:9px 18px;border-radius:20px;cursor:pointer;border:1.5px solid var(--principal);background:#fff;color:var(--principal);text-decoration:none;transition:all .15s}
+.ac-resumen button:hover,.ac-resumen .btn-link:hover{background:var(--principal);color:#fff}
+.ac-resumen button.primario{background:var(--principal);color:#fff}
+.ac-resumen button.primario:hover{background:var(--principal2)}
+.ac-resumen button:disabled{opacity:.4;cursor:not-allowed}
+.ac-resumen button:disabled:hover{background:#fff;color:var(--principal)}
+@media(max-width:640px){.ac-hero h1{font-size:1.5rem}.bloque-encabezado{flex-wrap:wrap}.ac-resumen .puntuacion .num-grande{font-size:2.4rem}}
+@media print{.curso-hd,.curso-navcross,.ac-camino,.ac-instrucciones,.ac-resumen{display:none!important}.test-q{break-inside:avoid;border:1px solid #999;margin-bottom:8px}.test-fb{display:block!important;background:#f6f6f6;color:#333;border-left:3px solid #999}}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+<header class="curso-hd">
+  <a href="../../../index.html" class="curso-lg">TyD 3º ESO</a>
+  <span class="curso-sb">U03 · Redes · Autocomprobación</span>
+  <a href="../../../index.html" class="curso-home-btn">🏠 Inicio</a>
+</header>
+
+<nav class="curso-navcross" role="navigation">
+  <a href="../../../index.html"><span>🏠</span><span class="nc-lbl">Índice</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../index.html"><span>📋</span><span class="nc-lbl">Hub U03</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../libro-digital.html"><span>📖</span><span class="nc-lbl">Libro digital</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../actividades/index.html"><span>✏️</span><span class="nc-lbl">Actividades</span></a>
+  <span class="nc-sep">·</span>
+  <span class="nc-current"><span>✅</span><span class="nc-lbl">Autocomprobación</span></span>
+</nav>
+
+<main id="main-content">
+
+<section class="ac-hero">
+  <div class="ac-camino" aria-label="Camino de aprendizaje">
+    <span>📖 Aprende</span><span class="sep">▸</span>
+    <span>✏️ Practica</span><span class="sep">▸</span>
+    <span class="activo">✅ Comprueba</span><span class="sep">▸</span>
+    <span>🔁 Repasa</span>
+  </div>
+  <h1>✅ Autocomprobación · U03 Redes y comunicaciones</h1>
+  <p class="subt">18 preguntas para comprobar si lo has entendido · 10-15 minutos</p>
+</section>
+
+<div class="ac-instrucciones">
+  <p>Una sola oportunidad por pregunta. Tras pulsar, el botón se pondrá <strong style="color:#1E8E3E">verde</strong> (acierto) o <strong style="color:#C44536">rojo</strong> (fallo) con explicación y enlace al libro digital.</p>
+  <p style="margin-bottom:0">Bloques: 4 conceptos básicos · 4 internet · 6 ciberseguridad · 4 sociedad digital.</p>
+</div>
+
+<div class="ac-wrap">
+
+<!-- B1 · CONCEPTOS BÁSICOS -->
+<div class="bloque-encabezado"><span class="num">B1</span><h2>Redes: conceptos básicos</h2><span class="meta">4 preguntas</span></div>
+<p class="bloque-ancla">📖 Repasa los apartados <a href="../libro-digital.html#s1">«Qué es una red»</a> al <a href="../libro-digital.html#s4">«Medios de transmisión»</a>.</p>
+
+<section class="test-section" data-bloque="1">
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P1</span>El wifi de tu casa es un ejemplo de red... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">PAN (personal)</button>
+      <button class="test-opt" data-opt="b">LAN (local)</button>
+      <button class="test-opt" data-opt="c">MAN (metropolitana)</button>
+      <button class="test-opt" data-opt="d">WAN (amplia)</button>
+    </div>
+    <div class="test-fb">El wifi doméstico es una <strong>LAN</strong> (Local Area Network): cubre tu casa. Internet sería WAN. La PAN sería el bluetooth entre tu móvil y tus auriculares. <a href="../libro-digital.html#s2">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P2</span>Internet es... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Una única red gigante gestionada por una empresa</button>
+      <button class="test-opt" data-opt="b">Lo mismo que la World Wide Web (WWW)</button>
+      <button class="test-opt" data-opt="c">Una "red de redes": millones de LAN conectadas entre sí mediante cables, fibra, satélites y antenas</button>
+      <button class="test-opt" data-opt="d">Una red privada del gobierno de EE.UU.</button>
+    </div>
+    <div class="test-fb">Internet es la <strong>red de redes</strong>: nadie es dueño. Conecta millones de LAN domésticas y empresariales en todo el mundo. La WWW es solo <em>uno</em> de los servicios que viajan por internet. <a href="../libro-digital.html#s5">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P3</span>De estos medios de transmisión, ¿cuál es el <strong>más rápido y estable</strong>? <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Wifi de 2,4 GHz</button>
+      <button class="test-opt" data-opt="b">Bluetooth</button>
+      <button class="test-opt" data-opt="c">Fibra óptica</button>
+      <button class="test-opt" data-opt="d">Coaxial</button>
+    </div>
+    <div class="test-fb">La <strong>fibra óptica</strong> transmite pulsos de luz a velocidades de 1 a 100 Gbps, sin interferencias y a kilómetros de distancia. Es el medio de las redes troncales y la fibra que llega a tu casa. <a href="../libro-digital.html#s4">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P4</span>La topología <strong>en estrella</strong> tiene esta ventaja: <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Si falla un nodo, todos los demás se quedan sin red</button>
+      <button class="test-opt" data-opt="b">Si falla un nodo o su cable, solo ese nodo pierde la conexión; el resto sigue funcionando</button>
+      <button class="test-opt" data-opt="c">No necesita router</button>
+      <button class="test-opt" data-opt="d">Es totalmente inmune a fallos</button>
+    </div>
+    <div class="test-fb">En la <strong>topología en estrella</strong>, cada nodo va directo al router central. Si un cable o un nodo falla, solo afecta a ese punto. El precio: si falla el router central, se cae toda la red. Es la topología típica de cualquier wifi doméstico. <a href="../libro-digital.html#s3">Repasar →</a></div>
+  </div>
+  <div class="bloque-marcador" data-bloque="1"></div>
+</section>
+
+
+<!-- B2 · INTERNET -->
+<div class="bloque-encabezado"><span class="num">B2</span><h2>Cómo funciona Internet</h2><span class="meta">4 preguntas</span></div>
+<p class="bloque-ancla">📖 Repasa <a href="../libro-digital.html#s5">«Cómo funciona Internet»</a> a <a href="../libro-digital.html#s8">«Servicios»</a>.</p>
+
+<section class="test-section" data-bloque="2">
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P5</span>El sistema <strong>DNS</strong> sirve para... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Cifrar el tráfico de internet</button>
+      <button class="test-opt" data-opt="b">Asignar IPs privadas a los dispositivos de tu casa</button>
+      <button class="test-opt" data-opt="c">Traducir nombres de dominio (iesjdq.es) a direcciones IP (87.121.45.12)</button>
+      <button class="test-opt" data-opt="d">Bloquear webs peligrosas</button>
+    </div>
+    <div class="test-fb">El <strong>DNS</strong> (Domain Name System) es el "listín telefónico" de internet: convierte nombres que recordamos a IPs numéricas que necesitan los routers para enrutar. Sin DNS, tendrías que aprenderte de memoria 87.121.45.12 en vez de iesjdq.es. <a href="../libro-digital.html#s6">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P6</span>Cuando ves <strong>HTTPS</strong> y un candadito 🔒 en el navegador significa que... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">La web es 100 % segura y de confianza</button>
+      <button class="test-opt" data-opt="b">La comunicación entre tu navegador y el servidor está cifrada (nadie puede leer lo que envías en el camino)</button>
+      <button class="test-opt" data-opt="c">No tiene anuncios</button>
+      <button class="test-opt" data-opt="d">No tiene cookies</button>
+    </div>
+    <div class="test-fb"><strong>HTTPS</strong> garantiza solo el <em>cifrado del canal</em>, no la honradez de quien hay al otro lado. Una web de phishing también puede tener HTTPS válido. Mira el dominio, no solo el candado. <a href="../libro-digital.html#s7">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P7</span>Una IP privada típica de tu casa empieza por... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">8.8.8.8</button>
+      <button class="test-opt" data-opt="b">192.168.x.x</button>
+      <button class="test-opt" data-opt="c">87.121.x.x</button>
+      <button class="test-opt" data-opt="d">2001:db8::</button>
+    </div>
+    <div class="test-fb">Los routers domésticos asignan IPs privadas del rango <strong>192.168.x.x</strong> (también 10.x.x.x). La que ve internet (la pública) la asigna tu operadora. <a href="../libro-digital.html#s6">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="d">
+    <p class="test-qtext"><span class="test-num">P8</span>En la URL <code>https://iesjdq.es/aula/programacion?u=5</code>, <code>iesjdq.es</code> es... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">El protocolo</button>
+      <button class="test-opt" data-opt="b">La ruta de la página</button>
+      <button class="test-opt" data-opt="c">Un parámetro</button>
+      <button class="test-opt" data-opt="d">El dominio (que el DNS traduce a IP)</button>
+    </div>
+    <div class="test-fb">Anatomía de la URL: <strong>https://</strong> = protocolo · <strong>iesjdq.es</strong> = dominio · <strong>/aula/programacion</strong> = ruta · <strong>?u=5</strong> = parámetro. <a href="../libro-digital.html#s7">Repasar →</a></div>
+  </div>
+  <div class="bloque-marcador" data-bloque="2"></div>
+</section>
+
+
+<!-- B3 · CIBERSEGURIDAD (6 preguntas, énfasis) -->
+<div class="bloque-encabezado"><span class="num">B3</span><h2>Ciberseguridad</h2><span class="meta">6 preguntas</span></div>
+<p class="bloque-ancla">📖 Repasa <a href="../libro-digital.html#s9">«Malware»</a> a <a href="../libro-digital.html#s12">«Identidad y privacidad»</a>.</p>
+
+<section class="test-section" data-bloque="3">
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P9</span>Un programa que cifra tus archivos y exige rescate en criptomoneda para devolvértelos es... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Spyware</button>
+      <button class="test-opt" data-opt="b">Ransomware</button>
+      <button class="test-opt" data-opt="c">Adware</button>
+      <button class="test-opt" data-opt="d">Gusano</button>
+    </div>
+    <div class="test-fb"><strong>Ransomware</strong> (de <em>ransom</em>, rescate). En 2021 atacó al SEPE en España: oficinas paralizadas. NUNCA pagar: muchas veces no devuelven los archivos. La única defensa es tener <em>copia de seguridad offline</em>. <a href="../libro-digital.html#s9">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P10</span>Un programa que se disfraza de aplicación útil (un juego pirata, por ejemplo) y, al instalarlo, abre una puerta trasera al atacante es... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Virus clásico</button>
+      <button class="test-opt" data-opt="b">Gusano</button>
+      <button class="test-opt" data-opt="c">Troyano</button>
+      <button class="test-opt" data-opt="d">Adware</button>
+    </div>
+    <div class="test-fb">Igual que el caballo de Troya de la mitología: <strong>troyano</strong>. Parece un regalo, esconde un ejército. Mayoría de troyanos llegan por descargas de webs no oficiales y por adjuntos de correo. <a href="../libro-digital.html#s9">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P11</span>«Te llaman al móvil diciendo ser de tu banco, que hay un cargo sospechoso, y te piden la clave de tu app». ¿Qué es? <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Spear phishing</button>
+      <button class="test-opt" data-opt="b">Vishing (phishing por voz)</button>
+      <button class="test-opt" data-opt="c">Pharming</button>
+      <button class="test-opt" data-opt="d">Smishing</button>
+    </div>
+    <div class="test-fb"><strong>Vishing</strong>: phishing por <em>voz</em>. Tu banco NUNCA te pide la clave por teléfono. Lo correcto: cuelga y llama TÚ al número de la parte trasera de tu tarjeta. <a href="../libro-digital.html#s11">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P12</span>De estas medidas, ¿cuál es <strong>imprescindible</strong> contra el ransomware? <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Tener antivirus de pago</button>
+      <button class="test-opt" data-opt="b">Tener copia de seguridad externa (disco USB) que no esté siempre conectada</button>
+      <button class="test-opt" data-opt="c">Usar Mac en vez de Windows</button>
+      <button class="test-opt" data-opt="d">Tener VPN</button>
+    </div>
+    <div class="test-fb">La <strong>copia de seguridad offline</strong> es la única defensa real. Si el ransomware cifra tu disco interno, restauras desde la copia y se acabó el chantaje. Un antivirus ayuda pero no es suficiente. <a href="../libro-digital.html#s10">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P13</span>«Tu mejor amigo te pide por WhatsApp que le mandes el código de 6 cifras que te ha llegado por SMS para entrar a un sorteo». <span class="test-tipo-tag">verdadero/falso</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Verdadero, si es mi amigo no pasa nada</button>
+      <button class="test-opt" data-opt="b">Falso: ese código probablemente sea el 2FA de tu cuenta. Si lo entregas, alguien (no tu amigo, su cuenta está hackeada) toma el control de la tuya</button>
+    </div>
+    <div class="test-fb"><strong>Falso.</strong> Los códigos 2FA por SMS son la llave de tus cuentas. NADIE legítimo te los pedirá. Si te los piden, la cuenta de quien te escribe ya ha sido tomada. Llama a tu amigo por teléfono para confirmarle que su cuenta está hackeada. <a href="../libro-digital.html#s11">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P14</span>El <strong>RGPD</strong> europeo te garantiza varios derechos sobre tus datos. ¿Cuál de estos NO es uno? <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Pedir que te muestren qué datos tienen sobre ti</button>
+      <button class="test-opt" data-opt="b">Cobrar dinero por cada vez que una empresa use tus datos</button>
+      <button class="test-opt" data-opt="c">Pedir que borren tus datos (derecho al olvido)</button>
+      <button class="test-opt" data-opt="d">Llevarte tus datos a otro servicio</button>
+    </div>
+    <div class="test-fb">El RGPD da acceso, rectificación, olvido, portabilidad y oposición. Pero <strong>no</strong> contempla que cobres por cesión de datos. Si te has hecho una cuenta gratis, has cedido derechos limitados (por eso "gratis" sale caro). <a href="../libro-digital.html#s12">Repasar →</a></div>
+  </div>
+  <div class="bloque-marcador" data-bloque="3"></div>
+</section>
+
+
+<!-- B4 · SOCIEDAD DIGITAL -->
+<div class="bloque-encabezado"><span class="num">B4</span><h2>Sociedad digital</h2><span class="meta">4 preguntas</span></div>
+<p class="bloque-ancla">📖 Repasa <a href="../libro-digital.html#s13">«Big Data»</a> y <a href="../libro-digital.html#s14">«Brecha digital»</a>.</p>
+
+<section class="test-section" data-bloque="4">
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P15</span>«Cuando una red social te ofrece todos sus servicios gratis...» <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Es porque son una ONG sin ánimo de lucro</button>
+      <button class="test-opt" data-opt="b">El producto eres tú: tus datos se usan para personalizar publicidad o se venden a terceros</button>
+      <button class="test-opt" data-opt="c">Reciben dinero del Gobierno</button>
+      <button class="test-opt" data-opt="d">No hace falta preocuparse, los servicios gratuitos no tienen contrapartida</button>
+    </div>
+    <div class="test-fb">Las redes sociales monetizan tu <strong>atención</strong> y tus <strong>datos</strong>. Cuanto más tiempo pases, más anuncios ves; cuanto mejor te conocen, más caro venden cada anuncio. Es legítimo, pero conviene saberlo. <a href="../libro-digital.html#s13">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P16</span>El caso de <strong>Cambridge Analytica</strong> (2016) fue importante porque... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Inventaron las redes sociales</button>
+      <button class="test-opt" data-opt="b">Demostraron que los datos de 87 millones de cuentas de Facebook se podían usar para personalizar publicidad política durante elecciones y referéndums (EE.UU., Brexit)</button>
+      <button class="test-opt" data-opt="c">Fue la primera empresa de criptomonedas</button>
+      <button class="test-opt" data-opt="d">Crearon el algoritmo de TikTok</button>
+    </div>
+    <div class="test-fb">Cambridge Analytica usó datos de Facebook para influir en votantes individualizados según sus miedos y deseos. Aceleró el <strong>RGPD europeo</strong> en 2018. Cambió la conciencia mundial sobre privacidad. <a href="../libro-digital.html#s13">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P17</span>La <strong>brecha digital</strong> tiene varias dimensiones. ¿Cuál es FALSA? <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">De acceso (¿tienes wifi o cobertura?)</button>
+      <button class="test-opt" data-opt="b">De marca (¿usas iPhone o Android?)</button>
+      <button class="test-opt" data-opt="c">De uso (¿sabes detectar bulos y usar herramientas digitales?)</button>
+      <button class="test-opt" data-opt="d">De calidad (¿produces contenido o solo consumes?)</button>
+    </div>
+    <div class="test-fb">La de marca <strong>NO</strong> es una dimensión de la brecha digital: iPhone y Android cumplen la misma función. Las tres dimensiones reales son <strong>acceso, uso y calidad</strong>. <a href="../libro-digital.html#s14">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P18</span>«Subes una foto de un compañero en una situación graciosa pero sin pedirle permiso, ¿es problema?» <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">No, si la foto es divertida</button>
+      <button class="test-opt" data-opt="b">Sí: la imagen es un dato personal y, si es menor, hace falta consentimiento. Puede ser ciberacoso si humilla, y tu cuenta puede tener consecuencias legales</button>
+      <button class="test-opt" data-opt="c">No, mientras no le etiquete</button>
+      <button class="test-opt" data-opt="d">Solo si le pongo cara</button>
+    </div>
+    <div class="test-fb">Publicar imágenes de otros sin consentimiento puede ser delito si causa daño (especialmente si son menores o si humilla). En la UE el RGPD protege la imagen y el centro educativo puede sancionar el ciberacoso. Cuando dudes, pide permiso primero. <a href="../libro-digital.html#s14">Repasar →</a></div>
+  </div>
+  <div class="bloque-marcador" data-bloque="4"></div>
+</section>
+
+
+<section class="ac-resumen" id="ac-resumen">
+  <h2>Resultado de la autocomprobación</h2>
+  <div class="puntuacion"><span class="num-grande" id="ac-aciertos">0</span> / <span id="ac-total">18</span> aciertos</div>
+  <div class="progreso-barra"><div class="progreso-barra-fill" id="ac-bar"></div></div>
+  <p class="veredicto" id="ac-veredicto">Responde las preguntas para ver tu resultado.</p>
+  <div class="acciones">
+    <button id="ac-reintentar" class="primario" disabled>🔁 Reintentar las falladas</button>
+    <button id="ac-todo" disabled>🔄 Empezar de nuevo</button>
+    <a class="btn-link" href="../libro-digital.html">📖 Libro digital</a>
+    <a class="btn-link" href="../index.html">📋 Hub U03</a>
+  </div>
+</section>
+
+</div>
+</main>
+
+<script src="../../../assets/js/common.js"></script>
+<script src="../../../assets/js/header.js"></script>
+<script>
+(function(){'use strict';
+var qs=document.querySelectorAll('.test-q'),tot=document.getElementById('ac-total'),ac=document.getElementById('ac-aciertos'),bar=document.getElementById('ac-bar'),vr=document.getElementById('ac-veredicto'),br=document.getElementById('ac-reintentar'),bt=document.getElementById('ac-todo');
+tot.textContent=qs.length;
+function refrescar(){var a=0,c=0,f=0,pB={};qs.forEach(function(q){var b=q.closest('.test-section').dataset.bloque;if(!pB[b])pB[b]={ok:0,ko:0,total:0};pB[b].total++;if(q.classList.contains('answered')){c++;var ok=q.querySelector('.test-opt.correct')&&!q.querySelector('.test-opt.wrong');if(ok){a++;pB[b].ok++;}else{f++;pB[b].ko++;}}});ac.textContent=a;var p=Math.round(a/qs.length*100);bar.style.width=p+'%';if(c===0){vr.textContent='Responde las preguntas para ver tu resultado.';}else if(c<qs.length){vr.innerHTML='Llevas <strong>'+c+'</strong> de '+qs.length+' respondidas.';}else{var m=p>=90?'🌟 ¡Excelente! Dominas la unidad.':p>=75?'👍 Muy bien. Repasa los puntos fallados.':p>=50?'🙂 Aprobado. Vuelve al libro digital donde más hayas fallado.':'📚 Tranquilo: repasa con calma y vuelve a intentar.';vr.innerHTML=m+'<br><small>'+a+' aciertos · '+f+' fallos · '+p+'%</small>';}br.disabled=(f===0);bt.disabled=(c===0);Object.keys(pB).forEach(function(b){var m=document.querySelector('.bloque-marcador[data-bloque="'+b+'"]'),x=pB[b],d=x.ok+x.ko;if(d===0){m.classList.remove('activo');return;}m.classList.add('activo');if(d<x.total){m.innerHTML='Bloque '+b+': '+d+' / '+x.total+' respondidas';}else{m.innerHTML='Bloque '+b+': <span class="acierto">'+x.ok+' acierto'+(x.ok===1?'':'s')+'</span> · <span class="fallo">'+x.ko+' fallo'+(x.ko===1?'':'s')+'</span>';}});}
+document.addEventListener('click',function(e){if(e.target.classList&&e.target.classList.contains('test-opt')){setTimeout(refrescar,0);}});
+function rs(q){q.classList.remove('answered');q.querySelectorAll('.test-opt').forEach(function(b){b.classList.remove('correct','wrong');b.disabled=false;});}
+br.addEventListener('click',function(){qs.forEach(function(q){if(q.classList.contains('answered')&&q.querySelector('.test-opt.wrong'))rs(q);});refrescar();var p=document.querySelector('.test-q:not(.answered)');if(p)p.scrollIntoView({behavior:'smooth',block:'center'});});
+bt.addEventListener('click',function(){if(!confirm('¿Empezar de nuevo? Se borrarán todas tus respuestas.'))return;qs.forEach(rs);refrescar();window.scrollTo({top:0,behavior:'smooth'});});
+refrescar();})();
+</script>
+</body>
+</html>

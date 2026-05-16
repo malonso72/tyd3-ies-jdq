@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#8C2A3D">
+<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<title>Proyecto · U03 Redes · TyD 3º ESO</title>
+<meta name="description" content="Proyecto integrador: auditoría de seguridad de tu red doméstica y plan de mejora.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/common.css">
+<link rel="stylesheet" href="../../../assets/css/unidad.css">
+<style>
+.pr-wrap{max-width:880px;margin:24px auto 50px;padding:0 20px}
+.pr-hero{text-align:center;margin-bottom:28px}
+.pr-hero h1{font-family:var(--cond);font-size:2rem;color:var(--principal);margin:0 0 8px}
+.pr-hero p{font-size:1rem;color:var(--texto2);margin:0;line-height:1.55}
+.pr-card{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:20px 24px;margin-bottom:18px}
+.pr-card h2{font-family:var(--cond);font-size:1.3rem;color:var(--principal);margin:0 0 10px;display:flex;align-items:center;gap:10px}
+.pr-card h2 .num{display:inline-block;width:36px;height:36px;line-height:36px;text-align:center;background:var(--principal);color:#fff;border-radius:50%;font-size:1rem;flex-shrink:0}
+.pr-card p,.pr-card li{font-size:.96rem;line-height:1.6}
+.pr-card ul,.pr-card ol{margin:8px 0 8px 22px;padding-left:0}
+.pr-fases{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:14px 0}
+.pr-fase{background:#F4F6F9;border-radius:8px;padding:12px 14px}
+.pr-fase h4{font-family:var(--cond);color:var(--principal);margin:0 0 6px;font-size:.95rem}
+.pr-fase p{font-size:.88rem;color:var(--texto2);margin:0;line-height:1.5}
+.pr-rubrica{width:100%;border-collapse:collapse;margin:14px 0;font-size:.92rem}
+.pr-rubrica th{background:var(--principal);color:#fff;padding:8px 10px;font-family:var(--cond);text-align:left}
+.pr-rubrica td{padding:8px 10px;border-bottom:1px solid var(--borde);vertical-align:top}
+.pr-rubrica td:first-child{font-weight:600;width:55%;color:var(--principal2)}
+.pr-rubrica td:last-child{width:15%;text-align:center;font-family:var(--cond);color:var(--principal)}
+.pr-callout{background:#E6F1FB;border-left:4px solid #378ADD;border-radius:0 6px 6px 0;padding:12px 16px;margin:14px 0;font-size:.92rem;line-height:1.55}
+.pr-callout-warn{background:#FFF4E6;border-left-color:#F59E0B}
+.checklist{background:#F4F6F9;border-radius:6px;padding:12px 16px;margin:8px 0;font-size:.92rem}
+.checklist label{display:block;padding:4px 0;cursor:pointer}
+.checklist input{margin-right:8px}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+<header class="curso-hd"><span class="curso-sb">U03 · Redes · Proyecto</span></header>
+<nav class="curso-navcross" role="navigation">
+  <a href="../../../index.html"><span>🏠</span><span class="nc-lbl">Índice</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../index.html"><span>📋</span><span class="nc-lbl">Hub U03</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../libro-digital.html"><span>📖</span><span class="nc-lbl">Libro digital</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../actividades/index.html"><span>✏️</span><span class="nc-lbl">Actividades</span></a>
+  <span class="nc-sep">·</span>
+  <span class="nc-current"><span>🚀</span><span class="nc-lbl">Proyecto</span></span>
+</nav>
+
+<main id="main-content" class="pr-wrap">
+  <section class="pr-hero">
+    <h1>🚀 Proyecto: auditoría de seguridad doméstica</h1>
+    <p>Vas a hacer una <strong>auditoría real</strong> de la seguridad y privacidad de tu hogar digital, y vas a entregar un plan de mejora a tu familia.</p>
+  </section>
+
+  <div class="pr-card">
+    <h2><span class="num">1</span>La idea</h2>
+    <p>Cada hogar moderno tiene una pequeña LAN: router, ordenador, móviles, tabletas, consola, smart TV, asistente de voz, cámaras IP, bombillas IoT… Cada uno es una posible vía de entrada. Tu reto: <strong>radiografiar todo</strong> y proponer mejoras.</p>
+    <p>Entregable principal: un informe de auditoría (3-5 páginas) en formato PDF, con plan de mejoras priorizado.</p>
+  </div>
+
+  <div class="pr-card">
+    <h2><span class="num">2</span>Inventario de dispositivos</h2>
+    <p>Lista <strong>todos</strong> los dispositivos conectados a tu wifi de casa:</p>
+    <ul>
+      <li>Ordenadores fijos y portátiles (familia entera).</li>
+      <li>Móviles, tabletas.</li>
+      <li>Consolas, Smart TV.</li>
+      <li>Altavoces (Alexa, Google Home).</li>
+      <li>Bombillas, enchufes, cámaras, robots aspiradores, termostatos…</li>
+      <li>Relojes y pulseras inteligentes.</li>
+    </ul>
+    <p>Para cada uno: marca, modelo aprox., tipo de conexión (wifi 2.4/5 GHz, ethernet, bluetooth), antigüedad.</p>
+    <p style="font-size:.9rem;color:var(--texto2)">Truco: muchos routers tienen una web de administración con la lista de dispositivos conectados. Pregunta al adulto de casa por la contraseña del router.</p>
+  </div>
+
+  <div class="pr-card">
+    <h2><span class="num">3</span>Checklist de seguridad</h2>
+    <p>Marca lo que ya está bien y lo que hay que mejorar:</p>
+    <div class="checklist">
+      <label><input type="checkbox"> El router tiene una contraseña wifi distinta a la que vino de fábrica.</label>
+      <label><input type="checkbox"> El cifrado wifi es WPA2 o WPA3 (NUNCA WEP ni "abierta").</label>
+      <label><input type="checkbox"> La contraseña del wifi tiene ≥ 12 caracteres con mezcla.</label>
+      <label><input type="checkbox"> El acceso a la web de administración del router está protegido con contraseña distinta a "admin".</label>
+      <label><input type="checkbox"> El sistema operativo de los ordenadores está actualizado.</label>
+      <label><input type="checkbox"> Hay antivirus / Windows Defender activado.</label>
+      <label><input type="checkbox"> Existe una copia de seguridad externa (disco USB) reciente.</label>
+      <label><input type="checkbox"> El correo principal tiene 2FA activado.</label>
+      <label><input type="checkbox"> El banco online tiene 2FA activado.</label>
+      <label><input type="checkbox"> Cuentas de redes sociales (de los menores) están en privado.</label>
+      <label><input type="checkbox"> Los permisos de apps del móvil están revisados (no toda app necesita ubicación o micro).</label>
+      <label><input type="checkbox"> Las cámaras IP (si las hay) tienen contraseña personalizada.</label>
+    </div>
+  </div>
+
+  <div class="pr-card">
+    <h2><span class="num">4</span>Fases del proyecto</h2>
+    <div class="pr-fases">
+      <div class="pr-fase"><h4>📋 1. Inventario</h4><p>Listar dispositivos y conexiones de tu casa.</p></div>
+      <div class="pr-fase"><h4>🔍 2. Diagnóstico</h4><p>Aplicar el checklist y anotar lo que NO está bien.</p></div>
+      <div class="pr-fase"><h4>💡 3. Propuestas</h4><p>Para cada riesgo, propon una acción concreta y prioritaria.</p></div>
+      <div class="pr-fase"><h4>📝 4. Redactar</h4><p>Informe de 3-5 páginas con todo lo anterior.</p></div>
+      <div class="pr-fase"><h4>👨‍👩‍👧 5. Explicar</h4><p>Presentarlo a tu familia y ayudarlos a aplicar las mejoras críticas.</p></div>
+      <div class="pr-fase"><h4>🎤 6. Defender</h4><p>3 min de exposición en clase: caso de tu casa.</p></div>
+    </div>
+  </div>
+
+  <div class="pr-card">
+    <h2><span class="num">5</span>Rúbrica</h2>
+    <table class="pr-rubrica">
+      <thead><tr><th>Criterio</th><th>Peso</th></tr></thead>
+      <tbody>
+        <tr><td>Inventario completo y bien clasificado</td><td>20%</td></tr>
+        <tr><td>Diagnóstico riguroso (checklist + razonado)</td><td>25%</td></tr>
+        <tr><td>Propuestas priorizadas y realistas</td><td>25%</td></tr>
+        <tr><td>Informe claro y bien redactado</td><td>15%</td></tr>
+        <tr><td>Aplicación real de al menos 2 mejoras</td><td>10%</td></tr>
+        <tr><td>Defensa oral</td><td>5%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pr-callout pr-callout-warn">⚠️ <strong>Privacidad familiar:</strong> el informe es para tu uso y entrega al profesor. NO publiques en redes ni compartas contraseñas reales. En el informe puedes anonimizar (por ejemplo: «contraseña wifi: cumple/no cumple criterios», sin escribir la contraseña real).</div>
+
+</main>
+<script src="../../../assets/js/common.js"></script>
+<script src="../../../assets/js/header.js"></script>
+</body>
+</html>

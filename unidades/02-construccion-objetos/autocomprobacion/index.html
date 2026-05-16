@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#8C2A3D">
+<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<title>Autocomprobación · U02 Construcción · TyD 3º ESO</title>
+<meta name="description" content="Autocomprobación de la unidad 2 de TyD 3º ESO · 18 preguntas con feedback inmediato sobre análisis de objetos, materiales, fabricación y diseño.">
+<link rel="canonical" href="https://tyd3-ies-jdq.malonso72.workers.dev/unidades/02-construccion-objetos/autocomprobacion/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/common.css">
+<link rel="stylesheet" href="../../../assets/css/unidad.css">
+<style>
+.ac-hero{max-width:1100px;margin:22px auto 8px;padding:0 20px;text-align:center}
+.ac-hero h1{font-family:var(--cond);font-size:1.9rem;color:var(--principal);margin:0 0 6px;letter-spacing:.5px}
+.ac-hero .subt{font-size:.95rem;color:var(--texto2);margin:0 0 16px}
+.ac-camino{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;font-family:var(--cond);font-size:.78rem;letter-spacing:.4px;margin-bottom:10px}
+.ac-camino span{padding:4px 12px;border-radius:14px;background:#F4F6F9;color:#8C97A8;border:1px solid #D8DDE5}
+.ac-camino span.activo{background:linear-gradient(135deg,var(--principal),var(--principal2));color:#fff;border-color:var(--principal)}
+.ac-camino .sep{background:transparent;border:none;color:#B8C0CC;padding:4px 2px}
+.ac-instrucciones{max-width:900px;margin:0 auto 18px;padding:14px 20px;background:#FBEEEF;border-left:4px solid var(--principal);border-radius:6px;font-size:.92rem;color:var(--texto2);line-height:1.55}
+.ac-instrucciones strong{color:var(--principal)}
+.ac-wrap{max-width:900px;margin:0 auto;padding:0 16px 50px}
+.bloque-encabezado{display:flex;align-items:baseline;gap:10px;margin:22px 0 6px;padding:0 4px}
+.bloque-encabezado .num{font-family:var(--cond);font-size:1.05rem;background:var(--principal);color:#fff;padding:3px 11px;border-radius:14px}
+.bloque-encabezado h2{font-family:var(--cond);font-size:1.4rem;color:var(--texto);margin:0;flex:1}
+.bloque-encabezado .meta{font-size:.8rem;color:var(--texto2)}
+.bloque-ancla{font-size:.88rem;color:var(--texto2);margin:0 4px 10px}
+.bloque-ancla a{color:var(--principal2);text-decoration:none;border-bottom:1px dotted var(--principal2)}
+.bloque-marcador{margin-top:8px;padding:9px 14px;background:#F4F6F9;border-radius:6px;font-size:.88rem;color:var(--texto2);display:none;text-align:right;font-family:var(--cond);letter-spacing:.3px}
+.bloque-marcador.activo{display:block}
+.bloque-marcador .acierto{color:var(--verde);font-weight:600}
+.bloque-marcador .fallo{color:var(--rojo);font-weight:600}
+.test-q .test-num{display:inline-block;font-family:var(--cond);font-size:.78rem;color:var(--principal);background:#FBEEEF;padding:2px 8px;border-radius:10px;margin-right:7px;vertical-align:1px}
+.test-q .test-tipo-tag{display:inline-block;font-family:var(--cond);font-size:.7rem;color:var(--texto2);background:#EEF1F5;padding:2px 7px;border-radius:10px;margin-left:6px;vertical-align:1px}
+.ac-resumen{max-width:900px;margin:28px auto 0;padding:22px 24px;background:linear-gradient(180deg,#FBEEEF,#fff);border:2px solid var(--principal);border-radius:10px;text-align:center}
+.ac-resumen h2{font-family:var(--cond);font-size:1.5rem;color:var(--principal);margin:0 0 8px}
+.ac-resumen .puntuacion{font-family:var(--cond);font-size:2.3rem;color:var(--texto);margin:6px 0}
+.ac-resumen .puntuacion .num-grande{color:var(--principal);font-size:3rem}
+.ac-resumen .veredicto{font-size:1rem;color:var(--texto2);margin:0 0 14px;min-height:1.4em}
+.ac-resumen .progreso-barra{height:14px;background:#F4F6F9;border-radius:7px;overflow:hidden;margin:14px 0;border:1px solid #E0E5EC}
+.ac-resumen .progreso-barra-fill{height:100%;background:linear-gradient(90deg,var(--principal),var(--principal2));width:0;transition:width .5s ease}
+.ac-resumen .acciones{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.ac-resumen button,.ac-resumen .btn-link{font-family:var(--cond);font-size:.88rem;letter-spacing:.5px;padding:9px 18px;border-radius:20px;cursor:pointer;border:1.5px solid var(--principal);background:#fff;color:var(--principal);text-decoration:none;transition:all .15s}
+.ac-resumen button:hover,.ac-resumen .btn-link:hover{background:var(--principal);color:#fff}
+.ac-resumen button.primario{background:var(--principal);color:#fff}
+.ac-resumen button.primario:hover{background:var(--principal2)}
+.ac-resumen button:disabled{opacity:.4;cursor:not-allowed}
+.ac-resumen button:disabled:hover{background:#fff;color:var(--principal)}
+@media(max-width:640px){.ac-hero h1{font-size:1.5rem}.bloque-encabezado{flex-wrap:wrap}.ac-resumen .puntuacion .num-grande{font-size:2.4rem}}
+@media print{.curso-hd,.curso-navcross,.ac-camino,.ac-instrucciones,.ac-resumen{display:none!important}.test-q{break-inside:avoid;border:1px solid #999;margin-bottom:8px}.test-fb{display:block!important;background:#f6f6f6;color:#333;border-left:3px solid #999}}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+<header class="curso-hd">
+  <a href="../../../index.html" class="curso-lg">TyD 3º ESO</a>
+  <span class="curso-sb">U02 · Construcción · Autocomprobación</span>
+  <a href="../../../index.html" class="curso-home-btn">🏠 Inicio</a>
+</header>
+
+<nav class="curso-navcross" role="navigation">
+  <a href="../../../index.html"><span>🏠</span><span class="nc-lbl">Índice</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../index.html"><span>📋</span><span class="nc-lbl">Hub U02</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../libro-digital.html"><span>📖</span><span class="nc-lbl">Libro digital</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../actividades/index.html"><span>✏️</span><span class="nc-lbl">Actividades</span></a>
+  <span class="nc-sep">·</span>
+  <span class="nc-current"><span>✅</span><span class="nc-lbl">Autocomprobación</span></span>
+</nav>
+
+<main id="main-content">
+
+<section class="ac-hero">
+  <div class="ac-camino" aria-label="Camino de aprendizaje">
+    <span>📖 Aprende</span><span class="sep">▸</span>
+    <span>✏️ Practica</span><span class="sep">▸</span>
+    <span class="activo">✅ Comprueba</span><span class="sep">▸</span>
+    <span>🔁 Repasa</span>
+  </div>
+  <h1>✅ Autocomprobación · U02 Construcción de objetos</h1>
+  <p class="subt">18 preguntas para comprobar si lo has entendido · 10-15 minutos</p>
+</section>
+
+<div class="ac-instrucciones">
+  <p>Una sola oportunidad por pregunta. Tras pulsar, el botón se pondrá <strong style="color:#1E8E3E">verde</strong> (acierto) o <strong style="color:#C44536">rojo</strong> (fallo) con explicación y enlace al libro digital.</p>
+  <p style="margin-bottom:0">Bloques: 4 análisis · 4 materiales avanzados · 6 fabricación · 4 diseño y sostenibilidad.</p>
+</div>
+
+<div class="ac-wrap">
+
+<!-- B1 · ANÁLISIS -->
+<div class="bloque-encabezado"><span class="num">B1</span><h2>Análisis de objetos</h2><span class="meta">4 preguntas</span></div>
+<p class="bloque-ancla">📖 Repasa los apartados <a href="../libro-digital.html#s1">«Qué es analizar»</a> al <a href="../libro-digital.html#s3">«Ciclo de vida»</a>.</p>
+
+<section class="test-section" data-bloque="1">
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P1</span>Cuando hablamos de <strong>análisis técnico</strong> de un objeto nos referimos a... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Decir si es bonito o feo</button>
+      <button class="test-opt" data-opt="b">Calcular cuánto cuesta en la tienda</button>
+      <button class="test-opt" data-opt="c">Estudiarlo de forma sistemática: función, forma, materiales, fabricación, uso e impacto</button>
+      <button class="test-opt" data-opt="d">Desmontarlo y dejarlo roto</button>
+    </div>
+    <div class="test-fb">El <strong>análisis técnico</strong> es una mirada ordenada al objeto: para qué sirve, cómo está hecho, qué materiales lleva, cómo se fabrica, cómo se usa y qué impacto tiene. Es una herramienta para entender y para diseñar mejor. <a href="../libro-digital.html#s1">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P2</span>De los <strong>6 puntos del análisis</strong>, ¿cuál NO es uno de ellos? <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Función (¿para qué sirve?)</button>
+      <button class="test-opt" data-opt="b">Marca comercial (¿de qué empresa es?)</button>
+      <button class="test-opt" data-opt="c">Materiales (¿de qué está hecho?)</button>
+      <button class="test-opt" data-opt="d">Uso y ergonomía (¿se maneja con comodidad?)</button>
+    </div>
+    <div class="test-fb">La marca <strong>no</strong> es un punto del análisis técnico (es un dato comercial). Los 6 puntos son: función, forma, materiales, fabricación, uso/ergonomía e impacto ambiental. <a href="../libro-digital.html#s2">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P3</span>«Analizo un boli BIC y digo: <em>la tapa lleva un agujero</em>». Eso es un dato de... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Función principal</button>
+      <button class="test-opt" data-opt="b">Material</button>
+      <button class="test-opt" data-opt="c">Forma / detalle de seguridad (es para que un niño que se la trague pueda seguir respirando)</button>
+      <button class="test-opt" data-opt="d">Impacto ambiental</button>
+    </div>
+    <div class="test-fb">Lo que describes es un <strong>detalle de forma</strong> con una <strong>función de seguridad</strong>. Buena observación, por cierto: ese agujero salva vidas desde 1991. Un buen análisis se fija en detalles que parecen pequeños. <a href="../libro-digital.html#s2">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="d">
+    <p class="test-qtext"><span class="test-num">P4</span>El <strong>ciclo de vida</strong> de un producto incluye estas fases. ¿En qué orden? <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Fabricación → distribución → uso → diseño → fin de vida</button>
+      <button class="test-opt" data-opt="b">Diseño → uso → fabricación → distribución → fin de vida</button>
+      <button class="test-opt" data-opt="c">Extracción → uso → fabricación → fin de vida → diseño</button>
+      <button class="test-opt" data-opt="d">Diseño → extracción de materias primas → fabricación → distribución → uso → fin de vida</button>
+    </div>
+    <div class="test-fb">El ciclo de vida empieza antes de fabricar (en el <strong>diseño</strong>) y no acaba cuando lo tiras (<strong>fin de vida</strong>: reciclaje, reutilización o vertedero). El impacto ambiental se calcula sumando todas las fases. <a href="../libro-digital.html#s3">Repasar →</a></div>
+  </div>
+  <div class="bloque-marcador" data-bloque="1"></div>
+</section>
+
+
+<!-- B2 · MATERIALES AVANZADOS -->
+<div class="bloque-encabezado"><span class="num">B2</span><h2>Materiales avanzados</h2><span class="meta">4 preguntas</span></div>
+<p class="bloque-ancla">📖 Repasa <a href="../libro-digital.html#s4">«Repaso de materiales»</a> a <a href="../libro-digital.html#s6">«Materiales inteligentes»</a>.</p>
+
+<section class="test-section" data-bloque="2">
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P5</span>Un <strong>material compuesto</strong> (composite) es... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Un metal con muchos colores</button>
+      <button class="test-opt" data-opt="b">Una combinación de dos o más materiales que mantienen su identidad pero juntos aportan propiedades nuevas (matriz + refuerzo)</button>
+      <button class="test-opt" data-opt="c">Un plástico reciclado</button>
+      <button class="test-opt" data-opt="d">Una aleación metálica</button>
+    </div>
+    <div class="test-fb">Un <strong>composite</strong> = matriz (que envuelve, normalmente plástico/resina) + refuerzo (fibras: vidrio, carbono, kevlar...). El resultado es ligero, rígido y a la vez resistente. Ejemplos: fibra de vidrio, fibra de carbono, hormigón armado. <a href="../libro-digital.html#s5">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P6</span>La <strong>fibra de carbono</strong> se usa en bicis de competición, aviones y coches deportivos porque... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Es barata y reciclable</button>
+      <button class="test-opt" data-opt="b">Es buena conductora eléctrica</button>
+      <button class="test-opt" data-opt="c">Es muy ligera y muy resistente: aguanta como el acero pesando 4 veces menos</button>
+      <button class="test-opt" data-opt="d">Es flexible como la goma</button>
+    </div>
+    <div class="test-fb">La fibra de carbono ofrece una relación <strong>resistencia/peso</strong> excelente. Su precio es alto y reciclarla es complicado, por eso se reserva para deportes de élite, aeronáutica y prótesis. <a href="../libro-digital.html#s5">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P7</span>Una <strong>aleación con memoria de forma</strong> (como el nitinol) es un material inteligente que... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Cambia de color con la luz</button>
+      <button class="test-opt" data-opt="b">Al calentarse, recupera la forma que «recordaba», aunque lo hayas doblado en frío</button>
+      <button class="test-opt" data-opt="c">Genera electricidad al moverse</button>
+      <button class="test-opt" data-opt="d">Se hace más blando cuando se enfría</button>
+    </div>
+    <div class="test-fb">El <strong>nitinol</strong> y otras aleaciones con memoria de forma «recuerdan» una forma fijada a alta temperatura. Útil en monturas de gafas que recuperan su forma o en stents médicos que se expanden dentro del cuerpo. <a href="../libro-digital.html#s6">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P8</span>Un material <strong>piezoeléctrico</strong>... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Cambia de tamaño con la temperatura</button>
+      <button class="test-opt" data-opt="b">Genera una pequeña corriente eléctrica cuando se le aplica presión (y viceversa)</button>
+      <button class="test-opt" data-opt="c">Se vuelve transparente con la luz</button>
+      <button class="test-opt" data-opt="d">Resiste a los químicos agresivos</button>
+    </div>
+    <div class="test-fb">El efecto <strong>piezoeléctrico</strong> convierte presión en electricidad (sensores de pisada, mecheros sin gas) y al revés (altavoces piezo, ultrasonidos). Lo descubrieron los hermanos Curie en 1880. <a href="../libro-digital.html#s6">Repasar →</a></div>
+  </div>
+  <div class="bloque-marcador" data-bloque="2"></div>
+</section>
+
+
+<!-- B3 · FABRICACIÓN (6 preguntas) -->
+<div class="bloque-encabezado"><span class="num">B3</span><h2>Procesos de fabricación</h2><span class="meta">6 preguntas</span></div>
+<p class="bloque-ancla">📖 Repasa <a href="../libro-digital.html#s7">«Sustractiva»</a> a <a href="../libro-digital.html#s11">«Artesanía vs industria»</a>.</p>
+
+<section class="test-section" data-bloque="3">
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P9</span>Una fresadora CNC trabaja sobre un bloque de aluminio. Está usando un proceso... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Aditivo</button>
+      <button class="test-opt" data-opt="b">Sustractivo (quita material para llegar a la forma)</button>
+      <button class="test-opt" data-opt="c">De conformado</button>
+      <button class="test-opt" data-opt="d">De unión</button>
+    </div>
+    <div class="test-fb">La fresadora CNC <strong>arranca virutas</strong> de un bloque hasta dejar la pieza. Es un proceso <strong>sustractivo</strong>. Otros: torneado, taladrado, corte láser o por agua. Genera virutas que (afortunadamente) suelen ser reciclables. <a href="../libro-digital.html#s7">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P10</span>Una impresora 3D FDM (la típica de instituto) construye la pieza... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Tallando un bloque de plástico hasta dejarla</button>
+      <button class="test-opt" data-opt="b">Inyectando plástico fundido en un molde</button>
+      <button class="test-opt" data-opt="c">Depositando filamento de plástico fundido capa a capa</button>
+      <button class="test-opt" data-opt="d">Cosiendo láminas de plástico</button>
+    </div>
+    <div class="test-fb">FDM = <em>Fused Deposition Modeling</em>: filamento de PLA o PETG que se funde a ~200 ºC y se deposita en capas finísimas. Es un proceso <strong>aditivo</strong>: solo se usa el material justo, casi sin desperdicio. <a href="../libro-digital.html#s8">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="a">
+    <p class="test-qtext"><span class="test-num">P11</span>Para fabricar <strong>10 000 carcasas iguales</strong> de un mando de TV, el proceso más adecuado es... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Inyección en molde de plástico (rápido y baratísimo por unidad)</button>
+      <button class="test-opt" data-opt="b">Impresión 3D (una a una)</button>
+      <button class="test-opt" data-opt="c">Mecanizado CNC en aluminio</button>
+      <button class="test-opt" data-opt="d">Trabajo manual</button>
+    </div>
+    <div class="test-fb">Para <strong>grandes series</strong> de piezas iguales, la <strong>inyección en molde</strong> es imbatible: el molde es caro, pero cada pieza después cuesta céntimos. La impresión 3D solo gana en series cortas o prototipos. <a href="../libro-digital.html#s9">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="d">
+    <p class="test-qtext"><span class="test-num">P12</span>¿En cuál de estos casos es <strong>preferible la impresión 3D</strong> frente a fabricación tradicional? <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Fabricar 100 000 botellas de plástico</button>
+      <button class="test-opt" data-opt="b">Producir tornillos M5 estándar</button>
+      <button class="test-opt" data-opt="c">Cortar grandes láminas de chapa</button>
+      <button class="test-opt" data-opt="d">Una prótesis de mano personalizada para una persona concreta</button>
+    </div>
+    <div class="test-fb">La impresión 3D brilla en piezas <strong>únicas y personalizadas</strong>, prototipos rápidos o geometrías muy complejas que no se podrían moldear. Para piezas estándar en grandes series, los procesos tradicionales son más eficientes. <a href="../libro-digital.html#s8">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P13</span>Una unión <strong>desmontable</strong> es la que... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Se rompe al menor esfuerzo</button>
+      <button class="test-opt" data-opt="b">Se puede deshacer sin destruir las piezas (tornillos, clips, encastres)</button>
+      <button class="test-opt" data-opt="c">Necesita pegamento permanente</button>
+      <button class="test-opt" data-opt="d">Solo se usa en madera</button>
+    </div>
+    <div class="test-fb">Una unión <strong>desmontable</strong> (tornillería, clips, encastres tipo IKEA) permite reparar, reemplazar piezas y reciclar mejor. La fija (soldadura, remache, pegado fuerte) es más resistente pero condena al producto al vertedero cuando algo se estropea. <a href="../libro-digital.html#s10">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P14</span>«Un alfarero modela un jarrón a mano en el torno». «Una fábrica saca 5000 jarrones idénticos por hora». ¿Cuál es la diferencia fundamental? <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">El primero usa peor material</button>
+      <button class="test-opt" data-opt="b">El primero es artesanía (cada pieza es única, lleva más tiempo, cuesta más); el segundo es producción industrial (pieza igual, rápida y barata)</button>
+      <button class="test-opt" data-opt="c">El primero es ilegal</button>
+      <button class="test-opt" data-opt="d">No hay diferencia técnica</button>
+    </div>
+    <div class="test-fb">La <strong>artesanía</strong> hace piezas únicas con valor añadido (autoría, tradición, irrepetibilidad). La <strong>industria</strong> hace muchas piezas iguales a bajo coste. Ambas son válidas: depende del uso, el valor cultural y el presupuesto. <a href="../libro-digital.html#s11">Repasar →</a></div>
+  </div>
+  <div class="bloque-marcador" data-bloque="3"></div>
+</section>
+
+
+<!-- B4 · DISEÑO Y SOSTENIBILIDAD -->
+<div class="bloque-encabezado"><span class="num">B4</span><h2>Diseño y sostenibilidad</h2><span class="meta">4 preguntas</span></div>
+<p class="bloque-ancla">📖 Repasa <a href="../libro-digital.html#s12">«DCU»</a> a <a href="../libro-digital.html#s14">«Diseño sostenible»</a>.</p>
+
+<section class="test-section" data-bloque="4">
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P15</span>El <strong>Diseño Centrado en el Usuario (DCU)</strong> consiste en... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Hacer el producto más bonito que el de la competencia</button>
+      <button class="test-opt" data-opt="b">Diseñar el producto poniendo en el centro a la persona que lo va a usar: sus necesidades, capacidades y contexto</button>
+      <button class="test-opt" data-opt="c">Que solo decida un usuario</button>
+      <button class="test-opt" data-opt="d">Diseñar primero y preguntar al usuario al final</button>
+    </div>
+    <div class="test-fb">El <strong>DCU</strong> investiga al usuario <em>antes</em> de diseñar, prototipa rápido y testea con personas reales. Resultado: productos que se entienden a la primera y que sirven a más gente (no solo al ingeniero que los pensó). <a href="../libro-digital.html#s12">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P16</span>La <strong>ergonomía</strong> se ocupa de... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Que el producto sea barato</button>
+      <button class="test-opt" data-opt="b">Que el producto tenga colores bonitos</button>
+      <button class="test-opt" data-opt="c">Adaptar el objeto al cuerpo humano: dimensiones, posturas, esfuerzos, alcance, agarre</button>
+      <button class="test-opt" data-opt="d">Que pese mucho para que parezca robusto</button>
+    </div>
+    <div class="test-fb">La <strong>ergonomía</strong> usa la antropometría (medidas del cuerpo) y la biomecánica (cómo se mueve) para que el objeto no fuerce malas posturas ni cause lesiones. Un mango bien diseñado evita túnel carpiano, una silla cervicalgias. <a href="../libro-digital.html#s13">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P17</span>Las <strong>3 R</strong> de la sostenibilidad son: <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Rápido, Robusto, Rentable</button>
+      <button class="test-opt" data-opt="b">Reducir, Reutilizar, Reciclar (en ese orden de prioridad)</button>
+      <button class="test-opt" data-opt="c">Restaurar, Reorganizar, Repetir</button>
+      <button class="test-opt" data-opt="d">Redondear, Reformar, Repartir</button>
+    </div>
+    <div class="test-fb">Las <strong>3 R</strong>: primero <strong>reducir</strong> (no comprar de más, diseñar con menos material), después <strong>reutilizar</strong> (alargar la vida útil), y solo en último lugar <strong>reciclar</strong> (porque reciclar también gasta energía). <a href="../libro-digital.html#s14">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P18</span>«Una marca diseña sus móviles para que la batería sea imposible de cambiar y obliga a tirar el móvil cuando dura poco». Esto se llama... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Diseño sostenible</button>
+      <button class="test-opt" data-opt="b">Obsolescencia programada (estrategia comercial cuestionable que la UE empieza a regular)</button>
+      <button class="test-opt" data-opt="c">Diseño centrado en el usuario</button>
+      <button class="test-opt" data-opt="d">Reciclaje circular</button>
+    </div>
+    <div class="test-fb">La <strong>obsolescencia programada</strong> acorta artificialmente la vida del producto para forzar a comprar otro. La UE aprobó en 2024 el «derecho a la reparación»: piezas de repuesto disponibles, baterías reemplazables, manuales accesibles. Lo opuesto sería diseño <strong>modular y reparable</strong>. <a href="../libro-digital.html#s14">Repasar →</a></div>
+  </div>
+  <div class="bloque-marcador" data-bloque="4"></div>
+</section>
+
+
+<section class="ac-resumen" id="ac-resumen">
+  <h2>Resultado de la autocomprobación</h2>
+  <div class="puntuacion"><span class="num-grande" id="ac-aciertos">0</span> / <span id="ac-total">18</span> aciertos</div>
+  <div class="progreso-barra"><div class="progreso-barra-fill" id="ac-bar"></div></div>
+  <p class="veredicto" id="ac-veredicto">Responde las preguntas para ver tu resultado.</p>
+  <div class="acciones">
+    <button id="ac-reintentar" class="primario" disabled>🔁 Reintentar las falladas</button>
+    <button id="ac-todo" disabled>🔄 Empezar de nuevo</button>
+    <a class="btn-link" href="../libro-digital.html">📖 Libro digital</a>
+    <a class="btn-link" href="../index.html">📋 Hub U02</a>
+  </div>
+</section>
+
+</div>
+</main>
+
+<script src="../../../assets/js/common.js"></script>
+<script src="../../../assets/js/header.js"></script>
+<script>
+(function(){'use strict';
+var qs=document.querySelectorAll('.test-q'),tot=document.getElementById('ac-total'),ac=document.getElementById('ac-aciertos'),bar=document.getElementById('ac-bar'),vr=document.getElementById('ac-veredicto'),br=document.getElementById('ac-reintentar'),bt=document.getElementById('ac-todo');
+tot.textContent=qs.length;
+function refrescar(){var a=0,c=0,f=0,pB={};qs.forEach(function(q){var b=q.closest('.test-section').dataset.bloque;if(!pB[b])pB[b]={ok:0,ko:0,total:0};pB[b].total++;if(q.classList.contains('answered')){c++;var ok=q.querySelector('.test-opt.correct')&&!q.querySelector('.test-opt.wrong');if(ok){a++;pB[b].ok++;}else{f++;pB[b].ko++;}}});ac.textContent=a;var p=Math.round(a/qs.length*100);bar.style.width=p+'%';if(c===0){vr.textContent='Responde las preguntas para ver tu resultado.';}else if(c<qs.length){vr.innerHTML='Llevas <strong>'+c+'</strong> de '+qs.length+' respondidas.';}else{var m=p>=90?'🌟 ¡Excelente! Dominas la unidad.':p>=75?'👍 Muy bien. Repasa los puntos fallados.':p>=50?'🙂 Aprobado. Vuelve al libro digital donde más hayas fallado.':'📚 Tranquilo: repasa con calma y vuelve a intentar.';vr.innerHTML=m+'<br><small>'+a+' aciertos · '+f+' fallos · '+p+'%</small>';}br.disabled=(f===0);bt.disabled=(c===0);Object.keys(pB).forEach(function(b){var m=document.querySelector('.bloque-marcador[data-bloque="'+b+'"]'),x=pB[b],d=x.ok+x.ko;if(d===0){m.classList.remove('activo');return;}m.classList.add('activo');if(d<x.total){m.innerHTML='Bloque '+b+': '+d+' / '+x.total+' respondidas';}else{m.innerHTML='Bloque '+b+': <span class="acierto">'+x.ok+' acierto'+(x.ok===1?'':'s')+'</span> · <span class="fallo">'+x.ko+' fallo'+(x.ko===1?'':'s')+'</span>';}});}
+document.addEventListener('click',function(e){if(e.target.classList&&e.target.classList.contains('test-opt')){setTimeout(refrescar,0);}});
+function rs(q){q.classList.remove('answered');q.querySelectorAll('.test-opt').forEach(function(b){b.classList.remove('correct','wrong');b.disabled=false;});}
+br.addEventListener('click',function(){qs.forEach(function(q){if(q.classList.contains('answered')&&q.querySelector('.test-opt.wrong'))rs(q);});refrescar();var p=document.querySelector('.test-q:not(.answered)');if(p)p.scrollIntoView({behavior:'smooth',block:'center'});});
+bt.addEventListener('click',function(){if(!confirm('¿Empezar de nuevo? Se borrarán todas tus respuestas.'))return;qs.forEach(rs);refrescar();window.scrollTo({top:0,behavior:'smooth'});});
+refrescar();})();
+</script>
+</body>
+</html>

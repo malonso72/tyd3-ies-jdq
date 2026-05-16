@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#8C2A3D">
+<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<title>Actividades · U03 Redes · TyD 3º ESO</title>
+<meta name="description" content="12 actividades sobre redes, internet y ciberseguridad con soluciones colapsables para 3º ESO.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/common.css">
+<link rel="stylesheet" href="../../../assets/css/unidad.css">
+<style>
+.act-wrap{max-width:900px;margin:24px auto 50px;padding:0 20px}
+.act-intro{background:#FBEEEF;border-left:4px solid var(--principal);padding:14px 18px;border-radius:0 6px 6px 0;margin-bottom:24px;font-size:.94rem;line-height:1.55}
+.act-intro strong{color:var(--principal)}
+.seccion{background:#fff;border:1px solid var(--borde);border-radius:8px;padding:18px 22px;margin-bottom:18px}
+.seccion h2{font-family:var(--cond);color:var(--principal);font-size:1.15rem;margin:0 0 12px;display:flex;align-items:center;gap:8px}
+.seccion h2 .num{display:inline-block;width:32px;height:32px;line-height:32px;text-align:center;background:var(--principal);color:#fff;border-radius:50%;font-size:.9rem}
+.bloque-titulo{font-family:var(--cond);font-size:.78rem;letter-spacing:2px;color:var(--principal);text-transform:uppercase;margin:28px 0 12px;padding-bottom:4px;border-bottom:1px dashed var(--principal)}
+.bloque-titulo:first-of-type{margin-top:0}
+.enunciado{margin-bottom:10px;font-size:.96rem;line-height:1.55}
+.enunciado code{background:#F4F6F9;padding:1px 6px;border-radius:3px;font-family:monospace;font-size:.88rem}
+.sol-btn{font-family:var(--cond);font-size:.85rem;letter-spacing:.5px;padding:7px 16px;border-radius:18px;cursor:pointer;border:1.5px solid var(--principal);background:#fff;color:var(--principal);font-weight:600;margin-top:4px}
+.sol-btn:hover{background:var(--principal);color:#fff}
+.sol-btn.open{background:var(--principal);color:#fff}
+.sol-btn::before{content:"▶ ";font-size:.7rem}
+.sol-btn.open::before{content:"▼ "}
+.sol-content{display:none;margin-top:12px;padding:14px 16px;background:#F4F6F9;border-left:4px solid var(--verde);border-radius:0 6px 6px 0;font-size:.92rem;line-height:1.55}
+.sol-content.show{display:block}
+@media print{.sol-btn{display:none}.sol-content{display:block!important;background:#fafafa}}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+<header class="curso-hd"><span class="curso-sb">U03 · Redes · Actividades</span></header>
+<nav class="curso-navcross" role="navigation">
+  <a href="../../../index.html"><span>🏠</span><span class="nc-lbl">Índice</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../index.html"><span>📋</span><span class="nc-lbl">Hub U03</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../libro-digital.html"><span>📖</span><span class="nc-lbl">Libro digital</span></a>
+  <span class="nc-sep">·</span>
+  <span class="nc-current"><span>✏️</span><span class="nc-lbl">Actividades</span></span>
+  <span class="nc-sep">·</span>
+  <a href="../autocomprobacion/index.html"><span>✅</span><span class="nc-lbl">Autocomp</span></a>
+</nav>
+
+<main id="main-content" class="act-wrap">
+  <h1 class="unidad-titulo">Actividades · U03 Redes y comunicaciones</h1>
+  <div class="act-intro"><p><strong>12 actividades</strong> repartidas en 4 bloques. Intenta resolverlas y comprueba con la solución colapsable.</p></div>
+
+  <div class="bloque-titulo">Bloque 1 · Redes</div>
+
+  <section class="seccion">
+    <h2><span class="num">1</span>Clasifica redes por su tamaño</h2>
+    <div class="enunciado">Indica qué tipo de red (PAN, LAN, MAN, WAN) es cada caso:<ol><li>El wifi del aula del IES.</li><li>Internet.</li><li>El bluetooth entre tu móvil y tu reloj inteligente.</li><li>La red municipal de wifi de Granada.</li><li>Una empresa con sedes en Sevilla, Málaga y Granada conectadas.</li></ol></div>
+    <button class="sol-btn">Ver solución</button>
+    <div class="sol-content"><p>1. LAN · 2. WAN · 3. PAN · 4. MAN · 5. WAN.</p></div>
+  </section>
+
+  <section class="seccion">
+    <h2><span class="num">2</span>Topologías de red</h2>
+    <div class="enunciado">El wifi de casa es típicamente <strong>en estrella</strong>. ¿Por qué crees que NO se usa la topología en bus para wifi doméstico? Da dos razones.</div>
+    <button class="sol-btn">Ver solución</button>
+    <div class="sol-content"><p>1. Si se rompe el bus central, se cae toda la red. 2. El wifi por naturaleza es por ondas, no por cable lineal: cada dispositivo se conecta independientemente al router (centro). El bus requería un cable común físico, lo que era caro y frágil. La estrella es además más fácil de configurar y diagnosticar.</p></div>
+  </section>
+
+  <section class="seccion">
+    <h2><span class="num">3</span>Medio de transmisión</h2>
+    <div class="enunciado">¿Qué medio recomendarías para cada caso, y por qué?<ol><li>Conectar dos edificios de la misma manzana sin obra civil.</li><li>Una oficina con 30 ordenadores fijos donde la velocidad es crítica.</li><li>El móvil de un repartidor que se mueve por toda la ciudad.</li><li>Tu reloj inteligente con el móvil.</li></ol></div>
+    <button class="sol-btn">Ver solución</button>
+    <div class="sol-content"><p>1. <strong>Wifi punto a punto</strong> (antenas direccionales) o <strong>fibra aérea</strong> si hay tirada. 2. <strong>Cable Ethernet (RJ-45)</strong>: rápido, barato, estable. La oficina cableada va por encima del wifi en confiabilidad. 3. <strong>4G/5G</strong>. 4. <strong>Bluetooth</strong>: bajo consumo y poca distancia.</p></div>
+  </section>
+
+
+  <div class="bloque-titulo">Bloque 2 · Internet</div>
+
+  <section class="seccion">
+    <h2><span class="num">4</span>Cómo viaja un paquete</h2>
+    <div class="enunciado">Escribes <code>www.iesjdq.es</code> en el navegador. Ordena los pasos de lo que ocurre:<ol style="list-style:none;margin-left:0"><li>__ El servidor envía la página de vuelta en paquetes.</li><li>__ El navegador pide al DNS la IP del dominio.</li><li>__ Los paquetes recorren varios routers hasta el servidor.</li><li>__ Tu navegador recompone los paquetes y dibuja la página.</li><li>__ El móvil/PC parte la petición en paquetes con la IP de destino.</li></ol></div>
+    <button class="sol-btn">Ver solución</button>
+    <div class="sol-content"><p>Orden correcto: <strong>2 → 5 → 3 → 1 → 4</strong>. DNS resuelve nombre → IP. Se parte en paquetes. Viajan por routers. El servidor responde. El navegador reconstruye y muestra.</p></div>
+  </section>
+
+  <section class="seccion">
+    <h2><span class="num">5</span>Anatomía de una URL</h2>
+    <div class="enunciado">Identifica las partes de la URL: <code>https://aula.iesjdq.es/moodle/curso?id=42#tareas</code></div>
+    <button class="sol-btn">Ver solución</button>
+    <div class="sol-content"><p><strong>https://</strong> = protocolo cifrado · <strong>aula.iesjdq.es</strong> = dominio (con subdominio "aula") · <strong>/moodle/curso</strong> = ruta · <strong>?id=42</strong> = parámetro · <strong>#tareas</strong> = ancla a una sección de la página.</p></div>
+  </section>
+
+  <section class="seccion">
+    <h2><span class="num">6</span>IP pública e IP privada</h2>
+    <div class="enunciado">Abre la consola de tu casa (o pídele al adulto). En Windows: <code>cmd</code> y luego <code>ipconfig</code>. Apunta la "Dirección IPv4" de tu equipo. Después busca en Google "cuál es mi IP" y apunta lo que sale. ¿Son iguales? ¿Por qué?</div>
+    <button class="sol-btn">Ver solución</button>
+    <div class="sol-content"><p>NO son iguales. La que da <code>ipconfig</code> es la <strong>IP privada</strong> (192.168.x.x) que te asigna tu router dentro de tu LAN. La que da Google es la <strong>IP pública</strong> que tu operadora te da en internet — la comparten todos los dispositivos de tu casa cuando salen al exterior (NAT).</p></div>
+  </section>
+
+
+  <div class="bloque-titulo">Bloque 3 · Ciberseguridad</div>
+
+  <section class="seccion">
+    <h2><span class="num">7</span>Clasifica el malware</h2>
+    <div class="enunciado">Asocia cada caso con su tipo: ransomware, troyano, spyware, gusano, adware.<ol><li>Una app gratis de linterna que pide permisos absurdos (cámara, contactos) y oye lo que haces.</li><li>Un programa que se descarga "juego pirata.exe" y abre una puerta trasera.</li><li>Pantallas de publicidad por todas partes y tu navegador no para de abrir pestañas.</li><li>Te aparece un mensaje "Tus archivos están cifrados. Paga 500 € en bitcoins."</li><li>Una infección entra en una empresa y se propaga sola entre todos los PCs de la red en horas.</li></ol></div>
+    <button class="sol-btn">Ver solución</button>
+    <div class="sol-content"><p>1. <strong>Spyware</strong> · 2. <strong>Troyano</strong> · 3. <strong>Adware</strong> · 4. <strong>Ransomware</strong> · 5. <strong>Gusano</strong>.</p></div>
+  </section>
+
+  <section class="seccion">
+    <h2><span class="num">8</span>Caso real de phishing</h2>
+    <div class="enunciado">Te llega este SMS: «<em>BBVA: Detectamos un intento de acceso desde Rumanía. Verifica tu cuenta YA en https://bbva-cliente-verifica.com/login para evitar el bloqueo (24h).</em>» Identifica al menos <strong>4 señales</strong> de que es phishing.</div>
+    <button class="sol-btn">Ver solución</button>
+    <div class="sol-content"><p>1. <strong>Dominio falso</strong>: bbva-cliente-verifica.com no es el oficial (bbva.es).<br>2. <strong>Urgencia exagerada</strong>: "YA", "24h".<br>3. <strong>Pide credenciales por enlace</strong>: tu banco NUNCA hace eso.<br>4. <strong>Apelación al miedo</strong> ("Rumanía", "bloqueo").<br>5. <strong>Saludo genérico</strong> sin tu nombre.<br>Qué hacer: BORRAR el SMS. Si dudas, abre tú la app oficial de BBVA o llama al teléfono del reverso de tu tarjeta.</p></div>
+  </section>
+
+  <section class="seccion">
+    <h2><span class="num">9</span>Plan anti-ransomware en casa</h2>
+    <div class="enunciado">Diseña en 5-6 líneas un <strong>plan de protección contra ransomware</strong> para el ordenador familiar.</div>
+    <button class="sol-btn">Ver solución posible</button>
+    <div class="sol-content"><p>1. <strong>Copia de seguridad</strong> en disco USB externo cada semana, que se desconecta del PC tras la copia.<br>2. <strong>Windows Update activado</strong> y Microsoft Defender al día.<br>3. <strong>No descargar de fuentes dudosas</strong>: solo Microsoft Store o webs muy conocidas.<br>4. <strong>Cuidado con adjuntos</strong> de correos no esperados.<br>5. <strong>Cuenta de usuario</strong> sin privilegios de administrador para uso diario.<br>6. <strong>Si infección</strong>: desconectar de la red AL INSTANTE y restaurar desde la copia. NO pagar.</p></div>
+  </section>
+
+  <section class="seccion">
+    <h2><span class="num">10</span>Tu huella digital</h2>
+    <div class="enunciado">Busca tu nombre y apellidos entre comillas en Google: <code>"Tu Nombre Apellidos"</code>. Apunta qué aparece (publicaciones del centro, redes sociales, antiguos blogs…) y reflexiona: ¿hay algo que te gustaría que no estuviera? ¿Qué podrías hacer para reducirlo?</div>
+    <button class="sol-btn">Ver guía de reflexión</button>
+    <div class="sol-content"><p>Aspectos a considerar: cuentas privadas vs públicas, etiquetado controlado, no compartir ubicación, derecho al olvido (en la UE puedes pedir a Google que quite resultados sobre ti obsoletos), revisar permisos de apps. Pensar también: ¿qué de lo que publico hoy me molestaría a los 25 años?</p></div>
+  </section>
+
+
+  <div class="bloque-titulo">Bloque 4 · Sociedad digital</div>
+
+  <section class="seccion">
+    <h2><span class="num">11</span>Big Data y publicidad personalizada</h2>
+    <div class="enunciado">Mira durante 10 minutos los anuncios que te aparecen en YouTube o Instagram. Apunta: ¿qué te están vendiendo? ¿Por qué crees que el algoritmo eligió justo esos anuncios para ti? Reflexiona en 5-6 líneas.</div>
+    <button class="sol-btn">Ver guía</button>
+    <div class="sol-content"><p>Los algoritmos predicen tus intereses por: edad, género, ubicación, historial de búsquedas, vídeos que ves enteros, palabras que dices cerca del móvil (sí, esto pasa con micrófono activado), apps instaladas y, a veces, datos cruzados con otras webs que has visitado. Es un perfil muy preciso. Reducir: usar buscadores que no traquean (DuckDuckGo), bloqueadores de anuncios, revisar permisos de apps, cuentas en privado.</p></div>
+  </section>
+
+  <section class="seccion">
+    <h2><span class="num">12</span>Debate sobre brecha digital</h2>
+    <div class="enunciado">Tu abuela necesita pedir cita médica online porque ya no se puede hacer presencial fácilmente. Pero no sabe usar la web del SAS. ¿Es justo? Reflexiona sobre la brecha digital y propón 3 medidas que las administraciones podrían tomar.</div>
+    <button class="sol-btn">Ver guía</button>
+    <div class="sol-content"><p>Aspectos a debatir: la digitalización beneficia a muchos pero excluye a los que no la dominan (mayores, zonas rurales con mala cobertura, personas sin recursos). Medidas posibles: 1. Atención presencial obligatoria como alternativa. 2. Formación digital gratuita en centros cívicos. 3. Asistencia personal en oficinas. 4. Diseño "para todos" (UX accesible). 5. Conexión a internet gratuita en hogares de baja renta. Lo importante: ningún derecho debe quedar bloqueado por no saber usar un móvil.</p></div>
+  </section>
+
+</main>
+<script src="../../../assets/js/common.js"></script>
+<script src="../../../assets/js/header.js"></script>
+</body>
+</html>

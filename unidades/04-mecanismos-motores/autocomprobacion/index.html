@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#8C2A3D">
+<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<title>Autocomprobación · U04 Mecanismos · TyD 3º ESO</title>
+<meta name="description" content="Autocomprobación de la unidad 4 de TyD 3º ESO · 18 preguntas con feedback inmediato sobre mecanismos y motores.">
+<link rel="canonical" href="https://tyd3-ies-jdq.malonso72.workers.dev/unidades/04-mecanismos-motores/autocomprobacion/">
+<script>
+window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},svg:{fontCache:'global'}};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/common.css">
+<link rel="stylesheet" href="../../../assets/css/unidad.css">
+<style>
+.ac-hero{max-width:1100px;margin:22px auto 8px;padding:0 20px;text-align:center}
+.ac-hero h1{font-family:var(--cond);font-size:1.9rem;color:var(--principal);margin:0 0 6px;letter-spacing:.5px}
+.ac-hero .subt{font-size:.95rem;color:var(--texto2);margin:0 0 16px}
+.ac-camino{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;font-family:var(--cond);font-size:.78rem;letter-spacing:.4px;margin-bottom:10px}
+.ac-camino span{padding:4px 12px;border-radius:14px;background:#F4F6F9;color:#8C97A8;border:1px solid #D8DDE5}
+.ac-camino span.activo{background:linear-gradient(135deg,var(--principal),var(--principal2));color:#fff;border-color:var(--principal)}
+.ac-camino .sep{background:transparent;border:none;color:#B8C0CC;padding:4px 2px}
+.ac-instrucciones{max-width:900px;margin:0 auto 18px;padding:14px 20px;background:#FBEEEF;border-left:4px solid var(--principal);border-radius:6px;font-size:.92rem;color:var(--texto2);line-height:1.55}
+.ac-instrucciones strong{color:var(--principal)}
+.ac-wrap{max-width:900px;margin:0 auto;padding:0 16px 50px}
+.bloque-encabezado{display:flex;align-items:baseline;gap:10px;margin:22px 0 6px;padding:0 4px}
+.bloque-encabezado .num{font-family:var(--cond);font-size:1.05rem;background:var(--principal);color:#fff;padding:3px 11px;border-radius:14px}
+.bloque-encabezado h2{font-family:var(--cond);font-size:1.4rem;color:var(--texto);margin:0;flex:1}
+.bloque-encabezado .meta{font-size:.8rem;color:var(--texto2)}
+.bloque-ancla{font-size:.88rem;color:var(--texto2);margin:0 4px 10px}
+.bloque-ancla a{color:var(--principal2);text-decoration:none;border-bottom:1px dotted var(--principal2)}
+.bloque-marcador{margin-top:8px;padding:9px 14px;background:#F4F6F9;border-radius:6px;font-size:.88rem;color:var(--texto2);display:none;text-align:right;font-family:var(--cond);letter-spacing:.3px}
+.bloque-marcador.activo{display:block}
+.bloque-marcador .acierto{color:var(--verde);font-weight:600}
+.bloque-marcador .fallo{color:var(--rojo);font-weight:600}
+.test-q .test-num{display:inline-block;font-family:var(--cond);font-size:.78rem;color:var(--principal);background:#FBEEEF;padding:2px 8px;border-radius:10px;margin-right:7px;vertical-align:1px}
+.test-q .test-tipo-tag{display:inline-block;font-family:var(--cond);font-size:.7rem;color:var(--texto2);background:#EEF1F5;padding:2px 7px;border-radius:10px;margin-left:6px;vertical-align:1px}
+.ac-resumen{max-width:900px;margin:28px auto 0;padding:22px 24px;background:linear-gradient(180deg,#FBEEEF,#fff);border:2px solid var(--principal);border-radius:10px;text-align:center}
+.ac-resumen h2{font-family:var(--cond);font-size:1.5rem;color:var(--principal);margin:0 0 8px}
+.ac-resumen .puntuacion{font-family:var(--cond);font-size:2.3rem;color:var(--texto);margin:6px 0}
+.ac-resumen .puntuacion .num-grande{color:var(--principal);font-size:3rem}
+.ac-resumen .veredicto{font-size:1rem;color:var(--texto2);margin:0 0 14px;min-height:1.4em}
+.ac-resumen .progreso-barra{height:14px;background:#F4F6F9;border-radius:7px;overflow:hidden;margin:14px 0;border:1px solid #E0E5EC}
+.ac-resumen .progreso-barra-fill{height:100%;background:linear-gradient(90deg,var(--principal),var(--principal2));width:0;transition:width .5s ease}
+.ac-resumen .acciones{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.ac-resumen button,.ac-resumen .btn-link{font-family:var(--cond);font-size:.88rem;letter-spacing:.5px;padding:9px 18px;border-radius:20px;cursor:pointer;border:1.5px solid var(--principal);background:#fff;color:var(--principal);text-decoration:none;transition:all .15s}
+.ac-resumen button:hover,.ac-resumen .btn-link:hover{background:var(--principal);color:#fff}
+.ac-resumen button.primario{background:var(--principal);color:#fff}
+.ac-resumen button.primario:hover{background:var(--principal2)}
+.ac-resumen button:disabled{opacity:.4;cursor:not-allowed}
+.ac-resumen button:disabled:hover{background:#fff;color:var(--principal)}
+@media(max-width:640px){.ac-hero h1{font-size:1.5rem}.bloque-encabezado{flex-wrap:wrap}.ac-resumen .puntuacion .num-grande{font-size:2.4rem}}
+@media print{.curso-hd,.curso-navcross,.ac-camino,.ac-instrucciones,.ac-resumen{display:none!important}.test-q{break-inside:avoid;border:1px solid #999;margin-bottom:8px}.test-fb{display:block!important;background:#f6f6f6;color:#333;border-left:3px solid #999}}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+<header class="curso-hd">
+  <a href="../../../index.html" class="curso-lg">TyD 3º ESO</a>
+  <span class="curso-sb">U04 · Mecanismos · Autocomprobación</span>
+  <a href="../../../index.html" class="curso-home-btn">🏠 Inicio</a>
+</header>
+
+<nav class="curso-navcross" role="navigation">
+  <a href="../../../index.html"><span>🏠</span><span class="nc-lbl">Índice</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../index.html"><span>📋</span><span class="nc-lbl">Hub U04</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../libro-digital.html"><span>📖</span><span class="nc-lbl">Libro digital</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../actividades/index.html"><span>✏️</span><span class="nc-lbl">Cuadernillo</span></a>
+  <span class="nc-sep">·</span>
+  <span class="nc-current"><span>✅</span><span class="nc-lbl">Autocomprobación</span></span>
+</nav>
+
+<main id="main-content">
+
+<section class="ac-hero">
+  <div class="ac-camino" aria-label="Camino de aprendizaje">
+    <span>📖 Aprende</span><span class="sep">▸</span>
+    <span>✏️ Practica</span><span class="sep">▸</span>
+    <span class="activo">✅ Comprueba</span><span class="sep">▸</span>
+    <span>🔁 Repasa</span>
+  </div>
+  <h1>✅ Autocomprobación · U04 Mecanismos y motores</h1>
+  <p class="subt">18 preguntas para comprobar si lo has entendido · 10-15 minutos</p>
+</section>
+
+<div class="ac-instrucciones">
+  <p>Una sola oportunidad por pregunta. Tras pulsar, el botón se pondrá <strong style="color:#1E8E3E">verde</strong> (acierto) o <strong style="color:#C44536">rojo</strong> (fallo) con explicación y enlace al libro digital.</p>
+  <p style="margin-bottom:0">Bloques: 4 máquinas simples · 6 transmisión circular · 4 transformación y biela-manivela · 4 motores.</p>
+</div>
+
+<div class="ac-wrap">
+
+<!-- B1 · MÁQUINAS SIMPLES -->
+<div class="bloque-encabezado"><span class="num">B1</span><h2>Máquinas simples</h2><span class="meta">4 preguntas</span></div>
+<p class="bloque-ancla">📖 Repasa <a href="../libro-digital.html#s1">«Qué es una máquina simple»</a> a <a href="../libro-digital.html#s4">«Plano inclinado, cuña y tornillo»</a>.</p>
+
+<section class="test-section" data-bloque="1">
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P1</span>«Una máquina simple multiplica fuerza, pero a cambio de qué». <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Crea energía nueva</button>
+      <button class="test-opt" data-opt="b">Reduce el rozamiento</button>
+      <button class="test-opt" data-opt="c">Hay que recorrer más distancia (o emplear más tiempo)</button>
+      <button class="test-opt" data-opt="d">Necesita electricidad</button>
+    </div>
+    <div class="test-fb">La ley de oro: $F \cdot d = R \cdot d_R$. Lo que ganas en fuerza, lo pierdes en distancia. Una máquina no crea energía: redistribuye lo que ya tienes. <a href="../libro-digital.html#s1">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P2</span>En una palanca quieres levantar una resistencia $R = 600$ N con tu fuerza $F = 100$ N. El brazo de la resistencia es $d_R = 0{,}5$ m. ¿Qué brazo de fuerza necesitas? <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">1 m</button>
+      <button class="test-opt" data-opt="b">3 m</button>
+      <button class="test-opt" data-opt="c">6 m</button>
+      <button class="test-opt" data-opt="d">0,5 m</button>
+    </div>
+    <div class="test-fb">$F \cdot d_F = R \cdot d_R$ → $100 \cdot d_F = 600 \cdot 0{,}5 = 300$ → $d_F = 3$ m. La palanca debe ser 6 veces más larga del lado de tu fuerza. <a href="../libro-digital.html#s2">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P3</span>Un <strong>polipasto</strong> con 4 tramos de cuerda que sujetan la carga. Para subir $R = 800$ N necesitas... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">800 N</button>
+      <button class="test-opt" data-opt="b">200 N</button>
+      <button class="test-opt" data-opt="c">3200 N</button>
+      <button class="test-opt" data-opt="d">100 N</button>
+    </div>
+    <div class="test-fb">$F = R/n = 800/4 = 200$ N. El precio: tiras 4 metros de cuerda para subir la carga 1 m. <a href="../libro-digital.html#s3">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P4</span>De estos objetos, ¿cuál NO se basa en un plano inclinado? <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Un cuchillo</button>
+      <button class="test-opt" data-opt="b">Un tornillo</button>
+      <button class="test-opt" data-opt="c">Una balanza de cocina</button>
+      <button class="test-opt" data-opt="d">Una rampa de acceso para sillas de ruedas</button>
+    </div>
+    <div class="test-fb">Una balanza es una <strong>palanca</strong> (1.er género). El cuchillo es una <strong>cuña</strong> (dos planos inclinados). El tornillo es un <strong>plano inclinado enrollado</strong>. La rampa es el caso obvio. <a href="../libro-digital.html#s4">Repasar →</a></div>
+  </div>
+  <div class="bloque-marcador" data-bloque="1"></div>
+</section>
+
+
+<!-- B2 · TRANSMISIÓN (6) -->
+<div class="bloque-encabezado"><span class="num">B2</span><h2>Transmisión del movimiento circular</h2><span class="meta">6 preguntas</span></div>
+<p class="bloque-ancla">📖 Repasa <a href="../libro-digital.html#s5">«Relación de transmisión»</a> a <a href="../libro-digital.html#s8">«Trenes compuestos»</a>.</p>
+
+<section class="test-section" data-bloque="2">
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P5</span>La relación de transmisión $i = n_2 / n_1$ entre dos engranajes con $Z_1 = 20$ (motriz) y $Z_2 = 60$ es... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">3 (multiplica velocidad)</button>
+      <button class="test-opt" data-opt="b">3 (reduce velocidad)</button>
+      <button class="test-opt" data-opt="c">1/3 (reduce velocidad ×3, multiplica par ×3)</button>
+      <button class="test-opt" data-opt="d">40</button>
+    </div>
+    <div class="test-fb">$i = Z_1/Z_2 = 20/60 = 1/3$. La conducida gira 3 veces más despacio que la motriz, pero con 3 veces más par. Típico reductor. <a href="../libro-digital.html#s5">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P6</span>Una polea motriz de $d_1 = 200$ mm gira a 1500 rpm. La polea conducida tiene $d_2 = 50$ mm. ¿A qué velocidad gira la conducida? <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">375 rpm</button>
+      <button class="test-opt" data-opt="b">6000 rpm</button>
+      <button class="test-opt" data-opt="c">1500 rpm</button>
+      <button class="test-opt" data-opt="d">300 rpm</button>
+    </div>
+    <div class="test-fb">$n_2/n_1 = d_1/d_2 \Rightarrow n_2 = 1500 \cdot 200/50 = 6000$ rpm. La conducida es más pequeña, así que gira más rápido. <a href="../libro-digital.html#s6">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P7</span>¿Cuál de estos sistemas <strong>no desliza</strong> y permite ejes alejados a la vez? <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Ruedas de fricción</button>
+      <button class="test-opt" data-opt="b">Poleas con correa lisa</button>
+      <button class="test-opt" data-opt="c">Ruedas dentadas con cadena</button>
+      <button class="test-opt" data-opt="d">Engranajes (directamente)</button>
+    </div>
+    <div class="test-fb"><strong>Ruedas dentadas y cadena</strong> = sin deslizamiento (como engranajes) + ejes alejados (como correa). La bici lo usa por eso mismo. Los engranajes directos no soportan ejes alejados. <a href="../libro-digital.html#s7">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P8</span>En una bicicleta, plato grande + piñón pequeño = ... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Más par, menos velocidad (para subir cuestas)</button>
+      <button class="test-opt" data-opt="b">Más velocidad, menos par (para llano o bajada)</button>
+      <button class="test-opt" data-opt="c">Igual velocidad y par</button>
+      <button class="test-opt" data-opt="d">Multiplica par sin perder velocidad</button>
+    </div>
+    <div class="test-fb">Plato grande ($Z_1$ grande) + piñón pequeño ($Z_2$ pequeño): $i = Z_1/Z_2 > 1$. <strong>Multiplicas velocidad</strong>. A cambio pierdes par: cuesta más arrancar. Por eso para subir cuestas pones plato pequeño + piñón grande. <a href="../libro-digital.html#s5">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P9</span>Un tren compuesto: etapa 1 $i_1 = 1/4$, etapa 2 $i_2 = 1/3$. Si la entrada gira a 1200 rpm, la salida gira a... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">300 rpm</button>
+      <button class="test-opt" data-opt="b">100 rpm</button>
+      <button class="test-opt" data-opt="c">400 rpm</button>
+      <button class="test-opt" data-opt="d">800 rpm</button>
+    </div>
+    <div class="test-fb">$i_\text{total} = i_1 \cdot i_2 = 1/4 \cdot 1/3 = 1/12$. Salida $= 1200 / 12 = 100$ rpm. Y el par se multiplica por 12. <a href="../libro-digital.html#s8">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P10</span>Cuando una transmisión por <strong>correa lisa</strong> tiene que aguantar mucha carga, el problema típico es... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">La correa se rompe siempre</button>
+      <button class="test-opt" data-opt="b">La correa desliza sobre la polea</button>
+      <button class="test-opt" data-opt="c">Las poleas se desalinean solas</button>
+      <button class="test-opt" data-opt="d">Pierde la energía en calor</button>
+    </div>
+    <div class="test-fb">La correa lisa se basa en rozamiento; con carga grande, <strong>desliza</strong>. Solución: correa dentada (síncrona). El motor de tu coche moderno la usa para la distribución por eso mismo. <a href="../libro-digital.html#s6">Repasar →</a></div>
+  </div>
+  <div class="bloque-marcador" data-bloque="2"></div>
+</section>
+
+
+<!-- B3 · TRANSFORMACIÓN -->
+<div class="bloque-encabezado"><span class="num">B3</span><h2>Transformación del movimiento</h2><span class="meta">4 preguntas</span></div>
+<p class="bloque-ancla">📖 Repasa <a href="../libro-digital.html#s9">«Tornillo sin fin»</a> a <a href="../libro-digital.html#s13">«Biela-manivela»</a>.</p>
+
+<section class="test-section" data-bloque="3">
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P11</span>El mecanismo <strong>piñón-cremallera</strong> transforma... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Movimiento alternativo en circular</button>
+      <button class="test-opt" data-opt="b">Movimiento circular (del piñón) en lineal (de la cremallera) y viceversa</button>
+      <button class="test-opt" data-opt="c">Solo aumenta velocidad de giro</button>
+      <button class="test-opt" data-opt="d">Cambia el sentido del giro</button>
+    </div>
+    <div class="test-fb">Piñón gira → cremallera se desplaza en línea recta. Aplicaciones típicas: dirección de coches, telescopios, puertas correderas automáticas. <a href="../libro-digital.html#s10">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P12</span>Un husillo de paso $p = 2$ mm gira a 120 rpm. La tuerca avanza linealmente a... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">120 mm/min</button>
+      <button class="test-opt" data-opt="b">2 mm/min</button>
+      <button class="test-opt" data-opt="c">240 mm/min (= 4 mm/s)</button>
+      <button class="test-opt" data-opt="d">60 mm/min</button>
+    </div>
+    <div class="test-fb">$v = p \cdot n = 2 \cdot 120 = 240$ mm/min. O sea, 4 mm cada segundo. Por eso una impresora 3D con husillos pequeños imprime "lenta" pero precisa. <a href="../libro-digital.html#s11">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P13</span>Una propiedad clave del <strong>tornillo sin fin + corona</strong> es... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Es reversible y multiplica velocidad</button>
+      <button class="test-opt" data-opt="b">Es irreversible: el tornillo mueve la corona, pero la corona NO mueve al tornillo</button>
+      <button class="test-opt" data-opt="c">Necesita lubricación constante para girar</button>
+      <button class="test-opt" data-opt="d">Solo sirve para juguetes</button>
+    </div>
+    <div class="test-fb">La <strong>irreversibilidad</strong> es la clave: si paras el motor, la carga no retrocede. Imprescindible en cintas transportadoras y elevadores. <a href="../libro-digital.html#s9">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P14</span>El mecanismo <strong>biela-manivela</strong> es el corazón de... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Las puertas correderas</button>
+      <button class="test-opt" data-opt="b">Los motores de combustión interna (pistón ↔ cigüeñal) y las máquinas de coser</button>
+      <button class="test-opt" data-opt="c">Las cintas transportadoras</button>
+      <button class="test-opt" data-opt="d">Los relojes mecánicos</button>
+    </div>
+    <div class="test-fb">Convierte vaivén lineal ↔ giro. En el motor: el pistón empuja la biela, la biela hace girar el cigüeñal. En la máquina de coser, al revés: el motor gira, y la aguja sube y baja. <a href="../libro-digital.html#s13">Repasar →</a></div>
+  </div>
+  <div class="bloque-marcador" data-bloque="3"></div>
+</section>
+
+
+<!-- B4 · MOTORES -->
+<div class="bloque-encabezado"><span class="num">B4</span><h2>Motores</h2><span class="meta">4 preguntas</span></div>
+<p class="bloque-ancla">📖 Repasa <a href="../libro-digital.html#s15">«Motores eléctricos»</a> y <a href="../libro-digital.html#s16">«Motores de combustión»</a>.</p>
+
+<section class="test-section" data-bloque="4">
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P15</span>Quieres que un brazo robótico se mueva a un <strong>ángulo concreto</strong> que tú le ordenes desde Arduino. ¿Qué motor usas? <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Motor de CC normal</button>
+      <button class="test-opt" data-opt="b">Motor de combustión 4T</button>
+      <button class="test-opt" data-opt="c">Servomotor (gira a un ángulo concreto y se mantiene ahí)</button>
+      <button class="test-opt" data-opt="d">Motor brushless</button>
+    </div>
+    <div class="test-fb">El <strong>servomotor</strong> tiene un sensor interno que sabe en qué ángulo está y se posiciona en el que tú le ordenes (típicamente 0-180º). Es el motor estándar de la robótica educativa. <a href="../libro-digital.html#s15">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P16</span>Una impresora 3D mueve el cabezal en X-Y con motores... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">De combustión, por su potencia</button>
+      <button class="test-opt" data-opt="b">Paso a paso, por su precisión sin necesidad de sensor</button>
+      <button class="test-opt" data-opt="c">Servos de hobby</button>
+      <button class="test-opt" data-opt="d">Brushless de drone</button>
+    </div>
+    <div class="test-fb"><strong>Paso a paso</strong>: la electrónica le dice «20 pasos» y gira exactamente 20 pasos = 18º (con 200 pasos/vuelta). Sin sensor, simple, fiable. Para máquinas CNC, impresoras 3D y escáneres. <a href="../libro-digital.html#s15">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P17</span>En un motor <strong>de 4 tiempos</strong>, el orden correcto es... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Compresión → Admisión → Explosión → Escape</button>
+      <button class="test-opt" data-opt="b">Admisión → Compresión → Explosión → Escape</button>
+      <button class="test-opt" data-opt="c">Explosión → Admisión → Compresión → Escape</button>
+      <button class="test-opt" data-opt="d">Escape → Compresión → Admisión → Explosión</button>
+    </div>
+    <div class="test-fb">El orden es <strong>Admisión, Compresión, Explosión, Escape</strong> (cuatro carreras del pistón = 2 vueltas del cigüeñal). Solo la 3.ª (explosión) genera trabajo motor; las otras 3 consumen energía. <a href="../libro-digital.html#s16">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P18</span>El motor <strong>diésel</strong> se diferencia del de gasolina porque... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Es más pequeño y silencioso</button>
+      <button class="test-opt" data-opt="b">Solo tiene 2 tiempos</button>
+      <button class="test-opt" data-opt="c">No usa bujías: enciende el combustible por la alta compresión (16-22:1)</button>
+      <button class="test-opt" data-opt="d">No produce CO₂</button>
+    </div>
+    <div class="test-fb">El diésel comprime tanto el aire que sube a ~500 ºC; al inyectar gasóleo, se enciende solo. Sin bujía. Eficiencia ~40% (vs ~30% gasolina). Por eso los camiones y maquinaria pesada lo usan: mejor consumo. <a href="../libro-digital.html#s16">Repasar →</a></div>
+  </div>
+  <div class="bloque-marcador" data-bloque="4"></div>
+</section>
+
+
+<section class="ac-resumen" id="ac-resumen">
+  <h2>Resultado de la autocomprobación</h2>
+  <div class="puntuacion"><span class="num-grande" id="ac-aciertos">0</span> / <span id="ac-total">18</span> aciertos</div>
+  <div class="progreso-barra"><div class="progreso-barra-fill" id="ac-bar"></div></div>
+  <p class="veredicto" id="ac-veredicto">Responde las preguntas para ver tu resultado.</p>
+  <div class="acciones">
+    <button id="ac-reintentar" class="primario" disabled>🔁 Reintentar las falladas</button>
+    <button id="ac-todo" disabled>🔄 Empezar de nuevo</button>
+    <a class="btn-link" href="../libro-digital.html">📖 Libro digital</a>
+    <a class="btn-link" href="../index.html">📋 Hub U04</a>
+  </div>
+</section>
+
+</div>
+</main>
+
+<script src="../../../assets/js/common.js"></script>
+<script src="../../../assets/js/header.js"></script>
+<script>
+(function(){'use strict';
+var qs=document.querySelectorAll('.test-q'),tot=document.getElementById('ac-total'),ac=document.getElementById('ac-aciertos'),bar=document.getElementById('ac-bar'),vr=document.getElementById('ac-veredicto'),br=document.getElementById('ac-reintentar'),bt=document.getElementById('ac-todo');
+tot.textContent=qs.length;
+function refrescar(){var a=0,c=0,f=0,pB={};qs.forEach(function(q){var b=q.closest('.test-section').dataset.bloque;if(!pB[b])pB[b]={ok:0,ko:0,total:0};pB[b].total++;if(q.classList.contains('answered')){c++;var ok=q.querySelector('.test-opt.correct')&&!q.querySelector('.test-opt.wrong');if(ok){a++;pB[b].ok++;}else{f++;pB[b].ko++;}}});ac.textContent=a;var p=Math.round(a/qs.length*100);bar.style.width=p+'%';if(c===0){vr.textContent='Responde las preguntas para ver tu resultado.';}else if(c<qs.length){vr.innerHTML='Llevas <strong>'+c+'</strong> de '+qs.length+' respondidas.';}else{var m=p>=90?'🌟 ¡Excelente! Dominas la unidad.':p>=75?'👍 Muy bien. Repasa los puntos fallados.':p>=50?'🙂 Aprobado. Vuelve al libro digital donde más hayas fallado.':'📚 Tranquilo: repasa con calma y vuelve a intentar.';vr.innerHTML=m+'<br><small>'+a+' aciertos · '+f+' fallos · '+p+'%</small>';}br.disabled=(f===0);bt.disabled=(c===0);Object.keys(pB).forEach(function(b){var m=document.querySelector('.bloque-marcador[data-bloque="'+b+'"]'),x=pB[b],d=x.ok+x.ko;if(d===0){m.classList.remove('activo');return;}m.classList.add('activo');if(d<x.total){m.innerHTML='Bloque '+b+': '+d+' / '+x.total+' respondidas';}else{m.innerHTML='Bloque '+b+': <span class="acierto">'+x.ok+' acierto'+(x.ok===1?'':'s')+'</span> · <span class="fallo">'+x.ko+' fallo'+(x.ko===1?'':'s')+'</span>';}});}
+document.addEventListener('click',function(e){if(e.target.classList&&e.target.classList.contains('test-opt')){setTimeout(refrescar,0);}});
+function rs(q){q.classList.remove('answered');q.querySelectorAll('.test-opt').forEach(function(b){b.classList.remove('correct','wrong');b.disabled=false;});}
+br.addEventListener('click',function(){qs.forEach(function(q){if(q.classList.contains('answered')&&q.querySelector('.test-opt.wrong'))rs(q);});refrescar();var p=document.querySelector('.test-q:not(.answered)');if(p)p.scrollIntoView({behavior:'smooth',block:'center'});});
+bt.addEventListener('click',function(){if(!confirm('¿Empezar de nuevo? Se borrarán todas tus respuestas.'))return;qs.forEach(rs);refrescar();window.scrollTo({top:0,behavior:'smooth'});});
+refrescar();})();
+</script>
+</body>
+</html>

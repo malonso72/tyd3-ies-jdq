@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#8C2A3D">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>Libro digital · U02 Construcción de objetos · TyD 3º ESO</title>
+<meta name="description" content="Libro digital de la unidad 2 para 3º ESO: análisis de objetos, materiales avanzados, procesos de fabricación y diseño centrado en el usuario.">
+<link rel="canonical" href="https://tyd3-ies-jdq.malonso72.workers.dev/unidades/02-construccion-objetos/libro-digital.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/common.css">
+<link rel="stylesheet" href="../../assets/css/unidad.css">
+<style>
+.parte-titulo{font-family:var(--cond);font-size:.78rem;letter-spacing:2.5px;color:var(--principal);text-transform:uppercase;font-weight:700;margin:30px 0 10px;padding-bottom:5px;border-bottom:1px dashed var(--principal)}
+.parte-titulo:first-of-type{margin-top:0}
+.tipo-box{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:14px 0}
+.tipo-box .ti{background:#fff;border:1px solid var(--borde);border-radius:8px;padding:14px 16px}
+.tipo-box .ti h4{margin:0 0 6px;font-family:var(--cond);color:var(--principal);font-size:1.05rem}
+.tipo-box .ti p{margin:0;font-size:.92rem;color:var(--texto2);line-height:1.5}
+.componente-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:14px 0}
+.componente{background:#FBEEEF;border-left:3px solid var(--principal);border-radius:0 6px 6px 0;padding:10px 14px;font-size:.92rem}
+.componente strong{display:block;color:var(--principal);font-family:var(--cond);font-size:1rem;margin-bottom:4px}
+table.tipo-tabla{width:100%;border-collapse:collapse;margin:14px 0;font-size:.94rem}
+table.tipo-tabla th{background:var(--principal);color:#fff;padding:8px 10px;text-align:left;font-family:var(--cond)}
+table.tipo-tabla td{padding:8px 10px;border-bottom:1px solid var(--borde);vertical-align:top}
+table.tipo-tabla tr:nth-child(even){background:#FAFAFA}
+.callout{display:flex;gap:12px;align-items:flex-start;background:#F4F6F9;border-left:4px solid var(--principal2);border-radius:0 6px 6px 0;padding:12px 16px;margin:14px 0}
+.callout .ic{font-size:1.4rem;flex-shrink:0}
+.callout p{margin:0;font-size:.94rem;line-height:1.55}
+.callout-warn{background:#FFF4E6;border-left-color:#F59E0B}
+.callout-info{background:#E6F1FB;border-left-color:#378ADD}
+.callout-ok{background:#E1F5EE;border-left-color:var(--verde)}
+.huella-lista{list-style:none;padding:0;margin:14px 0}
+.huella-lista li{padding:8px 14px;background:#F4F6F9;margin-bottom:6px;border-radius:6px;font-size:.94rem;line-height:1.5;display:flex;gap:10px}
+.huella-lista li::before{content:"▸";color:var(--principal);font-weight:700}
+.glosario-tabla{width:100%;border-collapse:collapse;margin:14px 0;font-size:.92rem}
+.glosario-tabla th{background:#FBEEEF;color:var(--principal);font-family:var(--cond);padding:8px 10px;text-align:left}
+.glosario-tabla td{padding:8px 10px;border-bottom:1px solid var(--borde)}
+.glosario-tabla td:first-child{font-weight:600;color:var(--principal2);width:25%}
+@media print{.curso-hd,.curso-navcross,.sb-side{display:none!important}.apartado{break-inside:avoid}}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+<header class="curso-hd"><span class="curso-sb">U02 · Construcción · Libro digital</span></header>
+<nav class="curso-navcross" role="navigation">
+  <a href="../../index.html"><span>🏠</span><span class="nc-lbl">Índice</span></a>
+  <span class="nc-sep">·</span>
+  <a href="index.html"><span>📋</span><span class="nc-lbl">Hub U02</span></a>
+  <span class="nc-sep">·</span>
+  <span class="nc-current"><span>📖</span><span class="nc-lbl">Libro digital</span></span>
+  <span class="nc-sep">·</span>
+  <a href="actividades/index.html"><span>✏️</span><span class="nc-lbl">Actividades</span></a>
+  <span class="nc-sep">·</span>
+  <a href="autocomprobacion/index.html"><span>✅</span><span class="nc-lbl">Autocomp</span></a>
+</nav>
+
+<div class="unidad-layout">
+
+<aside class="sb-side">
+  <h3>Apartados</h3>
+  <div class="parte-titulo">Parte 1 · Análisis</div>
+  <a href="#s1">1. Qué es analizar un objeto</a>
+  <a href="#s2">2. Los 6 puntos del análisis</a>
+  <a href="#s3">3. Ciclo de vida</a>
+  <div class="parte-titulo">Parte 2 · Materiales</div>
+  <a href="#s4">4. Repaso materiales</a>
+  <a href="#s5">5. Materiales compuestos</a>
+  <a href="#s6">6. Materiales inteligentes</a>
+  <div class="parte-titulo">Parte 3 · Fabricación</div>
+  <a href="#s7">7. Por arranque (sustractiva)</a>
+  <a href="#s8">8. Por adición (3D)</a>
+  <a href="#s9">9. Por conformado</a>
+  <a href="#s10">10. Uniones</a>
+  <a href="#s11">11. Artesanía vs industria</a>
+  <div class="parte-titulo">Parte 4 · Diseño</div>
+  <a href="#s12">12. Diseño centrado en el usuario</a>
+  <a href="#s13">13. Ergonomía</a>
+  <a href="#s14">14. Diseño sostenible</a>
+  <div class="parte-titulo">Cierre</div>
+  <a href="#glosario">📖 Glosario</a>
+</aside>
+
+<main class="ct" id="main-content">
+
+<h1 class="unidad-titulo">U02 · Construcción y análisis de objetos</h1>
+<p class="unidad-subt">Cada objeto que te rodea es el resultado de decenas de decisiones: qué material, qué proceso, para qué usuario, con qué impacto. En esta unidad aprendes a leer esas decisiones y, en el proyecto, a tomarlas tú.</p>
+
+<div class="callout callout-info">
+  <span class="ic">⏮️</span>
+  <p><strong>Repaso previo:</strong> esta unidad apoya en la U2 «Materiales» de 2º ESO. Si necesitas refrescar familias de materiales y propiedades, vuelve <a href="https://tyd2-ies-jdq.malonso72.workers.dev/unidades/02-materiales/libro-digital.html" target="_blank">allí</a>.</p>
+</div>
+
+
+<!-- PARTE 1 -->
+
+<section class="apartado" id="s1">
+  <h2>1. ¿Qué significa "analizar" un objeto?</h2>
+  <p>Analizar un objeto técnicamente no es solo "mirarlo": es <strong>desmontarlo con la cabeza</strong> para entender por qué es como es. ¿Por qué este vaso es de plástico y no de vidrio? ¿Por qué la silla tiene cinco patas y no cuatro? ¿Por qué la bisagra del portátil es metálica?</p>
+  <p>Cuando aprendes a hacer análisis técnicos, dejas de ser <em>usuario pasivo</em> de las cosas y empiezas a entenderlas como un ingeniero. Y eso te permite mejorarlas.</p>
+
+  <div class="callout callout-ok">
+    <span class="ic">💡</span>
+    <p>Una buena forma de empezar: la próxima vez que sostengas un boli, pregúntate: ¿por qué la punta es metálica? ¿Por qué el cuerpo es hexagonal y no redondo? ¿Por qué tiene un agujero pequeño? (Pista: ese agujero salva vidas. Cuando un niño se traga un capuchón, ese agujero permite respirar mientras llega ayuda.)</p>
+  </div>
+</section>
+
+
+<section class="apartado" id="s2">
+  <h2>2. Los 6 puntos del análisis técnico</h2>
+  <p>Para analizar un objeto de forma sistemática, seguimos estos pasos:</p>
+
+  <table class="tipo-tabla">
+    <thead><tr><th>Punto</th><th>Pregunta clave</th></tr></thead>
+    <tbody>
+      <tr><td><strong>1. Anatómico</strong></td><td>¿Qué partes tiene? ¿Cómo se llaman?</td></tr>
+      <tr><td><strong>2. Funcional</strong></td><td>¿Para qué sirve cada parte? ¿Cómo funciona el conjunto?</td></tr>
+      <tr><td><strong>3. Técnico</strong></td><td>¿De qué material es cada parte? ¿Cómo se fabricó? ¿Cómo se unió?</td></tr>
+      <tr><td><strong>4. Estético / formal</strong></td><td>¿Qué forma tiene y por qué? ¿Qué colores? ¿Qué texturas?</td></tr>
+      <tr><td><strong>5. Económico</strong></td><td>¿Cuánto cuesta producirlo? ¿Y comprarlo? ¿Por qué hay esa diferencia?</td></tr>
+      <tr><td><strong>6. Social y ambiental</strong></td><td>¿A quién va dirigido? ¿Qué impacto ambiental tiene? ¿Es reciclable?</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-info">
+    <span class="ic">🔍</span>
+    <p>Un análisis completo de un objeto cotidiano puede llevar 30-60 minutos. Es de los ejercicios que más enseña: te das cuenta de que detrás de un simple sacapuntas hay decisiones de cinco departamentos distintos en una empresa.</p>
+  </div>
+</section>
+
+
+<section class="apartado" id="s3">
+  <h2>3. El ciclo de vida de un producto</h2>
+  <p>Todo objeto tiene una <strong>vida completa</strong> que no acaba cuando lo compras. Las fases son:</p>
+
+  <div class="tipo-box">
+    <div class="ti"><h4>🌍 1. Extracción</h4><p>Sacar materias primas: minería, tala, petróleo, agua.</p></div>
+    <div class="ti"><h4>🏭 2. Producción</h4><p>Transformar materias primas en piezas y montar el objeto final.</p></div>
+    <div class="ti"><h4>🚚 3. Distribución</h4><p>Envasado, transporte, almacén, venta.</p></div>
+    <div class="ti"><h4>📦 4. Uso</h4><p>El tiempo que el objeto cumple su función.</p></div>
+    <div class="ti"><h4>♻️ 5. Fin de vida</h4><p>Reutilizar, reciclar, reparar o desechar.</p></div>
+  </div>
+
+  <p>El <strong>análisis del ciclo de vida (ACV)</strong> es la herramienta que usan los ingenieros para medir el impacto total. Por ejemplo, un coche eléctrico contamina <em>menos</em> al usarlo pero <em>más</em> al fabricar la batería; un coche de gasolina es al revés. El ACV pone todo en la balanza.</p>
+</section>
+
+
+<!-- PARTE 2 -->
+
+<section class="apartado" id="s4">
+  <h2>4. Repaso rápido: familias de materiales</h2>
+  <p>En 2º ESO viste las familias. Resumen rápido:</p>
+  <table class="tipo-tabla">
+    <thead><tr><th>Familia</th><th>Origen</th><th>Ejemplo</th></tr></thead>
+    <tbody>
+      <tr><td>Madera</td><td>Árboles</td><td>Pino, roble, MDF, contrachapado</td></tr>
+      <tr><td>Papel y cartón</td><td>Celulosa (madera)</td><td>Folios, cartón corrugado</td></tr>
+      <tr><td>Metales ferrosos</td><td>Hierro + carbono</td><td>Acero, fundición</td></tr>
+      <tr><td>Metales no ferrosos</td><td>Otros metales</td><td>Cobre, aluminio, oro, estaño</td></tr>
+      <tr><td>Polímeros (plásticos)</td><td>Petróleo (mayoría)</td><td>PET, PVC, polipropileno, PLA</td></tr>
+      <tr><td>Cerámicos</td><td>Minerales horneados</td><td>Ladrillo, vidrio, porcelana</td></tr>
+      <tr><td>Textiles</td><td>Vegetales, animales o sintéticos</td><td>Algodón, lana, poliéster</td></tr>
+    </tbody>
+  </table>
+</section>
+
+
+<section class="apartado" id="s5">
+  <h2>5. Materiales compuestos (composites)</h2>
+  <p>Un <strong>composite</strong> mezcla dos materiales para combinar lo mejor de cada uno. El más famoso: <strong>fibra de carbono</strong>.</p>
+
+  <table class="tipo-tabla">
+    <thead><tr><th>Composite</th><th>Componentes</th><th>Dónde se usa</th></tr></thead>
+    <tbody>
+      <tr><td>Fibra de carbono</td><td>Fibra de carbono + resina epoxi</td><td>Bicis de competición, raquetas, aviones, coches</td></tr>
+      <tr><td>Fibra de vidrio</td><td>Hilos de vidrio + resina</td><td>Cascos de barco, depósitos, palas de aerogenerador</td></tr>
+      <tr><td>Hormigón armado</td><td>Hormigón + barras de acero</td><td>Edificios, puentes</td></tr>
+      <tr><td>Madera contrachapada</td><td>Láminas de madera pegadas con grano cruzado</td><td>Mobiliario, construcción</td></tr>
+      <tr><td>Kevlar</td><td>Fibra aramida</td><td>Chalecos antibalas, neumáticos, cuerdas</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-info">
+    <span class="ic">🚴</span>
+    <p>Una bici de fibra de carbono pesa menos de la mitad que una de acero y aguanta lo mismo. El truco: la fibra resiste muy bien la tracción y la resina la compresión. Juntos, son mejores que cada material por separado.</p>
+  </div>
+</section>
+
+
+<section class="apartado" id="s6">
+  <h2>6. Materiales inteligentes</h2>
+  <p>Materiales que <strong>cambian sus propiedades</strong> con algún estímulo (calor, electricidad, luz, presión). Son la frontera de la tecnología actual.</p>
+
+  <div class="componente-grid">
+    <div class="componente"><strong>Aleaciones con memoria de forma</strong>Como el Nitinol. Si lo doblas y lo calientas, vuelve a su forma original. Usado en gafas que recuperan su forma, stents médicos.</div>
+    <div class="componente"><strong>Cristal electrocrómico</strong>Cambia de transparente a opaco al aplicar electricidad. Ventanas que se "tintan" solas con un botón.</div>
+    <div class="componente"><strong>Materiales piezoeléctricos</strong>Generan electricidad al deformarse (cristales). Mecheros, sensores de presión, micrófonos.</div>
+    <div class="componente"><strong>Fluidos magnetorreológicos</strong>Líquidos que se solidifican con un imán. Amortiguadores que se adaptan al terreno en milisegundos.</div>
+    <div class="componente"><strong>Termocrómicos</strong>Cambian de color con la temperatura. Etiquetas que indican si la cerveza está fría, tatuajes temporales.</div>
+    <div class="componente"><strong>Polímeros conductores</strong>Plásticos que conducen electricidad. Pantallas OLED flexibles, ropa con luces, sensores.</div>
+  </div>
+</section>
+
+
+<!-- PARTE 3 -->
+
+<section class="apartado" id="s7">
+  <h2>7. Fabricación por arranque (sustractiva)</h2>
+  <p>Empiezas con un <strong>bloque grande</strong> y le vas quitando material hasta obtener la pieza. Es lo opuesto a la impresión 3D.</p>
+
+  <table class="tipo-tabla">
+    <thead><tr><th>Proceso</th><th>Cómo funciona</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Serrado</strong></td><td>Cortar con sierra. Trozos grandes a piezas más pequeñas.</td></tr>
+      <tr><td><strong>Limado y lijado</strong></td><td>Quitar material en pequeñas cantidades para dar forma fina o pulir.</td></tr>
+      <tr><td><strong>Taladrado</strong></td><td>Hacer agujeros cilíndricos con una broca giratoria.</td></tr>
+      <tr><td><strong>Torneado</strong></td><td>La pieza gira; una cuchilla la talla. Para piezas cilíndricas (ejes, copas).</td></tr>
+      <tr><td><strong>Fresado</strong></td><td>Una fresa gira y va quitando material en superficies planas o curvas. Versátil.</td></tr>
+      <tr><td><strong>Mecanizado CNC</strong></td><td>Fresado/torneado controlado por ordenador. Precisión < 0,01 mm. Es la base de la fabricación industrial moderna.</td></tr>
+      <tr><td><strong>Corte láser</strong></td><td>Un láser de alta potencia corta planchas finas con extrema precisión.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+
+<section class="apartado" id="s8">
+  <h2>8. Fabricación aditiva (impresión 3D)</h2>
+  <p>Construyes la pieza <strong>capa a capa</strong>, añadiendo material donde hace falta. Casi cero desperdicio.</p>
+
+  <div class="tipo-box">
+    <div class="ti"><h4>🧵 FDM / FFF</h4><p>Filamento de plástico fundido (PLA, PETG, ABS). Es la 3D doméstica más extendida. Asequible (impresoras desde 200 €).</p></div>
+    <div class="ti"><h4>💧 SLA / Resina</h4><p>Resina líquida que se solidifica con láser UV. Mucho más detalle. Para piezas pequeñas, modelos dentales, miniaturas.</p></div>
+    <div class="ti"><h4>⚡ SLS</h4><p>Polvo sintetizado con láser. No necesita soportes. Piezas funcionales en plástico o metal. Industrial.</p></div>
+    <div class="ti"><h4>🧱 Hormigón 3D</h4><p>Imprime casas enteras capa a capa. Ya hay viviendas habitadas impresas en 3D.</p></div>
+  </div>
+
+  <div class="callout callout-ok">
+    <span class="ic">🚀</span>
+    <p>La impresión 3D <strong>cambia el paradigma</strong> de la fabricación: ya no hace falta producir 100.000 unidades para que sea rentable. Puedes hacer <em>una sola</em> a precio razonable. Eso revoluciona prótesis personalizadas, recambios de electrodomésticos antiguos, repuestos para misiones espaciales.</p>
+  </div>
+</section>
+
+
+<section class="apartado" id="s9">
+  <h2>9. Fabricación por conformado</h2>
+  <p>El material <strong>cambia de forma sin perder masa</strong>: lo doblas, lo estiras, lo aplastas.</p>
+
+  <table class="tipo-tabla">
+    <thead><tr><th>Proceso</th><th>Material típico</th><th>Ejemplo</th></tr></thead>
+    <tbody>
+      <tr><td>Forja</td><td>Metal caliente</td><td>Llaves, herramientas, espadas</td></tr>
+      <tr><td>Laminado</td><td>Metal</td><td>Chapas de coches, vías de tren</td></tr>
+      <tr><td>Embutición</td><td>Chapa metálica</td><td>Latas de refresco, carcasas</td></tr>
+      <tr><td>Inyección plástico</td><td>Polímero fundido en molde</td><td>Casi todo lo de plástico que tienes (LEGO, juguetes, mandos)</td></tr>
+      <tr><td>Soplado</td><td>Plástico o vidrio</td><td>Botellas de PET, bombillas</td></tr>
+      <tr><td>Termoconformado</td><td>Lámina de plástico con calor</td><td>Bandejas, envases, "blister"</td></tr>
+    </tbody>
+  </table>
+</section>
+
+
+<section class="apartado" id="s10">
+  <h2>10. Uniones</h2>
+  <p>Las piezas se unen entre sí. La unión puede ser:</p>
+
+  <div class="tipo-box">
+    <div class="ti"><h4>🔧 Fija</h4><p>Permanente. Para deshacerla hay que romper algo: soldadura, remache, cola fuerte.</p></div>
+    <div class="ti"><h4>🔩 Desmontable</h4><p>Se puede deshacer sin romper: tornillo + tuerca, bisagra, encaje a presión, velcro.</p></div>
+  </div>
+
+  <table class="tipo-tabla">
+    <thead><tr><th>Tipo</th><th>Ejemplos</th></tr></thead>
+    <tbody>
+      <tr><td>Tornillería</td><td>Tornillos, tuercas, arandelas, espárragos</td></tr>
+      <tr><td>Adhesivos</td><td>Cola blanca (madera), cianoacrilato (instantáneo), epoxi (fuerte)</td></tr>
+      <tr><td>Soldadura</td><td>Arco eléctrico (metal), TIG, MIG, soldadura blanda (estaño, electrónica)</td></tr>
+      <tr><td>Remaches</td><td>Pin metálico que une dos chapas. Aviones, mochilas, jeans</td></tr>
+      <tr><td>Encaje (clip)</td><td>Plástico que se clava por presión. Carcasas de móviles, juguetes</td></tr>
+    </tbody>
+  </table>
+</section>
+
+
+<section class="apartado" id="s11">
+  <h2>11. Artesanía vs industria</h2>
+  <table class="tipo-tabla">
+    <thead><tr><th>Aspecto</th><th>Artesanía</th><th>Industria</th></tr></thead>
+    <tbody>
+      <tr><td>Producción</td><td>Pieza única o pocas</td><td>Series masivas (miles, millones)</td></tr>
+      <tr><td>Herramientas</td><td>Manuales o sencillas</td><td>Máquinas automatizadas, robots</td></tr>
+      <tr><td>Coste por pieza</td><td>Alto</td><td>Bajo (al repartir el coste fijo)</td></tr>
+      <tr><td>Variabilidad</td><td>Cada pieza es ligeramente distinta</td><td>Idénticas (control de calidad)</td></tr>
+      <tr><td>Personalización</td><td>Alta</td><td>Baja (a no ser que sea "personalización masiva")</td></tr>
+      <tr><td>Trabajo</td><td>Manual, requiere oficio</td><td>Repetitivo, en cadena, automatizado</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-info">
+    <span class="ic">⚖️</span>
+    <p>No es "una mejor que otra": cumplen distintos roles. La industria hace asequibles las cosas básicas; la artesanía conserva oficios, ofrece personalización y soporta la economía local. Ambas son necesarias.</p>
+  </div>
+</section>
+
+
+<!-- PARTE 4 -->
+
+<section class="apartado" id="s12">
+  <h2>12. Diseño centrado en el usuario (DCU)</h2>
+  <p>El <strong>DCU</strong> es la filosofía de diseñar pensando en <em>quién</em> va a usar el objeto, no solo en <em>qué hace</em>.</p>
+
+  <h3>Los 5 pasos del DCU</h3>
+  <ol style="margin-left:20px;line-height:1.7">
+    <li><strong>Investigar al usuario</strong>: ¿quién es? ¿cuántos años? ¿qué problemas tiene? Entrevistas, observación.</li>
+    <li><strong>Definir el problema real</strong>: a menudo el usuario pide A pero necesita B. Saber distinguir.</li>
+    <li><strong>Idear soluciones</strong>: lluvia de ideas. Cuantas más, mejor.</li>
+    <li><strong>Prototipar</strong>: maquetas, prototipos rápidos. Tangible es mejor que teórico.</li>
+    <li><strong>Probar con usuarios reales</strong>: y volver al paso 1 con lo aprendido. Es <em>iterativo</em>.</li>
+  </ol>
+
+  <div class="callout callout-ok">
+    <span class="ic">💡</span>
+    <p>Caso real: las llaves del coche modernas con botón "abrir maletero" se diseñaron observando que la gente, con bolsas en las dos manos, no podía abrir el maletero con la mano. Sin observar al usuario, nadie habría pensado en eso.</p>
+  </div>
+</section>
+
+
+<section class="apartado" id="s13">
+  <h2>13. Ergonomía</h2>
+  <p>La <strong>ergonomía</strong> es la ciencia que estudia cómo adaptar los objetos al cuerpo humano. Hay tres dimensiones:</p>
+
+  <div class="tipo-box">
+    <div class="ti"><h4>📏 Antropometría</h4><p>Medidas del cuerpo. Una silla de oficina ajustable cubre el rango de 1,55 a 1,90 m sin problema.</p></div>
+    <div class="ti"><h4>💪 Biomecánica</h4><p>Cómo se mueve y aguanta cargas el cuerpo. Un martillo bien diseñado no produce tendinitis en el codo.</p></div>
+    <div class="ti"><h4>🧠 Cognitiva</h4><p>Cómo percibimos e interactuamos. Los botones de electrodomésticos deben ser obvios sin manual.</p></div>
+  </div>
+
+  <h3>Principios ergonómicos clave</h3>
+  <div class="huella-lista">
+    <li><strong>Alcance fácil</strong>: lo importante, donde se llega sin esfuerzo.</li>
+    <li><strong>Esfuerzos cómodos</strong>: si hay que aplicar fuerza, que sea en posiciones naturales.</li>
+    <li><strong>Visibilidad</strong>: indicadores y controles bien visibles, contrastados.</li>
+    <li><strong>Feedback</strong>: el usuario debe saber que su acción ha funcionado (un "click" audible, una luz).</li>
+    <li><strong>Tolerancia al error</strong>: que no se pueda equivocar fácilmente; y si lo hace, que no sea grave.</li>
+    <li><strong>Universalidad</strong>: usable por personas con distintas capacidades.</li>
+  </div>
+</section>
+
+
+<section class="apartado" id="s14">
+  <h2>14. Diseño sostenible</h2>
+  <p>Un buen objeto hoy debe pensar también en su <strong>impacto ambiental y social</strong>. Principios:</p>
+
+  <div class="huella-lista">
+    <li><strong>Cradle to cradle</strong> ("de cuna a cuna"): diseñar el objeto pensando ya en su próxima vida. Los componentes se reutilizan en otros productos.</li>
+    <li><strong>Materiales renovables o reciclados</strong>: madera certificada (FSC), plástico reciclado (PCR), bambú.</li>
+    <li><strong>Eficiencia energética</strong> en el uso (etiqueta A).</li>
+    <li><strong>Modularidad y reparabilidad</strong>: ¿se puede cambiar una pieza sin tirar el resto? El derecho a la reparación es ya ley en la UE.</li>
+    <li><strong>Producción local</strong>: menos transporte, menos huella, apoyo a la economía cercana.</li>
+    <li><strong>Sin obsolescencia programada</strong>: que dure lo que tenga que durar.</li>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="ic">📊</span>
+    <p>Algunos productos hoy se diseñan adrede <strong>para que duren menos</strong> (obsolescencia programada). Es legal en parte y la UE lo está limitando. Vuestra generación tiene que exigir productos duraderos: cada vez que compras "barato y dura poco", contribuyes al problema.</p>
+  </div>
+</section>
+
+
+<section class="apartado" id="glosario">
+  <h2>📖 Glosario</h2>
+  <table class="glosario-tabla">
+    <thead><tr><th>Término</th><th>Significado</th></tr></thead>
+    <tbody>
+      <tr><td>ACV</td><td>Análisis del Ciclo de Vida. Mide el impacto total de un producto.</td></tr>
+      <tr><td>Aditiva</td><td>Fabricación capa a capa (impresión 3D).</td></tr>
+      <tr><td>Antropometría</td><td>Medidas del cuerpo humano usadas para diseñar.</td></tr>
+      <tr><td>CNC</td><td>Control Numérico por Computador. Máquinas de mecanizado programadas.</td></tr>
+      <tr><td>Composite</td><td>Material compuesto: mezcla de dos materiales para combinar propiedades.</td></tr>
+      <tr><td>DCU</td><td>Diseño Centrado en el Usuario.</td></tr>
+      <tr><td>Ergonomía</td><td>Ciencia que adapta los objetos al cuerpo humano.</td></tr>
+      <tr><td>FDM</td><td>Fabricación por filamento fundido. La impresión 3D doméstica común.</td></tr>
+      <tr><td>Mecanizado</td><td>Dar forma a una pieza arrancando material.</td></tr>
+      <tr><td>Obsolescencia programada</td><td>Diseñar para que dure menos.</td></tr>
+      <tr><td>Prototipo</td><td>Versión preliminar de un objeto, para probar su diseño.</td></tr>
+      <tr><td>Sustractiva</td><td>Fabricación quitando material de un bloque.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-info" style="margin-top:24px">
+    <span class="ic">✅</span>
+    <p>¿Te has quedado con todo? Pasa a la <a href="autocomprobacion/index.html"><strong>autocomprobación</strong></a>.</p>
+  </div>
+</section>
+
+</main>
+</div>
+
+<script src="../../assets/js/common.js"></script>
+<script src="../../assets/js/header.js"></script>
+</body>
+</html>

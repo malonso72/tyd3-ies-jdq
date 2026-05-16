@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#8C2A3D">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>Libro digital · U03 Redes y comunicaciones · TyD 3º ESO</title>
+<meta name="description" content="Libro digital de la unidad 3 para 3º ESO: redes locales, internet, protocolos, ciberseguridad avanzada y ciudadanía digital. IES Jiménez de Quesada.">
+<link rel="canonical" href="https://tyd3-ies-jdq.malonso72.workers.dev/unidades/03-redes-comunicaciones/libro-digital.html">
+<meta property="og:title" content="Libro digital · U03 Redes · TyD 3º ESO">
+<meta property="og:description" content="Cómo funciona internet por dentro y cómo defenderte en él.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/common.css">
+<link rel="stylesheet" href="../../assets/css/unidad.css">
+<style>
+.parte-titulo{font-family:var(--cond);font-size:.78rem;letter-spacing:2.5px;color:var(--principal);text-transform:uppercase;font-weight:700;margin:30px 0 10px;padding-bottom:5px;border-bottom:1px dashed var(--principal)}
+.parte-titulo:first-of-type{margin-top:0}
+.tipo-box{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:14px 0}
+.tipo-box .ti{background:#fff;border:1px solid var(--borde);border-radius:8px;padding:14px 16px}
+.tipo-box .ti h4{margin:0 0 6px;font-family:var(--cond);color:var(--principal);font-size:1.05rem}
+.tipo-box .ti p{margin:0;font-size:.92rem;color:var(--texto2);line-height:1.5}
+.tipo-box .ti.azul h4{color:var(--principal2)}
+.componente-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:14px 0}
+.componente{background:#FBEEEF;border-left:3px solid var(--principal);border-radius:0 6px 6px 0;padding:10px 14px;font-size:.92rem}
+.componente strong{display:block;color:var(--principal);font-family:var(--cond);font-size:1rem;margin-bottom:4px}
+table.tipo-tabla{width:100%;border-collapse:collapse;margin:14px 0;font-size:.94rem}
+table.tipo-tabla th{background:var(--principal);color:#fff;padding:8px 10px;text-align:left;font-family:var(--cond);font-weight:600}
+table.tipo-tabla td{padding:8px 10px;border-bottom:1px solid var(--borde);vertical-align:top}
+table.tipo-tabla tr:nth-child(even){background:#FAFAFA}
+table.tipo-tabla td strong{color:var(--principal2)}
+.callout{display:flex;gap:12px;align-items:flex-start;background:#F4F6F9;border-left:4px solid var(--principal2);border-radius:0 6px 6px 0;padding:12px 16px;margin:14px 0}
+.callout .ic{font-size:1.4rem;flex-shrink:0;line-height:1}
+.callout p{margin:0;font-size:.94rem;line-height:1.55}
+.callout-warn{background:#FFF4E6;border-left-color:#F59E0B}
+.callout-info{background:#E6F1FB;border-left-color:#378ADD}
+.callout-danger{background:#FCEBEB;border-left-color:#E24B4A}
+.callout-ok{background:#E1F5EE;border-left-color:var(--verde)}
+.ejemplo{background:#FFFCF5;border:1px solid #E8DCB8;border-radius:8px;padding:14px 18px;margin:16px 0}
+.ejemplo .et{display:inline-block;font-family:var(--cond);font-size:.74rem;letter-spacing:1.5px;color:#A47B0C;background:#FBEBC2;padding:3px 9px;border-radius:10px;margin-bottom:6px}
+.ejemplo h5{font-family:var(--cond);color:var(--texto);margin:0 0 8px;font-size:1.05rem}
+.ip-demo{display:inline-block;font-family:var(--mono,'JetBrains Mono',monospace);background:#F4F6F9;padding:3px 9px;border-radius:4px;border:1px solid var(--borde);font-size:.92rem;color:var(--texto)}
+.huella-lista{list-style:none;padding:0;margin:14px 0}
+.huella-lista li{padding:8px 14px;background:#F4F6F9;margin-bottom:6px;border-radius:6px;font-size:.94rem;line-height:1.5;display:flex;gap:10px;align-items:flex-start}
+.huella-lista li::before{content:"▸";color:var(--principal);font-weight:700;font-size:1rem;line-height:1.4}
+.glosario-tabla{width:100%;border-collapse:collapse;margin:14px 0;font-size:.92rem}
+.glosario-tabla th{background:#FBEEEF;color:var(--principal);font-family:var(--cond);padding:8px 10px;text-align:left;font-weight:600}
+.glosario-tabla td{padding:8px 10px;border-bottom:1px solid var(--borde)}
+.glosario-tabla td:first-child{font-weight:600;color:var(--principal2);white-space:nowrap;width:25%}
+@media print{.curso-hd,.curso-navcross,.sb-side{display:none!important}.apartado{break-inside:avoid}}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+<header class="curso-hd"><span class="curso-sb">U03 · Redes y comunicaciones · Libro digital</span></header>
+
+<nav class="curso-navcross" role="navigation">
+  <a href="../../index.html"><span>🏠</span><span class="nc-lbl">Índice</span></a>
+  <span class="nc-sep">·</span>
+  <a href="index.html"><span>📋</span><span class="nc-lbl">Hub U03</span></a>
+  <span class="nc-sep">·</span>
+  <span class="nc-current"><span>📖</span><span class="nc-lbl">Libro digital</span></span>
+  <span class="nc-sep">·</span>
+  <a href="actividades/index.html"><span>✏️</span><span class="nc-lbl">Actividades</span></a>
+  <span class="nc-sep">·</span>
+  <a href="autocomprobacion/index.html"><span>✅</span><span class="nc-lbl">Autocomprobación</span></a>
+</nav>
+
+<div class="unidad-layout">
+
+<aside class="sb-side">
+  <h3>Apartados</h3>
+  <div class="parte-titulo">Parte 1 · Redes</div>
+  <a href="#s1">1. Qué es una red</a>
+  <a href="#s2">2. Tipos de red (PAN, LAN, MAN, WAN)</a>
+  <a href="#s3">3. Topologías de red</a>
+  <a href="#s4">4. Medios de transmisión</a>
+  <div class="parte-titulo">Parte 2 · Internet</div>
+  <a href="#s5">5. Cómo funciona Internet</a>
+  <a href="#s6">6. IP y DNS</a>
+  <a href="#s7">7. Protocolos y URL</a>
+  <a href="#s8">8. Servicios online</a>
+  <div class="parte-titulo">Parte 3 · Ciberseguridad</div>
+  <a href="#s9">9. Tipos de malware</a>
+  <a href="#s10">10. Cómo protegerte</a>
+  <a href="#s11">11. Estafas avanzadas</a>
+  <a href="#s12">12. Identidad y privacidad</a>
+  <div class="parte-titulo">Parte 4 · Sociedad digital</div>
+  <a href="#s13">13. Big Data y huella digital</a>
+  <a href="#s14">14. Brecha digital y ciudadanía</a>
+  <div class="parte-titulo">Cierre</div>
+  <a href="#glosario">📖 Glosario</a>
+</aside>
+
+<main class="ct" id="main-content">
+
+  <h1 class="unidad-titulo">U03 · Redes y sistemas de comunicaciones</h1>
+  <p class="unidad-subt">Cómo funciona internet por dentro, qué pasa cuando pulsas «enter» en el navegador y cómo defenderte de los riesgos reales que vas a encontrarte fuera del aula.</p>
+
+  <div class="callout callout-info">
+    <span class="ic">⏮️</span>
+    <p><strong>Repaso previo:</strong> esta unidad continúa lo visto en 2º ESO en la U6 «Ordenador y digital». Si no recuerdas qué es la diferencia entre Internet y la Web o cómo funciona el phishing básico, repásalo primero en <a href="https://tyd2-ies-jdq.malonso72.workers.dev/unidades/06-ordenador-digital/libro-digital.html" target="_blank">el libro digital de 2º ESO</a>.</p>
+  </div>
+
+<!-- ════════ PARTE 1 · REDES ════════ -->
+
+  <section class="apartado" id="s1">
+    <h2>1. ¿Qué es una red?</h2>
+    <p>Una <strong>red de ordenadores</strong> es un conjunto de dispositivos conectados entre sí para intercambiar información. No hace falta que sean ordenadores grandes: un móvil, una impresora, un termostato inteligente o una bombilla wifi son nodos válidos.</p>
+
+    <h3>Tres ingredientes obligatorios</h3>
+    <div class="tipo-box">
+      <div class="ti"><h4>🖥️ Nodos</h4><p>Los dispositivos. Cada uno tiene una identidad propia (su dirección IP o MAC).</p></div>
+      <div class="ti azul"><h4>🔌 Enlaces</h4><p>Los medios físicos que los conectan: cables, fibra, ondas wifi, bluetooth.</p></div>
+      <div class="ti"><h4>📜 Protocolos</h4><p>Las reglas para "hablar entre ellos". Si dos nodos no usan el mismo idioma, no se entienden.</p></div>
+    </div>
+
+    <div class="callout callout-info">
+      <span class="ic">💡</span>
+      <p>Una red sin protocolo es como tener teléfonos conectados pero sin reglas de quién habla primero, cómo se identifican o qué pasa si dos hablan a la vez. Los protocolos son las "buenas costumbres" que hacen que internet funcione.</p>
+    </div>
+
+    <h3>¿Para qué sirve montar una red?</h3>
+    <ul style="margin-left:20px;line-height:1.7">
+      <li><strong>Compartir recursos</strong>: una impresora para toda la casa, ficheros, una conexión a internet.</li>
+      <li><strong>Comunicarse</strong>: mensajería, videollamadas, correo.</li>
+      <li><strong>Acceder a servicios remotos</strong>: streaming, banca, juegos online.</li>
+      <li><strong>Centralizar información</strong>: el aula virtual donde están los apuntes que comparte toda la clase.</li>
+    </ul>
+  </section>
+
+
+  <section class="apartado" id="s2">
+    <h2>2. Tipos de red según su tamaño</h2>
+    <p>Las redes se clasifican por su <strong>alcance geográfico</strong>:</p>
+    <table class="tipo-tabla">
+      <thead><tr><th>Tipo</th><th>Alcance</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td><strong>PAN</strong> (Personal)</td><td>1-10 m alrededor de una persona</td><td>Bluetooth de tu móvil con tus auriculares o reloj</td></tr>
+        <tr><td><strong>LAN</strong> (Local)</td><td>Una casa, oficina o aula</td><td>Wifi de tu casa, red del aula del centro</td></tr>
+        <tr><td><strong>MAN</strong> (Metropolitana)</td><td>Una ciudad</td><td>Red municipal de wifi público en Granada</td></tr>
+        <tr><td><strong>WAN</strong> (Amplia)</td><td>País o mundo</td><td>Internet es la WAN más grande del mundo</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-info">
+      <span class="ic">🌍</span>
+      <p><strong>Internet</strong> no es <em>una</em> red: es la <em>red de redes</em>. Conecta millones de LAN domésticas y empresariales en todo el planeta a través de cables submarinos, satélites y centros de datos.</p>
+    </div>
+  </section>
+
+
+  <section class="apartado" id="s3">
+    <h2>3. Topologías de red</h2>
+    <p>La <strong>topología</strong> es la forma en que se conectan los nodos. Cada una tiene sus ventajas:</p>
+
+    <table class="tipo-tabla">
+      <thead><tr><th>Topología</th><th>Cómo es</th><th>Ventaja / Inconveniente</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Estrella ⭐</strong></td><td>Todos los nodos van a un punto central (router, switch)</td><td>+ Si falla un cable, solo se cae ese nodo<br>− Si falla el centro, se cae toda la red. Es la más común en casa.</td></tr>
+        <tr><td><strong>Bus 🚌</strong></td><td>Un único cable principal con derivaciones</td><td>+ Barata<br>− Si se corta el bus, se cae todo. Obsoleta.</td></tr>
+        <tr><td><strong>Anillo ⭕</strong></td><td>Los nodos forman un círculo cerrado</td><td>+ El tráfico circula ordenado<br>− Si un nodo falla, se rompe el anillo</td></tr>
+        <tr><td><strong>Malla 🕸️</strong></td><td>Todos conectados con todos (o casi)</td><td>+ Muy robusta: caen muchos enlaces y sigue funcionando<br>− Cara. Es la topología de internet.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+
+  <section class="apartado" id="s4">
+    <h2>4. Medios de transmisión</h2>
+    <p>Por qué viaja la señal: el "cable" puede ser físico o por el aire (ondas).</p>
+
+    <h3>Medios guiados (cable)</h3>
+    <div class="componente-grid">
+      <div class="componente"><strong>Par trenzado (Ethernet)</strong>Cable RJ-45. Es el "cable de internet" típico. Velocidad: 100 Mbps a 10 Gbps. Hasta 100 m sin amplificar.</div>
+      <div class="componente"><strong>Fibra óptica</strong>Pulsos de luz por hilos de cristal. Muy rápida (1 Gbps a 100 Gbps) y muy estable. Es la base de las redes troncales y de la fibra que llega a tu casa.</div>
+      <div class="componente"><strong>Coaxial</strong>El cable "grueso" antiguo de televisión. Casi en desuso para redes nuevas.</div>
+    </div>
+
+    <h3>Medios no guiados (inalámbricos)</h3>
+    <div class="componente-grid">
+      <div class="componente"><strong>Wifi (IEEE 802.11)</strong>Ondas de radio de 2,4 GHz o 5 GHz. Alcance 10-50 m según el router. La conexión más común en casa.</div>
+      <div class="componente"><strong>Bluetooth</strong>Distancias cortas (1-10 m). Auriculares, ratón, reloj inteligente. Bajo consumo.</div>
+      <div class="componente"><strong>4G / 5G</strong>Redes móviles. Cobertura nacional. Velocidad muy alta en 5G (hasta 1 Gbps).</div>
+      <div class="componente"><strong>NFC</strong>Distancia mínima (cm). Pagar con el móvil acercándolo al datáfono.</div>
+    </div>
+
+    <div class="callout callout-info">
+      <span class="ic">📡</span>
+      <p>El <strong>wifi de 5 GHz</strong> es más rápido pero llega menos lejos. El de <strong>2,4 GHz</strong> llega más lejos pero es más lento y tiene más interferencias (microondas, otros routers). Tu router probablemente emite las dos a la vez y tu móvil elige la mejor.</p>
+    </div>
+  </section>
+
+
+<!-- ════════ PARTE 2 · INTERNET ════════ -->
+
+  <section class="apartado" id="s5">
+    <h2>5. ¿Cómo funciona internet?</h2>
+    <p>Cuando escribes <code>www.iesjdq.es</code> y pulsas enter, ocurre todo esto en menos de un segundo:</p>
+
+    <ol style="margin-left:20px;line-height:1.8">
+      <li>Tu navegador <strong>resuelve el nombre</strong>: pregunta a un servidor DNS «¿cuál es la IP de iesjdq.es?». Le devuelve algo como <span class="ip-demo">87.121.45.12</span>.</li>
+      <li>Tu móvil/PC <strong>parte la petición en paquetes</strong> pequeños (con la dirección IP de destino).</li>
+      <li>Los paquetes <strong>salen por tu router</strong> a tu proveedor (Movistar, Vodafone…).</li>
+      <li>Cada paquete viaja por <strong>varios routers intermedios</strong> hasta llegar al servidor del IES. Cada router decide el siguiente salto.</li>
+      <li>El servidor <strong>recibe los paquetes, los recompone</strong>, prepara la página web y la <strong>envía de vuelta</strong> por otros paquetes.</li>
+      <li>Tu navegador <strong>monta los paquetes</strong> y dibuja la web en pantalla.</li>
+    </ol>
+
+    <div class="callout callout-ok">
+      <span class="ic">📦</span>
+      <p>La magia está en que cada paquete puede ir por un camino distinto y se reordenan al llegar. Si una ruta falla, los routers buscan otra. Por eso internet es tan resistente: fue diseñado en los años 60 por militares justamente para sobrevivir a la caída de partes de la red.</p>
+    </div>
+  </section>
+
+
+  <section class="apartado" id="s6">
+    <h2>6. IP y DNS: las direcciones de internet</h2>
+    <p>Cada dispositivo conectado a internet tiene una <strong>dirección IP</strong>, igual que las casas tienen una dirección postal. Sin IP no hay forma de hacerle llegar paquetes.</p>
+
+    <h3>IPv4 vs IPv6</h3>
+    <table class="tipo-tabla">
+      <thead><tr><th>Versión</th><th>Ejemplo</th><th>Direcciones posibles</th></tr></thead>
+      <tbody>
+        <tr><td><strong>IPv4</strong></td><td><span class="ip-demo">192.168.1.10</span></td><td>≈ 4.300 millones (se han agotado)</td></tr>
+        <tr><td><strong>IPv6</strong></td><td><span class="ip-demo">2001:0db8:85a3::8a2e:0370:7334</span></td><td>≈ 340 trillones de trillones (suficiente para siempre)</td></tr>
+      </tbody>
+    </table>
+
+    <h3>IP privada vs IP pública</h3>
+    <div class="tipo-box">
+      <div class="ti"><h4>🏠 IP privada</h4><p>La que asigna tu router dentro de casa: <span class="ip-demo">192.168.1.X</span>. Solo válida en tu LAN.</p></div>
+      <div class="ti azul"><h4>🌍 IP pública</h4><p>La que te asigna tu operador. Es la que ve internet. Toda tu casa comparte una sola IP pública.</p></div>
+    </div>
+
+    <h3>DNS: el "listín telefónico" de internet</h3>
+    <p>Recordar IPs es imposible. El <strong>DNS</strong> (Domain Name System) traduce <strong>nombres legibles</strong> a IPs:</p>
+    <table class="tipo-tabla">
+      <tbody>
+        <tr><td><code>www.iesjdq.es</code></td><td>→ DNS →</td><td><span class="ip-demo">87.121.45.12</span></td></tr>
+        <tr><td><code>scratch.mit.edu</code></td><td>→ DNS →</td><td><span class="ip-demo">192.30.255.112</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-info">
+      <span class="ic">🔧</span>
+      <p>Puedes ver tu propia IP escribiendo "cuál es mi IP" en Google. Y puedes "resolver" un dominio en Windows con el comando <code>nslookup iesjdq.es</code> en la consola.</p>
+    </div>
+  </section>
+
+
+  <section class="apartado" id="s7">
+    <h2>7. Protocolos y URL</h2>
+    <p>Un <strong>protocolo</strong> es el "idioma" que usan dos dispositivos para hablar. Los más importantes que pasarán por tus manos:</p>
+
+    <table class="tipo-tabla">
+      <thead><tr><th>Protocolo</th><th>Para qué sirve</th></tr></thead>
+      <tbody>
+        <tr><td><strong>HTTP / HTTPS</strong></td><td>Páginas web. HTTPS añade cifrado (siempre que veas el candadito 🔒).</td></tr>
+        <tr><td><strong>TCP / IP</strong></td><td>La base de internet. TCP parte la información en paquetes y los reordena al llegar; IP se ocupa del direccionamiento.</td></tr>
+        <tr><td><strong>SMTP / IMAP</strong></td><td>Correo electrónico. SMTP para enviar, IMAP para recibir.</td></tr>
+        <tr><td><strong>FTP</strong></td><td>Transferencia de archivos.</td></tr>
+        <tr><td><strong>DHCP</strong></td><td>Asignación automática de IP cuando te conectas a una red.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Anatomía de una URL</h3>
+    <p>Una URL completa es así:</p>
+    <pre style="background:#F4F6F9;padding:14px;border-radius:6px;font-family:monospace;font-size:.92rem;overflow-x:auto">
+<strong style="color:#378ADD">https://</strong><strong style="color:#1E8E3E">www.iesjdq.es</strong><strong style="color:#C44536">:443</strong><strong style="color:#A47B0C">/unidades/03-redes/</strong><strong style="color:#9966FF">?u=1#seccion-2</strong></pre>
+    <div class="huella-lista">
+      <li><strong>https://</strong> protocolo (con cifrado)</li>
+      <li><strong>www.iesjdq.es</strong> dominio (lo gestiona el DNS)</li>
+      <li><strong>:443</strong> puerto (HTTPS por defecto). Suele omitirse.</li>
+      <li><strong>/unidades/03-redes/</strong> ruta (carpeta del servidor)</li>
+      <li><strong>?u=1</strong> parámetros opcionales</li>
+      <li><strong>#seccion-2</strong> ancla a una parte concreta de la página</li>
+    </div>
+  </section>
+
+
+  <section class="apartado" id="s8">
+    <h2>8. Servicios online (no solo la web)</h2>
+    <p>Internet ofrece <strong>muchos servicios</strong>, no solo páginas web. Todos viajan por los mismos cables:</p>
+
+    <table class="tipo-tabla">
+      <thead><tr><th>Servicio</th><th>Para qué</th><th>Ejemplos</th></tr></thead>
+      <tbody>
+        <tr><td>Web</td><td>Consultar páginas</td><td>Navegador → Wikipedia, prensa</td></tr>
+        <tr><td>Correo</td><td>Enviar mensajes con adjuntos</td><td>Gmail, Outlook, ProtonMail</td></tr>
+        <tr><td>Mensajería</td><td>Chat instantáneo</td><td>WhatsApp, Telegram, Signal</td></tr>
+        <tr><td>Nube</td><td>Almacenar archivos remotamente</td><td>Drive, OneDrive, iCloud</td></tr>
+        <tr><td>Streaming</td><td>Vídeo y música en directo</td><td>Netflix, Spotify, YouTube</td></tr>
+        <tr><td>Videojuegos online</td><td>Jugar contra otros</td><td>Fortnite, Roblox, Minecraft</td></tr>
+        <tr><td>Llamada de voz/vídeo (VoIP)</td><td>Hablar por internet</td><td>Meet, Zoom, Discord</td></tr>
+        <tr><td>P2P</td><td>Compartir entre usuarios</td><td>Torrent (legal o no)</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+
+<!-- ════════ PARTE 3 · CIBERSEGURIDAD ════════ -->
+
+  <section class="apartado" id="s9">
+    <h2>9. Tipos de malware</h2>
+    <p>El <strong>malware</strong> (de <em>malicious software</em>) es cualquier programa con intenciones dañinas. Hay varios tipos según lo que hagan:</p>
+
+    <table class="tipo-tabla">
+      <thead><tr><th>Tipo</th><th>Qué hace</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Virus</strong></td><td>Se incrusta en un programa legítimo y se ejecuta al abrirlo. Se replica.</td></tr>
+        <tr><td><strong>Gusano</strong></td><td>Se propaga solo por la red sin necesitar que el usuario abra nada.</td></tr>
+        <tr><td><strong>Troyano</strong></td><td>Se disfraza de programa útil. Cuando lo instalas, abre una "puerta trasera" al atacante.</td></tr>
+        <tr><td><strong>Ransomware</strong></td><td>Cifra tus archivos y pide rescate (típicamente en criptomonedas) para devolverlos.</td></tr>
+        <tr><td><strong>Spyware</strong></td><td>Espía sin que te enteres: graba teclas, hace capturas, oye el micrófono.</td></tr>
+        <tr><td><strong>Adware</strong></td><td>Llena tu navegador y escritorio de anuncios. Es el menos dañino pero el más molesto.</td></tr>
+        <tr><td><strong>Rootkit</strong></td><td>Se esconde a nivel profundo del sistema operativo. Muy difícil de detectar.</td></tr>
+        <tr><td><strong>Botnet</strong></td><td>Tu ordenador se convierte en parte de una red de "zombis" que atacan a otros.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-danger">
+      <span class="ic">🚨</span>
+      <p>El <strong>ransomware</strong> es hoy la mayor amenaza para empresas y hospitales. En 2021 atacaron el SEPE en España (cobro del paro): días sin servicio y rescates millonarios. NUNCA pagues: ni siquiera te garantizan devolverte los archivos.</p>
+    </div>
+  </section>
+
+
+  <section class="apartado" id="s10">
+    <h2>10. Cómo protegerte</h2>
+    <p>No hay "protección perfecta". Lo que sí hay son <strong>capas</strong> que, sumadas, reducen mucho el riesgo:</p>
+
+    <div class="huella-lista">
+      <li><strong>Actualizaciones al día</strong>: sistema operativo, navegador y apps. La mayoría de ataques usan agujeros ya parcheados.</li>
+      <li><strong>Antivirus + cortafuegos</strong> (firewall): Windows ya trae Defender, que es bastante bueno. Activado y actualizado.</li>
+      <li><strong>Copias de seguridad</strong>: una externa (disco USB) que no esté siempre enchufada. Es lo único que salva del ransomware.</li>
+      <li><strong>Contraseñas fuertes y únicas</strong> + doble factor (2FA). Lo vimos en U6 de 2º ESO.</li>
+      <li><strong>Cuidado con lo que descargas</strong>: solo de tiendas oficiales (Play Store, App Store) o webs muy conocidas.</li>
+      <li><strong>HTTPS y candado</strong>: NUNCA escribas usuario/contraseña en una web sin HTTPS.</li>
+      <li><strong>Wifis públicas con precaución</strong>: nunca hagas operaciones bancarias por wifi pública sin VPN.</li>
+      <li><strong>Permisos de las apps</strong>: revisa qué permite (cámara, micro, ubicación) cada app y revoca los que no necesite.</li>
+    </div>
+
+    <h3>VPN: qué es y para qué sirve</h3>
+    <p>Una <strong>VPN</strong> (Virtual Private Network) cifra todo tu tráfico y lo hace pasar por un servidor de tu elección. Útil para:</p>
+    <ul style="margin-left:20px;line-height:1.7">
+      <li>Conectarte a wifis públicas sin que nadie vea lo que haces.</li>
+      <li>Acceder a la red de tu instituto desde casa (algunas funciones de Moodle).</li>
+      <li>Saltar bloqueos geográficos (Netflix de otros países, prensa con paywall).</li>
+    </ul>
+    <p style="font-size:.9rem;color:var(--texto2)">Ojo: una VPN <em>gratis</em> suele financiarse vendiendo tus datos. Si necesitas una buena de verdad, hay opciones de pago razonables.</p>
+  </section>
+
+
+  <section class="apartado" id="s11">
+    <h2>11. Estafas online avanzadas</h2>
+    <p>Más allá del phishing básico que vimos en 2º, hay variantes más sofisticadas:</p>
+
+    <table class="tipo-tabla">
+      <thead><tr><th>Nombre</th><th>Cómo funciona</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Spear phishing</strong></td><td>Phishing dirigido a una persona concreta: usan tu nombre real, tu instituto, tus aficiones (sacadas de redes).</td></tr>
+        <tr><td><strong>Vishing</strong></td><td>Phishing por teléfono. "Soy de Microsoft, su ordenador tiene un virus, descargue este programa".</td></tr>
+        <tr><td><strong>Smishing</strong></td><td>Phishing por SMS. Correos, paquetes, bancos, Hacienda… El SMS del paquete de 0,75 € es el clásico.</td></tr>
+        <tr><td><strong>Pharming</strong></td><td>Cambian el DNS de tu router para que iesjdq.es te lleve a una web falsa idéntica.</td></tr>
+        <tr><td><strong>Suplantación</strong></td><td>Crean perfil clónico tuyo en redes para engañar a tus contactos.</td></tr>
+        <tr><td><strong>Sextorsión</strong></td><td>Convencen a un menor de enviar fotos íntimas y luego chantajean con difundirlas.</td></tr>
+        <tr><td><strong>Estafa del CEO</strong></td><td>Se hacen pasar por el jefe de una empresa por correo y piden una transferencia urgente.</td></tr>
+        <tr><td><strong>Deepfake de voz</strong></td><td>Clonan la voz de un familiar y llaman pidiendo dinero urgente.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-danger">
+      <span class="ic">📞</span>
+      <p><strong>Si te llaman/escriben con urgencia para que pagues, mandes datos o hagas algo "antes de que se cierre"</strong>: cuelga, respira y verifica por OTRO canal. Llama tú al número oficial (no al que te dieron). Esa pausa de 30 segundos te puede ahorrar mil euros y un disgusto.</p>
+    </div>
+
+    <h3>¿Qué hacer si has caído?</h3>
+    <ol style="margin-left:20px;line-height:1.7">
+      <li><strong>Cambia las contraseñas</strong> de las cuentas afectadas inmediatamente.</li>
+      <li><strong>Llama al banco</strong> si has dado datos bancarios. Pueden bloquear movimientos.</li>
+      <li><strong>Denuncia en INCIBE</strong> (017, gratis) o en la Policía Nacional / Guardia Civil. Hay unidades especializadas.</li>
+      <li><strong>Habla con un adulto</strong>. Sobre todo si eres menor. El silencio es lo que más explota el atacante.</li>
+    </ol>
+  </section>
+
+
+  <section class="apartado" id="s12">
+    <h2>12. Identidad digital y privacidad (avanzado)</h2>
+    <p>En 2º ESO vimos qué es la huella digital. Ahora subimos el nivel:</p>
+
+    <h3>Identidad digital</h3>
+    <p>Es la <strong>imagen tuya que existe en internet</strong>. Incluye:</p>
+    <ul style="margin-left:20px;line-height:1.7">
+      <li>Lo que <strong>publicas</strong>: redes sociales, blogs, comentarios.</li>
+      <li>Lo que <strong>otros publican de ti</strong>: fotos donde te etiquetan, comentarios sobre ti.</li>
+      <li>Tu <strong>actividad pasiva</strong>: webs visitadas (las saben los anunciantes), búsquedas, ubicaciones.</li>
+      <li>Datos en <strong>bases de datos públicas</strong>: BOE, hemerotecas, registros mercantiles.</li>
+    </ul>
+
+    <h3>Derechos digitales (GDPR / RGPD)</h3>
+    <p>La Unión Europea te garantiza por ley:</p>
+    <div class="huella-lista">
+      <li><strong>Derecho de acceso</strong>: pedir a cualquier empresa qué datos tienen sobre ti.</li>
+      <li><strong>Derecho de rectificación</strong>: corregir datos erróneos.</li>
+      <li><strong>Derecho al olvido</strong>: pedir que borren tus datos.</li>
+      <li><strong>Derecho de portabilidad</strong>: llevarte tus datos a otro servicio.</li>
+      <li><strong>Derecho a oponerte</strong> al tratamiento (ej. publicidad).</li>
+    </ul>
+    <p>Las empresas tienen 30 días para responder. Si no lo hacen, denuncia ante la AEPD.</p>
+
+    <h3>Buenas prácticas en redes</h3>
+    <div class="huella-lista">
+      <li>Cuentas en <strong>privado</strong> por defecto, especialmente si tienes menos de 18.</li>
+      <li>Revisa qué <strong>terceros pueden ver</strong> tu información (apps conectadas).</li>
+      <li>No compartas tu <strong>ubicación en tiempo real</strong> con desconocidos.</li>
+      <li>Cuida las <strong>fotos</strong>: dónde estás, con quién, qué se ve en el fondo.</li>
+      <li><strong>Nunca</strong> envíes contenido íntimo, ni siquiera a personas de mucha confianza.</li>
+    </div>
+  </section>
+
+
+<!-- ════════ PARTE 4 · SOCIEDAD DIGITAL ════════ -->
+
+  <section class="apartado" id="s13">
+    <h2>13. Big Data y huella digital</h2>
+    <p>El <strong>Big Data</strong> es la gestión de cantidades enormes de datos para sacar conclusiones. Las grandes empresas (Google, Meta, Amazon, TikTok) acumulan miles de datos por usuario al día:</p>
+
+    <div class="huella-lista">
+      <li>Búsquedas, clics, tiempo en cada vídeo o publicación.</li>
+      <li>Ubicación, hora, dispositivo, sistema operativo.</li>
+      <li>Compras, intereses, contactos.</li>
+      <li>Patrón de sueño (a qué hora dejas de usar el móvil).</li>
+      <li>Reacciones emocionales (qué te enfada, qué te alegra).</li>
+    </div>
+
+    <p>Con eso construyen <strong>perfiles</strong> precisos. Pueden predecir si vas a comprar un coche dentro de 3 meses, si tu estado de ánimo está bajo o si tu relación de pareja está en crisis. Algo así suena exagerado, pero está documentado.</p>
+
+    <div class="callout callout-warn">
+      <span class="ic">📊</span>
+      <p>Cuando una red social te ofrece un servicio <em>gratis</em>, <strong>el producto eres tú</strong>. Tus datos se venden a anunciantes que los usan para personalizar publicidad y, a veces, para influir en decisiones (políticas, de consumo, de salud).</p>
+    </div>
+
+    <h3>Caso real: Cambridge Analytica</h3>
+    <p>En 2016 una empresa usó datos de 87 millones de cuentas de Facebook para personalizar mensajes políticos durante las elecciones de EE.UU. y el Brexit. Cada usuario veía publicidad adaptada a sus miedos y deseos. El escándalo cambió la legislación europea y aceleró el RGPD.</p>
+  </section>
+
+
+  <section class="apartado" id="s14">
+    <h2>14. Brecha digital y ciudadanía</h2>
+    <p>No todo el mundo tiene el mismo acceso a internet ni los mismos conocimientos para usarlo bien. Eso se llama <strong>brecha digital</strong> y tiene tres dimensiones:</p>
+
+    <div class="tipo-box">
+      <div class="ti"><h4>📶 Acceso</h4><p>¿Tienes wifi en casa? ¿Hay buena cobertura donde vives? Por edad, renta y zona (rural vs urbana) hay grandes diferencias.</p></div>
+      <div class="ti azul"><h4>🧠 Uso</h4><p>¿Sabes usar las herramientas digitales? ¿Sabes detectar bulos? Una persona mayor con conexión pero sin destreza está en la brecha.</p></div>
+      <div class="ti"><h4>⚖️ Calidad</h4><p>¿Usas internet para producir o solo para consumir? ¿Sabes programar, editar, crear? Es lo que marca la diferencia profesional.</p></div>
+    </div>
+
+    <h3>Ciudadanía digital responsable</h3>
+    <div class="huella-lista">
+      <li><strong>Respeto</strong>: lo que no le dirías a alguien a la cara, no se lo escribes online.</li>
+      <li><strong>Pensamiento crítico</strong>: verifica antes de compartir. No amplifiques bulos.</li>
+      <li><strong>Privacidad ajena</strong>: no publiques fotos o vídeos de otras personas sin su consentimiento.</li>
+      <li><strong>Denuncia ciberacoso</strong>: si lo ves, no lo ignores. Apoya a la víctima y denuncia.</li>
+      <li><strong>Ayuda a otros</strong>: si tienes habilidades digitales, ayuda a quien no las tenga (familia mayor, vecinos).</li>
+    </ul>
+
+    <div class="callout callout-ok">
+      <span class="ic">🌍</span>
+      <p>Vuestra generación es la primera que ha crecido <em>completamente</em> con internet. Eso os da una responsabilidad: marcar el tono de cómo se usa esta tecnología para los próximos 50 años. Lo que normalicéis vosotros será lo normal.</p>
+    </div>
+  </section>
+
+
+<!-- ════════ GLOSARIO ════════ -->
+  <section class="apartado" id="glosario">
+    <h2>📖 Glosario de la unidad</h2>
+    <table class="glosario-tabla">
+      <thead><tr><th>Término</th><th>Significado breve</th></tr></thead>
+      <tbody>
+        <tr><td>2FA</td><td>Doble factor de autenticación. Segundo código además de la contraseña.</td></tr>
+        <tr><td>DNS</td><td>Sistema que traduce nombres de dominio a direcciones IP.</td></tr>
+        <tr><td>Firewall</td><td>Cortafuegos. Filtra qué tráfico entra y sale del ordenador.</td></tr>
+        <tr><td>HTTPS</td><td>Protocolo web con cifrado. El "candadito" en el navegador.</td></tr>
+        <tr><td>IP</td><td>Dirección numérica que identifica a un dispositivo en una red.</td></tr>
+        <tr><td>LAN / WAN</td><td>Red local / red amplia. Internet es la WAN más grande.</td></tr>
+        <tr><td>Malware</td><td>Cualquier programa dañino (virus, troyano, ransomware…).</td></tr>
+        <tr><td>Paquete</td><td>Trozo pequeño en que se parte la información para viajar por internet.</td></tr>
+        <tr><td>Phishing</td><td>Engaño por correo, SMS o web falsa para robar credenciales.</td></tr>
+        <tr><td>RGPD</td><td>Reglamento europeo de protección de datos. Te da derechos sobre tu información.</td></tr>
+        <tr><td>Router</td><td>Dispositivo que conecta tu red local con internet.</td></tr>
+        <tr><td>TCP/IP</td><td>Conjunto de protocolos sobre los que funciona internet.</td></tr>
+        <tr><td>URL</td><td>Dirección web completa.</td></tr>
+        <tr><td>VPN</td><td>Red privada virtual. Cifra y redirige tu tráfico para ganar privacidad.</td></tr>
+        <tr><td>Wifi</td><td>Red inalámbrica local (2,4 o 5 GHz).</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-info" style="margin-top:24px">
+      <span class="ic">✅</span>
+      <p>¿Te has quedado con todo? Pasa a la <a href="autocomprobacion/index.html"><strong>autocomprobación</strong></a> y comprueba si lo has entendido. 18 preguntas en 4 bloques.</p>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<script src="../../assets/js/common.js"></script>
+<script src="../../assets/js/header.js"></script>
+</body>
+</html>

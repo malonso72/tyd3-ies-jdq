@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#8C2A3D">
+<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<title>Autocomprobación · U06 Programación e IA · TyD 3º ESO</title>
+<meta name="description" content="Autocomprobación de la unidad 6 de TyD 3º ESO · 18 preguntas con feedback inmediato sobre programación, App Inventor, IA y ética.">
+<link rel="canonical" href="https://tyd3-ies-jdq.malonso72.workers.dev/unidades/06-programacion-ia/autocomprobacion/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/common.css">
+<link rel="stylesheet" href="../../../assets/css/unidad.css">
+<style>
+.ac-hero{max-width:1100px;margin:22px auto 8px;padding:0 20px;text-align:center}
+.ac-hero h1{font-family:var(--cond);font-size:1.9rem;color:var(--principal);margin:0 0 6px;letter-spacing:.5px}
+.ac-hero .subt{font-size:.95rem;color:var(--texto2);margin:0 0 16px}
+.ac-camino{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;font-family:var(--cond);font-size:.78rem;letter-spacing:.4px;margin-bottom:10px}
+.ac-camino span{padding:4px 12px;border-radius:14px;background:#F4F6F9;color:#8C97A8;border:1px solid #D8DDE5}
+.ac-camino span.activo{background:linear-gradient(135deg,var(--principal),var(--principal2));color:#fff;border-color:var(--principal)}
+.ac-camino .sep{background:transparent;border:none;color:#B8C0CC;padding:4px 2px}
+.ac-instrucciones{max-width:900px;margin:0 auto 18px;padding:14px 20px;background:#FBEEEF;border-left:4px solid var(--principal);border-radius:6px;font-size:.92rem;color:var(--texto2);line-height:1.55}
+.ac-instrucciones strong{color:var(--principal)}
+.ac-wrap{max-width:900px;margin:0 auto;padding:0 16px 50px}
+.bloque-encabezado{display:flex;align-items:baseline;gap:10px;margin:22px 0 6px;padding:0 4px}
+.bloque-encabezado .num{font-family:var(--cond);font-size:1.05rem;background:var(--principal);color:#fff;padding:3px 11px;border-radius:14px}
+.bloque-encabezado h2{font-family:var(--cond);font-size:1.4rem;color:var(--texto);margin:0;flex:1}
+.bloque-encabezado .meta{font-size:.8rem;color:var(--texto2)}
+.bloque-ancla{font-size:.88rem;color:var(--texto2);margin:0 4px 10px}
+.bloque-ancla a{color:var(--principal2);text-decoration:none;border-bottom:1px dotted var(--principal2)}
+.bloque-marcador{margin-top:8px;padding:9px 14px;background:#F4F6F9;border-radius:6px;font-size:.88rem;color:var(--texto2);display:none;text-align:right;font-family:var(--cond);letter-spacing:.3px}
+.bloque-marcador.activo{display:block}
+.bloque-marcador .acierto{color:var(--verde);font-weight:600}
+.bloque-marcador .fallo{color:var(--rojo);font-weight:600}
+.test-q .test-num{display:inline-block;font-family:var(--cond);font-size:.78rem;color:var(--principal);background:#FBEEEF;padding:2px 8px;border-radius:10px;margin-right:7px;vertical-align:1px}
+.test-q .test-tipo-tag{display:inline-block;font-family:var(--cond);font-size:.7rem;color:var(--texto2);background:#EEF1F5;padding:2px 7px;border-radius:10px;margin-left:6px;vertical-align:1px}
+.ac-resumen{max-width:900px;margin:28px auto 0;padding:22px 24px;background:linear-gradient(180deg,#FBEEEF,#fff);border:2px solid var(--principal);border-radius:10px;text-align:center}
+.ac-resumen h2{font-family:var(--cond);font-size:1.5rem;color:var(--principal);margin:0 0 8px}
+.ac-resumen .puntuacion{font-family:var(--cond);font-size:2.3rem;color:var(--texto);margin:6px 0}
+.ac-resumen .puntuacion .num-grande{color:var(--principal);font-size:3rem}
+.ac-resumen .veredicto{font-size:1rem;color:var(--texto2);margin:0 0 14px;min-height:1.4em}
+.ac-resumen .progreso-barra{height:14px;background:#F4F6F9;border-radius:7px;overflow:hidden;margin:14px 0;border:1px solid #E0E5EC}
+.ac-resumen .progreso-barra-fill{height:100%;background:linear-gradient(90deg,var(--principal),var(--principal2));width:0;transition:width .5s ease}
+.ac-resumen .acciones{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.ac-resumen button,.ac-resumen .btn-link{font-family:var(--cond);font-size:.88rem;letter-spacing:.5px;padding:9px 18px;border-radius:20px;cursor:pointer;border:1.5px solid var(--principal);background:#fff;color:var(--principal);text-decoration:none;transition:all .15s}
+.ac-resumen button:hover,.ac-resumen .btn-link:hover{background:var(--principal);color:#fff}
+.ac-resumen button.primario{background:var(--principal);color:#fff}
+.ac-resumen button.primario:hover{background:var(--principal2)}
+.ac-resumen button:disabled{opacity:.4;cursor:not-allowed}
+.ac-resumen button:disabled:hover{background:#fff;color:var(--principal)}
+@media(max-width:640px){.ac-hero h1{font-size:1.5rem}.bloque-encabezado{flex-wrap:wrap}.ac-resumen .puntuacion .num-grande{font-size:2.4rem}}
+@media print{.curso-hd,.curso-navcross,.ac-camino,.ac-instrucciones,.ac-resumen{display:none!important}.test-q{break-inside:avoid;border:1px solid #999;margin-bottom:8px}.test-fb{display:block!important;background:#f6f6f6;color:#333;border-left:3px solid #999}}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+<header class="curso-hd">
+  <a href="../../../index.html" class="curso-lg">TyD 3º ESO</a>
+  <span class="curso-sb">U06 · Programación e IA · Autocomprobación</span>
+  <a href="../../../index.html" class="curso-home-btn">🏠 Inicio</a>
+</header>
+
+<nav class="curso-navcross" role="navigation">
+  <a href="../../../index.html"><span>🏠</span><span class="nc-lbl">Índice</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../index.html"><span>📋</span><span class="nc-lbl">Hub U06</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../libro-digital.html"><span>📖</span><span class="nc-lbl">Libro digital</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../actividades/index.html"><span>✏️</span><span class="nc-lbl">Actividades</span></a>
+  <span class="nc-sep">·</span>
+  <span class="nc-current"><span>✅</span><span class="nc-lbl">Autocomprobación</span></span>
+</nav>
+
+<main id="main-content">
+
+<section class="ac-hero">
+  <div class="ac-camino" aria-label="Camino de aprendizaje">
+    <span>📖 Aprende</span><span class="sep">▸</span>
+    <span>✏️ Practica</span><span class="sep">▸</span>
+    <span class="activo">✅ Comprueba</span><span class="sep">▸</span>
+    <span>🔁 Repasa</span>
+  </div>
+  <h1>✅ Autocomprobación · U06 Programación e IA</h1>
+  <p class="subt">18 preguntas para comprobar si lo has entendido · 10-15 minutos</p>
+</section>
+
+<div class="ac-instrucciones">
+  <p>Una sola oportunidad por pregunta. Tras pulsar, el botón se pondrá <strong style="color:#1E8E3E">verde</strong> (acierto) o <strong style="color:#C44536">rojo</strong> (fallo) con explicación y enlace al libro digital.</p>
+  <p style="margin-bottom:0">Bloques: 4 programación · 4 App Inventor · 6 inteligencia artificial · 4 ética.</p>
+</div>
+
+<div class="ac-wrap">
+
+<!-- B1 · PROGRAMACIÓN -->
+<div class="bloque-encabezado"><span class="num">B1</span><h2>Pensamiento computacional</h2><span class="meta">4 preguntas</span></div>
+<p class="bloque-ancla">📖 Repasa <a href="../libro-digital.html#s1">«Qué es programar»</a> a <a href="../libro-digital.html#s3">«Estructuras básicas»</a>.</p>
+
+<section class="test-section" data-bloque="1">
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P1</span>Programar es... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Diseñar logos para una web</button>
+      <button class="test-opt" data-opt="b">Reparar ordenadores rotos</button>
+      <button class="test-opt" data-opt="c">Dar instrucciones precisas a una máquina para resolver un problema</button>
+      <button class="test-opt" data-opt="d">Conectar dispositivos a una red</button>
+    </div>
+    <div class="test-fb">Programar es <strong>dar instrucciones precisas</strong> a una máquina. La máquina no interpreta: ejecuta exactamente lo que le pones. Si te dejas algo, el programa hace cosas raras o falla. <a href="../libro-digital.html#s1">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P2</span>Las 4 habilidades del <strong>pensamiento computacional</strong> son... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Velocidad, memoria, suerte, intuición</button>
+      <button class="test-opt" data-opt="b">Descomposición, reconocer patrones, abstracción y algoritmo</button>
+      <button class="test-opt" data-opt="c">Inglés, matemáticas, lógica y dibujo</button>
+      <button class="test-opt" data-opt="d">Ratón, teclado, pantalla, CPU</button>
+    </div>
+    <div class="test-fb">Las 4 son <strong>descomposición</strong> (partir el problema), <strong>patrones</strong> (lo que se repite), <strong>abstracción</strong> (quedarte con lo importante) y <strong>algoritmo</strong> (paso a paso). <a href="../libro-digital.html#s2">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P3</span>«Si edad ≥ 18 mostrar "puedes votar", si no mostrar "aún no"». Esto es un... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Bucle</button>
+      <button class="test-opt" data-opt="b">Variable</button>
+      <button class="test-opt" data-opt="c">Condicional (si... entonces... sino...)</button>
+      <button class="test-opt" data-opt="d">Función</button>
+    </div>
+    <div class="test-fb">Es un <strong>condicional</strong>: hace una cosa u otra según el valor. Los bucles repiten; las variables almacenan; las funciones agrupan. <a href="../libro-digital.html#s3">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P4</span>Para enviar el mismo mensaje a 30 amigos sin escribir 30 líneas, lo más adecuado es usar un... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Condicional</button>
+      <button class="test-opt" data-opt="b">Bucle (por cada amigo en la lista...)</button>
+      <button class="test-opt" data-opt="c">Sensor</button>
+      <button class="test-opt" data-opt="d">Evento</button>
+    </div>
+    <div class="test-fb">Un <strong>bucle</strong> repite un bloque de instrucciones. «Por cada amigo en la lista, enviar mensaje». Escribes la lógica una vez; el ordenador la aplica N veces. <a href="../libro-digital.html#s3">Repasar →</a></div>
+  </div>
+  <div class="bloque-marcador" data-bloque="1"></div>
+</section>
+
+
+<!-- B2 · APP INVENTOR -->
+<div class="bloque-encabezado"><span class="num">B2</span><h2>Apps con App Inventor</h2><span class="meta">4 preguntas</span></div>
+<p class="bloque-ancla">📖 Repasa <a href="../libro-digital.html#s4">«Anatomía de una app»</a> a <a href="../libro-digital.html#s7">«App de ejemplo»</a>.</p>
+
+<section class="test-section" data-bloque="2">
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P5</span>App Inventor tiene dos vistas. ¿Cuáles son? <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Frontend / Backend</button>
+      <button class="test-opt" data-opt="b">Designer (interfaz visual) y Blocks (lógica con bloques)</button>
+      <button class="test-opt" data-opt="c">Player y Editor</button>
+      <button class="test-opt" data-opt="d">Texto y Voz</button>
+    </div>
+    <div class="test-fb"><strong>Designer</strong>: pones componentes en la pantalla simulada. <strong>Blocks</strong>: programas la lógica con bloques tipo Scratch. Las dos pestañas son los dos lados de toda app. <a href="../libro-digital.html#s5">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P6</span>Una app móvil es <strong>orientada a eventos</strong>. Eso significa que... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Se ejecuta una sola vez al abrirla</button>
+      <button class="test-opt" data-opt="b">Solo funciona si el móvil tiene internet</button>
+      <button class="test-opt" data-opt="c">Su código reacciona a acciones del usuario (clic, sacudida, mensaje...) en vez de ejecutarse en línea recta</button>
+      <button class="test-opt" data-opt="d">Solo funciona en horario laboral</button>
+    </div>
+    <div class="test-fb">A diferencia de un script lineal, una app <strong>espera eventos</strong>. Cuando el usuario hace algo (clic, mueve, escribe), se dispara el bloque correspondiente. Tu trabajo es definir qué pasa con cada evento. <a href="../libro-digital.html#s4">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="d">
+    <p class="test-qtext"><span class="test-num">P7</span>Quieres que tu app <strong>recuerde la puntuación máxima</strong> entre sesiones. ¿Qué componente usas en App Inventor? <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Notifier</button>
+      <button class="test-opt" data-opt="b">Sound</button>
+      <button class="test-opt" data-opt="c">Canvas</button>
+      <button class="test-opt" data-opt="d">TinyDB (base de datos diminuta del propio móvil)</button>
+    </div>
+    <div class="test-fb"><strong>TinyDB</strong> guarda valores con clave (como un diccionario) en el almacenamiento del móvil. Sobreviven a cerrar la app. Una variable normal se borra al cerrar la app. <a href="../libro-digital.html#s6">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P8</span>Para que una app detecte cuándo agitas el móvil (por ejemplo, app de pasos), usas el sensor... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Sensor de luz</button>
+      <button class="test-opt" data-opt="b">Acelerómetro (evento Shaking detecta sacudida)</button>
+      <button class="test-opt" data-opt="c">Localizador GPS</button>
+      <button class="test-opt" data-opt="d">Sensor de proximidad</button>
+    </div>
+    <div class="test-fb">El <strong>acelerómetro</strong> mide cambios de movimiento. App Inventor te da el evento <code>AccelerometerSensor.Shaking</code> que se dispara solo cuando agitas. <a href="../libro-digital.html#s6">Repasar →</a></div>
+  </div>
+  <div class="bloque-marcador" data-bloque="2"></div>
+</section>
+
+
+<!-- B3 · INTELIGENCIA ARTIFICIAL (6 preguntas) -->
+<div class="bloque-encabezado"><span class="num">B3</span><h2>Inteligencia artificial</h2><span class="meta">6 preguntas</span></div>
+<p class="bloque-ancla">📖 Repasa <a href="../libro-digital.html#s8">«Qué es la IA»</a> a <a href="../libro-digital.html#s12">«Teachable Machine»</a>.</p>
+
+<section class="test-section" data-bloque="3">
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P9</span>Cuando ChatGPT te responde a una pregunta, en realidad... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Busca en Google y te resume</button>
+      <button class="test-opt" data-opt="b">Tiene conciencia y entiende lo que dice</button>
+      <button class="test-opt" data-opt="c">Predice estadísticamente la siguiente palabra basándose en millones de textos que ha leído</button>
+      <button class="test-opt" data-opt="d">Llama por teléfono a un humano que escribe la respuesta</button>
+    </div>
+    <div class="test-fb">Un <strong>LLM</strong> es un predictor de la siguiente palabra muy bueno. No "entiende": ha aprendido qué palabras suelen ir juntas. Por eso a veces se inventa cosas («alucina»). <a href="../libro-digital.html#s8">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P10</span>El <strong>aprendizaje automático supervisado</strong> consiste en... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Que un robot esté supervisado por un humano todo el tiempo</button>
+      <button class="test-opt" data-opt="b">Entrenar un modelo con datos etiquetados (sabemos la respuesta correcta de cada ejemplo)</button>
+      <button class="test-opt" data-opt="c">Que la IA aprenda sola sin datos</button>
+      <button class="test-opt" data-opt="d">Programar a mano todas las reglas</button>
+    </div>
+    <div class="test-fb"><strong>Supervisado</strong>: cada ejemplo de entrenamiento tiene su respuesta correcta. La IA compara su predicción con la respuesta y se ajusta. Es la forma más usada actualmente. <a href="../libro-digital.html#s10">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P11</span>El <strong>sobreajuste (overfitting)</strong> es cuando... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">El modelo es demasiado pequeño y no aprende nada</button>
+      <button class="test-opt" data-opt="b">El modelo memoriza los datos de entrenamiento pero no funciona bien con datos nuevos</button>
+      <button class="test-opt" data-opt="c">El servidor donde corre la IA está sobrecargado</button>
+      <button class="test-opt" data-opt="d">Hay demasiados usuarios usando la IA a la vez</button>
+    </div>
+    <div class="test-fb"><strong>Sobreajuste</strong>: el modelo se aprende los ejemplos de entrenamiento de memoria pero no <em>generaliza</em>. Por eso siempre se separa parte de los datos como <strong>conjunto de test</strong>: para comprobar que el modelo funciona con casos nuevos. <a href="../libro-digital.html#s10">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P12</span>De estos, ¿cuál NO es un ejemplo cotidiano de IA? <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">El recomendador de YouTube/TikTok</button>
+      <button class="test-opt" data-opt="b">El traductor de Google</button>
+      <button class="test-opt" data-opt="c">El motor de búsqueda interno del sistema operativo Windows que busca archivos por nombre</button>
+      <button class="test-opt" data-opt="d">El reconocimiento facial para desbloquear el móvil</button>
+    </div>
+    <div class="test-fb">La búsqueda de archivos por nombre es <strong>búsqueda clásica</strong> (comparar cadenas), no IA. Los recomendadores, traductores y reconocimiento facial sí usan IA / modelos entrenados. <a href="../libro-digital.html#s11">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P13</span>«Quieres entrenar una IA que reconozca tu mano abierta o cerrada con la cámara». La herramienta más sencilla (sin programar) es... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Photoshop</button>
+      <button class="test-opt" data-opt="b">Teachable Machine de Google</button>
+      <button class="test-opt" data-opt="c">Word</button>
+      <button class="test-opt" data-opt="d">Microsoft Excel</button>
+    </div>
+    <div class="test-fb"><strong>Teachable Machine</strong>: web gratuita donde grabas ejemplos con la webcam, entrenas con un clic y obtienes un modelo. Se puede importar después a App Inventor con una extensión. <a href="../libro-digital.html#s12">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P14</span>Entrenas tu modelo solo con fotos de tus zapatillas blancas y luego le enseñas unas negras. ¿Qué pasará probablemente? <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Acertará seguro porque sigue siendo una zapatilla</button>
+      <button class="test-opt" data-opt="b">Fallará o tendrá poca confianza: tus datos no eran representativos (no incluían distintos colores)</button>
+      <button class="test-opt" data-opt="c">Cambiará el color de las zapatillas a blanco automáticamente</button>
+      <button class="test-opt" data-opt="d">El modelo se borrará</button>
+    </div>
+    <div class="test-fb">La IA solo conoce lo que le has enseñado. Si todas tus zapatillas eran blancas, ha aprendido «zapatilla = blanco». Por eso un buen <strong>conjunto de entrenamiento</strong> debe ser variado y representativo. <a href="../libro-digital.html#s9">Repasar →</a></div>
+  </div>
+  <div class="bloque-marcador" data-bloque="3"></div>
+</section>
+
+
+<!-- B4 · ÉTICA -->
+<div class="bloque-encabezado"><span class="num">B4</span><h2>Ética e impacto de la IA</h2><span class="meta">4 preguntas</span></div>
+<p class="bloque-ancla">📖 Repasa <a href="../libro-digital.html#s13">«Sesgos»</a> y <a href="../libro-digital.html#s14">«Privacidad, deepfakes y derechos»</a>.</p>
+
+<section class="test-section" data-bloque="4">
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P15</span>El caso de Amazon (2014-2018) y la IA que clasificaba currículums mostró que... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">La IA es siempre objetiva</button>
+      <button class="test-opt" data-opt="b">La IA no se puede usar en RRHH</button>
+      <button class="test-opt" data-opt="c">Los datos históricos pueden tener sesgos, y la IA los hereda y los amplifica (descartaba CVs de mujeres porque históricamente había menos contratadas)</button>
+      <button class="test-opt" data-opt="d">Los CVs en papel son mejores</button>
+    </div>
+    <div class="test-fb">El caso Amazon ilustra el principio clave: <strong>la IA solo es tan buena como los datos con los que se entrena</strong>. Si los datos reflejan injusticias del pasado, la IA las reproduce. <a href="../libro-digital.html#s13">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P16</span>Un <strong>deepfake</strong> es... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Un cable de fibra muy profundo bajo el mar</button>
+      <button class="test-opt" data-opt="b">Un vídeo o audio falso generado por IA que parece real</button>
+      <button class="test-opt" data-opt="c">Una contraseña muy larga</button>
+      <button class="test-opt" data-opt="d">Una actualización profunda del sistema operativo</button>
+    </div>
+    <div class="test-fb"><strong>Deepfake</strong> (de "deep learning" + "fake"). En 2024 un empleado en Hong Kong transfirió 25 millones de dólares tras una videollamada con quien parecía ser su jefe; eran deepfakes. En España, los deepfakes pornográficos de menores son ya delito específico. <a href="../libro-digital.html#s14">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P17</span>Si entregas un trabajo en clase hecho ÍNTEGRAMENTE con ChatGPT y lo presentas como tuyo... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">No pasa nada, es legal</button>
+      <button class="test-opt" data-opt="b">Es plagio: lo correcto es declarar el uso de IA y aportar tu valor propio</button>
+      <button class="test-opt" data-opt="c">ChatGPT te denunciará automáticamente</button>
+      <button class="test-opt" data-opt="d">Tendrás copyright automáticamente</button>
+    </div>
+    <div class="test-fb">Presentar contenido generado por IA como propio es <strong>plagio académico</strong>. La opción correcta: usar la IA como apoyo (consultar, explicarse cosas, revisar), declararlo, y aportar trabajo personal. <a href="../libro-digital.html#s14">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P18</span>La <strong>Ley de IA de la Unión Europea</strong> (AI Act, 2024) ya en aplicación... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Prohíbe toda la IA en Europa</button>
+      <button class="test-opt" data-opt="b">Obliga a que toda IA sea de código abierto</button>
+      <button class="test-opt" data-opt="c">Clasifica los sistemas de IA por riesgo: prohíbe los inadmisibles y regula los de alto riesgo (educación, empleo, justicia)</button>
+      <button class="test-opt" data-opt="d">Solo permite IA fabricada en Europa</button>
+    </div>
+    <div class="test-fb">La <strong>AI Act</strong> usa un enfoque por niveles: usos inadmisibles prohibidos (puntuación social masiva), alto riesgo regulado (sanidad, justicia, contratación), riesgo limitado con transparencia, y mínimo riesgo libre. Pionera en el mundo. <a href="../libro-digital.html#s13">Repasar →</a></div>
+  </div>
+  <div class="bloque-marcador" data-bloque="4"></div>
+</section>
+
+
+<section class="ac-resumen" id="ac-resumen">
+  <h2>Resultado de la autocomprobación</h2>
+  <div class="puntuacion"><span class="num-grande" id="ac-aciertos">0</span> / <span id="ac-total">18</span> aciertos</div>
+  <div class="progreso-barra"><div class="progreso-barra-fill" id="ac-bar"></div></div>
+  <p class="veredicto" id="ac-veredicto">Responde las preguntas para ver tu resultado.</p>
+  <div class="acciones">
+    <button id="ac-reintentar" class="primario" disabled>🔁 Reintentar las falladas</button>
+    <button id="ac-todo" disabled>🔄 Empezar de nuevo</button>
+    <a class="btn-link" href="../libro-digital.html">📖 Libro digital</a>
+    <a class="btn-link" href="../index.html">📋 Hub U06</a>
+  </div>
+</section>
+
+</div>
+</main>
+
+<script src="../../../assets/js/common.js"></script>
+<script src="../../../assets/js/header.js"></script>
+<script>
+(function(){'use strict';
+var qs=document.querySelectorAll('.test-q'),tot=document.getElementById('ac-total'),ac=document.getElementById('ac-aciertos'),bar=document.getElementById('ac-bar'),vr=document.getElementById('ac-veredicto'),br=document.getElementById('ac-reintentar'),bt=document.getElementById('ac-todo');
+tot.textContent=qs.length;
+function refrescar(){var a=0,c=0,f=0,pB={};qs.forEach(function(q){var b=q.closest('.test-section').dataset.bloque;if(!pB[b])pB[b]={ok:0,ko:0,total:0};pB[b].total++;if(q.classList.contains('answered')){c++;var ok=q.querySelector('.test-opt.correct')&&!q.querySelector('.test-opt.wrong');if(ok){a++;pB[b].ok++;}else{f++;pB[b].ko++;}}});ac.textContent=a;var p=Math.round(a/qs.length*100);bar.style.width=p+'%';if(c===0){vr.textContent='Responde las preguntas para ver tu resultado.';}else if(c<qs.length){vr.innerHTML='Llevas <strong>'+c+'</strong> de '+qs.length+' respondidas.';}else{var m=p>=90?'🌟 ¡Excelente! Dominas la unidad.':p>=75?'👍 Muy bien. Repasa los puntos fallados.':p>=50?'🙂 Aprobado. Vuelve al libro digital donde más hayas fallado.':'📚 Tranquilo: repasa con calma y vuelve a intentar.';vr.innerHTML=m+'<br><small>'+a+' aciertos · '+f+' fallos · '+p+'%</small>';}br.disabled=(f===0);bt.disabled=(c===0);Object.keys(pB).forEach(function(b){var m=document.querySelector('.bloque-marcador[data-bloque="'+b+'"]'),x=pB[b],d=x.ok+x.ko;if(d===0){m.classList.remove('activo');return;}m.classList.add('activo');if(d<x.total){m.innerHTML='Bloque '+b+': '+d+' / '+x.total+' respondidas';}else{m.innerHTML='Bloque '+b+': <span class="acierto">'+x.ok+' acierto'+(x.ok===1?'':'s')+'</span> · <span class="fallo">'+x.ko+' fallo'+(x.ko===1?'':'s')+'</span>';}});}
+document.addEventListener('click',function(e){if(e.target.classList&&e.target.classList.contains('test-opt')){setTimeout(refrescar,0);}});
+function rs(q){q.classList.remove('answered');q.querySelectorAll('.test-opt').forEach(function(b){b.classList.remove('correct','wrong');b.disabled=false;});}
+br.addEventListener('click',function(){qs.forEach(function(q){if(q.classList.contains('answered')&&q.querySelector('.test-opt.wrong'))rs(q);});refrescar();var p=document.querySelector('.test-q:not(.answered)');if(p)p.scrollIntoView({behavior:'smooth',block:'center'});});
+bt.addEventListener('click',function(){if(!confirm('¿Empezar de nuevo? Se borrarán todas tus respuestas.'))return;qs.forEach(rs);refrescar();window.scrollTo({top:0,behavior:'smooth'});});
+refrescar();})();
+</script>
+</body>
+</html>
