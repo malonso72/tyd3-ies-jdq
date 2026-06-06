@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#8C2A3D">
+<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<title>Cómo viaja un paquete · U03 · TyD 3º ESO</title>
+<meta name="description" content="Sigue el camino de una petición desde tu móvil hasta el servidor: ordena los pasos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/common.css">
+<link rel="stylesheet" href="../../../assets/css/unidad.css">
+<style>
+.ip-wrap{max-width:780px;margin:30px auto;padding:0 20px 50px}
+.ip-hero{text-align:center;margin-bottom:24px}
+.ip-hero h1{font-family:var(--cond);font-size:2rem;color:var(--principal);margin:0 0 8px}
+.ip-hero p{font-size:.95rem;color:var(--texto2);margin:0;line-height:1.5}
+.ip-progress{display:flex;justify-content:space-between;align-items:center;background:#F4F6F9;padding:10px 16px;border-radius:8px;margin-bottom:20px;font-family:var(--cond)}
+.ip-score{color:var(--principal)}
+.ip-card{background:#fff;border:1px solid var(--borde);border-radius:12px;padding:22px;box-shadow:0 1px 6px rgba(0,0,0,.05);margin-bottom:20px}
+.ip-titulo{font-family:var(--cond);font-size:1.2rem;color:var(--principal);margin:0 0 6px}
+.ip-instr{font-size:.92rem;color:var(--texto2);margin:0 0 14px;line-height:1.55}
+.ip-pasos{list-style:none;padding:0;margin:0 0 14px;counter-reset:p}
+.ip-paso{background:#FAFAFA;border:1px solid var(--borde);border-radius:8px;padding:10px 14px;margin-bottom:6px;font-size:.94rem;display:flex;align-items:center;gap:12px;line-height:1.4}
+.ip-paso::before{content:counter(p);counter-increment:p;display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;background:var(--principal);color:#fff;border-radius:50%;font-family:var(--cond);font-weight:700;font-size:.95rem;flex-shrink:0}
+.ip-paso .texto{flex:1}
+.ip-paso .arrows{display:flex;flex-direction:column;gap:2px}
+.ip-paso .arrows button{background:#fff;border:1px solid var(--borde);width:24px;height:18px;cursor:pointer;border-radius:4px;line-height:.6;color:var(--principal);font-size:.85rem}
+.ip-paso .arrows button:hover:not(:disabled){background:var(--principal);color:#fff}
+.ip-paso .arrows button:disabled{opacity:.3;cursor:default}
+.ip-paso.ok{background:#E1F5EE;border-color:#1E8E3E}
+.ip-paso.ok::before{background:#1E8E3E}
+.ip-paso.ko{background:#FCEBEB;border-color:#C44536}
+.ip-paso.ko::before{background:#C44536}
+.ip-actions{display:flex;gap:10px;justify-content:center}
+.ip-btn{font-family:var(--cond);padding:9px 22px;border-radius:22px;cursor:pointer;border:2px solid var(--principal);background:var(--principal);color:#fff;font-weight:600}
+.ip-btn.sec{background:#fff;color:var(--principal)}
+.ip-btn:hover{background:var(--principal2)}
+.ip-btn.sec:hover{background:var(--principal);color:#fff}
+.ip-fb{display:none;margin-top:14px;padding:14px 18px;border-radius:8px;font-size:.94rem;line-height:1.55}
+.ip-fb.show{display:block}
+.ip-fb.acierto{background:#E1F5EE;color:#0F6E56;border-left:5px solid #1E8E3E}
+.ip-fb.fallo{background:#FCEBEB;color:#9A2A2A;border-left:5px solid #C44536}
+</style>
+</head>
+<body>
+<header class="curso-hd"><span class="curso-sb">U03 · Redes · Interactivo: cómo viaja un paquete</span></header>
+<nav class="curso-navcross" role="navigation">
+  <a href="../../../index.html"><span>🏠</span><span class="nc-lbl">Índice</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../index.html"><span>📋</span><span class="nc-lbl">Hub U03</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../libro-digital.html"><span>📖</span><span class="nc-lbl">Libro digital</span></a>
+  <span class="nc-sep">·</span>
+  <span class="nc-current"><span>🔢</span><span class="nc-lbl">Paquete</span></span>
+</nav>
+
+<main id="main-content" class="ip-wrap">
+  <section class="ip-hero">
+    <h1>🔢 Cómo viaja un paquete</h1>
+    <p>Cuando escribes <code>www.iesjdq.es</code> y pulsas Enter, pasan muchas cosas en milisegundos. Tu reto: ordenar los pasos.</p>
+  </section>
+
+  <div class="ip-card">
+    <h2 class="ip-titulo">Escenario: pides la web del IES desde tu móvil</h2>
+    <p class="ip-instr">Estos son los 7 pasos en desorden. Colócalos en el orden correcto usando las flechas (↑ ↓) y comprueba.</p>
+    <ol class="ip-pasos" id="lista"></ol>
+    <div class="ip-actions">
+      <button class="ip-btn" id="comprobar">Comprobar</button>
+      <button class="ip-btn sec" id="reorden">🔀 Mezclar otra vez</button>
+    </div>
+    <div class="ip-fb" id="fb"></div>
+  </div>
+</main>
+
+<script>
+(function(){'use strict';
+var correcto=[
+  'Escribes www.iesjdq.es en el navegador del móvil y pulsas Enter.',
+  'El navegador consulta al DNS para traducir "iesjdq.es" a una IP, por ejemplo 87.121.45.12.',
+  'Tu móvil parte la petición HTTP en paquetes pequeños, cada uno con la IP de destino y de origen.',
+  'Los paquetes salen del móvil por wifi hasta el router de tu casa.',
+  'El router los envía a través de la red de tu operadora; cada router intermedio decide el siguiente salto hasta llegar al servidor.',
+  'El servidor del IES recibe los paquetes, los recompone, prepara la página web y envía los paquetes de respuesta de vuelta.',
+  'El navegador del móvil recibe los paquetes de respuesta, los reordena y dibuja la página en pantalla.'
+];
+
+var actual=[];
+function shuffle(a){var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}if(JSON.stringify(b)===JSON.stringify(a))return shuffle(a);return b;}
+var lista=document.getElementById('lista'),fb=document.getElementById('fb'),contestado=false;
+function repintar(){
+  lista.innerHTML='';
+  actual.forEach(function(t,i){
+    var li=document.createElement('li');
+    li.className='ip-paso';
+    li.innerHTML='<span class="texto">'+t+'</span><span class="arrows"><button class="up" aria-label="Subir">▲</button><button class="dn" aria-label="Bajar">▼</button></span>';
+    lista.appendChild(li);
+  });
+  var items=Array.from(lista.querySelectorAll('.ip-paso'));
+  items.forEach(function(li,i){
+    var up=li.querySelector('.up'),dn=li.querySelector('.dn');
+    if(i===0)up.disabled=true;
+    if(i===items.length-1)dn.disabled=true;
+    up.addEventListener('click',function(){if(contestado)return;var t=actual[i];actual[i]=actual[i-1];actual[i-1]=t;repintar();});
+    dn.addEventListener('click',function(){if(contestado)return;var t=actual[i];actual[i]=actual[i+1];actual[i+1]=t;repintar();});
+  });
+}
+document.getElementById('comprobar').addEventListener('click',function(){
+  if(contestado)return;contestado=true;
+  var todo=actual.every(function(t,i){return t===correcto[i];});
+  lista.querySelectorAll('.ip-paso').forEach(function(li,i){
+    if(actual[i]===correcto[i])li.classList.add('ok');else li.classList.add('ko');
+    li.querySelectorAll('.arrows button').forEach(function(b){b.disabled=true;});
+  });
+  if(todo){fb.innerHTML='<p><strong>✓ ¡Perfecto!</strong> Has ordenado correctamente cómo viaja un paquete por internet. Y todo ese proceso ocurre en menos de un segundo.</p>';fb.className='ip-fb show acierto';}
+  else{
+    var html='<p><strong>✗ El orden no es correcto.</strong> El orden correcto era:</p><ol style="margin-left:20px;line-height:1.6">';
+    correcto.forEach(function(c){html+='<li>'+c+'</li>';});
+    html+='</ol>';
+    fb.innerHTML=html;fb.className='ip-fb show fallo';
+  }
+});
+document.getElementById('reorden').addEventListener('click',function(){if(contestado){contestado=false;fb.className='ip-fb';}actual=shuffle(correcto);repintar();});
+actual=shuffle(correcto);repintar();
+})();
+</script>
+</body>
+</html>

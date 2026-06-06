@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#8C2A3D">
+<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<title>¿Qué proceso de fabricación? · U02 · TyD 3º ESO</title>
+<meta name="description" content="Decide el proceso de fabricación más adecuado para 10 casos reales: aditivo, sustractivo, conformado o unión.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/common.css">
+<link rel="stylesheet" href="../../../assets/css/unidad.css">
+<style>
+.pa-wrap{max-width:880px;margin:30px auto;padding:0 20px 60px}
+.pa-hero{text-align:center;margin-bottom:24px}
+.pa-hero h1{font-family:var(--cond);font-size:2rem;color:var(--principal);margin:0 0 8px}
+.pa-hero p{font-size:.95rem;color:var(--texto2);margin:0;line-height:1.55}
+.pa-progress{display:flex;justify-content:space-between;align-items:center;background:#F4F6F9;padding:10px 16px;border-radius:8px;margin-bottom:16px;font-family:var(--cond);font-size:.92rem}
+.pa-progress .marc{color:var(--texto2)}
+.pa-progress .marc strong{color:var(--principal)}
+.pa-card{background:#fff;border:1px solid var(--borde);border-radius:12px;padding:22px;box-shadow:0 1px 6px rgba(0,0,0,.05);margin-bottom:20px}
+.pa-caso{font-size:1rem;line-height:1.55;margin:0 0 14px;padding:14px 18px;background:#FBEEEF;border-left:4px solid var(--principal);border-radius:0 6px 6px 0;color:var(--texto)}
+.pa-caso .pieza{display:block;font-family:var(--cond);font-size:.78rem;letter-spacing:1.5px;color:var(--principal);margin-bottom:4px;text-transform:uppercase}
+.pa-opts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
+@media(max-width:560px){.pa-opts{grid-template-columns:1fr}}
+.pa-opt{font-family:var(--cond);background:#fff;border:2px solid var(--borde);border-radius:8px;padding:12px 14px;cursor:pointer;font-size:.92rem;text-align:left;color:var(--texto);transition:all .15s;line-height:1.4}
+.pa-opt:hover:not(:disabled){border-color:var(--principal);background:#FBEEEF}
+.pa-opt:disabled{cursor:not-allowed}
+.pa-opt.ok{background:#E1F5EE;border-color:#1E8E3E;color:#0F6E56}
+.pa-opt.ko{background:#FCEBEB;border-color:#C44536;color:#9A2A2A}
+.pa-opt .titulo{display:block;font-weight:700;font-size:.95rem}
+.pa-opt .desc{display:block;color:var(--texto2);font-size:.82rem;font-weight:400;margin-top:2px;line-height:1.35;font-family:var(--base,'Barlow',sans-serif)}
+.pa-opt.ok .desc,.pa-opt.ko .desc{color:inherit;opacity:.85}
+.pa-fb{display:none;margin-top:14px;padding:14px 18px;border-radius:8px;font-size:.93rem;line-height:1.55}
+.pa-fb.show{display:block}
+.pa-fb.acierto{background:#E1F5EE;color:#0F6E56;border-left:5px solid #1E8E3E}
+.pa-fb.fallo{background:#FCEBEB;color:#9A2A2A;border-left:5px solid #C44536}
+.pa-actions{display:flex;gap:10px;justify-content:center;margin-top:14px}
+.pa-btn{font-family:var(--cond);padding:9px 22px;border-radius:22px;cursor:pointer;border:2px solid var(--principal);background:var(--principal);color:#fff;font-weight:600}
+.pa-btn.sec{background:#fff;color:var(--principal)}
+.pa-btn:hover{background:var(--principal2)}
+.pa-btn.sec:hover{background:var(--principal);color:#fff}
+.pa-resumen{text-align:center;background:linear-gradient(180deg,#FBEEEF,#fff);border:2px solid var(--principal);border-radius:10px;padding:28px 24px}
+.pa-resumen .puntos{font-family:var(--cond);font-size:2.6rem;color:var(--principal);margin:6px 0}
+.pa-resumen .puntos small{color:var(--texto);font-size:1.4rem}
+.pa-resumen p{color:var(--texto2);font-size:.95rem;line-height:1.55;margin:6px 0 14px}
+</style>
+</head>
+<body>
+<header class="curso-hd"><span class="curso-sb">U02 · Construcción · Interactivo: proceso de fabricación</span></header>
+<nav class="curso-navcross" role="navigation">
+  <a href="../../../index.html"><span>🏠</span><span class="nc-lbl">Índice</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../index.html"><span>📋</span><span class="nc-lbl">Hub U02</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../libro-digital.html"><span>📖</span><span class="nc-lbl">Libro digital</span></a>
+  <span class="nc-sep">·</span>
+  <span class="nc-current"><span>🏭</span><span class="nc-lbl">Proceso</span></span>
+</nav>
+
+<main id="main-content" class="pa-wrap">
+  <section class="pa-hero">
+    <h1>🏭 ¿Qué proceso de fabricación?</h1>
+    <p>10 piezas reales con sus condiciones (material, cantidad, geometría). Elige el proceso más adecuado y descubre <strong>por qué</strong>.</p>
+  </section>
+
+  <div class="pa-progress">
+    <span>Caso <strong id="num">1</strong> de <strong id="tot">10</strong></span>
+    <span class="marc">Aciertos: <strong id="ac">0</strong></span>
+  </div>
+
+  <div class="pa-card" id="card">
+    <div class="pa-caso"><span class="pieza" id="pieza">—</span><span id="enun"></span></div>
+    <div class="pa-opts" id="opts"></div>
+    <div class="pa-fb" id="fb"></div>
+    <div class="pa-actions" id="acciones" style="display:none">
+      <button class="pa-btn" id="siguiente">Siguiente →</button>
+    </div>
+  </div>
+
+  <section class="pa-resumen" id="resumen" style="display:none">
+    <h2 style="font-family:var(--cond);color:var(--principal);margin:0 0 6px">¡Has terminado!</h2>
+    <div class="puntos"><span id="r-ac">0</span><small> / <span id="r-tot">10</span></small></div>
+    <p id="r-msg">—</p>
+    <button class="pa-btn" id="rein">🔁 Volver a empezar</button>
+  </section>
+</main>
+
+<script>
+(function(){'use strict';
+var casos=[
+  {pieza:'Carcasa de 50 000 mandos de TV',enun:'Pieza de plástico ABS, geometría compleja con clips para ensamblaje, producción en grandes series, coste por unidad mínimo.',correcto:'inyeccion',explica:'<strong>Inyección de plástico en molde.</strong> El molde es caro de fabricar (decenas de miles de €) pero, una vez hecho, cada pieza sale en 20 segundos y cuesta céntimos. Ideal para grandes series.'},
+  {pieza:'Prótesis de mano personalizada',enun:'Una sola unidad, geometría única adaptada a las medidas exactas de la persona, plástico tipo PLA.',correcto:'3d',explica:'<strong>Impresión 3D (FDM).</strong> Sin molde, geometría personalizada, una sola unidad. Tiempo de impresión razonable y bajo coste por pieza.'},
+  {pieza:'Bloque motor de coche en aluminio',enun:'Pieza maciza, geometría compleja con conductos internos, miles de unidades al mes.',correcto:'fundicion',explica:'<strong>Fundición en molde (a presión).</strong> Aluminio líquido se inyecta en un molde con la forma deseada, incluyendo los huecos interiores. Sale en una sola pieza, rápido y barato.'},
+  {pieza:'Tubería de cobre para fontanería',enun:'Tubo largo y uniforme, sección redonda, gran longitud, mismo perfil a lo largo.',correcto:'conformado',explica:'<strong>Extrusión (conformado).</strong> Empujas el material (cobre caliente) a través de una boquilla con la forma deseada. Sale tubería continua. Igual ocurre con perfiles de aluminio o pasta.'},
+  {pieza:'Engranaje de precisión en acero',enun:'Una sola unidad, alta precisión (centésimas de mm), dientes geométricamente perfectos, acabado superficial fino.',correcto:'cnc',explica:'<strong>Mecanizado CNC.</strong> Partes de un cilindro de acero macizo y la fresadora CNC quita material capa por capa hasta dejar los dientes exactos. Precisión imbatible.'},
+  {pieza:'5 000 botellas de plástico para refresco',enun:'Cuerpo hueco con cuello, gran serie, material PET, paredes muy finas.',correcto:'soplado',explica:'<strong>Soplado.</strong> Se inyecta una preforma de PET (tubo de plástico) y luego con aire comprimido se infla dentro de un molde. Imbatible para envases huecos en serie.'},
+  {pieza:'Estructura de un puente metálico',enun:'Piezas grandes (vigas en H, tubos) que hay que unir entre sí permanentemente y aguantar grandes cargas.',correcto:'soldadura',explica:'<strong>Soldadura.</strong> Funde el material en la zona de unión, creando una pieza única. Resistencia máxima. La alternativa atornillada se usa en puentes desmontables pero requiere mantenimiento.'},
+  {pieza:'Latas de bebida (350 ml)',enun:'Aluminio fino, geometría cilíndrica con fondo cerrado, producción a millones por día.',correcto:'embuticion',explica:'<strong>Embutición (conformado).</strong> Un disco plano de aluminio se "estira" con un punzón hasta formar el vaso cilíndrico. Velocidad: cientos por segundo. Sin desperdicio.'},
+  {pieza:'Cuchara única tallada en madera de olivo',enun:'Pieza artesanal, madera, sin moldes ni máquinas industriales, una a una.',correcto:'artesania',explica:'<strong>Artesanía / tallado manual.</strong> Cada pieza es única. No tiene sentido industrial, pero tiene valor cultural, estético y económico (puede venderse caro precisamente porque es único).'},
+  {pieza:'Pieza decorativa con detalles muy finos en latón',enun:'Geometría con relieve, muchos detalles pequeños imposibles de mecanizar, pequeñas series, latón.',correcto:'fundicion',explica:'<strong>Fundición a la cera perdida.</strong> Modelas la pieza en cera, la cubres de yeso, derrites la cera (queda el hueco) y viertes el latón fundido. Tradicional desde la antigüedad: así se hacen monedas y joyas.'}
+];
+
+var opciones=[
+  {id:'inyeccion',titulo:'Inyección en molde',desc:'Plástico fundido en molde, grandes series.'},
+  {id:'3d',titulo:'Impresión 3D',desc:'Aditivo, capa a capa, sin molde.'},
+  {id:'cnc',titulo:'Mecanizado CNC',desc:'Sustractivo, fresadora o torno controlados.'},
+  {id:'fundicion',titulo:'Fundición',desc:'Metal líquido en molde.'},
+  {id:'conformado',titulo:'Conformado / extrusión',desc:'Empujar material por boquilla; perfiles largos.'},
+  {id:'soplado',titulo:'Soplado',desc:'Inflar plástico dentro de molde; envases huecos.'},
+  {id:'embuticion',titulo:'Embutición',desc:'Estirar chapa plana con punzón; latas, carrocerías.'},
+  {id:'soldadura',titulo:'Soldadura / unión',desc:'Fundir o unir piezas permanentemente.'},
+  {id:'artesania',titulo:'Artesanía',desc:'Trabajo manual, pieza única.'}
+];
+
+var i=0,aciertos=0,respondida=false;
+var n=document.getElementById('num'),tot=document.getElementById('tot'),pi=document.getElementById('pieza'),en=document.getElementById('enun'),op=document.getElementById('opts'),fb=document.getElementById('fb'),ac=document.getElementById('ac'),acc=document.getElementById('acciones'),sig=document.getElementById('siguiente'),card=document.getElementById('card'),resumen=document.getElementById('resumen'),rac=document.getElementById('r-ac'),rtot=document.getElementById('r-tot'),rmsg=document.getElementById('r-msg'),rein=document.getElementById('rein');
+tot.textContent=casos.length;rtot.textContent=casos.length;
+
+function distractores(correcto){
+  // Selecciona 3 distractores aleatorios distintos del correcto
+  var resto=opciones.filter(function(o){return o.id!==correcto;});
+  for(var k=resto.length-1;k>0;k--){var j=Math.floor(Math.random()*(k+1));var t=resto[k];resto[k]=resto[j];resto[j]=t;}
+  return resto.slice(0,3);
+}
+
+function pintar(){
+  var c=casos[i];
+  n.textContent=i+1;pi.textContent=c.pieza;en.innerHTML=c.enun;
+  fb.className='pa-fb';fb.innerHTML='';acc.style.display='none';respondida=false;
+  var correctaObj=opciones.find(function(o){return o.id===c.correcto;});
+  var d=distractores(c.correcto);
+  var todas=[correctaObj].concat(d);
+  // Mezclar
+  for(var k=todas.length-1;k>0;k--){var j=Math.floor(Math.random()*(k+1));var t=todas[k];todas[k]=todas[j];todas[j]=t;}
+  op.innerHTML='';
+  todas.forEach(function(o){
+    var b=document.createElement('button');
+    b.className='pa-opt';b.dataset.id=o.id;
+    b.innerHTML='<span class="titulo">'+o.titulo+'</span><span class="desc">'+o.desc+'</span>';
+    b.addEventListener('click',function(){responder(o.id,b);});
+    op.appendChild(b);
+  });
+}
+
+function responder(elegida,btn){
+  if(respondida)return;respondida=true;
+  var c=casos[i];
+  op.querySelectorAll('.pa-opt').forEach(function(b){
+    b.disabled=true;
+    if(b.dataset.id===c.correcto)b.classList.add('ok');
+    else if(b===btn)b.classList.add('ko');
+  });
+  if(elegida===c.correcto){
+    aciertos++;
+    fb.className='pa-fb show acierto';
+    fb.innerHTML='<strong>✓ ¡Correcto!</strong> '+c.explica;
+  } else {
+    fb.className='pa-fb show fallo';
+    fb.innerHTML='<strong>✗ No era ese.</strong> '+c.explica;
+  }
+  ac.textContent=aciertos;
+  acc.style.display='flex';
+}
+
+sig.addEventListener('click',function(){
+  i++;
+  if(i>=casos.length){
+    card.style.display='none';
+    document.querySelector('.pa-progress').style.display='none';
+    resumen.style.display='block';
+    rac.textContent=aciertos;
+    var p=Math.round(aciertos/casos.length*100);
+    var msg=p>=90?'🌟 ¡Perfecto! Dominas los procesos de fabricación.':p>=75?'👍 Muy bien. Repasa los casos que has fallado.':p>=50?'🙂 Aprobado. Vuelve al libro digital donde dudaste.':'📚 Tranquilo: lee de nuevo la parte de «Procesos de fabricación» y vuelve.';
+    rmsg.innerHTML=msg+'<br><small>'+aciertos+' aciertos de '+casos.length+' ('+p+'%)</small>';
+    resumen.scrollIntoView({behavior:'smooth'});
+  } else {
+    pintar();
+  }
+});
+
+rein.addEventListener('click',function(){
+  i=0;aciertos=0;
+  resumen.style.display='none';
+  card.style.display='block';
+  document.querySelector('.pa-progress').style.display='flex';
+  ac.textContent='0';
+  pintar();
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+pintar();
+})();
+</script>
+</body>
+</html>

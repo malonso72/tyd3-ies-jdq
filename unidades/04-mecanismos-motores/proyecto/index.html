@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#8C2A3D">
+<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<title>Proyecto · U04 Mecanismos · TyD 3º ESO</title>
+<meta name="description" content="Proyecto integrador: diseña y construye una máquina con mecanismos justificados, motor adecuado y cálculo de transmisiones.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/common.css">
+<link rel="stylesheet" href="../../../assets/css/unidad.css">
+<style>
+.pr-wrap{max-width:880px;margin:24px auto 50px;padding:0 20px}
+.pr-hero{text-align:center;margin-bottom:28px}
+.pr-hero h1{font-family:var(--cond);font-size:2rem;color:var(--principal);margin:0 0 8px}
+.pr-hero p{font-size:1rem;color:var(--texto2);margin:0;line-height:1.55}
+.pr-card{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:20px 24px;margin-bottom:18px}
+.pr-card h2{font-family:var(--cond);font-size:1.3rem;color:var(--principal);margin:0 0 10px;display:flex;align-items:center;gap:10px}
+.pr-card h2 .num{display:inline-block;width:36px;height:36px;line-height:36px;text-align:center;background:var(--principal);color:#fff;border-radius:50%;font-size:1rem;flex-shrink:0}
+.pr-card p,.pr-card li{font-size:.96rem;line-height:1.6}
+.pr-card ul,.pr-card ol{margin:8px 0 8px 22px;padding-left:0}
+.pr-fases{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:14px 0}
+.pr-fase{background:#F4F6F9;border-radius:8px;padding:12px 14px}
+.pr-fase h4{font-family:var(--cond);color:var(--principal);margin:0 0 6px;font-size:.95rem}
+.pr-fase p{font-size:.88rem;color:var(--texto2);margin:0;line-height:1.5}
+.pr-rubrica{width:100%;border-collapse:collapse;margin:14px 0;font-size:.92rem}
+.pr-rubrica th{background:var(--principal);color:#fff;padding:8px 10px;font-family:var(--cond);text-align:left}
+.pr-rubrica td{padding:8px 10px;border-bottom:1px solid var(--borde);vertical-align:top}
+.pr-rubrica td:first-child{font-weight:600;width:55%;color:var(--principal2)}
+.pr-rubrica td:last-child{width:15%;text-align:center;font-family:var(--cond);color:var(--principal)}
+.pr-callout{background:#E6F1FB;border-left:4px solid #378ADD;border-radius:0 6px 6px 0;padding:12px 16px;margin:14px 0;font-size:.92rem;line-height:1.55}
+.pr-callout-warn{background:#FFF4E6;border-left-color:#F59E0B}
+.pr-ideas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:14px 0}
+.pr-idea{background:#FBEEEF;border-radius:8px;padding:12px 14px;border-left:3px solid var(--principal)}
+.pr-idea h5{font-family:var(--cond);color:var(--principal);font-size:.95rem;margin:0 0 4px}
+.pr-idea p{font-size:.85rem;color:var(--texto2);margin:0;line-height:1.5}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+<header class="curso-hd"><span class="curso-sb">U04 · Mecanismos · Proyecto</span></header>
+<nav class="curso-navcross" role="navigation">
+  <a href="../../../index.html"><span>🏠</span><span class="nc-lbl">Índice</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../index.html"><span>📋</span><span class="nc-lbl">Hub U04</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../libro-digital.html"><span>📖</span><span class="nc-lbl">Libro digital</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../actividades/index.html"><span>✏️</span><span class="nc-lbl">Cuadernillo</span></a>
+  <span class="nc-sep">·</span>
+  <span class="nc-current"><span>🚀</span><span class="nc-lbl">Proyecto</span></span>
+</nav>
+
+<main id="main-content" class="pr-wrap">
+  <section class="pr-hero">
+    <h1>🚀 Proyecto: construye una máquina con mecanismos</h1>
+    <p>Diseña, calcula y <strong>construye</strong> una máquina sencilla que cumpla una función, justificando los mecanismos y el motor elegidos.</p>
+  </section>
+
+  <div class="pr-card">
+    <h2><span class="num">1</span>La idea</h2>
+    <p>Vas a construir un <strong>prototipo funcional</strong> que combine al menos <strong>dos mecanismos</strong> de los estudiados, accionado por un motor (eléctrico o manual). El objetivo es <em>resolver</em> un problema concreto, no hacer una maqueta decorativa.</p>
+    <p>Trabajaréis por <strong>parejas o tríos</strong>, durante 4-5 sesiones en el aula-taller. La nota incluye el cálculo de las transmisiones, no solo que «funcione».</p>
+  </div>
+
+  <div class="pr-card">
+    <h2><span class="num">2</span>Ideas de partida (elige una o propón)</h2>
+    <div class="pr-ideas">
+      <div class="pr-idea"><h5>🎡 Noria mini</h5><p>Motor + tren reductor → eje de la noria. Engancha con la U2 si quieres.</p></div>
+      <div class="pr-idea"><h5>🚪 Puerta corredera automática</h5><p>Motor + piñón-cremallera. Final de carrera para parar.</p></div>
+      <div class="pr-idea"><h5>🏗️ Grúa pluma</h5><p>Motor + cabrestante para subir. Bonus: giro de la torre con engranajes.</p></div>
+      <div class="pr-idea"><h5>🚗 Coche de motor</h5><p>Motor + reductor de engranajes → ruedas. Lo más sencillo del taller.</p></div>
+      <div class="pr-idea"><h5>🪜 Ascensor</h5><p>Motor + husillo-tuerca para subir la cabina. Husillo M8 + tuerca M8 vale.</p></div>
+      <div class="pr-idea"><h5>⏱️ Reloj de engranajes</h5><p>Sin motor: muelle real + tren reductor. Más complejo, más nota.</p></div>
+      <div class="pr-idea"><h5>🎰 Bolita en pista</h5><p>Manivela + leva o biela para empujar una bola; combina varios mecanismos.</p></div>
+      <div class="pr-idea"><h5>🔧 Tu idea</h5><p>Habla con el profesor primero para validar la dificultad.</p></div>
+    </div>
+  </div>
+
+  <div class="pr-card">
+    <h2><span class="num">3</span>Fases del proyecto</h2>
+    <div class="pr-fases">
+      <div class="pr-fase"><h4>🎯 1. Definir</h4><p>Qué hace la máquina, para quién, qué requisitos.</p></div>
+      <div class="pr-fase"><h4>✏️ 2. Bocetar</h4><p>3 propuestas a mano + elección razonada.</p></div>
+      <div class="pr-fase"><h4>🧮 3. Calcular</h4><p>Mecanismos elegidos, relación de transmisión total, par necesario, motor adecuado.</p></div>
+      <div class="pr-fase"><h4>📐 4. Planos</h4><p>Vistas con cotas de las piezas críticas.</p></div>
+      <div class="pr-fase"><h4>🛠️ 5. Construir</h4><p>Madera, MDF, impresión 3D, cartón pluma. Motor de juguete o servo Arduino.</p></div>
+      <div class="pr-fase"><h4>🧪 6. Probar</h4><p>Mide tiempos, velocidades, peso máximo. Apunta lo que falle.</p></div>
+      <div class="pr-fase"><h4>🔁 7. Iterar</h4><p>Al menos UNA mejora real tras los primeros tests.</p></div>
+      <div class="pr-fase"><h4>🎤 8. Defender</h4><p>4 min de demo + memoria PDF.</p></div>
+    </div>
+  </div>
+
+  <div class="pr-card">
+    <h2><span class="num">4</span>Entregables</h2>
+    <ol>
+      <li><strong>Máquina funcional</strong>: cumple lo que prometía hacer.</li>
+      <li><strong>Memoria técnica (PDF, 6-8 págs.)</strong>: necesidad detectada, bocetos, planos con cotas, justificación de mecanismos elegidos, cálculo de relación de transmisión y par, elección del motor, fotos del proceso, evaluación tras los tests.</li>
+      <li><strong>Vídeo (60-90 s)</strong> mostrando el funcionamiento.</li>
+      <li><strong>Defensa oral (4 min)</strong> con demo en directo.</li>
+    </ol>
+  </div>
+
+  <div class="pr-card">
+    <h2><span class="num">5</span>Rúbrica</h2>
+    <table class="pr-rubrica">
+      <thead><tr><th>Criterio</th><th>Peso</th></tr></thead>
+      <tbody>
+        <tr><td>Diseño claro y problema bien definido</td><td>10%</td></tr>
+        <tr><td>Planos con cotas correctos</td><td>10%</td></tr>
+        <tr><td>Justificación + cálculo de mecanismos (relación de transmisión, par)</td><td>25%</td></tr>
+        <tr><td>Elección razonada del motor</td><td>10%</td></tr>
+        <tr><td>Construcción: máquina terminada y funcional</td><td>25%</td></tr>
+        <tr><td>Iteración tras los tests (qué cambiaste y por qué)</td><td>10%</td></tr>
+        <tr><td>Defensa oral con demo</td><td>10%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pr-callout">💡 <strong>Conexión con el cuadernillo:</strong> los 64 ejercicios del cuadernillo son la "musculatura" matemática del proyecto. Si dudas con la relación de transmisión o la velocidad lineal, usa los bloques 7 (poleas-correa), 8 (engranajes), 10 (trenes compuestos) y 12 (piñón-cremallera) como referencia rápida.</div>
+
+  <div class="pr-callout pr-callout-warn">⚠️ <strong>Seguridad en el taller:</strong> gafas de seguridad obligatorias. Manos lejos de zonas de corte. Motores conectados a la red eléctrica solo bajo supervisión del profesor. Cuidado con los dedos en los engranajes en marcha.</div>
+
+</main>
+<script src="../../../assets/js/common.js"></script>
+<script src="../../../assets/js/header.js"></script>
+</body>
+</html>

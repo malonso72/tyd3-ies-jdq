@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#8C2A3D">
+<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<title>Analiza un objeto · U02 · TyD 3º ESO</title>
+<meta name="description" content="Practica los 6 puntos del análisis técnico clasificando observaciones reales sobre objetos cotidianos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/common.css">
+<link rel="stylesheet" href="../../../assets/css/unidad.css">
+<style>
+.ao-wrap{max-width:880px;margin:30px auto;padding:0 20px 60px}
+.ao-hero{text-align:center;margin-bottom:24px}
+.ao-hero h1{font-family:var(--cond);font-size:2rem;color:var(--principal);margin:0 0 8px}
+.ao-hero p{font-size:.95rem;color:var(--texto2);margin:0;line-height:1.55}
+.ao-progress{display:flex;justify-content:space-between;align-items:center;background:#F4F6F9;padding:10px 16px;border-radius:8px;margin-bottom:20px;font-family:var(--cond);font-size:.92rem}
+.ao-progress .obj{color:var(--principal);font-weight:600}
+.ao-progress .marc{color:var(--texto2)}
+.ao-card{background:#fff;border:1px solid var(--borde);border-radius:12px;padding:22px;box-shadow:0 1px 6px rgba(0,0,0,.05);margin-bottom:20px}
+.ao-statement{font-size:1.05rem;color:var(--texto);line-height:1.55;margin:0 0 16px;padding:14px 18px;background:#FBEEEF;border-left:4px solid var(--principal);border-radius:0 6px 6px 0}
+.ao-statement strong{color:var(--principal)}
+.ao-opts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
+@media(max-width:560px){.ao-opts{grid-template-columns:1fr}}
+.ao-opt{font-family:var(--cond);background:#fff;border:2px solid var(--borde);border-radius:8px;padding:12px 14px;cursor:pointer;font-size:.93rem;text-align:left;color:var(--texto);transition:all .15s;display:flex;align-items:center;gap:10px}
+.ao-opt .emoji{font-size:1.3rem}
+.ao-opt:hover:not(:disabled){border-color:var(--principal);background:#FBEEEF}
+.ao-opt:disabled{cursor:not-allowed}
+.ao-opt.ok{background:#E1F5EE;border-color:#1E8E3E;color:#0F6E56}
+.ao-opt.ko{background:#FCEBEB;border-color:#C44536;color:#9A2A2A}
+.ao-fb{display:none;margin-top:14px;padding:14px 18px;border-radius:8px;font-size:.93rem;line-height:1.55}
+.ao-fb.show{display:block}
+.ao-fb.acierto{background:#E1F5EE;color:#0F6E56;border-left:5px solid #1E8E3E}
+.ao-fb.fallo{background:#FCEBEB;color:#9A2A2A;border-left:5px solid #C44536}
+.ao-fb strong{font-weight:700}
+.ao-actions{display:flex;gap:10px;justify-content:center;margin-top:14px}
+.ao-btn{font-family:var(--cond);padding:9px 22px;border-radius:22px;cursor:pointer;border:2px solid var(--principal);background:var(--principal);color:#fff;font-weight:600}
+.ao-btn.sec{background:#fff;color:var(--principal)}
+.ao-btn:hover{background:var(--principal2)}
+.ao-btn.sec:hover{background:var(--principal);color:#fff}
+.ao-resumen{text-align:center;background:linear-gradient(180deg,#FBEEEF,#fff);border:2px solid var(--principal);border-radius:10px;padding:28px 24px}
+.ao-resumen .puntos{font-family:var(--cond);font-size:2.6rem;color:var(--principal);margin:6px 0}
+.ao-resumen .puntos small{color:var(--texto);font-size:1.4rem}
+.ao-resumen p{color:var(--texto2);font-size:.95rem;line-height:1.55;margin:6px 0 14px}
+.ao-legend{margin-top:8px;padding:14px 18px;background:#F4F6F9;border-radius:8px;font-size:.86rem;line-height:1.7;color:var(--texto2)}
+.ao-legend strong{color:var(--principal);font-family:var(--cond)}
+</style>
+</head>
+<body>
+<header class="curso-hd"><span class="curso-sb">U02 · Construcción · Interactivo: analiza un objeto</span></header>
+<nav class="curso-navcross" role="navigation">
+  <a href="../../../index.html"><span>🏠</span><span class="nc-lbl">Índice</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../index.html"><span>📋</span><span class="nc-lbl">Hub U02</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../libro-digital.html"><span>📖</span><span class="nc-lbl">Libro digital</span></a>
+  <span class="nc-sep">·</span>
+  <span class="nc-current"><span>🔍</span><span class="nc-lbl">Analiza</span></span>
+</nav>
+
+<main id="main-content" class="ao-wrap">
+  <section class="ao-hero">
+    <h1>🔍 Analiza un objeto</h1>
+    <p>Te damos una observación sobre un objeto cotidiano. Tu reto: identificar a qué <strong>punto del análisis técnico</strong> pertenece.</p>
+  </section>
+
+  <div class="ao-legend">
+    <strong>Los 6 puntos del análisis técnico:</strong><br>
+    1️⃣ <strong>Función</strong> · 2️⃣ <strong>Forma</strong> · 3️⃣ <strong>Materiales</strong> · 4️⃣ <strong>Fabricación</strong> · 5️⃣ <strong>Uso / Ergonomía</strong> · 6️⃣ <strong>Impacto ambiental</strong>
+  </div>
+
+  <div class="ao-progress" style="margin-top:18px">
+    <span>Pregunta <span id="num">1</span> de <span id="tot">12</span> · <span class="obj" id="obj">—</span></span>
+    <span class="marc" id="marc">Aciertos: 0</span>
+  </div>
+
+  <div class="ao-card" id="card">
+    <p class="ao-statement" id="enun"></p>
+    <div class="ao-opts" id="opts"></div>
+    <div class="ao-fb" id="fb"></div>
+    <div class="ao-actions" id="acciones" style="display:none">
+      <button class="ao-btn" id="siguiente">Siguiente →</button>
+    </div>
+  </div>
+
+  <section class="ao-resumen" id="resumen" style="display:none">
+    <h2 style="font-family:var(--cond);color:var(--principal);margin:0 0 6px">¡Has terminado!</h2>
+    <div class="puntos"><span id="r-ac">0</span><small> / <span id="r-tot">12</span></small></div>
+    <p id="r-msg">—</p>
+    <button class="ao-btn" id="rein">🔁 Volver a empezar</button>
+  </section>
+</main>
+
+<script>
+(function(){'use strict';
+var preguntas=[
+  {obj:'Bicicleta',enun:'El sillín tiene la forma anatómica y va acolchado para no producir dolor en trayectos largos.',cat:5},
+  {obj:'Bicicleta',enun:'El cuadro está hecho de aluminio porque es ligero y no se oxida con la lluvia.',cat:3},
+  {obj:'Bicicleta',enun:'Sirve para desplazarse de forma rápida y limpia, sin consumir combustibles fósiles.',cat:1},
+  {obj:'Bicicleta',enun:'Los tubos del cuadro se sueldan en serie con robots en fábricas industriales.',cat:4},
+  {obj:'Bicicleta',enun:'Es triangular (geometría del cuadro): la forma que más rigidez aporta con menos material.',cat:2},
+  {obj:'Bicicleta',enun:'Al final de su vida útil, el aluminio se puede reciclar al 100 %; las cubiertas, no.',cat:6},
+  {obj:'Cepillo de dientes eléctrico',enun:'El mango es ancho y antideslizante: se sujeta cómodamente incluso con la mano mojada.',cat:5},
+  {obj:'Cepillo de dientes eléctrico',enun:'La carcasa es de polipropileno fabricada por inyección en molde.',cat:4},
+  {obj:'Cepillo de dientes eléctrico',enun:'Lleva un pequeño motor con un transformador piezoeléctrico que hace vibrar las cerdas.',cat:3},
+  {obj:'Cepillo de dientes eléctrico',enun:'Lo problemático: lleva pilas o batería de litio integrada, lo que dificulta su reciclaje.',cat:6},
+  {obj:'Cepillo de dientes eléctrico',enun:'Limpia los dientes con mayor eficacia que un cepillo manual gracias a las vibraciones.',cat:1},
+  {obj:'Cepillo de dientes eléctrico',enun:'Tiene forma alargada, recordando a un cepillo manual, con un cabezal redondeado pequeño.',cat:2}
+];
+
+var categorias=[
+  {n:1,nombre:'Función',emoji:'🎯',exp:'Lo que el objeto hace, su utilidad principal o secundaria.'},
+  {n:2,nombre:'Forma',emoji:'📐',exp:'Geometría, dimensiones, partes y cómo se relacionan.'},
+  {n:3,nombre:'Materiales',emoji:'🧱',exp:'De qué está hecho y por qué (propiedades).'},
+  {n:4,nombre:'Fabricación',emoji:'🏭',exp:'Cómo se construye: procesos, herramientas y serie.'},
+  {n:5,nombre:'Uso / Ergonomía',emoji:'👋',exp:'Cómo lo usa la persona: comodidad, esfuerzo, seguridad.'},
+  {n:6,nombre:'Impacto ambiental',emoji:'🌱',exp:'Ciclo de vida: recursos consumidos, residuos, reciclabilidad.'}
+];
+
+var i=0,aciertos=0,respondida=false;
+var n=document.getElementById('num'),tot=document.getElementById('tot'),obj=document.getElementById('obj'),marc=document.getElementById('marc'),enun=document.getElementById('enun'),opts=document.getElementById('opts'),fb=document.getElementById('fb'),acc=document.getElementById('acciones'),sig=document.getElementById('siguiente'),card=document.getElementById('card'),resumen=document.getElementById('resumen'),rac=document.getElementById('r-ac'),rtot=document.getElementById('r-tot'),rmsg=document.getElementById('r-msg'),rein=document.getElementById('rein');
+tot.textContent=preguntas.length;rtot.textContent=preguntas.length;
+
+function pintar(){
+  var p=preguntas[i];
+  n.textContent=i+1;obj.textContent=p.obj;
+  enun.innerHTML=p.enun;
+  opts.innerHTML='';
+  fb.className='ao-fb';fb.innerHTML='';
+  acc.style.display='none';
+  respondida=false;
+  categorias.forEach(function(c){
+    var b=document.createElement('button');
+    b.className='ao-opt';
+    b.dataset.cat=c.n;
+    b.innerHTML='<span class="emoji">'+c.emoji+'</span><span>'+c.nombre+'</span>';
+    b.addEventListener('click',function(){responder(c.n,b);});
+    opts.appendChild(b);
+  });
+}
+
+function responder(elegida,btn){
+  if(respondida)return;respondida=true;
+  var correcta=preguntas[i].cat;
+  var cat=categorias.find(function(c){return c.n===correcta;});
+  opts.querySelectorAll('.ao-opt').forEach(function(b){
+    b.disabled=true;
+    if(+b.dataset.cat===correcta)b.classList.add('ok');
+    else if(b===btn)b.classList.add('ko');
+  });
+  if(elegida===correcta){
+    aciertos++;
+    fb.className='ao-fb show acierto';
+    fb.innerHTML='<strong>✓ ¡Correcto!</strong> '+cat.emoji+' <strong>'+cat.nombre+'</strong>: '+cat.exp;
+  } else {
+    var elegidaCat=categorias.find(function(c){return c.n===elegida;});
+    fb.className='ao-fb show fallo';
+    fb.innerHTML='<strong>✗ No.</strong> Era '+cat.emoji+' <strong>'+cat.nombre+'</strong>: '+cat.exp+'<br><br>Tu respuesta ('+elegidaCat.emoji+' '+elegidaCat.nombre+'): '+elegidaCat.exp;
+  }
+  marc.textContent='Aciertos: '+aciertos;
+  acc.style.display='flex';
+}
+
+sig.addEventListener('click',function(){
+  i++;
+  if(i>=preguntas.length){
+    card.style.display='none';
+    document.querySelector('.ao-progress').style.display='none';
+    resumen.style.display='block';
+    rac.textContent=aciertos;
+    var p=Math.round(aciertos/preguntas.length*100);
+    var msg=p>=90?'🌟 ¡Perfecto! Tienes el análisis técnico interiorizado.':p>=75?'👍 Muy bien. Repasa los puntos que has fallado.':p>=50?'🙂 Aprobado. Vuelve al libro digital donde dudaste.':'📚 Tranquilo: lee de nuevo el apartado «Los 6 puntos del análisis» y vuelve.';
+    rmsg.innerHTML=msg+'<br><small>'+aciertos+' aciertos de '+preguntas.length+' ('+p+'%)</small>';
+    resumen.scrollIntoView({behavior:'smooth'});
+  } else {
+    pintar();
+  }
+});
+
+rein.addEventListener('click',function(){
+  i=0;aciertos=0;
+  resumen.style.display='none';
+  card.style.display='block';
+  document.querySelector('.ao-progress').style.display='flex';
+  marc.textContent='Aciertos: 0';
+  pintar();
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+pintar();
+})();
+</script>
+</body>
+</html>

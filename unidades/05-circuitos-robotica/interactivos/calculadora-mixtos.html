@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#8C2A3D">
+<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<title>Calculadora de circuitos · U05 · TyD 3º ESO</title>
+<meta name="description" content="Resuelve circuitos serie, paralelo y mixtos paso a paso con visualización.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/common.css">
+<link rel="stylesheet" href="../../../assets/css/unidad.css">
+<style>
+.cm-wrap{max-width:900px;margin:30px auto;padding:0 20px 60px}
+.cm-hero{text-align:center;margin-bottom:22px}
+.cm-hero h1{font-family:var(--cond);font-size:2rem;color:var(--principal);margin:0 0 8px}
+.cm-hero p{font-size:.95rem;color:var(--texto2);margin:0;line-height:1.55}
+.cm-card{background:#fff;border:1px solid var(--borde);border-radius:12px;padding:22px;box-shadow:0 1px 6px rgba(0,0,0,.05);margin-bottom:18px}
+.cm-tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.cm-tab{font-family:var(--cond);background:#fff;border:1.5px solid var(--borde);padding:8px 14px;border-radius:18px;cursor:pointer;font-size:.88rem;color:var(--texto2)}
+.cm-tab.activa{background:var(--principal);color:#fff;border-color:var(--principal)}
+.cm-inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:12px}
+.cm-inp{display:flex;flex-direction:column;gap:4px}
+.cm-inp label{font-family:var(--cond);font-size:.78rem;color:var(--texto2);letter-spacing:.5px}
+.cm-inp input{font-family:'JetBrains Mono',monospace;background:#FBEEEF;border:1.5px solid var(--borde);border-radius:6px;padding:8px 10px;font-size:.92rem;color:var(--principal);width:100%}
+.cm-inp input:focus{outline:none;border-color:var(--principal);background:#fff}
+.cm-canvas-wrap{background:#FAFBFC;border-radius:10px;padding:14px;margin:10px 0}
+canvas{display:block;margin:0 auto;max-width:100%;height:auto}
+.cm-pasos{margin-top:14px;background:#FFFCF5;border:1px solid #E8DCB8;border-radius:8px;padding:14px 18px}
+.cm-pasos h4{font-family:var(--cond);color:#A47B0C;margin:0 0 8px;font-size:1rem}
+.cm-pasos ol{margin:0 0 0 20px;padding:0;line-height:1.7}
+.cm-pasos code{background:#fff;padding:1px 6px;border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:.88rem;color:var(--principal)}
+.cm-resumen{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:14px}
+.cm-res{background:#FBEEEF;border-left:3px solid var(--principal);border-radius:0 8px 8px 0;padding:10px 14px}
+.cm-res .lab{font-family:var(--cond);font-size:.72rem;letter-spacing:1.2px;color:var(--principal);text-transform:uppercase;display:block;margin-bottom:2px}
+.cm-res .val{font-family:'JetBrains Mono',monospace;font-size:1.2rem;color:var(--texto);font-weight:600}
+.cm-res .unit{font-size:.74rem;color:var(--texto2);margin-left:3px}
+.cm-presets{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.cm-preset{font-family:var(--cond);background:#fff;border:1.5px solid var(--borde);padding:7px 12px;border-radius:14px;cursor:pointer;font-size:.82rem;color:var(--texto2)}
+.cm-preset:hover{border-color:var(--principal);color:var(--principal)}
+</style>
+</head>
+<body>
+<header class="curso-hd"><span class="curso-sb">U05 · Circuitos · Calculadora</span></header>
+<nav class="curso-navcross" role="navigation">
+  <a href="../../../index.html"><span>🏠</span><span class="nc-lbl">Índice</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../index.html"><span>📋</span><span class="nc-lbl">Hub U05</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../libro-digital.html"><span>📖</span><span class="nc-lbl">Libro digital</span></a>
+  <span class="nc-sep">·</span>
+  <span class="nc-current"><span>🧮</span><span class="nc-lbl">Calculadora</span></span>
+</nav>
+
+<main id="main-content" class="cm-wrap">
+  <section class="cm-hero">
+    <h1>🧮 Calculadora de circuitos</h1>
+    <p>Cambia los valores y observa al instante la resistencia equivalente, la corriente y los pasos de resolución.</p>
+  </section>
+
+  <div class="cm-card">
+    <div class="cm-tabs">
+      <button class="cm-tab activa" data-tipo="serie">Serie</button>
+      <button class="cm-tab" data-tipo="paralelo">Paralelo</button>
+      <button class="cm-tab" data-tipo="mixto1">Mixto: R₁ + (R₂||R₃)</button>
+      <button class="cm-tab" data-tipo="mixto2">Mixto: (R₁+R₂) || R₃</button>
+    </div>
+
+    <div class="cm-inputs" id="inputs"></div>
+
+    <div class="cm-canvas-wrap">
+      <canvas id="lienzo" width="700" height="260"></canvas>
+    </div>
+
+    <div class="cm-resumen" id="resumen"></div>
+
+    <div class="cm-pasos" id="pasos"></div>
+
+    <div class="cm-presets">
+      <span style="font-family:var(--cond);font-size:.82rem;color:var(--texto2);align-self:center">Ejemplos:</span>
+      <button class="cm-preset" data-p="ej1">Ejemplo libro 1</button>
+      <button class="cm-preset" data-p="ej2">Ejemplo libro 2</button>
+      <button class="cm-preset" data-p="reto">Reto fácil</button>
+    </div>
+  </div>
+</main>
+
+<script>
+(function(){'use strict';
+var tipo='serie';
+var c=document.getElementById('lienzo'),x=c.getContext('2d'),W=c.width,H=c.height;
+var inputs=document.getElementById('inputs'),resumen=document.getElementById('resumen'),pasos=document.getElementById('pasos');
+var V=12, vals={R1:10,R2:20,R3:30};
+
+var configs={
+  serie:{Rs:['R1','R2','R3'],defaults:{R1:10,R2:20,R3:30}},
+  paralelo:{Rs:['R1','R2'],defaults:{R1:6,R2:3}},
+  mixto1:{Rs:['R1','R2','R3'],defaults:{R1:2,R2:6,R3:3}},
+  mixto2:{Rs:['R1','R2','R3'],defaults:{R1:3,R2:7,R3:5}}
+};
+
+document.querySelectorAll('.cm-tab').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.cm-tab').forEach(function(t){t.classList.remove('activa');});
+    b.classList.add('activa');
+    tipo=b.dataset.tipo;
+    vals=Object.assign({},configs[tipo].defaults);
+    pintarInputs();calcular();
+  });
+});
+
+function pintarInputs(){
+  inputs.innerHTML='<div class="cm-inp"><label>V (voltios)</label><input type="number" id="iV" value="'+V+'" min="0" step="0.5"></div>';
+  configs[tipo].Rs.forEach(function(k){
+    inputs.innerHTML+='<div class="cm-inp"><label>'+k+' (Ω)</label><input type="number" id="i'+k+'" value="'+vals[k]+'" min="0.1" step="0.5"></div>';
+  });
+  document.getElementById('iV').addEventListener('input',function(e){V=parseFloat(e.target.value)||0;calcular();});
+  configs[tipo].Rs.forEach(function(k){
+    document.getElementById('i'+k).addEventListener('input',function(e){vals[k]=parseFloat(e.target.value)||0.1;calcular();});
+  });
+}
+
+function calcular(){
+  var Req,I,html='',resHTML='';
+  if(tipo==='serie'){
+    Req=vals.R1+vals.R2+vals.R3;
+    I=V/Req;
+    html='<h4>Cálculo paso a paso</h4><ol>';
+    html+='<li>En serie sumamos: <code>R_eq = R₁ + R₂ + R₃ = '+vals.R1+' + '+vals.R2+' + '+vals.R3+' = '+Req.toFixed(2)+' Ω</code></li>';
+    html+='<li>Corriente total: <code>I = V / R_eq = '+V+' / '+Req.toFixed(2)+' = '+I.toFixed(3)+' A</code></li>';
+    html+='<li>Misma I por todas. V en cada R: V₁='+(I*vals.R1).toFixed(2)+' V, V₂='+(I*vals.R2).toFixed(2)+' V, V₃='+(I*vals.R3).toFixed(2)+' V.</li></ol>';
+    resHTML=res('R_eq',Req.toFixed(2),'Ω')+res('I total',I.toFixed(3),'A')+res('P total',(V*I).toFixed(2),'W');
+    dibujarSerie();
+  }
+  else if(tipo==='paralelo'){
+    Req=(vals.R1*vals.R2)/(vals.R1+vals.R2);
+    I=V/Req;
+    var I1=V/vals.R1, I2=V/vals.R2;
+    html='<h4>Cálculo paso a paso</h4><ol>';
+    html+='<li>En paralelo: <code>R_eq = (R₁·R₂)/(R₁+R₂) = ('+vals.R1+'·'+vals.R2+')/('+vals.R1+'+'+vals.R2+') = '+Req.toFixed(2)+' Ω</code></li>';
+    html+='<li>Corriente total: <code>I = V / R_eq = '+V+' / '+Req.toFixed(2)+' = '+I.toFixed(3)+' A</code></li>';
+    html+='<li>Cada rama tiene la misma V. I₁ = V/R₁ = '+I1.toFixed(3)+' A · I₂ = V/R₂ = '+I2.toFixed(3)+' A. Suma = '+(I1+I2).toFixed(3)+' A ✓</li></ol>';
+    resHTML=res('R_eq',Req.toFixed(2),'Ω')+res('I total',I.toFixed(3),'A')+res('I₁',I1.toFixed(3),'A')+res('I₂',I2.toFixed(3),'A');
+    dibujarParalelo();
+  }
+  else if(tipo==='mixto1'){
+    var Rp=(vals.R2*vals.R3)/(vals.R2+vals.R3);
+    Req=vals.R1+Rp;
+    I=V/Req;
+    var V1=I*vals.R1, Vp=V-V1;
+    var I2=Vp/vals.R2, I3=Vp/vals.R3;
+    html='<h4>Cálculo paso a paso · R₁ en serie con (R₂||R₃)</h4><ol>';
+    html+='<li>Paralelo R₂||R₃: <code>R_p = ('+vals.R2+'·'+vals.R3+')/('+vals.R2+'+'+vals.R3+') = '+Rp.toFixed(2)+' Ω</code></li>';
+    html+='<li>Serie con R₁: <code>R_eq = R₁ + R_p = '+vals.R1+' + '+Rp.toFixed(2)+' = '+Req.toFixed(2)+' Ω</code></li>';
+    html+='<li>I total: <code>I = V/R_eq = '+I.toFixed(3)+' A</code></li>';
+    html+='<li>V₁ = I·R₁ = '+V1.toFixed(2)+' V. V_p = V - V₁ = '+Vp.toFixed(2)+' V (la tensión en cada paralela)</li>';
+    html+='<li>I₂ = V_p/R₂ = '+I2.toFixed(3)+' A · I₃ = V_p/R₃ = '+I3.toFixed(3)+' A. Suma = '+(I2+I3).toFixed(3)+' A ✓</li></ol>';
+    resHTML=res('R_p',Rp.toFixed(2),'Ω')+res('R_eq',Req.toFixed(2),'Ω')+res('I total',I.toFixed(3),'A')+res('V_p',Vp.toFixed(2),'V');
+    dibujarMixto1();
+  }
+  else if(tipo==='mixto2'){
+    var Rs=vals.R1+vals.R2;
+    Req=(Rs*vals.R3)/(Rs+vals.R3);
+    I=V/Req;
+    var I12=V/Rs, I3=V/vals.R3;
+    html='<h4>Cálculo paso a paso · (R₁+R₂) en paralelo con R₃</h4><ol>';
+    html+='<li>Serie R₁+R₂: <code>R_s = '+vals.R1+' + '+vals.R2+' = '+Rs.toFixed(2)+' Ω</code></li>';
+    html+='<li>Paralelo con R₃: <code>R_eq = (R_s·R₃)/(R_s+R₃) = '+Req.toFixed(2)+' Ω</code></li>';
+    html+='<li>I total: <code>I = V/R_eq = '+I.toFixed(3)+' A</code></li>';
+    html+='<li>Tensión en cada rama: V = '+V+' V. I por la rama (R₁+R₂): I₁₂ = V/R_s = '+I12.toFixed(3)+' A. I₃ = V/R₃ = '+I3.toFixed(3)+' A. Suma = '+(I12+I3).toFixed(3)+' A ✓</li></ol>';
+    resHTML=res('R_s',Rs.toFixed(2),'Ω')+res('R_eq',Req.toFixed(2),'Ω')+res('I total',I.toFixed(3),'A')+res('I rama 1+2',I12.toFixed(3),'A');
+    dibujarMixto2();
+  }
+  pasos.innerHTML=html;
+  resumen.innerHTML=resHTML;
+}
+
+function res(l,v,u){return '<div class="cm-res"><span class="lab">'+l+'</span><span class="val">'+v+'<span class="unit">'+u+'</span></span></div>';}
+
+function setStyle(){x.strokeStyle='#1F2937';x.lineWidth=2;x.fillStyle='#1F2937';x.font='13px Barlow';}
+function pila(cx,cy){x.beginPath();x.moveTo(cx-15,cy-12);x.lineTo(cx-15,cy+12);x.moveTo(cx,cy-6);x.lineTo(cx,cy+6);x.stroke();x.fillText(V+' V',cx-30,cy-18);}
+function resistencia(cx,cy,horiz,lbl,val){
+  var w=70,h=18;
+  if(horiz){
+    x.strokeRect(cx-w/2,cy-h/2,w,h);
+    x.fillText(lbl+'='+val+' Ω',cx-w/2-5,cy-h/2-4);
+  } else {
+    x.strokeRect(cx-h/2,cy-w/2,h,w);
+    x.fillText(lbl+'='+val+' Ω',cx+h/2+4,cy-w/2+10);
+  }
+}
+
+function dibujarSerie(){
+  x.clearRect(0,0,W,H);setStyle();
+  var cy=H/2;
+  x.beginPath();x.moveTo(60,cy);x.lineTo(170,cy);x.moveTo(240,cy);x.lineTo(330,cy);x.moveTo(400,cy);x.lineTo(490,cy);x.moveTo(560,cy);x.lineTo(640,cy);x.lineTo(640,cy+80);x.lineTo(60,cy+80);x.lineTo(60,cy);x.stroke();
+  pila(60,cy);
+  resistencia(205,cy,true,'R₁',vals.R1);
+  resistencia(365,cy,true,'R₂',vals.R2);
+  resistencia(525,cy,true,'R₃',vals.R3);
+}
+function dibujarParalelo(){
+  x.clearRect(0,0,W,H);setStyle();
+  var cy=H/2;
+  x.beginPath();
+  x.moveTo(60,cy);x.lineTo(60,cy-50);x.lineTo(640,cy-50);x.lineTo(640,cy);
+  x.moveTo(60,cy);x.lineTo(60,cy+50);x.lineTo(640,cy+50);x.lineTo(640,cy);
+  x.moveTo(640,cy-50);x.lineTo(640,cy+50);
+  x.moveTo(60,cy);x.lineTo(60,cy);
+  x.stroke();
+  pila(60,cy);
+  resistencia(350,cy-50,true,'R₁',vals.R1);
+  resistencia(350,cy+50,true,'R₂',vals.R2);
+}
+function dibujarMixto1(){
+  x.clearRect(0,0,W,H);setStyle();
+  var cy=H/2;
+  x.beginPath();
+  x.moveTo(60,cy);x.lineTo(170,cy);x.lineTo(240,cy);  // R1 sale despues
+  x.moveTo(310,cy);x.lineTo(380,cy);x.lineTo(380,cy-50);x.lineTo(640,cy-50);x.lineTo(640,cy+50);x.lineTo(380,cy+50);x.lineTo(380,cy);
+  x.moveTo(640,cy);x.lineTo(640,cy);
+  x.moveTo(640,cy-50);x.lineTo(640,cy-100);x.lineTo(60,cy-100);x.lineTo(60,cy);
+  x.stroke();
+  pila(60,cy);
+  resistencia(275,cy,true,'R₁',vals.R1);
+  resistencia(510,cy-50,true,'R₂',vals.R2);
+  resistencia(510,cy+50,true,'R₃',vals.R3);
+}
+function dibujarMixto2(){
+  x.clearRect(0,0,W,H);setStyle();
+  var cy=H/2;
+  x.beginPath();
+  x.moveTo(60,cy);x.lineTo(60,cy-60);x.lineTo(180,cy-60);  // R1
+  x.moveTo(250,cy-60);x.lineTo(370,cy-60);                  // R2
+  x.moveTo(440,cy-60);x.lineTo(640,cy-60);x.lineTo(640,cy);
+  x.moveTo(60,cy);x.lineTo(60,cy+60);x.lineTo(450,cy+60);  // R3
+  x.moveTo(520,cy+60);x.lineTo(640,cy+60);x.lineTo(640,cy);
+  x.stroke();
+  pila(60,cy);
+  resistencia(215,cy-60,true,'R₁',vals.R1);
+  resistencia(405,cy-60,true,'R₂',vals.R2);
+  resistencia(485,cy+60,true,'R₃',vals.R3);
+}
+
+document.querySelectorAll('.cm-preset').forEach(function(b){
+  b.addEventListener('click',function(){
+    var p=b.dataset.p;
+    document.querySelectorAll('.cm-tab').forEach(function(t){t.classList.remove('activa');});
+    if(p==='ej1'){document.querySelector('.cm-tab[data-tipo="mixto1"]').classList.add('activa');tipo='mixto1';V=12;vals={R1:4,R2:6,R3:12};}
+    if(p==='ej2'){document.querySelector('.cm-tab[data-tipo="mixto2"]').classList.add('activa');tipo='mixto2';V=9;vals={R1:2,R2:4,R3:12};}
+    if(p==='reto'){document.querySelector('.cm-tab[data-tipo="mixto1"]').classList.add('activa');tipo='mixto1';V=10;vals={R1:5,R2:10,R3:10};}
+    pintarInputs();calcular();
+  });
+});
+
+pintarInputs();calcular();
+})();
+</script>
+</body>
+</html>

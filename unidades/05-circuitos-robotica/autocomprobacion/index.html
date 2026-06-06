@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#8C2A3D">
+<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<title>Autocomprobación · U05 Circuitos y robótica · TyD 3º ESO</title>
+<meta name="description" content="Autocomprobación de la unidad 5: 18 preguntas con feedback inmediato sobre circuitos, electrónica y Arduino.">
+<script>
+window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},svg:{fontCache:'global'}};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/common.css">
+<link rel="stylesheet" href="../../../assets/css/unidad.css">
+<style>
+.ac-hero{max-width:1100px;margin:22px auto 8px;padding:0 20px;text-align:center}
+.ac-hero h1{font-family:var(--cond);font-size:1.9rem;color:var(--principal);margin:0 0 6px;letter-spacing:.5px}
+.ac-hero .subt{font-size:.95rem;color:var(--texto2);margin:0 0 16px}
+.ac-camino{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;font-family:var(--cond);font-size:.78rem;letter-spacing:.4px;margin-bottom:10px}
+.ac-camino span{padding:4px 12px;border-radius:14px;background:#F4F6F9;color:#8C97A8;border:1px solid #D8DDE5}
+.ac-camino span.activo{background:linear-gradient(135deg,var(--principal),var(--principal2));color:#fff;border-color:var(--principal)}
+.ac-camino .sep{background:transparent;border:none;color:#B8C0CC;padding:4px 2px}
+.ac-instrucciones{max-width:900px;margin:0 auto 18px;padding:14px 20px;background:#FBEEEF;border-left:4px solid var(--principal);border-radius:6px;font-size:.92rem;color:var(--texto2);line-height:1.55}
+.ac-instrucciones strong{color:var(--principal)}
+.ac-wrap{max-width:900px;margin:0 auto;padding:0 16px 50px}
+.bloque-encabezado{display:flex;align-items:baseline;gap:10px;margin:22px 0 6px;padding:0 4px}
+.bloque-encabezado .num{font-family:var(--cond);font-size:1.05rem;background:var(--principal);color:#fff;padding:3px 11px;border-radius:14px}
+.bloque-encabezado h2{font-family:var(--cond);font-size:1.4rem;color:var(--texto);margin:0;flex:1}
+.bloque-encabezado .meta{font-size:.8rem;color:var(--texto2)}
+.bloque-ancla{font-size:.88rem;color:var(--texto2);margin:0 4px 10px}
+.bloque-ancla a{color:var(--principal2);text-decoration:none;border-bottom:1px dotted var(--principal2)}
+.bloque-marcador{margin-top:8px;padding:9px 14px;background:#F4F6F9;border-radius:6px;font-size:.88rem;color:var(--texto2);display:none;text-align:right;font-family:var(--cond);letter-spacing:.3px}
+.bloque-marcador.activo{display:block}
+.bloque-marcador .acierto{color:var(--verde);font-weight:600}
+.bloque-marcador .fallo{color:var(--rojo);font-weight:600}
+.test-q .test-num{display:inline-block;font-family:var(--cond);font-size:.78rem;color:var(--principal);background:#FBEEEF;padding:2px 8px;border-radius:10px;margin-right:7px;vertical-align:1px}
+.test-q .test-tipo-tag{display:inline-block;font-family:var(--cond);font-size:.7rem;color:var(--texto2);background:#EEF1F5;padding:2px 7px;border-radius:10px;margin-left:6px;vertical-align:1px}
+.ac-resumen{max-width:900px;margin:28px auto 0;padding:22px 24px;background:linear-gradient(180deg,#FBEEEF,#fff);border:2px solid var(--principal);border-radius:10px;text-align:center}
+.ac-resumen h2{font-family:var(--cond);font-size:1.5rem;color:var(--principal);margin:0 0 8px}
+.ac-resumen .puntuacion{font-family:var(--cond);font-size:2.3rem;color:var(--texto);margin:6px 0}
+.ac-resumen .puntuacion .num-grande{color:var(--principal);font-size:3rem}
+.ac-resumen .veredicto{font-size:1rem;color:var(--texto2);margin:0 0 14px;min-height:1.4em}
+.ac-resumen .progreso-barra{height:14px;background:#F4F6F9;border-radius:7px;overflow:hidden;margin:14px 0;border:1px solid #E0E5EC}
+.ac-resumen .progreso-barra-fill{height:100%;background:linear-gradient(90deg,var(--principal),var(--principal2));width:0;transition:width .5s ease}
+.ac-resumen .acciones{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.ac-resumen button,.ac-resumen .btn-link{font-family:var(--cond);font-size:.88rem;letter-spacing:.5px;padding:9px 18px;border-radius:20px;cursor:pointer;border:1.5px solid var(--principal);background:#fff;color:var(--principal);text-decoration:none;transition:all .15s}
+.ac-resumen button:hover,.ac-resumen .btn-link:hover{background:var(--principal);color:#fff}
+.ac-resumen button.primario{background:var(--principal);color:#fff}
+.ac-resumen button.primario:hover{background:var(--principal2)}
+.ac-resumen button:disabled{opacity:.4;cursor:not-allowed}
+@media(max-width:640px){.ac-hero h1{font-size:1.5rem}.bloque-encabezado{flex-wrap:wrap}}
+@media print{.curso-hd,.curso-navcross,.ac-camino,.ac-instrucciones,.ac-resumen{display:none!important}.test-q{break-inside:avoid;border:1px solid #999;margin-bottom:8px}.test-fb{display:block!important;background:#f6f6f6;color:#333;border-left:3px solid #999}}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+<header class="curso-hd">
+  <a href="../../../index.html" class="curso-lg">TyD 3º ESO</a>
+  <span class="curso-sb">U05 · Circuitos · Autocomprobación</span>
+  <a href="../../../index.html" class="curso-home-btn">🏠 Inicio</a>
+</header>
+<nav class="curso-navcross" role="navigation">
+  <a href="../../../index.html"><span>🏠</span><span class="nc-lbl">Índice</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../index.html"><span>📋</span><span class="nc-lbl">Hub U05</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../libro-digital.html"><span>📖</span><span class="nc-lbl">Libro digital</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../actividades/index.html"><span>✏️</span><span class="nc-lbl">Actividades</span></a>
+  <span class="nc-sep">·</span>
+  <span class="nc-current"><span>✅</span><span class="nc-lbl">Autocomprobación</span></span>
+</nav>
+
+<main id="main-content">
+<section class="ac-hero">
+  <div class="ac-camino" aria-label="Camino de aprendizaje">
+    <span>📖 Aprende</span><span class="sep">▸</span>
+    <span>✏️ Practica</span><span class="sep">▸</span>
+    <span class="activo">✅ Comprueba</span><span class="sep">▸</span>
+    <span>🔁 Repasa</span>
+  </div>
+  <h1>✅ Autocomprobación · U05 Circuitos y robótica</h1>
+  <p class="subt">18 preguntas para comprobar si lo has entendido · 10-15 minutos</p>
+</section>
+
+<div class="ac-instrucciones">
+  <p>Una sola oportunidad por pregunta. Tras pulsar, el botón se pondrá <strong style="color:#1E8E3E">verde</strong> (acierto) o <strong style="color:#C44536">rojo</strong> (fallo) con explicación y enlace al libro digital.</p>
+  <p style="margin-bottom:0">Bloques: 4 fundamentos · 6 mixtos y potencia · 4 electrónica · 4 Arduino y robótica.</p>
+</div>
+
+<div class="ac-wrap">
+
+<!-- B1 · FUNDAMENTOS -->
+<div class="bloque-encabezado"><span class="num">B1</span><h2>Fundamentos de electricidad</h2><span class="meta">4 preguntas</span></div>
+<p class="bloque-ancla">📖 Repasa <a href="../libro-digital.html#s1">«Corriente, tensión y resistencia»</a> a <a href="../libro-digital.html#s3">«Serie y paralelo»</a>.</p>
+
+<section class="test-section" data-bloque="1">
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P1</span>La <strong>ley de Ohm</strong> dice que... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">V = R / I</button>
+      <button class="test-opt" data-opt="b">I = V · R</button>
+      <button class="test-opt" data-opt="c">V = I · R (la tensión es el producto de corriente por resistencia)</button>
+      <button class="test-opt" data-opt="d">R = V · I</button>
+    </div>
+    <div class="test-fb">$V = I \cdot R$. Las otras dos formas se obtienen despejando: $I = V/R$ y $R = V/I$. <a href="../libro-digital.html#s2">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P2</span>Una bombilla de R = 8 Ω se conecta a 12 V. ¿Qué corriente la atraviesa? <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">96 A</button>
+      <button class="test-opt" data-opt="b">1,5 A</button>
+      <button class="test-opt" data-opt="c">0,67 A</button>
+      <button class="test-opt" data-opt="d">20 A</button>
+    </div>
+    <div class="test-fb">$I = V/R = 12/8 = 1{,}5$ A. <a href="../libro-digital.html#s2">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P3</span>En un circuito en <strong>serie</strong>... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">La corriente se suma en cada resistencia</button>
+      <button class="test-opt" data-opt="b">Cada resistencia tiene la misma tensión que la pila</button>
+      <button class="test-opt" data-opt="c">La misma corriente pasa por todas las resistencias, y las tensiones se reparten</button>
+      <button class="test-opt" data-opt="d">La R_eq es siempre menor que cualquiera de las resistencias</button>
+    </div>
+    <div class="test-fb">En serie: <strong>misma I, V que se suma</strong>. R_eq = R₁ + R₂ + … (mayor que cualquiera). En paralelo es lo contrario: misma V, I que se suma, R_eq menor que la más pequeña. <a href="../libro-digital.html#s3">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P4</span>Dos resistencias R₁ = 4 Ω y R₂ = 12 Ω en paralelo. ¿Cuánto vale R_eq? <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">16 Ω</button>
+      <button class="test-opt" data-opt="b">3 Ω</button>
+      <button class="test-opt" data-opt="c">8 Ω</button>
+      <button class="test-opt" data-opt="d">48 Ω</button>
+    </div>
+    <div class="test-fb">$R_{eq} = \dfrac{4 \cdot 12}{4+12} = \dfrac{48}{16} = 3$ Ω. Truco: la R_eq en paralelo siempre es menor que la más pequeña (4 Ω). <a href="../libro-digital.html#s3">Repasar →</a></div>
+  </div>
+  <div class="bloque-marcador" data-bloque="1"></div>
+</section>
+
+
+<!-- B2 · MIXTOS Y POTENCIA -->
+<div class="bloque-encabezado"><span class="num">B2</span><h2>Circuitos mixtos y potencia</h2><span class="meta">6 preguntas</span></div>
+<p class="bloque-ancla">📖 Repasa <a href="../libro-digital.html#s4">«Circuitos mixtos: método»</a> a <a href="../libro-digital.html#s6">«Potencia y energía»</a>.</p>
+
+<section class="test-section" data-bloque="2">
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P5</span>Para resolver un circuito mixto, lo PRIMERO que hay que hacer es... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Calcular la potencia total</button>
+      <button class="test-opt" data-opt="b">Identificar los grupos en serie y en paralelo, y empezar a simplificar por el más interno</button>
+      <button class="test-opt" data-opt="c">Calcular I dividiendo V entre cada resistencia</button>
+      <button class="test-opt" data-opt="d">Sumar todas las resistencias</button>
+    </div>
+    <div class="test-fb">Método mixto: <strong>identificar grupos → simplificar de dentro hacia fuera → obtener R_eq total → calcular I total → volver atrás aplicando Ohm en cada tramo</strong>. <a href="../libro-digital.html#s4">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P6</span>Pila 12 V. R₁ = 2 Ω en serie con (R₂ = 6 Ω || R₃ = 3 Ω). ¿Cuánto vale R_eq? <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">11 Ω</button>
+      <button class="test-opt" data-opt="b">2 Ω</button>
+      <button class="test-opt" data-opt="c">4 Ω</button>
+      <button class="test-opt" data-opt="d">9 Ω</button>
+    </div>
+    <div class="test-fb">Paralelo: $R_p = (6 \cdot 3)/(6+3) = 18/9 = 2$ Ω. Serie con R₁: $R_{eq} = 2 + 2 = 4$ Ω. <a href="../libro-digital.html#s5">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P7</span>Mismo circuito que P6. ¿Cuál es la corriente total? <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">48 A</button>
+      <button class="test-opt" data-opt="b">3 A</button>
+      <button class="test-opt" data-opt="c">1 A</button>
+      <button class="test-opt" data-opt="d">6 A</button>
+    </div>
+    <div class="test-fb">$I_{total} = V/R_{eq} = 12/4 = 3$ A. <a href="../libro-digital.html#s5">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P8</span>Mismo circuito. ¿Cuál es la tensión a través del paralelo R₂||R₃? <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">12 V</button>
+      <button class="test-opt" data-opt="b">2 V</button>
+      <button class="test-opt" data-opt="c">6 V</button>
+      <button class="test-opt" data-opt="d">9 V</button>
+    </div>
+    <div class="test-fb">$V_1 = I \cdot R_1 = 3 \cdot 2 = 6$ V. La pila aporta 12 V; por tanto al paralelo le quedan $V_p = 12 - 6 = 6$ V. <a href="../libro-digital.html#s5">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P9</span>Una bombilla disipa 60 W cuando se conecta a 230 V. ¿Cuánto vale la corriente que la atraviesa? <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">3,83 A</button>
+      <button class="test-opt" data-opt="b">0,26 A</button>
+      <button class="test-opt" data-opt="c">60 A</button>
+      <button class="test-opt" data-opt="d">230 A</button>
+    </div>
+    <div class="test-fb">$P = V \cdot I \Rightarrow I = P/V = 60/230 \approx 0{,}26$ A = 260 mA. <a href="../libro-digital.html#s6">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P10</span>Una secadora de 2000 W funciona 3 horas. ¿Cuánta energía consume? <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">2000 kWh</button>
+      <button class="test-opt" data-opt="b">600 W</button>
+      <button class="test-opt" data-opt="c">6 kWh</button>
+      <button class="test-opt" data-opt="d">6000 J</button>
+    </div>
+    <div class="test-fb">$E = P \cdot t = 2$ kW · 3 h = 6 kWh. A 0,15 €/kWh sería casi 1 € por carga. <a href="../libro-digital.html#s6">Repasar →</a></div>
+  </div>
+  <div class="bloque-marcador" data-bloque="2"></div>
+</section>
+
+
+<!-- B3 · ELECTRÓNICA -->
+<div class="bloque-encabezado"><span class="num">B3</span><h2>Electrónica básica</h2><span class="meta">4 preguntas</span></div>
+<p class="bloque-ancla">📖 Repasa <a href="../libro-digital.html#s7">«Componentes pasivos»</a> a <a href="../libro-digital.html#s10">«Actuadores»</a>.</p>
+
+<section class="test-section" data-bloque="3">
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P11</span>Un <strong>LED</strong> se conecta a una pila de 5 V SIN resistencia en serie. ¿Qué pasa? <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Brilla más fuerte que con resistencia</button>
+      <button class="test-opt" data-opt="b">Se quema casi al instante porque pasa demasiada corriente</button>
+      <button class="test-opt" data-opt="c">No se enciende</button>
+      <button class="test-opt" data-opt="d">Cambia de color</button>
+    </div>
+    <div class="test-fb">El LED tiene una resistencia interna muy baja. Sin resistencia limitadora se quema en milisegundos. Por eso siempre se pone una en serie (típicamente 220-470 Ω). <a href="../libro-digital.html#s8">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P12</span>Resistencia con bandas <strong>Marrón - Negro - Rojo - Dorado</strong>. ¿Cuánto vale? <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">120 Ω</button>
+      <button class="test-opt" data-opt="b">100 Ω</button>
+      <button class="test-opt" data-opt="c">1000 Ω = 1 kΩ (±5%)</button>
+      <button class="test-opt" data-opt="d">10 kΩ</button>
+    </div>
+    <div class="test-fb">Marrón = 1, Negro = 0, Rojo = ×100, Dorado = ±5%. Valor: 10 × 100 = 1000 Ω = <strong>1 kΩ</strong>. <a href="../libro-digital.html#s7">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P13</span>Sensor que mide la <strong>distancia</strong> a un objeto. Más usado en robótica educativa: <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">LDR</button>
+      <button class="test-opt" data-opt="b">HC-SR04 (ultrasonidos)</button>
+      <button class="test-opt" data-opt="c">NTC</button>
+      <button class="test-opt" data-opt="d">DHT11</button>
+    </div>
+    <div class="test-fb">El <strong>HC-SR04</strong> emite un chasquido ultrasónico y mide el tiempo del eco para calcular la distancia. Rango ≈ 2 cm a 4 m. <a href="../libro-digital.html#s9">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P14</span>Para controlar un electrodoméstico de 230 V con un Arduino (5 V) hay que usar... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Un LED en serie</button>
+      <button class="test-opt" data-opt="b">Un transistor directamente</button>
+      <button class="test-opt" data-opt="c">Un módulo relé (el Arduino activa la bobina del relé, que cierra el contacto de 230 V)</button>
+      <button class="test-opt" data-opt="d">Un sensor LDR</button>
+    </div>
+    <div class="test-fb">El <strong>relé</strong> aísla galvánicamente el Arduino del circuito de 230 V. NUNCA se conecta el Arduino directamente a 230 V: se quema y es peligroso. <a href="../libro-digital.html#s10">Repasar →</a></div>
+  </div>
+  <div class="bloque-marcador" data-bloque="3"></div>
+</section>
+
+
+<!-- B4 · ARDUINO Y ROBÓTICA -->
+<div class="bloque-encabezado"><span class="num">B4</span><h2>Arduino y robótica</h2><span class="meta">4 preguntas</span></div>
+<p class="bloque-ancla">📖 Repasa <a href="../libro-digital.html#s11">«Qué es Arduino»</a> a <a href="../libro-digital.html#s17">«Del Arduino al robot»</a>.</p>
+
+<section class="test-section" data-bloque="4">
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P15</span>En un programa Arduino, la función <code>setup()</code>... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Se ejecuta continuamente</button>
+      <button class="test-opt" data-opt="b">Se ejecuta una sola vez al encender o reset</button>
+      <button class="test-opt" data-opt="c">Es opcional, no hace falta tenerla</button>
+      <button class="test-opt" data-opt="d">Solo sirve para imprimir mensajes</button>
+    </div>
+    <div class="test-fb"><strong>setup()</strong> se ejecuta una sola vez al inicio (para configurar pinModes y variables iniciales). <strong>loop()</strong> se ejecuta continuamente en bucle. <a href="../libro-digital.html#s12">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P16</span>Para leer un sensor LDR analógico se usa la instrucción... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">digitalRead()</button>
+      <button class="test-opt" data-opt="b">digitalWrite()</button>
+      <button class="test-opt" data-opt="c">analogRead() (devuelve un valor entre 0 y 1023)</button>
+      <button class="test-opt" data-opt="d">analogWrite()</button>
+    </div>
+    <div class="test-fb">Los pines A0-A5 leen tensiones entre 0 y 5 V con <strong>analogRead()</strong>, que devuelve un entero de 0 a 1023. Para sensores que solo dan ON/OFF (pulsador) se usa digitalRead. <a href="../libro-digital.html#s13">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="b">
+    <p class="test-qtext"><span class="test-num">P17</span>El ciclo fundamental que ejecuta cualquier robot se resume en... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Entrada → Proceso → Almacenamiento</button>
+      <button class="test-opt" data-opt="b">Percibir (sensar) → Decidir (think) → Actuar</button>
+      <button class="test-opt" data-opt="c">Encender → Esperar → Apagar</button>
+      <button class="test-opt" data-opt="d">Conectar → Programar → Subir</button>
+    </div>
+    <div class="test-fb"><strong>Sense → Think → Act</strong>. Es exactamente el bucle <code>loop()</code> de Arduino: leer sensores, pensar (condicionales), mover actuadores. <a href="../libro-digital.html#s16">Repasar →</a></div>
+  </div>
+
+  <div class="test-q" data-answer="c">
+    <p class="test-qtext"><span class="test-num">P18</span>Un <strong>servomotor</strong> es ideal cuando... <span class="test-tipo-tag">opción única</span></p>
+    <div class="test-opts">
+      <button class="test-opt" data-opt="a">Quieres velocidad variable continua, como en una rueda de coche</button>
+      <button class="test-opt" data-opt="b">Necesitas leer la temperatura</button>
+      <button class="test-opt" data-opt="c">Necesitas mover algo a un ángulo concreto (0-180º), como un brazo robótico</button>
+      <button class="test-opt" data-opt="d">Quieres encender un LED</button>
+    </div>
+    <div class="test-fb">El <strong>servomotor</strong> gira hasta el ángulo que le ordenes y se queda ahí. Perfecto para brazos robóticos, timones de barcos RC, dirección. Para velocidad continua se usa motor CC con PWM. <a href="../libro-digital.html#s10">Repasar →</a></div>
+  </div>
+  <div class="bloque-marcador" data-bloque="4"></div>
+</section>
+
+
+<section class="ac-resumen" id="ac-resumen">
+  <h2>Resultado de la autocomprobación</h2>
+  <div class="puntuacion"><span class="num-grande" id="ac-aciertos">0</span> / <span id="ac-total">18</span> aciertos</div>
+  <div class="progreso-barra"><div class="progreso-barra-fill" id="ac-bar"></div></div>
+  <p class="veredicto" id="ac-veredicto">Responde las preguntas para ver tu resultado.</p>
+  <div class="acciones">
+    <button id="ac-reintentar" class="primario" disabled>🔁 Reintentar las falladas</button>
+    <button id="ac-todo" disabled>🔄 Empezar de nuevo</button>
+    <a class="btn-link" href="../libro-digital.html">📖 Libro digital</a>
+    <a class="btn-link" href="../index.html">📋 Hub U05</a>
+  </div>
+</section>
+
+</div>
+</main>
+
+<script src="../../../assets/js/common.js"></script>
+<script src="../../../assets/js/header.js"></script>
+<script>
+(function(){'use strict';
+var qs=document.querySelectorAll('.test-q'),tot=document.getElementById('ac-total'),ac=document.getElementById('ac-aciertos'),bar=document.getElementById('ac-bar'),vr=document.getElementById('ac-veredicto'),br=document.getElementById('ac-reintentar'),bt=document.getElementById('ac-todo');
+tot.textContent=qs.length;
+function refrescar(){var a=0,c=0,f=0,pB={};qs.forEach(function(q){var b=q.closest('.test-section').dataset.bloque;if(!pB[b])pB[b]={ok:0,ko:0,total:0};pB[b].total++;if(q.classList.contains('answered')){c++;var ok=q.querySelector('.test-opt.correct')&&!q.querySelector('.test-opt.wrong');if(ok){a++;pB[b].ok++;}else{f++;pB[b].ko++;}}});ac.textContent=a;var p=Math.round(a/qs.length*100);bar.style.width=p+'%';if(c===0){vr.textContent='Responde las preguntas para ver tu resultado.';}else if(c<qs.length){vr.innerHTML='Llevas <strong>'+c+'</strong> de '+qs.length+' respondidas.';}else{var m=p>=90?'🌟 ¡Excelente! Dominas la unidad.':p>=75?'👍 Muy bien. Repasa los puntos fallados.':p>=50?'🙂 Aprobado. Vuelve al libro digital donde más hayas fallado.':'📚 Tranquilo: repasa con calma y vuelve a intentar.';vr.innerHTML=m+'<br><small>'+a+' aciertos · '+f+' fallos · '+p+'%</small>';}br.disabled=(f===0);bt.disabled=(c===0);Object.keys(pB).forEach(function(b){var m=document.querySelector('.bloque-marcador[data-bloque="'+b+'"]'),x=pB[b],d=x.ok+x.ko;if(d===0){m.classList.remove('activo');return;}m.classList.add('activo');if(d<x.total){m.innerHTML='Bloque '+b+': '+d+' / '+x.total+' respondidas';}else{m.innerHTML='Bloque '+b+': <span class="acierto">'+x.ok+' acierto'+(x.ok===1?'':'s')+'</span> · <span class="fallo">'+x.ko+' fallo'+(x.ko===1?'':'s')+'</span>';}});}
+document.addEventListener('click',function(e){if(e.target.classList&&e.target.classList.contains('test-opt')){setTimeout(refrescar,0);}});
+function rs(q){q.classList.remove('answered');q.querySelectorAll('.test-opt').forEach(function(b){b.classList.remove('correct','wrong');b.disabled=false;});}
+br.addEventListener('click',function(){qs.forEach(function(q){if(q.classList.contains('answered')&&q.querySelector('.test-opt.wrong'))rs(q);});refrescar();var p=document.querySelector('.test-q:not(.answered)');if(p)p.scrollIntoView({behavior:'smooth',block:'center'});});
+bt.addEventListener('click',function(){if(!confirm('¿Empezar de nuevo? Se borrarán todas tus respuestas.'))return;qs.forEach(rs);refrescar();window.scrollTo({top:0,behavior:'smooth'});});
+refrescar();})();
+</script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#8C2A3D">
+<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<title>Actividades · U06 Programación e IA · TyD 3º ESO</title>
+<meta name="description" content="12 actividades sobre programación, App Inventor, IA y ética con soluciones colapsables para 3º ESO.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/common.css">
+<link rel="stylesheet" href="../../../assets/css/unidad.css">
+<style>
+.act-wrap{max-width:900px;margin:24px auto 50px;padding:0 20px}
+.act-intro{background:#FBEEEF;border-left:4px solid var(--principal);padding:14px 18px;border-radius:0 6px 6px 0;margin-bottom:24px;font-size:.94rem;line-height:1.55}
+.act-intro strong{color:var(--principal)}
+.seccion{background:#fff;border:1px solid var(--borde);border-radius:8px;padding:18px 22px;margin-bottom:18px}
+.seccion h2{font-family:var(--cond);color:var(--principal);font-size:1.15rem;margin:0 0 12px;display:flex;align-items:center;gap:8px}
+.seccion h2 .num{display:inline-block;width:32px;height:32px;line-height:32px;text-align:center;background:var(--principal);color:#fff;border-radius:50%;font-size:.9rem}
+.bloque-titulo{font-family:var(--cond);font-size:.78rem;letter-spacing:2px;color:var(--principal);text-transform:uppercase;margin:28px 0 12px;padding-bottom:4px;border-bottom:1px dashed var(--principal)}
+.bloque-titulo:first-of-type{margin-top:0}
+.enunciado{margin-bottom:10px;font-size:.96rem;line-height:1.55}
+.enunciado code{background:#F4F6F9;padding:1px 6px;border-radius:3px;font-family:monospace;font-size:.88rem}
+.bloque-aiv{display:block;font-family:'JetBrains Mono',monospace;background:#1E1E2A;color:#E6E6F0;padding:12px 16px;border-radius:6px;margin:10px 0;font-size:.85rem;line-height:1.6;white-space:pre-wrap;overflow-x:auto}
+.sol-btn{font-family:var(--cond);font-size:.85rem;letter-spacing:.5px;padding:7px 16px;border-radius:18px;cursor:pointer;border:1.5px solid var(--principal);background:#fff;color:var(--principal);font-weight:600;margin-top:4px}
+.sol-btn:hover{background:var(--principal);color:#fff}
+.sol-btn.open{background:var(--principal);color:#fff}
+.sol-btn::before{content:"▶ ";font-size:.7rem}
+.sol-btn.open::before{content:"▼ "}
+.sol-content{display:none;margin-top:12px;padding:14px 16px;background:#F4F6F9;border-left:4px solid var(--verde);border-radius:0 6px 6px 0;font-size:.92rem;line-height:1.55}
+.sol-content.show{display:block}
+@media print{.sol-btn{display:none}.sol-content{display:block!important;background:#fafafa}}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+<header class="curso-hd"><span class="curso-sb">U06 · Programación e IA · Actividades</span></header>
+<nav class="curso-navcross" role="navigation">
+  <a href="../../../index.html"><span>🏠</span><span class="nc-lbl">Índice</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../index.html"><span>📋</span><span class="nc-lbl">Hub U06</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../libro-digital.html"><span>📖</span><span class="nc-lbl">Libro digital</span></a>
+  <span class="nc-sep">·</span>
+  <span class="nc-current"><span>✏️</span><span class="nc-lbl">Actividades</span></span>
+  <span class="nc-sep">·</span>
+  <a href="../autocomprobacion/index.html"><span>✅</span><span class="nc-lbl">Autocomp</span></a>
+</nav>
+
+<main id="main-content" class="act-wrap">
+  <h1 class="unidad-titulo">Actividades · U06 Programación e IA</h1>
+  <div class="act-intro"><p><strong>12 actividades</strong> repartidas en 4 bloques. Intenta resolverlas y comprueba con la solución colapsable.</p></div>
+
+  <div class="bloque-titulo">Bloque 1 · Pensamiento computacional</div>
+
+  <section class="seccion">
+    <h2><span class="num">1</span>Algoritmo cotidiano</h2>
+    <div class="enunciado">Escribe el algoritmo paso a paso para <strong>hacer un sándwich de queso</strong>. Tu algoritmo tiene que ser tan preciso que un robot que NUNCA haya visto un sándwich lo pueda hacer leyéndolo.</div>
+    <button class="sol-btn">Ver solución</button>
+    <div class="sol-content"><p>1. Abrir el frigorífico. 2. Coger el paquete de pan de molde. 3. Cerrar el frigorífico. 4. Sacar 2 rebanadas y dejarlas en un plato. 5. Abrir el frigorífico. 6. Coger el queso. 7. Cerrar el frigorífico. 8. Abrir el envase. 9. Sacar 1 loncha. 10. Colocar la loncha sobre una rebanada. 11. Cubrir con la otra rebanada. 12. Servir. Clave: la falta de precisión humana (¿qué pan? ¿qué queso? ¿cuántas lonchas?) hace que un programa falle. La precisión ES la programación.</p></div>
+  </section>
+
+  <section class="seccion">
+    <h2><span class="num">2</span>Identifica las estructuras</h2>
+    <div class="enunciado">Para cada frase, identifica qué estructura de programación necesitarías:<ol><li>Pedir nombre y mostrar "Hola, [nombre]".</li><li>Mostrar los números del 1 al 100.</li><li>Si la nota es ≥ 5 mostrar "Aprobado", si no "Suspenso".</li><li>Sumar todas las edades de los alumnos de una lista.</li><li>Crear un trozo de código reutilizable que calcule el IMC.</li></ol></div>
+    <button class="sol-btn">Ver solución</button>
+    <div class="sol-content"><p>1. <strong>Variable</strong> (almacenar el nombre). 2. <strong>Bucle</strong> (repetir 100 veces). 3. <strong>Condicional</strong> (si... entonces... sino). 4. <strong>Bucle</strong> con <strong>variable</strong> acumuladora ("suma") + <strong>lista</strong>. 5. <strong>Función</strong> con parámetros peso y altura.</p></div>
+  </section>
+
+  <section class="seccion">
+    <h2><span class="num">3</span>Predice la salida</h2>
+    <div class="enunciado">¿Qué imprime este pseudocódigo?<div class="bloque-aiv">var x = 5
+var y = 3
+si x &gt; y:
+  imprimir "x es mayor"
+si no:
+  imprimir "y es mayor"
+
+para cada n en [1,2,3]:
+  imprimir n * x</div></div>
+    <button class="sol-btn">Ver solución</button>
+    <div class="sol-content"><p>Imprime:<br>x es mayor<br>5<br>10<br>15<br>Explicación: como x=5 y y=3, x>y se cumple. Luego el bucle multiplica x por cada elemento de la lista.</p></div>
+  </section>
+
+
+  <div class="bloque-titulo">Bloque 2 · App Inventor</div>
+
+  <section class="seccion">
+    <h2><span class="num">4</span>Diseña una app linterna</h2>
+    <div class="enunciado">Tienes que diseñar una app linterna ON/OFF en App Inventor. Indica:<ol><li>Componentes que pondrás en la pantalla.</li><li>Bloques de eventos que necesitas.</li><li>Pseudocódigo del comportamiento.</li></ol></div>
+    <button class="sol-btn">Ver solución</button>
+    <div class="sol-content"><p><strong>Componentes:</strong> 1 Button «ENCENDER/APAGAR», 1 Label «Linterna apagada», 1 Image (foco), 1 componente Camera o, mejor, extensión Flashlight.<br><strong>Variables:</strong> <code>encendida = falso</code>.<br><strong>Bloques:</strong><div class="bloque-aiv">cuando Boton1.Click
+  si encendida = falso:
+    Flashlight1.encender
+    poner encendida = verdadero
+    poner Label1.Texto = "Linterna ENCENDIDA"
+  si no:
+    Flashlight1.apagar
+    poner encendida = falso
+    poner Label1.Texto = "Linterna apagada"</div></p></div>
+  </section>
+
+  <section class="seccion">
+    <h2><span class="num">5</span>Encuentra el bug</h2>
+    <div class="enunciado">Una alumna ha escrito esto para una calculadora. Al pulsar suma, el resultado siempre es un número raro pegado. ¿Por qué? ¿Cómo lo arreglas?<div class="bloque-aiv">cuando BotonSuma.Click
+  poner EtiquetaResultado.Texto =
+    CajaTextoA.Texto + CajaTextoB.Texto</div></div>
+    <button class="sol-btn">Ver solución</button>
+    <div class="sol-content"><p>Problema: <code>CajaTexto.Texto</code> devuelve un <strong>texto (cadena)</strong>, no un número. Si pone 2 y 3, el "+" <em>concatena</em> textos: «2» + «3» = «23», no 5. <strong>Solución</strong>: convertir a número antes:<div class="bloque-aiv">poner EtiquetaResultado.Texto =
+   (CajaTextoA.Texto como número)
+ + (CajaTextoB.Texto como número)</div>Buen recordatorio: la programación distingue tipos. Texto y número se manejan distinto.</p></div>
+  </section>
+
+  <section class="seccion">
+    <h2><span class="num">6</span>App con sensor + persistencia</h2>
+    <div class="enunciado">Diseña una app que cuente cuántas veces sacudes el móvil y guarde el récord máximo entre sesiones. Lista componentes, variables y eventos.</div>
+    <button class="sol-btn">Ver solución</button>
+    <div class="sol-content"><p><strong>Componentes:</strong> 1 Label «Sacudidas: 0», 1 Label «Récord: 0», 1 Button «Reiniciar», 1 AccelerometerSensor, 1 TinyDB.<br><strong>Variable:</strong> <code>sacudidas=0</code>.<br><strong>Al iniciar la app:</strong> leer récord de TinyDB y mostrar.<br><strong>Evento Shaking:</strong> sacudidas+1, mostrar, si > récord guardar en TinyDB.<br><strong>Evento Click Reiniciar:</strong> sacudidas=0, no se borra el récord. Mismo esquema que cualquier juego con high-score.</p></div>
+  </section>
+
+
+  <div class="bloque-titulo">Bloque 3 · Inteligencia artificial</div>
+
+  <section class="seccion">
+    <h2><span class="num">7</span>IA o no IA</h2>
+    <div class="enunciado">¿Cuáles de estas funciones usan IA y cuáles no? Justifica:<ol><li>El corrector ortográfico de Word.</li><li>El reconocimiento facial del móvil.</li><li>La calculadora del móvil.</li><li>Google Translate.</li><li>El despertador del móvil.</li><li>La función «retrato» de la cámara que desenfoca el fondo.</li></ol></div>
+    <button class="sol-btn">Ver solución</button>
+    <div class="sol-content"><p>1. <strong>IA</strong> (modernamente sí: detecta autocorrecciones contextuales por ML). 2. <strong>IA</strong> (red neuronal entrenada con caras). 3. <strong>No IA</strong> (cálculo aritmético clásico). 4. <strong>IA</strong> (modelo de lenguaje neural). 5. <strong>No IA</strong> (temporizador). 6. <strong>IA</strong> (segmentación por ML). Regla simple: si la tarea requiere "reconocer" o "predecir" patrones flexibles, suele ser IA. Si es operación lógica precisa, no.</p></div>
+  </section>
+
+  <section class="seccion">
+    <h2><span class="num">8</span>Entrena tu primer modelo</h2>
+    <div class="enunciado">Vas a abrir <strong>Teachable Machine</strong> (teachablemachine.withgoogle.com) y entrenar un modelo que reconozca 3 cosas con tu webcam o cámara del móvil. Apunta:<ol><li>Qué 3 clases entrenas.</li><li>Cuántas imágenes usaste de cada clase.</li><li>Si tu modelo funciona bien al probarlo con cosas nuevas.</li><li>Un caso en el que falle y por qué crees que falla.</li></ol></div>
+    <button class="sol-btn">Ver guía</button>
+    <div class="sol-content"><p>Ideas: «mano abierta / mano cerrada / nada», «sonrisa / cara seria / cara sorprendida», «lápiz / boli / rotulador», «moneda / billete / nada». Recomendado: 100+ imágenes por clase, variando ángulos, fondos y luces. Si falla, casi siempre es porque las imágenes de entrenamiento eran demasiado parecidas entre sí (mismo fondo, misma luz). Para mejorar: añadir variedad y reentrenar.</p></div>
+  </section>
+
+  <section class="seccion">
+    <h2><span class="num">9</span>Detecta el sobreajuste</h2>
+    <div class="enunciado">Un compañero entrena un modelo que distingue gatos de perros. Tiene 1000 imágenes. Su modelo acierta el <strong>99%</strong> en las imágenes de entrenamiento pero solo el <strong>60%</strong> con imágenes nuevas que le enseñas. ¿Qué le pasa? ¿Qué le aconsejarías?</div>
+    <button class="sol-btn">Ver solución</button>
+    <div class="sol-content"><p>Síntoma clásico de <strong>sobreajuste (overfitting)</strong>: el modelo se ha aprendido los ejemplos de entrenamiento de memoria pero no <em>generaliza</em>. Consejos: 1. Aumentar la variedad de los datos de entrenamiento (más razas, fondos, ángulos). 2. Reservar el 20% como conjunto de validación. 3. Reducir la complejidad del modelo. 4. Hacer "data augmentation" (rotar, recortar, cambiar brillo de las mismas fotos para crear más variedad).</p></div>
+  </section>
+
+
+  <div class="bloque-titulo">Bloque 4 · Ética e impacto</div>
+
+  <section class="seccion">
+    <h2><span class="num">10</span>Caso Cambridge Analytica + IA</h2>
+    <div class="enunciado">Lee este caso simplificado y reflexiona en 6-8 líneas:<br>«Cambridge Analytica usó datos de 87 millones de usuarios de Facebook para entrenar una IA que clasificaba a votantes por personalidad y les enviaba publicidad política personalizada durante las elecciones de EE.UU. 2016 y el Brexit». ¿Qué problemas éticos ves? ¿Habrías votado igual sabiendo que te perfilaron así?</div>
+    <button class="sol-btn">Ver guía de reflexión</button>
+    <div class="sol-content"><p>Problemas: 1. <strong>Privacidad</strong>: los datos se extrajeron sin consentimiento real. 2. <strong>Manipulación</strong>: cada votante veía mensajes adaptados a su psicología (miedos, prejuicios). 3. <strong>Asimetría</strong>: quien tiene los datos tiene poder, los demás no saben qué se les muestra. 4. <strong>Democracia frágil</strong>: si las elecciones se ganan personalizando manipulaciones, la democracia es teatro. Aceleró la <strong>aprobación del RGPD</strong> europeo en 2018. Tu reflexión debe ir sobre el equilibrio entre publicidad personalizada (útil para vender zapatillas) y manipulación política (peligrosa).</p></div>
+  </section>
+
+  <section class="seccion">
+    <h2><span class="num">11</span>Debate: IA y trabajo</h2>
+    <div class="enunciado">Lee y reflexiona: «La IA generativa (ChatGPT, Midjourney) puede ya escribir, diseñar, traducir y programar mejor que muchos profesionales junior». ¿Qué pasa con esos puestos de trabajo? Apunta:<ol><li>3 profesiones que más podrían transformarse en 10 años.</li><li>2 profesiones que serán más necesarias gracias a la IA.</li><li>Qué crees tú que es lo "humano" que la IA NO podrá hacer.</li></ol></div>
+    <button class="sol-btn">Ver guía</button>
+    <div class="sol-content"><p><strong>Más afectadas</strong>: traductores junior, diseñadores gráficos rutinarios, programadores junior, asistentes administrativos, redactores SEO, telemarketing, ilustradores comerciales. <strong>Más necesarias</strong>: ingenieros de prompt (saber pedir bien a las IA), auditores de IA (detectar sesgos), profesores (la IA no enseña relaciones humanas), oficios manuales (fontaneros, peluqueros, mecánicos: difícil automatizar). <strong>Lo humano</strong>: el cuidado real (cuidar enfermos, criar niños), el liderazgo ético, la creatividad genuinamente nueva, la empatía. La historia dice que la tecnología destruye trabajos rutinarios y crea otros nuevos, pero la transición duele.</p></div>
+  </section>
+
+  <section class="seccion">
+    <h2><span class="num">12</span>Tu política personal de IA</h2>
+    <div class="enunciado">Redacta tu <strong>código personal de uso responsable</strong> de la IA en 6-8 reglas. Tiene que ser realista (que tú vayas a cumplirlo) y cubrir al menos: trabajos de clase, redes sociales, privacidad, comprobación de información.</div>
+    <button class="sol-btn">Ver ejemplo</button>
+    <div class="sol-content"><p>Ejemplo de código personal:<br>1. Uso la IA para explicarme cosas, no para que me las haga.<br>2. Declaro siempre cuándo he usado IA en un trabajo y digo cómo.<br>3. NUNCA subo a IA datos personales de otras personas (fotos, mensajes privados).<br>4. Verifico fechas, cifras y nombres antes de citar lo que diga la IA.<br>5. No genero deepfakes de personas reales, ni siquiera "de broma".<br>6. Si una IA me dice algo muy seguro pero raro, sospecho (puede estar alucinando).<br>7. Una IA NO sustituye a un médico, un psicólogo o un abogado.<br>8. Reflexiono regularmente: ¿uso la IA para aprender o para evitar pensar?</p></div>
+  </section>
+
+</main>
+<script src="../../../assets/js/common.js"></script>
+<script src="../../../assets/js/header.js"></script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#8C2A3D">
+<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<title>Proyecto · U06 Programación e IA · TyD 3º ESO</title>
+<meta name="description" content="Proyecto integrador: construye una app móvil con App Inventor que integre un modelo de IA entrenado por ti, resolviendo un problema real.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/common.css">
+<link rel="stylesheet" href="../../../assets/css/unidad.css">
+<style>
+.pr-wrap{max-width:880px;margin:24px auto 50px;padding:0 20px}
+.pr-hero{text-align:center;margin-bottom:28px}
+.pr-hero h1{font-family:var(--cond);font-size:2rem;color:var(--principal);margin:0 0 8px}
+.pr-hero p{font-size:1rem;color:var(--texto2);margin:0;line-height:1.55}
+.pr-card{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:20px 24px;margin-bottom:18px}
+.pr-card h2{font-family:var(--cond);font-size:1.3rem;color:var(--principal);margin:0 0 10px;display:flex;align-items:center;gap:10px}
+.pr-card h2 .num{display:inline-block;width:36px;height:36px;line-height:36px;text-align:center;background:var(--principal);color:#fff;border-radius:50%;font-size:1rem;flex-shrink:0}
+.pr-card p,.pr-card li{font-size:.96rem;line-height:1.6}
+.pr-card ul,.pr-card ol{margin:8px 0 8px 22px;padding-left:0}
+.pr-fases{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:14px 0}
+.pr-fase{background:#F4F6F9;border-radius:8px;padding:12px 14px}
+.pr-fase h4{font-family:var(--cond);color:var(--principal);margin:0 0 6px;font-size:.95rem}
+.pr-fase p{font-size:.88rem;color:var(--texto2);margin:0;line-height:1.5}
+.pr-rubrica{width:100%;border-collapse:collapse;margin:14px 0;font-size:.92rem}
+.pr-rubrica th{background:var(--principal);color:#fff;padding:8px 10px;font-family:var(--cond);text-align:left}
+.pr-rubrica td{padding:8px 10px;border-bottom:1px solid var(--borde);vertical-align:top}
+.pr-rubrica td:first-child{font-weight:600;width:55%;color:var(--principal2)}
+.pr-rubrica td:last-child{width:15%;text-align:center;font-family:var(--cond);color:var(--principal)}
+.pr-callout{background:#E6F1FB;border-left:4px solid #378ADD;border-radius:0 6px 6px 0;padding:12px 16px;margin:14px 0;font-size:.92rem;line-height:1.55}
+.pr-callout-warn{background:#FFF4E6;border-left-color:#F59E0B}
+.pr-callout-ok{background:#E1F5EE;border-left-color:#1E8E3E}
+.pr-ideas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:14px 0}
+.pr-idea{background:#FBEEEF;border-radius:8px;padding:12px 14px;border-left:3px solid var(--principal)}
+.pr-idea h5{font-family:var(--cond);color:var(--principal);font-size:.95rem;margin:0 0 4px}
+.pr-idea p{font-size:.85rem;color:var(--texto2);margin:0;line-height:1.5}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+<header class="curso-hd"><span class="curso-sb">U06 · Programación e IA · Proyecto</span></header>
+<nav class="curso-navcross" role="navigation">
+  <a href="../../../index.html"><span>🏠</span><span class="nc-lbl">Índice</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../index.html"><span>📋</span><span class="nc-lbl">Hub U06</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../libro-digital.html"><span>📖</span><span class="nc-lbl">Libro digital</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../actividades/index.html"><span>✏️</span><span class="nc-lbl">Actividades</span></a>
+  <span class="nc-sep">·</span>
+  <span class="nc-current"><span>🚀</span><span class="nc-lbl">Proyecto</span></span>
+</nav>
+
+<main id="main-content" class="pr-wrap">
+  <section class="pr-hero">
+    <h1>🚀 Proyecto: app móvil con IA integrada</h1>
+    <p>Construye una <strong>aplicación Android funcional</strong> con App Inventor que integre un modelo de IA entrenado por ti en Teachable Machine. Tiene que resolver un problema real.</p>
+  </section>
+
+  <div class="pr-card">
+    <h2><span class="num">1</span>La idea</h2>
+    <p>Vas a unir todo lo que has aprendido: programación con bloques + sensores + IA + ética. El resultado: una app que la gente podría instalarse y usar de verdad.</p>
+    <p>Trabajaréis por <strong>parejas</strong>. La entrega final es: <strong>app instalable (.apk)</strong> + <strong>modelo entrenado</strong> + <strong>memoria técnica</strong> + <strong>defensa oral</strong>.</p>
+    <p>Duración: 3-4 sesiones de aula + trabajo en casa.</p>
+  </div>
+
+  <div class="pr-card">
+    <h2><span class="num">2</span>Ideas de partida (elige una o propón la tuya)</h2>
+    <div class="pr-ideas">
+      <div class="pr-idea"><h5>♻️ Clasificador de residuos</h5><p>La cámara reconoce si lo que ve es plástico, papel, vidrio u orgánico y te dice a qué contenedor va.</p></div>
+      <div class="pr-idea"><h5>🌿 Identificador de plantas</h5><p>Entrenas con 4-5 plantas comunes y la app te dice cuál es la que tienes delante.</p></div>
+      <div class="pr-idea"><h5>🤟 Lenguaje de signos básico</h5><p>Reconoce 5-10 signos del alfabeto y los muestra como letras.</p></div>
+      <div class="pr-idea"><h5>😊 Detector de emoción</h5><p>Mira tu cara y dice si estás feliz, triste, sorprendido o enfadado.</p></div>
+      <div class="pr-idea"><h5>📸 Cuenta-objetos</h5><p>Cuenta cuántos objetos de un tipo hay en una foto (lápices, monedas, libros…).</p></div>
+      <div class="pr-idea"><h5>🐾 Tu mascota</h5><p>Distingue entre tu perro y otros perros, o entre tu gato y otros.</p></div>
+      <div class="pr-idea"><h5>🍎 Frutas y verduras</h5><p>Identifica 5-6 frutas. Útil para apps de nutrición o cocina.</p></div>
+      <div class="pr-idea"><h5>🔧 Tu idea</h5><p>Habla con el profesor primero para validar la viabilidad.</p></div>
+    </div>
+  </div>
+
+  <div class="pr-card">
+    <h2><span class="num">3</span>Fases del proyecto</h2>
+    <div class="pr-fases">
+      <div class="pr-fase"><h4>🎯 1. Definir</h4><p>¿Qué problema resuelve? ¿Quién la usa?</p></div>
+      <div class="pr-fase"><h4>📊 2. Datos</h4><p>Recoger ≥100 imágenes por clase con variedad.</p></div>
+      <div class="pr-fase"><h4>🧠 3. Entrenar</h4><p>Modelo en Teachable Machine. Anotar precisión.</p></div>
+      <div class="pr-fase"><h4>🧪 4. Probar</h4><p>Test con datos nuevos. ¿Falla cuándo? Reentrenar si hace falta.</p></div>
+      <div class="pr-fase"><h4>📱 5. App</h4><p>Diseño en App Inventor + integración del modelo.</p></div>
+      <div class="pr-fase"><h4>👥 6. Usuarios</h4><p>Pruebas con 3-5 personas reales fuera del aula.</p></div>
+      <div class="pr-fase"><h4>📝 7. Memoria</h4><p>5-7 páginas PDF con todo el proceso.</p></div>
+      <div class="pr-fase"><h4>🎤 8. Defender</h4><p>5 min de presentación + demo en directo.</p></div>
+    </div>
+  </div>
+
+  <div class="pr-card">
+    <h2><span class="num">4</span>Entregables</h2>
+    <ol>
+      <li><strong>Archivo .aia</strong> (proyecto exportable de App Inventor) <strong>y .apk</strong> (instalable Android).</li>
+      <li><strong>Modelo .tm</strong> o URL pública del modelo entrenado en Teachable Machine.</li>
+      <li><strong>Memoria técnica (PDF, 5-7 págs.)</strong>: definición del problema, capturas del Designer, capturas de los bloques, precisión del modelo, pruebas con usuarios, dilemas éticos detectados.</li>
+      <li><strong>Vídeo demo (60-90 s)</strong> donde la app funciona en un móvil real.</li>
+      <li><strong>Defensa oral (5 min)</strong> en clase con apoyo visual.</li>
+    </ol>
+  </div>
+
+  <div class="pr-card">
+    <h2><span class="num">5</span>Rúbrica</h2>
+    <table class="pr-rubrica">
+      <thead><tr><th>Criterio</th><th>Peso</th></tr></thead>
+      <tbody>
+        <tr><td>Problema bien definido y útil para alguien real</td><td>10%</td></tr>
+        <tr><td>Calidad del modelo (precisión, conjunto representativo)</td><td>20%</td></tr>
+        <tr><td>Diseño de la app: interfaz clara, usable, terminada</td><td>15%</td></tr>
+        <tr><td>Programación: lógica correcta, variables y eventos bien usados</td><td>20%</td></tr>
+        <tr><td>Pruebas con usuarios + iteración real</td><td>10%</td></tr>
+        <tr><td>Reflexión ética: sesgos detectados, privacidad, limitaciones reconocidas</td><td>10%</td></tr>
+        <tr><td>Memoria técnica clara y bien estructurada</td><td>10%</td></tr>
+        <tr><td>Defensa oral con demo funcionando</td><td>5%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pr-callout pr-callout-ok">✅ <strong>Recursos:</strong><br>· <a href="https://appinventor.mit.edu/" target="_blank">appinventor.mit.edu</a> (gratis, online, MIT)<br>· <a href="https://teachablemachine.withgoogle.com/" target="_blank">teachablemachine.withgoogle.com</a> (Google, gratis)<br>· Extensión <strong>PersonalImageClassifier</strong> para conectar el modelo a App Inventor.</div>
+
+  <div class="pr-callout pr-callout-warn">⚠️ <strong>Importante sobre datos:</strong> NO uses imágenes con caras de menores que no sean tu cara (o de tu pareja del proyecto con permiso por escrito de su familia). Si tu proyecto usa caras, lo hablas primero con el profesor. Privacidad y derecho a la propia imagen son no negociables.</div>
+
+</main>
+<script src="../../../assets/js/common.js"></script>
+<script src="../../../assets/js/header.js"></script>
+</body>
+</html>

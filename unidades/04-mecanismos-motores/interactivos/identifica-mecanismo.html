@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#8C2A3D">
+<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<title>Identifica el mecanismo · U04 · TyD 3º ESO</title>
+<meta name="description" content="12 objetos cotidianos. Identifica qué mecanismo principal usan: palanca, polea, biela-manivela, piñón-cremallera, husillo-tuerca…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/common.css">
+<link rel="stylesheet" href="../../../assets/css/unidad.css">
+<style>
+.im-wrap{max-width:880px;margin:30px auto;padding:0 20px 60px}
+.im-hero{text-align:center;margin-bottom:24px}
+.im-hero h1{font-family:var(--cond);font-size:2rem;color:var(--principal);margin:0 0 8px}
+.im-hero p{font-size:.95rem;color:var(--texto2);margin:0;line-height:1.55}
+.im-progress{display:flex;justify-content:space-between;align-items:center;background:#F4F6F9;padding:10px 16px;border-radius:8px;margin-bottom:18px;font-family:var(--cond);font-size:.92rem}
+.im-progress strong{color:var(--principal)}
+.im-card{background:#fff;border:1px solid var(--borde);border-radius:12px;padding:22px;box-shadow:0 1px 6px rgba(0,0,0,.05);margin-bottom:20px}
+.im-objeto{font-family:var(--cond);font-size:1.6rem;color:var(--principal);text-align:center;margin:6px 0 4px}
+.im-icono{font-size:3.4rem;text-align:center;margin:6px 0 10px;line-height:1}
+.im-desc{font-size:1rem;color:var(--texto);margin:0 0 16px;line-height:1.55;text-align:center;padding:0 20px}
+.im-opts{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:14px 0}
+@media(max-width:560px){.im-opts{grid-template-columns:1fr}}
+.im-opt{font-family:var(--cond);background:#fff;border:2px solid var(--borde);border-radius:8px;padding:11px 14px;cursor:pointer;font-size:.92rem;text-align:left;color:var(--texto);transition:all .15s}
+.im-opt:hover:not(:disabled){border-color:var(--principal);background:#FBEEEF}
+.im-opt:disabled{cursor:not-allowed}
+.im-opt.ok{background:#E1F5EE;border-color:#1E8E3E;color:#0F6E56}
+.im-opt.ko{background:#FCEBEB;border-color:#C44536;color:#9A2A2A}
+.im-fb{display:none;margin-top:12px;padding:14px 18px;border-radius:8px;font-size:.92rem;line-height:1.55}
+.im-fb.show{display:block}
+.im-fb.acierto{background:#E1F5EE;color:#0F6E56;border-left:5px solid #1E8E3E}
+.im-fb.fallo{background:#FCEBEB;color:#9A2A2A;border-left:5px solid #C44536}
+.im-actions{display:flex;gap:10px;justify-content:center;margin-top:14px}
+.im-btn{font-family:var(--cond);padding:9px 22px;border-radius:22px;cursor:pointer;border:2px solid var(--principal);background:var(--principal);color:#fff;font-weight:600}
+.im-btn:hover{background:var(--principal2)}
+.im-resumen{text-align:center;background:linear-gradient(180deg,#FBEEEF,#fff);border:2px solid var(--principal);border-radius:10px;padding:28px 24px}
+.im-resumen .puntos{font-family:var(--cond);font-size:2.6rem;color:var(--principal);margin:6px 0}
+.im-resumen .puntos small{color:var(--texto);font-size:1.4rem}
+.im-resumen p{color:var(--texto2);font-size:.95rem;line-height:1.55;margin:6px 0 14px}
+</style>
+</head>
+<body>
+<header class="curso-hd"><span class="curso-sb">U04 · Mecanismos · Identifica el mecanismo</span></header>
+<nav class="curso-navcross" role="navigation">
+  <a href="../../../index.html"><span>🏠</span><span class="nc-lbl">Índice</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../index.html"><span>📋</span><span class="nc-lbl">Hub U04</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../libro-digital.html"><span>📖</span><span class="nc-lbl">Libro digital</span></a>
+  <span class="nc-sep">·</span>
+  <span class="nc-current"><span>🔍</span><span class="nc-lbl">Identifica</span></span>
+</nav>
+
+<main id="main-content" class="im-wrap">
+  <section class="im-hero">
+    <h1>🔍 Identifica el mecanismo</h1>
+    <p>12 objetos cotidianos. ¿Qué mecanismo principal hay funcionando en cada uno?</p>
+  </section>
+
+  <div class="im-progress">
+    <span>Objeto <strong id="num">1</strong> de <strong id="tot">12</strong></span>
+    <span>Aciertos: <strong id="ac">0</strong></span>
+  </div>
+
+  <div class="im-card" id="card">
+    <div class="im-icono" id="icono">—</div>
+    <h2 class="im-objeto" id="objeto">—</h2>
+    <p class="im-desc" id="desc"></p>
+    <div class="im-opts" id="opts"></div>
+    <div class="im-fb" id="fb"></div>
+    <div class="im-actions" id="acciones" style="display:none">
+      <button class="im-btn" id="siguiente">Siguiente →</button>
+    </div>
+  </div>
+
+  <section class="im-resumen" id="resumen" style="display:none">
+    <h2 style="font-family:var(--cond);color:var(--principal);margin:0 0 6px">¡Has terminado!</h2>
+    <div class="puntos"><span id="r-ac">0</span><small> / <span id="r-tot">12</span></small></div>
+    <p id="r-msg">—</p>
+    <button class="im-btn" id="rein">🔁 Volver a empezar</button>
+  </section>
+</main>
+
+<script>
+(function(){'use strict';
+var mecanismos=[
+  {id:'palanca',nombre:'Palanca',exp:'Barra rígida con un fulcro que multiplica fuerza o velocidad.'},
+  {id:'polea',nombre:'Polea / polipasto',exp:'Cuerda y rueda con garganta para cambiar dirección o dividir fuerza.'},
+  {id:'plano',nombre:'Plano inclinado',exp:'Rampa que reduce la fuerza necesaria a costa de más distancia.'},
+  {id:'tornillo',nombre:'Tornillo',exp:'Plano inclinado enrollado: multiplicación enorme de fuerza axial.'},
+  {id:'cuna',nombre:'Cuña',exp:'Dos planos inclinados unidos por el lomo para separar materiales.'},
+  {id:'engranaje',nombre:'Engranajes',exp:'Ruedas dentadas que engranan directamente para transmitir giro.'},
+  {id:'correa',nombre:'Poleas y correa',exp:'Dos poleas unidas por correa flexible. Ejes alejados.'},
+  {id:'cadena',nombre:'Rueda dentada y cadena',exp:'Como poleas-correa pero sin deslizamiento.'},
+  {id:'sinfin',nombre:'Tornillo sin fin + corona',exp:'Reducción muy alta e irreversible.'},
+  {id:'cremallera',nombre:'Piñón-cremallera',exp:'Convierte giro en movimiento lineal recto.'},
+  {id:'husillo',nombre:'Husillo-tuerca',exp:'Tornillo que gira y empuja tuerca con gran precisión.'},
+  {id:'biela',nombre:'Biela-manivela',exp:'Convierte giro en movimiento alternativo lineal.'},
+  {id:'torno',nombre:'Torno / cabrestante',exp:'Manivela y tambor para enrollar cuerda y levantar cargas.'}
+];
+
+var casos=[
+  {icono:'🚲',obj:'Bicicleta',desc:'Pisas los pedales y la rueda trasera gira. El elemento que conecta plato y piñón es el mecanismo principal.',correcto:'cadena'},
+  {icono:'🚗',obj:'Dirección del coche',desc:'Giras el volante y las ruedas se inclinan a izquierda o derecha. Convierte giro del volante en desplazamiento lateral del eje de la rueda.',correcto:'cremallera'},
+  {icono:'🔧',obj:'Tornillo de banco',desc:'Giras la manivela y las mordazas se acercan, apretando la pieza con fuerza enorme.',correcto:'husillo'},
+  {icono:'🏗️',obj:'Grúa torre',desc:'En lo alto, un cable se enrolla en un tambor accionado por un motor a través de una manivela.',correcto:'torno'},
+  {icono:'🚙',obj:'Motor de un coche',desc:'El pistón sube y baja. Su movimiento se convierte en giro del cigüeñal que mueve las ruedas.',correcto:'biela'},
+  {icono:'🪜',obj:'Escalera de mano (rampa)',desc:'Subes un mueble a un camión por una rampa larga. Te cuesta menos fuerza que levantarlo en vertical.',correcto:'plano'},
+  {icono:'🪓',obj:'Hacha',desc:'Su hoja partida en dos planos al chocar contra la madera la separa en dos.',correcto:'cuna'},
+  {icono:'⏱️',obj:'Reloj mecánico',desc:'Un muelle real se desenrolla lentamente. Su giro pasa por varias ruedas dentadas que engranan entre sí hasta llegar a las agujas.',correcto:'engranaje'},
+  {icono:'🚪',obj:'Puerta automática del supermercado',desc:'Un motor pequeño con su rueda dentada se acopla a una barra dentada recta de la puerta para abrirla.',correcto:'cremallera'},
+  {icono:'🎢',obj:'Cinta transportadora del aeropuerto',desc:'Un motor mueve un eje a través de una rueda sin fin que engrana con una corona. Si se va la luz, la cinta no retrocede.',correcto:'sinfin'},
+  {icono:'⚖️',obj:'Balanza de cocina antigua',desc:'En el centro hay un fulcro. Por un lado pones el alimento, por el otro las pesas. Está en equilibrio cuando coinciden los momentos.',correcto:'palanca'},
+  {icono:'🧴',obj:'Tapón de una botella',desc:'Lo enroscas para cerrar. Por dentro tiene un plano inclinado enrollado alrededor de un cilindro.',correcto:'tornillo'}
+];
+
+var i=0,aciertos=0,respondida=false;
+var n=document.getElementById('num'),tot=document.getElementById('tot'),ac=document.getElementById('ac'),icono=document.getElementById('icono'),objeto=document.getElementById('objeto'),desc=document.getElementById('desc'),op=document.getElementById('opts'),fb=document.getElementById('fb'),acc=document.getElementById('acciones'),sig=document.getElementById('siguiente'),card=document.getElementById('card'),resumen=document.getElementById('resumen'),rac=document.getElementById('r-ac'),rtot=document.getElementById('r-tot'),rmsg=document.getElementById('r-msg'),rein=document.getElementById('rein');
+tot.textContent=casos.length;rtot.textContent=casos.length;
+
+function shuffle(a){var b=a.slice();for(var k=b.length-1;k>0;k--){var j=Math.floor(Math.random()*(k+1));var t=b[k];b[k]=b[j];b[j]=t;}return b;}
+
+function pintar(){
+  var c=casos[i];
+  n.textContent=i+1;
+  icono.textContent=c.icono;
+  objeto.textContent=c.obj;
+  desc.innerHTML=c.desc;
+  fb.className='im-fb';fb.innerHTML='';acc.style.display='none';respondida=false;
+  op.innerHTML='';
+  var corr=mecanismos.find(function(m){return m.id===c.correcto;});
+  var resto=mecanismos.filter(function(m){return m.id!==c.correcto;});
+  var d=shuffle(resto).slice(0,3);
+  var todas=shuffle([corr].concat(d));
+  todas.forEach(function(m){
+    var b=document.createElement('button');
+    b.className='im-opt';b.dataset.id=m.id;
+    b.textContent=m.nombre;
+    b.addEventListener('click',function(){responder(m.id,b);});
+    op.appendChild(b);
+  });
+}
+
+function responder(elegida,btn){
+  if(respondida)return;respondida=true;
+  var c=casos[i];
+  var corr=mecanismos.find(function(m){return m.id===c.correcto;});
+  op.querySelectorAll('.im-opt').forEach(function(b){
+    b.disabled=true;
+    if(b.dataset.id===c.correcto)b.classList.add('ok');
+    else if(b===btn)b.classList.add('ko');
+  });
+  if(elegida===c.correcto){
+    aciertos++;
+    fb.className='im-fb show acierto';
+    fb.innerHTML='<strong>✓ ¡Correcto!</strong> <strong>'+corr.nombre+'</strong>: '+corr.exp;
+  } else {
+    var elec=mecanismos.find(function(m){return m.id===elegida;});
+    fb.className='im-fb show fallo';
+    fb.innerHTML='<strong>✗ No.</strong> Era <strong>'+corr.nombre+'</strong>: '+corr.exp+'<br><br>Tu respuesta (<em>'+elec.nombre+'</em>): '+elec.exp;
+  }
+  ac.textContent=aciertos;
+  acc.style.display='flex';
+}
+
+sig.addEventListener('click',function(){
+  i++;
+  if(i>=casos.length){
+    card.style.display='none';
+    document.querySelector('.im-progress').style.display='none';
+    resumen.style.display='block';
+    rac.textContent=aciertos;
+    var p=Math.round(aciertos/casos.length*100);
+    var msg=p>=90?'🌟 ¡Excelente! Sabes detectar mecanismos al vuelo.':p>=70?'👍 Muy bien. Repasa los que has fallado.':p>=50?'🙂 Aprobado. Vuelve al libro digital, parte 3 y 4.':'📚 Tranquilo: lee de nuevo el apartado de mecanismos.';
+    rmsg.innerHTML=msg+'<br><small>'+aciertos+' aciertos de '+casos.length+' ('+p+'%)</small>';
+    resumen.scrollIntoView({behavior:'smooth'});
+  } else {
+    pintar();
+  }
+});
+
+rein.addEventListener('click',function(){
+  i=0;aciertos=0;
+  resumen.style.display='none';
+  card.style.display='block';
+  document.querySelector('.im-progress').style.display='flex';
+  ac.textContent='0';
+  pintar();
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+pintar();
+})();
+</script>
+</body>
+</html>

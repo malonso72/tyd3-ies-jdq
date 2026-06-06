@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#8C2A3D">
+<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<title>Simulador Arduino · U05 · TyD 3º ESO</title>
+<meta name="description" content="Modifica el código de un Arduino blink y observa el LED parpadear en tiempo real.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/common.css">
+<link rel="stylesheet" href="../../../assets/css/unidad.css">
+<style>
+.ab-wrap{max-width:920px;margin:30px auto;padding:0 20px 60px}
+.ab-hero{text-align:center;margin-bottom:24px}
+.ab-hero h1{font-family:var(--cond);font-size:2rem;color:var(--principal);margin:0 0 8px}
+.ab-hero p{font-size:.95rem;color:var(--texto2);margin:0;line-height:1.55}
+.ab-grid{display:grid;grid-template-columns:1fr 320px;gap:20px}
+@media(max-width:760px){.ab-grid{grid-template-columns:1fr}}
+.ab-card{background:#fff;border:1px solid var(--borde);border-radius:12px;padding:18px;box-shadow:0 1px 6px rgba(0,0,0,.05)}
+.ab-card h3{font-family:var(--cond);color:var(--principal);font-size:1rem;margin:0 0 10px}
+.ab-edit{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:10px}
+.ab-inp{display:flex;flex-direction:column;gap:4px}
+.ab-inp label{font-family:var(--cond);font-size:.78rem;color:var(--texto2);letter-spacing:.5px}
+.ab-inp input{font-family:'JetBrains Mono',monospace;background:#FBEEEF;border:1.5px solid var(--borde);border-radius:6px;padding:8px 10px;font-size:.92rem;color:var(--principal)}
+.ab-inp input:focus{outline:none;border-color:var(--principal);background:#fff}
+.ab-code{font-family:'JetBrains Mono',monospace;background:#1E1E2A;color:#E6E6F0;padding:14px 16px;border-radius:8px;font-size:.86rem;line-height:1.65;white-space:pre;overflow-x:auto;margin:8px 0}
+.ab-code .k{color:#FF9DB5}
+.ab-code .c{color:#8C97A8;font-style:italic}
+.ab-code .v{color:#9ED3FF}
+.ab-code .h{background:rgba(255,200,80,0.15);border-radius:3px;padding:0 3px}
+.ab-control{display:flex;gap:8px;margin-top:10px}
+.ab-btn{font-family:var(--cond);padding:9px 16px;border-radius:18px;cursor:pointer;border:2px solid var(--principal);background:var(--principal);color:#fff;font-weight:600;font-size:.88rem}
+.ab-btn.sec{background:#fff;color:var(--principal)}
+.ab-btn:hover{background:var(--principal2)}
+.ab-board{background:linear-gradient(135deg,#5A6F4F,#3D4F30);border-radius:14px;padding:24px;text-align:center}
+.ab-led{width:80px;height:80px;border-radius:50%;background:#444;margin:14px auto;transition:all .1s;border:4px solid #222;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+.ab-led.on{background:radial-gradient(circle,#FFEE88 30%,#FFB700 80%);box-shadow:0 0 32px #FFEE88, 0 4px 12px rgba(0,0,0,.3);border-color:#FFB700}
+.ab-led-label{font-family:'JetBrains Mono',monospace;color:#E0F0D0;font-size:.85rem;letter-spacing:.5px}
+.ab-state{display:flex;justify-content:space-around;background:rgba(0,0,0,0.25);padding:10px 14px;border-radius:6px;margin-top:14px;color:#E0F0D0;font-family:'JetBrains Mono',monospace;font-size:.85rem}
+.ab-state strong{color:#FFEE88}
+.ab-tareas{margin-top:20px;background:#FFFCF5;border:1px solid #E8DCB8;border-radius:8px;padding:14px 18px;font-size:.92rem;line-height:1.7}
+.ab-tareas h4{font-family:var(--cond);color:#A47B0C;margin:0 0 8px;font-size:1rem}
+.ab-tareas ol{margin:0 0 0 22px;padding:0}
+.ab-tareas code{background:#fff;padding:1px 6px;border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--principal)}
+</style>
+</head>
+<body>
+<header class="curso-hd"><span class="curso-sb">U05 · Circuitos · Simulador Arduino</span></header>
+<nav class="curso-navcross" role="navigation">
+  <a href="../../../index.html"><span>🏠</span><span class="nc-lbl">Índice</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../index.html"><span>📋</span><span class="nc-lbl">Hub U05</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../libro-digital.html"><span>📖</span><span class="nc-lbl">Libro digital</span></a>
+  <span class="nc-sep">·</span>
+  <span class="nc-current"><span>🤖</span><span class="nc-lbl">Arduino</span></span>
+</nav>
+
+<main id="main-content" class="ab-wrap">
+  <section class="ab-hero">
+    <h1>🤖 Simulador Arduino blink</h1>
+    <p>Modifica los valores de <code>delay()</code> y observa cómo cambia el parpadeo del LED en tiempo real.</p>
+  </section>
+
+  <div class="ab-grid">
+    <div class="ab-card">
+      <h3>📝 Código del Arduino</h3>
+      <div class="ab-edit">
+        <div class="ab-inp"><label>Tiempo encendido (ms)</label><input type="number" id="tOn" value="1000" min="50" step="50"></div>
+        <div class="ab-inp"><label>Tiempo apagado (ms)</label><input type="number" id="tOff" value="1000" min="50" step="50"></div>
+      </div>
+      <pre class="ab-code" id="code"></pre>
+      <div class="ab-control">
+        <button class="ab-btn" id="play">▶ Subir y ejecutar</button>
+        <button class="ab-btn sec" id="stop">⏹ Detener</button>
+      </div>
+    </div>
+
+    <div class="ab-card">
+      <h3>💡 Tu Arduino</h3>
+      <div class="ab-board">
+        <div class="ab-led-label">Pin 13 (LED_BUILTIN)</div>
+        <div class="ab-led" id="led"></div>
+        <div class="ab-state">
+          <span>Estado: <strong id="estado">LOW</strong></span>
+          <span>Ciclos: <strong id="ciclos">0</strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ab-tareas">
+    <h4>🎯 Retos guiados</h4>
+    <ol>
+      <li><strong>Parpadeo simétrico rápido</strong>: cambia ambos delays a 200 ms. El LED parpadea 2,5 veces por segundo.</li>
+      <li><strong>Parpadeo asimétrico</strong>: tOn = 100 ms y tOff = 900 ms. Simula un faro o un latido.</li>
+      <li><strong>Casi siempre encendido</strong>: tOn = 1900 ms y tOff = 100 ms. ¿Notas el parpadeo?</li>
+      <li><strong>SOS en código morse</strong>: tres parpadeos cortos (200 ms) + tres largos (600 ms) + tres cortos. Lo lograrías escribiendo más líneas de código; aquí prueba qué pasa con tOn = 200 ms.</li>
+    </ol>
+  </div>
+</main>
+
+<script>
+(function(){'use strict';
+var tOn=document.getElementById('tOn'),tOff=document.getElementById('tOff'),codeEl=document.getElementById('code'),led=document.getElementById('led'),estado=document.getElementById('estado'),ciclos=document.getElementById('ciclos');
+var corriendo=false,timer=null,ciclo=0;
+
+function pintarCode(){
+  var on=tOn.value, off=tOff.value;
+  var html='<span class="c">// Programa que parpadea el LED del pin 13</span>\n';
+  html+='<span class="k">int</span> led = 13;\n\n';
+  html+='<span class="k">void</span> setup() {\n';
+  html+='  pinMode(led, OUTPUT);\n';
+  html+='}\n\n';
+  html+='<span class="k">void</span> loop() {\n';
+  html+='  digitalWrite(led, HIGH);    <span class="c">// encender</span>\n';
+  html+='  delay(<span class="h">'+on+'</span>);              <span class="c">// '+on+' ms encendido</span>\n';
+  html+='  digitalWrite(led, LOW);     <span class="c">// apagar</span>\n';
+  html+='  delay(<span class="h">'+off+'</span>);              <span class="c">// '+off+' ms apagado</span>\n';
+  html+='}';
+  codeEl.innerHTML=html;
+}
+
+function ejecutar(){
+  if(corriendo)return;
+  corriendo=true;
+  ciclo=0;
+  ciclos.textContent='0';
+  var fase=true; // true = encendido
+  function siguiente(){
+    if(!corriendo)return;
+    if(fase){
+      led.classList.add('on');estado.textContent='HIGH';
+      timer=setTimeout(function(){fase=false;siguiente();}, parseInt(tOn.value)||100);
+    } else {
+      led.classList.remove('on');estado.textContent='LOW';
+      ciclo++;ciclos.textContent=ciclo;
+      timer=setTimeout(function(){fase=true;siguiente();}, parseInt(tOff.value)||100);
+    }
+  }
+  siguiente();
+}
+
+function detener(){
+  corriendo=false;
+  if(timer)clearTimeout(timer);
+  led.classList.remove('on');estado.textContent='LOW';
+}
+
+document.getElementById('play').addEventListener('click',function(){detener();setTimeout(ejecutar,50);});
+document.getElementById('stop').addEventListener('click',detener);
+[tOn,tOff].forEach(function(el){el.addEventListener('input',pintarCode);});
+pintarCode();
+ejecutar();
+})();
+</script>
+</body>
+</html>

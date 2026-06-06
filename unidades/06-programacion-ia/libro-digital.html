@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#8C2A3D">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>Libro digital · U06 Programación e IA · TyD 3º ESO</title>
+<meta name="description" content="Libro digital de la unidad 6: pensamiento computacional, App Inventor, inteligencia artificial y ética. IES Jiménez de Quesada.">
+<link rel="canonical" href="https://tyd3-ies-jdq.malonso72.workers.dev/unidades/06-programacion-ia/libro-digital.html">
+<meta property="og:title" content="Libro digital · U06 Programación e IA · TyD 3º ESO">
+<meta property="og:description" content="Apps con App Inventor + introducción real a la IA + ética.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/common.css">
+<link rel="stylesheet" href="../../assets/css/unidad.css">
+<style>
+.parte-titulo{font-family:var(--cond);font-size:.78rem;letter-spacing:2.5px;color:var(--principal);text-transform:uppercase;font-weight:700;margin:30px 0 10px;padding-bottom:5px;border-bottom:1px dashed var(--principal)}
+.parte-titulo:first-of-type{margin-top:0}
+.tipo-box{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:14px 0}
+.tipo-box .ti{background:#fff;border:1px solid var(--borde);border-radius:8px;padding:14px 16px}
+.tipo-box .ti h4{margin:0 0 6px;font-family:var(--cond);color:var(--principal);font-size:1.05rem}
+.tipo-box .ti p{margin:0;font-size:.92rem;color:var(--texto2);line-height:1.5}
+.tipo-box .ti.azul h4{color:var(--principal2)}
+.componente-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:14px 0}
+.componente{background:#FBEEEF;border-left:3px solid var(--principal);border-radius:0 6px 6px 0;padding:10px 14px;font-size:.92rem;line-height:1.45}
+.componente strong{display:block;color:var(--principal);font-family:var(--cond);font-size:1rem;margin-bottom:4px}
+table.tipo-tabla{width:100%;border-collapse:collapse;margin:14px 0;font-size:.94rem}
+table.tipo-tabla th{background:var(--principal);color:#fff;padding:8px 10px;text-align:left;font-family:var(--cond);font-weight:600}
+table.tipo-tabla td{padding:8px 10px;border-bottom:1px solid var(--borde);vertical-align:top}
+table.tipo-tabla tr:nth-child(even){background:#FAFAFA}
+table.tipo-tabla td strong{color:var(--principal2)}
+.callout{display:flex;gap:12px;align-items:flex-start;background:#F4F6F9;border-left:4px solid var(--principal2);border-radius:0 6px 6px 0;padding:12px 16px;margin:14px 0}
+.callout .ic{font-size:1.4rem;flex-shrink:0;line-height:1}
+.callout p{margin:0;font-size:.94rem;line-height:1.55}
+.callout-warn{background:#FFF4E6;border-left-color:#F59E0B}
+.callout-info{background:#E6F1FB;border-left-color:#378ADD}
+.callout-danger{background:#FCEBEB;border-left-color:#E24B4A}
+.callout-ok{background:#E1F5EE;border-left-color:var(--verde)}
+.ejemplo{background:#FFFCF5;border:1px solid #E8DCB8;border-radius:8px;padding:14px 18px;margin:16px 0}
+.ejemplo .et{display:inline-block;font-family:var(--cond);font-size:.74rem;letter-spacing:1.5px;color:#A47B0C;background:#FBEBC2;padding:3px 9px;border-radius:10px;margin-bottom:6px}
+.ejemplo h5{font-family:var(--cond);color:var(--texto);margin:0 0 8px;font-size:1.05rem}
+.code{display:block;font-family:var(--mono,'JetBrains Mono',monospace);background:#1E1E2A;color:#E6E6F0;padding:14px 18px;border-radius:8px;margin:12px 0;font-size:.88rem;line-height:1.6;overflow-x:auto;white-space:pre}
+.code .c{color:#B8B8C8;font-style:italic}
+.code .k{color:#FF9DB5}
+.code .v{color:#9ED3FF}
+.code .s{color:#FFD080}
+.bloque-aiv{background:#F4F6F9;border:1px dashed #8C97A8;border-radius:6px;padding:10px 14px;margin:8px 0;font-family:var(--mono);font-size:.88rem;color:var(--texto)}
+.glosario-tabla{width:100%;border-collapse:collapse;margin:14px 0;font-size:.92rem}
+.glosario-tabla th{background:#FBEEEF;color:var(--principal);font-family:var(--cond);padding:8px 10px;text-align:left;font-weight:600}
+.glosario-tabla td{padding:8px 10px;border-bottom:1px solid var(--borde)}
+.glosario-tabla td:first-child{font-weight:600;color:var(--principal2);white-space:nowrap;width:25%}
+@media print{.curso-hd,.curso-navcross,.sb-side{display:none!important}.apartado{break-inside:avoid}}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+<header class="curso-hd"><span class="curso-sb">U06 · Programación e IA · Libro digital</span></header>
+
+<nav class="curso-navcross" role="navigation">
+  <a href="../../index.html"><span>🏠</span><span class="nc-lbl">Índice</span></a>
+  <span class="nc-sep">·</span>
+  <a href="index.html"><span>📋</span><span class="nc-lbl">Hub U06</span></a>
+  <span class="nc-sep">·</span>
+  <span class="nc-current"><span>📖</span><span class="nc-lbl">Libro digital</span></span>
+  <span class="nc-sep">·</span>
+  <a href="actividades/index.html"><span>✏️</span><span class="nc-lbl">Actividades</span></a>
+  <span class="nc-sep">·</span>
+  <a href="autocomprobacion/index.html"><span>✅</span><span class="nc-lbl">Autocomprobación</span></a>
+</nav>
+
+<div class="unidad-layout">
+
+<aside class="sb-side">
+  <h3>Apartados</h3>
+  <div class="parte-titulo">Parte 1 · Programar</div>
+  <a href="#s1">1. Qué es programar</a>
+  <a href="#s2">2. Pensamiento computacional</a>
+  <a href="#s3">3. Estructuras básicas</a>
+  <div class="parte-titulo">Parte 2 · App Inventor</div>
+  <a href="#s4">4. Anatomía de una app</a>
+  <a href="#s5">5. Componentes y eventos</a>
+  <a href="#s6">6. Sensores y persistencia</a>
+  <a href="#s7">7. App de ejemplo paso a paso</a>
+  <div class="parte-titulo">Parte 3 · IA</div>
+  <a href="#s8">8. Qué es la IA</a>
+  <a href="#s9">9. Aprendizaje automático</a>
+  <a href="#s10">10. Tipos de aprendizaje</a>
+  <a href="#s11">11. IA en tu día a día</a>
+  <a href="#s12">12. Entrena tu propio modelo</a>
+  <div class="parte-titulo">Parte 4 · Ética</div>
+  <a href="#s13">13. Sesgos y datos</a>
+  <a href="#s14">14. Privacidad, deepfakes y derechos</a>
+  <div class="parte-titulo">Cierre</div>
+  <a href="#glosario">📖 Glosario</a>
+</aside>
+
+<main class="ct" id="main-content">
+
+  <h1 class="unidad-titulo">U06 · Programación de aplicaciones e Inteligencia Artificial</h1>
+  <p class="unidad-subt">Pasamos de los bloques de Scratch a programar apps que se ejecutan en el móvil real, y nos asomamos a la IA: qué es, cómo aprende, qué peligros tiene y cómo entrenar uno tú mismo.</p>
+
+  <div class="callout callout-info">
+    <span class="ic">⏮️</span>
+    <p><strong>Repaso previo:</strong> esta unidad continúa lo visto en 2º ESO en la U7 «Programación con Scratch». Si dudas con bucles o condicionales, repásalos primero en <a href="https://tyd2-ies-jdq.malonso72.workers.dev/unidades/07-programacion/libro-digital.html" target="_blank">el libro digital de 2º ESO</a>.</p>
+  </div>
+
+<!-- ════════ PARTE 1 · PROGRAMAR ════════ -->
+
+  <section class="apartado" id="s1">
+    <h2>1. ¿Qué es programar?</h2>
+    <p><strong>Programar</strong> es dar instrucciones a una máquina para que resuelva un problema. La máquina no entiende vaguedades: hay que ser tan preciso como una receta de cocina para alguien que no ha cocinado en su vida.</p>
+
+    <p>Una <strong>app</strong> (aplicación) es un programa que se ejecuta en un dispositivo concreto: tu móvil, una tablet, un reloj inteligente. Te permite hacer cosas: enviar mensajes, calcular, controlar la luz de tu casa, jugar.</p>
+
+    <h3>De los lenguajes de bajo a alto nivel</h3>
+    <div class="tipo-box">
+      <div class="ti"><h4>⚡ Bajo nivel</h4><p>Ensamblador, binario. El procesador los entiende directamente. Muy difícil para humanos.</p></div>
+      <div class="ti azul"><h4>📝 Alto nivel</h4><p>Python, Java, JavaScript. Más cercanos al lenguaje humano. Un compilador o intérprete los traduce a bajo nivel.</p></div>
+      <div class="ti"><h4>🧩 Visuales / bloques</h4><p>Scratch, App Inventor. Programas montando bloques tipo puzle. Ideal para empezar.</p></div>
+    </div>
+
+    <div class="callout callout-info">
+      <span class="ic">💡</span>
+      <p>App Inventor es visual <em>por encima</em>, pero genera <em>de verdad</em> código Java que se ejecuta en tu móvil. No es un "juguete": apps publicadas en Google Play han nacido en App Inventor.</p>
+    </div>
+  </section>
+
+
+  <section class="apartado" id="s2">
+    <h2>2. Pensamiento computacional</h2>
+    <p>Antes de programar, hay que <strong>pensar como un programador</strong>. El <em>pensamiento computacional</em> son 4 habilidades para resolver problemas:</p>
+
+    <div class="tipo-box">
+      <div class="ti"><h4>🪓 Descomposición</h4><p>Partir el problema grande en partes más pequeñas y manejables.</p></div>
+      <div class="ti azul"><h4>🔄 Reconocer patrones</h4><p>Detectar lo que se repite (lo que se puede automatizar con bucles o funciones).</p></div>
+      <div class="ti"><h4>🎯 Abstracción</h4><p>Quedarte con lo importante e ignorar el detalle irrelevante.</p></div>
+      <div class="ti azul"><h4>📋 Algoritmo</h4><p>Escribir paso a paso la solución como una secuencia clara y ordenada.</p></div>
+    </div>
+
+    <div class="ejemplo">
+      <span class="et">EJEMPLO</span>
+      <h5>«App linterna con botón ON/OFF»</h5>
+      <p>1. <strong>Descomposición</strong>: hace falta un botón, un indicador de estado, acceder al LED del móvil.<br>
+      2. <strong>Patrón</strong>: al pulsar, cambia el estado y enciende/apaga.<br>
+      3. <strong>Abstracción</strong>: no importa qué modelo de móvil es, solo si tiene LED.<br>
+      4. <strong>Algoritmo</strong>: <em>cuando se pulsa botón → si linterna apagada, encender; si encendida, apagar; actualizar texto del botón</em>.</p>
+    </div>
+  </section>
+
+
+  <section class="apartado" id="s3">
+    <h2>3. Estructuras básicas de programación</h2>
+    <p>Cualquier algoritmo, sea en Scratch, en App Inventor, en Python o en C, está hecho con estas piezas:</p>
+
+    <h3>Variables</h3>
+    <p>Cajitas con nombre donde guardas un valor. Pueden contener números, texto, listas o estados (verdadero/falso).</p>
+    <div class="bloque-aiv">var contador = 0
+var jugador = "Manu"
+var encendido = falso</div>
+
+    <h3>Condicionales (si... entonces...)</h3>
+    <p>Hacer cosas distintas según una condición.</p>
+    <div class="bloque-aiv">si edad &gt;= 18:
+   permitir entrar
+si no:
+   denegar entrada</div>
+
+    <h3>Bucles (mientras... / por cada...)</h3>
+    <p>Repetir instrucciones sin escribirlas mil veces. Imprescindible para listas o cálculos repetitivos.</p>
+    <div class="bloque-aiv">por cada amigo en lista_de_amigos:
+   enviar mensaje a amigo
+
+mientras vida &gt; 0:
+   jugar partida</div>
+
+    <h3>Funciones</h3>
+    <p>Bloques reutilizables de código con nombre propio. Reciben entradas y opcionalmente devuelven una salida.</p>
+    <div class="bloque-aiv">función calcular_imc(peso, altura):
+   devolver peso / (altura * altura)</div>
+
+    <h3>Listas</h3>
+    <p>Estructuras que guardan varios datos a la vez. Acceso por índice (0, 1, 2…) o por nombre.</p>
+    <div class="bloque-aiv">tareas = ["lavar", "estudiar", "salir"]
+primera = tareas[0]   // → "lavar"</div>
+
+    <div class="callout callout-info">
+      <span class="ic">🧠</span>
+      <p>Estas 5 piezas son <strong>universales</strong>: aprendes Scratch o App Inventor con bloques, pero cuando saltas a Python o JavaScript ves las mismas estructuras. Cambia la sintaxis, no la idea.</p>
+    </div>
+  </section>
+
+
+<!-- ════════ PARTE 2 · APP INVENTOR ════════ -->
+
+  <section class="apartado" id="s4">
+    <h2>4. Anatomía de una app móvil</h2>
+    <p>Una app es algo más complejo que un programa de consola. Tiene 3 capas:</p>
+
+    <div class="tipo-box">
+      <div class="ti"><h4>🎨 Interfaz</h4><p>Lo que ve y toca el usuario: pantallas, botones, cajas de texto, imágenes.</p></div>
+      <div class="ti azul"><h4>⚙️ Lógica</h4><p>Lo que pasa por dentro: qué ocurre cuando se pulsa un botón, se cambia un texto, suena un sonido.</p></div>
+      <div class="ti"><h4>💾 Datos</h4><p>Lo que la app recuerda entre sesiones: tu puntuación máxima, tu lista de tareas, tu nombre.</p></div>
+    </div>
+
+    <h3>El ciclo de vida típico</h3>
+    <ol style="margin-left:20px;line-height:1.6">
+      <li>El usuario <strong>abre la app</strong>: se carga la pantalla inicial.</li>
+      <li>El usuario <strong>interacciona</strong> (toca, escribe, sacude el móvil).</li>
+      <li>Esos eventos <strong>disparan</strong> bloques de código.</li>
+      <li>El código <strong>cambia</strong> la interfaz y/o guarda datos.</li>
+      <li>El usuario <strong>cierra la app</strong>. Los datos guardados persisten para la próxima vez.</li>
+    </ol>
+
+    <h3>Programación orientada a eventos</h3>
+    <p>A diferencia de un script que se ejecuta de arriba abajo, una app <strong>reacciona a eventos</strong>: clic, deslizar, recibir notificación, cambiar de orientación. Tu trabajo es decir <em>qué ocurre cuando pasa cada cosa</em>.</p>
+  </section>
+
+
+  <section class="apartado" id="s5">
+    <h2>5. App Inventor: componentes y eventos</h2>
+    <p><strong>App Inventor</strong> (MIT) es un entorno gratuito web para programar apps Android sin saber Java. Tiene dos pestañas:</p>
+
+    <div class="tipo-box">
+      <div class="ti"><h4>🖼️ Designer</h4><p>Arrastra componentes (botones, etiquetas, sensores…) a una pantalla simulada de móvil.</p></div>
+      <div class="ti azul"><h4>🧩 Blocks</h4><p>Programa la lógica con bloques tipo Scratch. Cada evento es un puzle que tú rellenas.</p></div>
+    </div>
+
+    <h3>Componentes más usados</h3>
+    <div class="componente-grid">
+      <div class="componente"><strong>Button</strong>Botón clicable. Evento principal: <code>cuando Button.Click</code>.</div>
+      <div class="componente"><strong>Label</strong>Etiqueta de texto. Propiedad principal: <code>Text</code>.</div>
+      <div class="componente"><strong>TextBox</strong>Caja donde el usuario escribe. Propiedad: <code>Text</code>.</div>
+      <div class="componente"><strong>Image</strong>Imagen. Propiedad <code>Picture</code> con la imagen subida.</div>
+      <div class="componente"><strong>Sound</strong>Reproduce audio. Método: <code>Play</code>.</div>
+      <div class="componente"><strong>Notifier</strong>Muestra alertas, mensajes emergentes.</div>
+      <div class="componente"><strong>Canvas</strong>Lienzo para dibujar. Usado en juegos.</div>
+      <div class="componente"><strong>HorizontalArrangement</strong>Contenedor para colocar componentes en fila.</div>
+    </div>
+
+    <h3>Evento → acción</h3>
+    <p>Un evento típico en App Inventor:</p>
+    <div class="bloque-aiv">cuando Boton1.Click
+  poner Etiqueta1.Texto = "Has pulsado el botón"
+  reproducir Sonido1</div>
+
+    <p>Toda app en App Inventor son cadenas de eventos así, encadenados con variables, condicionales y bucles.</p>
+  </section>
+
+
+  <section class="apartado" id="s6">
+    <h2>6. Sensores y persistencia</h2>
+    <p>Lo divertido de las apps móviles: pueden leer el mundo. El móvil tiene un montón de <strong>sensores</strong> integrados que App Inventor pone a tu disposición:</p>
+
+    <table class="tipo-tabla">
+      <thead><tr><th>Sensor</th><th>Qué mide</th><th>Idea de app</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Acelerómetro</strong></td><td>Movimiento y agitación</td><td>Detector de pasos, "agita para borrar"</td></tr>
+        <tr><td><strong>Giroscopio</strong></td><td>Orientación (girar)</td><td>Brújula, nivel de albañil</td></tr>
+        <tr><td><strong>Localizador GPS</strong></td><td>Coordenadas</td><td>Distancia a un punto, geocaching</td></tr>
+        <tr><td><strong>Sensor de proximidad</strong></td><td>Algo cerca de la pantalla</td><td>Apagar pantalla en llamada</td></tr>
+        <tr><td><strong>Cámara y micrófono</strong></td><td>Imagen, sonido</td><td>Apps con visión / voz</td></tr>
+        <tr><td><strong>Sensor de luz</strong></td><td>Brillo ambiente</td><td>Linterna automática</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Persistencia: que la app recuerde</h3>
+    <p>Si quieres que la app <strong>recuerde</strong> datos entre sesiones (puntuación, nombre, ajustes), usa <strong>TinyDB</strong>: una base de datos diminuta en el propio móvil. Funciona como un diccionario clave-valor:</p>
+    <div class="bloque-aiv">TinyDB1.StoreValue "puntuacion_max" valor: 1500
+TinyDB1.GetValue   "puntuacion_max" valorPorDefecto: 0</div>
+
+    <div class="callout callout-info">
+      <span class="ic">📱</span>
+      <p>Para <strong>probar la app</strong> mientras la haces, instala MIT AI2 Companion en tu móvil y conéctalo con un QR. Lo que cambies en el ordenador aparece <em>al instante</em> en tu móvil. Es magia.</p>
+    </div>
+  </section>
+
+
+  <section class="apartado" id="s7">
+    <h2>7. App de ejemplo: contador de saltos</h2>
+    <p>Una mini-app para entender cómo encajan las piezas. Mide saltos usando el acelerómetro.</p>
+
+    <h3>Diseño (Designer)</h3>
+    <ul style="margin-left:20px;line-height:1.6">
+      <li>1 Label «Saltos: 0»</li>
+      <li>1 Button «Reiniciar»</li>
+      <li>1 AccelerometerSensor (invisible)</li>
+      <li>1 TinyDB para guardar récord</li>
+    </ul>
+
+    <h3>Bloques (Blocks)</h3>
+    <div class="bloque-aiv">// Variable global
+inicializar saltos = 0
+
+// Detectar sacudida del móvil (es un evento del acelerómetro)
+cuando AccelerometerSensor1.Shaking
+  poner saltos = saltos + 1
+  poner Label1.Texto = "Saltos: " + saltos
+  // Si supera el récord, guardarlo
+  si saltos &gt; TinyDB1.GetValue("record" def: 0)
+    TinyDB1.StoreValue "record" valor: saltos
+
+// Reiniciar con el botón
+cuando Botón1.Click
+  poner saltos = 0
+  poner Label1.Texto = "Saltos: 0"</div>
+
+    <div class="callout callout-ok">
+      <span class="ic">✅</span>
+      <p>Has usado: <strong>variable</strong> (saltos), <strong>evento</strong> (Shaking, Click), <strong>condicional</strong> (si supera el récord), <strong>persistencia</strong> (TinyDB). Toda app, por compleja que parezca, se construye con estas piezas.</p>
+    </div>
+  </section>
+
+
+<!-- ════════ PARTE 3 · INTELIGENCIA ARTIFICIAL ════════ -->
+
+  <section class="apartado" id="s8">
+    <h2>8. ¿Qué es la Inteligencia Artificial?</h2>
+    <p>La <strong>Inteligencia Artificial (IA)</strong> es la rama de la informática que crea sistemas capaces de hacer tareas que, hasta ahora, requerían inteligencia humana: reconocer una cara, traducir un texto, jugar al ajedrez, conducir un coche.</p>
+
+    <h3>Qué NO es la IA</h3>
+    <div class="callout callout-warn">
+      <span class="ic">⚠️</span>
+      <p>La IA <strong>no «entiende» como tú</strong>. No tiene conciencia, no tiene intenciones. Es un sistema estadístico muy bueno encontrando patrones en cantidades enormes de datos. Cuando ChatGPT te responde, no piensa: ha aprendido qué palabras suelen ir juntas tras millones de textos.</p>
+    </div>
+
+    <h3>Una breve historia</h3>
+    <table class="tipo-tabla">
+      <thead><tr><th>Año</th><th>Hito</th></tr></thead>
+      <tbody>
+        <tr><td>1950</td><td>Alan Turing propone el «test de Turing»: ¿puede una máquina engañar a un humano haciéndose pasar por uno?</td></tr>
+        <tr><td>1956</td><td>Conferencia de Dartmouth: nace el término «Inteligencia Artificial».</td></tr>
+        <tr><td>1997</td><td>Deep Blue (IBM) vence a Kaspárov al ajedrez.</td></tr>
+        <tr><td>2012</td><td>Las redes neuronales profundas revolucionan la visión por ordenador.</td></tr>
+        <tr><td>2016</td><td>AlphaGo gana al campeón mundial de Go (juego mucho más complejo que el ajedrez).</td></tr>
+        <tr><td>2022-2026</td><td>Explosión de la IA generativa: ChatGPT, Midjourney, DALL·E, Gemini, Claude.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+
+  <section class="apartado" id="s9">
+    <h2>9. Aprendizaje automático (Machine Learning)</h2>
+    <p>La forma actual de hacer IA es el <strong>aprendizaje automático</strong>: en vez de programar las reglas a mano, le <em>enseñamos</em> al ordenador con ejemplos y él aprende los patrones solo.</p>
+
+    <h3>El triángulo del Machine Learning</h3>
+    <div class="tipo-box">
+      <div class="ti"><h4>📊 Datos</h4><p>Miles o millones de ejemplos etiquetados (esto es un gato, esto es un perro…).</p></div>
+      <div class="ti azul"><h4>🧠 Modelo</h4><p>El "cerebro" matemático que se ajusta a los datos durante el entrenamiento.</p></div>
+      <div class="ti"><h4>🎯 Predicción</h4><p>Una vez entrenado, el modelo recibe datos nuevos y devuelve una respuesta.</p></div>
+    </div>
+
+    <div class="ejemplo">
+      <span class="et">ANALOGÍA</span>
+      <h5>«Enseñarle a un niño qué es un gato»</h5>
+      <p>No le das una definición ("mamífero con bigotes y orejas triangulares"). Le enseñas 50 fotos de gatos. Después le enseñas una foto nueva y dice «¡gato!». Su cerebro ha encontrado patrones. La IA aprende igual, solo que necesita 50 000 fotos en vez de 50.</p>
+    </div>
+
+    <h3>¿Cómo «aprende» realmente?</h3>
+    <p>El modelo empieza adivinando al azar. Le mostramos un dato y le decimos cuál era la respuesta correcta. Cada vez que falla, el modelo se <strong>ajusta un poquito</strong> para acercarse a la respuesta correcta. Tras millones de iteraciones, ajusta sus parámetros internos hasta acertar casi siempre. Esto es <strong>entrenamiento</strong>.</p>
+  </section>
+
+
+  <section class="apartado" id="s10">
+    <h2>10. Tipos de aprendizaje</h2>
+    <p>Hay tres familias principales:</p>
+
+    <div class="tipo-box">
+      <div class="ti"><h4>🏷️ Supervisado</h4><p>Aprende con datos etiquetados (sabemos la respuesta correcta). El más usado.<br><strong>Ejemplos:</strong> clasificar correos como spam o no, reconocer objetos en fotos.</p></div>
+      <div class="ti azul"><h4>🔍 No supervisado</h4><p>Aprende de datos SIN etiquetas: encuentra patrones, agrupa, detecta anomalías.<br><strong>Ejemplos:</strong> agrupar clientes por hábitos, detectar fraude bancario.</p></div>
+      <div class="ti"><h4>🎮 Por refuerzo</h4><p>El modelo es un "agente" que prueba acciones y recibe recompensa o castigo. Aprende por ensayo y error.<br><strong>Ejemplos:</strong> AlphaGo, conducción autónoma.</p></div>
+    </div>
+
+    <h3>Sobreajuste (overfitting): el peligro</h3>
+    <div class="callout callout-warn">
+      <span class="ic">⚠️</span>
+      <p>Si un modelo se entrena demasiado con los mismos datos, los memoriza pero no <em>generaliza</em>. Es como un estudiante que se sabe los exámenes del año pasado pero suspende uno nuevo. La solución: separar siempre los datos en <strong>entrenamiento</strong> (80 %) y <strong>test</strong> (20 %) para comprobar que el modelo funciona con datos que nunca ha visto.</p>
+    </div>
+  </section>
+
+
+  <section class="apartado" id="s11">
+    <h2>11. La IA en tu día a día</h2>
+    <p>Probablemente ya usas IA decenas de veces al día sin darte cuenta:</p>
+
+    <div class="componente-grid">
+      <div class="componente"><strong>👁️ Visión por ordenador</strong>Tu móvil reconoce tu cara para desbloquearse. Google Fotos agrupa por personas. Filtros de Instagram.</div>
+      <div class="componente"><strong>🗣️ Procesamiento de lenguaje</strong>Siri, Alexa, traductor de Google, autocorrector, ChatGPT y similares. Predicción de la siguiente palabra.</div>
+      <div class="componente"><strong>📱 Recomendadores</strong>YouTube y TikTok eligen qué vídeo verás después; Spotify hace tu Discover Weekly; Netflix recomienda series.</div>
+      <div class="componente"><strong>🚦 Conducción</strong>Tesla autopilot, Google Maps elige ruta evitando atascos, frenos automáticos de emergencia.</div>
+      <div class="componente"><strong>🩺 Medicina</strong>Lectura automática de radiografías para detectar tumores antes de lo que ven los médicos.</div>
+      <div class="componente"><strong>🎨 IA generativa</strong>Crea imágenes (Midjourney), texto (ChatGPT), música (Suno) y vídeo (Sora) a partir de descripciones.</div>
+    </div>
+
+    <h3>IA generativa: la revolución 2022-2026</h3>
+    <p>Los <strong>modelos de lenguaje grandes (LLM)</strong> como ChatGPT, Claude o Gemini se entrenan con cantidades inmensas de texto de internet y aprenden a predecir la siguiente palabra. Eso, escalado, les permite redactar, programar, traducir, resumir... pero también <strong>inventar (alucinar)</strong>. Conviene comprobar siempre lo que dicen sobre datos concretos.</p>
+  </section>
+
+
+  <section class="apartado" id="s12">
+    <h2>12. Entrena tu propio modelo (Teachable Machine)</h2>
+    <p><strong>Teachable Machine</strong> (de Google) es una web gratuita que te permite entrenar tu propio clasificador <strong>sin escribir código</strong>. En 10 minutos puedes hacer una IA que reconozca, por ejemplo, si tu mano está abierta o cerrada usando la cámara del portátil.</p>
+
+    <h3>Los 3 pasos</h3>
+    <ol style="margin-left:20px;line-height:1.6">
+      <li><strong>Recoger datos</strong>: graba ~100 imágenes de cada clase (mano abierta, mano cerrada, sin mano).</li>
+      <li><strong>Entrenar</strong>: pulsa un botón. En 30 segundos tienes un modelo.</li>
+      <li><strong>Probar y exportar</strong>: pruebas con la cámara. Si funciona bien, exportas el modelo a un archivo o URL que App Inventor puede usar.</li>
+    </ol>
+
+    <div class="callout callout-ok">
+      <span class="ic">🚀</span>
+      <p><strong>Ideas para entrenar:</strong> reconocer si estás mirando al móvil, distinguir entre lápiz y boli, clasificar 4 tipos de hojas de árbol, contar dedos, distinguir 3 emociones por la cara, identificar 5 piezas de fruta.</p>
+    </div>
+
+    <h3>Conectar Teachable Machine con App Inventor</h3>
+    <p>Existe una extensión llamada <strong>PersonalImageClassifier</strong> que carga tu modelo en una app de App Inventor. Tu app pasa a tener visión por ordenador.</p>
+  </section>
+
+
+<!-- ════════ PARTE 4 · ÉTICA ════════ -->
+
+  <section class="apartado" id="s13">
+    <h2>13. Sesgos en los datos</h2>
+    <p>Una IA aprende <strong>de los datos con los que la entrenas</strong>. Si los datos tienen un sesgo, la IA lo hereda y lo amplifica.</p>
+
+    <div class="ejemplo">
+      <span class="et">CASO REAL</span>
+      <h5>Amazon (2014-2018) y el sesgo de género</h5>
+      <p>Amazon entrenó una IA para evaluar currículums automáticamente. Como en los últimos 10 años los contratados habían sido sobre todo hombres, la IA aprendió que «ser mujer» era una señal negativa: <strong>descartaba CVs que contuvieran la palabra «women» o nombres de universidades femeninas</strong>. Amazon tuvo que cancelar el proyecto en 2018.</p>
+    </div>
+
+    <div class="ejemplo">
+      <span class="et">CASO REAL</span>
+      <h5>COMPAS: predicción de reincidencia delictiva</h5>
+      <p>En EE.UU., un algoritmo (COMPAS) predecía la probabilidad de que un detenido volviese a delinquir. Se demostró que <strong>asignaba mayor probabilidad a personas negras</strong> que blancas con expedientes idénticos. El sesgo venía de datos históricos sobre detenciones, que ya estaban sesgados.</p>
+    </div>
+
+    <h3>De dónde salen los sesgos</h3>
+    <ul style="margin-left:20px;line-height:1.7">
+      <li><strong>Datos no representativos</strong>: si entrenas el reconocimiento facial sólo con fotos de personas blancas, fallará con personas negras. (Caso real: Google Photos clasificó a personas negras como gorilas en 2015).</li>
+      <li><strong>Etiquetas humanas sesgadas</strong>: si los humanos que etiquetaron tenían prejuicios, la IA los aprende.</li>
+      <li><strong>Historia injusta</strong>: si el mundo del pasado fue injusto y entrenas con datos del pasado, la IA reproduce esa injusticia.</li>
+    </ul>
+
+    <div class="callout callout-info">
+      <span class="ic">⚖️</span>
+      <p>La <strong>Ley de IA de la UE</strong> (AI Act, 2024) obliga a evaluar sesgos y a etiquetar como «alto riesgo» los sistemas de IA que afectan a derechos fundamentales (educación, empleo, justicia). En 2026 ya es de aplicación.</p>
+    </div>
+  </section>
+
+
+  <section class="apartado" id="s14">
+    <h2>14. Privacidad, deepfakes y derechos</h2>
+
+    <h3>Privacidad de los datos de entrenamiento</h3>
+    <p>Los modelos grandes (LLM) se han entrenado con texto <em>e imágenes</em> de internet, incluyendo blogs, redes sociales, fotos públicas. ¿Quién dio permiso? Nadie pidió consentimiento. Hay múltiples demandas en marcha de artistas, escritores y medios contra OpenAI, Meta y otros.</p>
+
+    <h3>Deepfakes: la mentira convincente</h3>
+    <div class="callout callout-danger">
+      <span class="ic">🎭</span>
+      <p>Un <strong>deepfake</strong> es un vídeo o audio falso creado por IA que parece real. Casos reales: en 2024 un empleado en Hong Kong transfirió <strong>25 millones de dólares</strong> tras una videollamada con quien parecía ser su jefe; eran todos deepfakes. En España hubo varios casos de deepfakes pornográficos generados sobre fotos de menores de 12-14 años: ahora es un delito específico.</p>
+    </div>
+
+    <h3>Derechos de autor</h3>
+    <p>Si una IA genera una imagen estilo «Van Gogh» tras entrenarse con Van Gogh, ¿quién es el autor? ¿La IA? ¿El usuario que escribió la descripción? ¿Van Gogh? Aún no hay respuesta legal clara. En 2024 la oficina de copyright de EE.UU. dictaminó que <strong>una imagen 100 % generada por IA no se puede registrar</strong> (no hay autor humano).</p>
+
+    <h3>Usos responsables, en clase</h3>
+    <ul style="margin-left:20px;line-height:1.7">
+      <li>Usa la IA <strong>para aprender</strong>, no para copiar. Pídele explicaciones, comparaciones, repaso. Verifica lo que te diga.</li>
+      <li>Si entregas un trabajo hecho con IA <strong>declaralo</strong>. Hacerlo pasar por tuyo es plagio.</li>
+      <li>Nunca subas datos personales (de ti o de otros) a una IA pública: pasan al servidor.</li>
+      <li>NUNCA generes deepfakes de personas reales sin su permiso explícito. Puede ser delito.</li>
+      <li>Recuerda que las IA <strong>se equivocan</strong> incluso en cosas simples. Comprueba siempre.</li>
+    </ul>
+
+    <div class="callout callout-info">
+      <span class="ic">🌍</span>
+      <p>La gran pregunta de tu generación: <em>¿cómo nos beneficiamos del enorme potencial de la IA sin que se cargue empleos, privacidad y verdad por el camino?</em> No hay respuestas fáciles. Tu papel es no usarla con los ojos cerrados.</p>
+    </div>
+  </section>
+
+
+<!-- ════════ GLOSARIO ════════ -->
+
+  <section class="apartado" id="glosario">
+    <h2>📖 Glosario</h2>
+    <table class="glosario-tabla">
+      <tbody>
+        <tr><td>Algoritmo</td><td>Secuencia ordenada de pasos para resolver un problema.</td></tr>
+        <tr><td>App Inventor</td><td>Entorno gratuito del MIT para crear apps Android con bloques.</td></tr>
+        <tr><td>Bucle</td><td>Estructura de programación que repite instrucciones.</td></tr>
+        <tr><td>Condicional</td><td>Estructura «si... entonces... sino...». Permite ramificar el flujo.</td></tr>
+        <tr><td>Conjunto de entrenamiento</td><td>Datos que se usan para entrenar un modelo de IA.</td></tr>
+        <tr><td>Conjunto de test</td><td>Datos NUEVOS reservados para comprobar el modelo entrenado.</td></tr>
+        <tr><td>Deepfake</td><td>Audio o vídeo falso creado por IA que parece real.</td></tr>
+        <tr><td>Evento</td><td>Acción que dispara código en una app (clic, sacudida, llegada de mensaje…).</td></tr>
+        <tr><td>Función</td><td>Trozo de código con nombre reutilizable.</td></tr>
+        <tr><td>IA generativa</td><td>IA que crea contenido nuevo: texto, imagen, audio, vídeo.</td></tr>
+        <tr><td>LLM</td><td>Large Language Model. Modelo de lenguaje grande (ChatGPT, Claude, Gemini).</td></tr>
+        <tr><td>Machine Learning</td><td>Aprendizaje automático: la IA aprende de los datos sin ser programada explícitamente.</td></tr>
+        <tr><td>Modelo</td><td>El "cerebro" matemático entrenado de una IA.</td></tr>
+        <tr><td>Persistencia</td><td>Que los datos sobrevivan al cerrar la app (TinyDB en App Inventor).</td></tr>
+        <tr><td>Sesgo</td><td>Tendencia injusta de la IA aprendida de datos poco representativos.</td></tr>
+        <tr><td>Sobreajuste</td><td>Cuando un modelo memoriza los datos de entrenamiento pero falla con datos nuevos.</td></tr>
+        <tr><td>Supervisado</td><td>Tipo de aprendizaje en el que los datos están etiquetados.</td></tr>
+        <tr><td>Teachable Machine</td><td>Web de Google para entrenar clasificadores sin programar.</td></tr>
+        <tr><td>Variable</td><td>Caja con nombre que guarda un valor durante la ejecución del programa.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+</div>
+
+<script src="../../assets/js/common.js"></script>
+<script src="../../assets/js/header.js"></script>
+</body>
+</html>

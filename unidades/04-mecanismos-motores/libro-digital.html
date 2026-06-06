@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#8C2A3D">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<title>Libro digital · U04 Mecanismos y motores · TyD 3º ESO</title>
+<meta name="description" content="Libro digital de la unidad 4: máquinas simples, transmisión y transformación del movimiento, biela-manivela, motores eléctricos y de combustión.">
+<link rel="canonical" href="https://tyd3-ies-jdq.malonso72.workers.dev/unidades/04-mecanismos-motores/libro-digital.html">
+<meta property="og:title" content="Libro digital · U04 Mecanismos · TyD 3º ESO">
+<meta property="og:description" content="Cómo se mueven las máquinas: del mecanismo al motor.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<script>
+window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},svg:{fontCache:'global'}};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/common.css">
+<link rel="stylesheet" href="../../assets/css/unidad.css">
+<style>
+.parte-titulo{font-family:var(--cond);font-size:.78rem;letter-spacing:2.5px;color:var(--principal);text-transform:uppercase;font-weight:700;margin:30px 0 10px;padding-bottom:5px;border-bottom:1px dashed var(--principal)}
+.parte-titulo:first-of-type{margin-top:0}
+.tipo-box{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:14px 0}
+.tipo-box .ti{background:#fff;border:1px solid var(--borde);border-radius:8px;padding:14px 16px}
+.tipo-box .ti h4{margin:0 0 6px;font-family:var(--cond);color:var(--principal);font-size:1.05rem}
+.tipo-box .ti p{margin:0;font-size:.92rem;color:var(--texto2);line-height:1.5}
+.tipo-box .ti.azul h4{color:var(--principal2)}
+table.tipo-tabla{width:100%;border-collapse:collapse;margin:14px 0;font-size:.94rem}
+table.tipo-tabla th{background:var(--principal);color:#fff;padding:8px 10px;text-align:left;font-family:var(--cond);font-weight:600}
+table.tipo-tabla td{padding:8px 10px;border-bottom:1px solid var(--borde);vertical-align:top}
+table.tipo-tabla tr:nth-child(even){background:#FAFAFA}
+table.tipo-tabla td strong{color:var(--principal2)}
+.callout{display:flex;gap:12px;align-items:flex-start;background:#F4F6F9;border-left:4px solid var(--principal2);border-radius:0 6px 6px 0;padding:12px 16px;margin:14px 0}
+.callout .ic{font-size:1.4rem;flex-shrink:0;line-height:1}
+.callout p{margin:0;font-size:.94rem;line-height:1.55}
+.callout-warn{background:#FFF4E6;border-left-color:#F59E0B}
+.callout-info{background:#E6F1FB;border-left-color:#378ADD}
+.callout-ok{background:#E1F5EE;border-left-color:var(--verde)}
+.formula{background:#FBEEEF;border-left:3px solid var(--principal);border-radius:0 6px 6px 0;padding:10px 16px;margin:10px 0;font-size:1rem;line-height:1.7}
+.formula .et{display:block;font-family:var(--cond);font-size:.72rem;letter-spacing:1.5px;color:var(--principal);text-transform:uppercase;margin-bottom:4px}
+.ejemplo{background:#FFFCF5;border:1px solid #E8DCB8;border-radius:8px;padding:14px 18px;margin:16px 0}
+.ejemplo .et{display:inline-block;font-family:var(--cond);font-size:.74rem;letter-spacing:1.5px;color:#A47B0C;background:#FBEBC2;padding:3px 9px;border-radius:10px;margin-bottom:6px}
+.ejemplo h5{font-family:var(--cond);color:var(--texto);margin:0 0 8px;font-size:1.05rem}
+.glosario-tabla{width:100%;border-collapse:collapse;margin:14px 0;font-size:.92rem}
+.glosario-tabla th{background:#FBEEEF;color:var(--principal);font-family:var(--cond);padding:8px 10px;text-align:left;font-weight:600}
+.glosario-tabla td{padding:8px 10px;border-bottom:1px solid var(--borde)}
+.glosario-tabla td:first-child{font-weight:600;color:var(--principal2);white-space:nowrap;width:25%}
+@media print{.curso-hd,.curso-navcross,.sb-side{display:none!important}.apartado{break-inside:avoid}}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+<header class="curso-hd"><span class="curso-sb">U04 · Mecanismos y motores · Libro digital</span></header>
+
+<nav class="curso-navcross" role="navigation">
+  <a href="../../index.html"><span>🏠</span><span class="nc-lbl">Índice</span></a>
+  <span class="nc-sep">·</span>
+  <a href="index.html"><span>📋</span><span class="nc-lbl">Hub U04</span></a>
+  <span class="nc-sep">·</span>
+  <span class="nc-current"><span>📖</span><span class="nc-lbl">Libro digital</span></span>
+  <span class="nc-sep">·</span>
+  <a href="actividades/index.html"><span>✏️</span><span class="nc-lbl">Cuadernillo</span></a>
+  <span class="nc-sep">·</span>
+  <a href="autocomprobacion/index.html"><span>✅</span><span class="nc-lbl">Autocomp</span></a>
+</nav>
+
+<div class="unidad-layout">
+
+<aside class="sb-side">
+  <h3>Apartados</h3>
+  <div class="parte-titulo">Parte 1 · Máquinas simples</div>
+  <a href="#s1">1. Qué es una máquina simple</a>
+  <a href="#s2">2. Palancas</a>
+  <a href="#s3">3. Poleas y polipastos</a>
+  <a href="#s4">4. Plano inclinado, cuña y tornillo</a>
+  <div class="parte-titulo">Parte 2 · Transmisión circular</div>
+  <a href="#s5">5. Relación de transmisión</a>
+  <a href="#s6">6. Ruedas de fricción y poleas-correa</a>
+  <a href="#s7">7. Engranajes y cadena</a>
+  <a href="#s8">8. Trenes compuestos</a>
+  <div class="parte-titulo">Parte 3 · Transformación</div>
+  <a href="#s9">9. Tornillo sin fin</a>
+  <a href="#s10">10. Piñón-cremallera</a>
+  <a href="#s11">11. Husillo-tuerca</a>
+  <a href="#s12">12. Manivela-torno</a>
+  <div class="parte-titulo">Parte 4 · Alternativo</div>
+  <a href="#s13">13. Biela-manivela</a>
+  <a href="#s14">14. Mecanismos combinados</a>
+  <div class="parte-titulo">Parte 5 · Motores</div>
+  <a href="#s15">15. Motores eléctricos</a>
+  <a href="#s16">16. Motores de combustión</a>
+  <div class="parte-titulo">Cierre</div>
+  <a href="#glosario">📖 Glosario</a>
+</aside>
+
+<main class="ct" id="main-content">
+
+  <h1 class="unidad-titulo">U04 · Elementos de las máquinas: mecanismos y motores</h1>
+  <p class="unidad-subt">Cómo se mueven las máquinas reales. Empezamos por las máquinas simples (que multiplican fuerza), pasamos por los sistemas que transmiten y transforman el movimiento, y acabamos en los motores que ponen todo en marcha.</p>
+
+  <div class="callout callout-info">
+    <span class="ic">⏮️</span>
+    <p><strong>Repaso previo:</strong> esta unidad continúa la U4 «Las máquinas simples» de 2º ESO. Si no recuerdas qué es una palanca, repásalo primero en <a href="https://tyd2-ies-jdq.malonso72.workers.dev/unidades/04-maquinas-simples/libro-digital.html" target="_blank">el libro digital de 2º ESO</a>.</p>
+  </div>
+
+<!-- ════════ PARTE 1 · MÁQUINAS SIMPLES ════════ -->
+
+  <section class="apartado" id="s1">
+    <h2>1. ¿Qué es una máquina simple?</h2>
+    <p>Una <strong>máquina simple</strong> es un dispositivo que <strong>multiplica</strong> o <strong>cambia la dirección</strong> de una fuerza. A cambio, pagamos un «precio»: hay que recorrer más distancia, o ejercer la fuerza más tiempo. Es decir, una máquina simple <em>no crea energía</em>; redistribuye lo que ya hay.</p>
+
+    <div class="formula">
+      <span class="et">Ley de oro de las máquinas</span>
+      Lo que ganas en fuerza, lo pierdes en distancia. El producto de fuerza por distancia se conserva:
+      $$F_\text{aplicada} \cdot d_\text{aplicada} = F_\text{resistente} \cdot d_\text{resistente}$$
+    </div>
+
+    <h3>Tipos de máquinas simples clásicas</h3>
+    <div class="tipo-box">
+      <div class="ti"><h4>📏 Palanca</h4><p>Barra rígida apoyada en un punto fijo (fulcro).</p></div>
+      <div class="ti azul"><h4>⚪ Polea</h4><p>Rueda con garganta por la que pasa una cuerda.</p></div>
+      <div class="ti"><h4>📐 Plano inclinado</h4><p>Rampa para subir un peso sin levantarlo del todo.</p></div>
+      <div class="ti azul"><h4>🔱 Cuña</h4><p>Dos planos inclinados unidos por el lomo. Hacha, cuchillo.</p></div>
+      <div class="ti"><h4>🌀 Tornillo</h4><p>Plano inclinado enrollado en un cilindro.</p></div>
+    </div>
+  </section>
+
+
+  <section class="apartado" id="s2">
+    <h2>2. Palancas</h2>
+    <p>Una palanca tiene 3 elementos: <strong>fuerza (F)</strong>, <strong>resistencia (R)</strong> y <strong>punto de apoyo (fulcro)</strong>. Las distancias del fulcro a la fuerza ($d_F$ o brazo de potencia) y a la resistencia ($d_R$ o brazo de resistencia) determinan la ventaja mecánica.</p>
+
+    <div class="formula">
+      <span class="et">Ley de la palanca</span>
+      $$F \cdot d_F = R \cdot d_R$$
+      Cuanto mayor sea $d_F$ frente a $d_R$, menos fuerza necesitas.
+    </div>
+
+    <h3>Géneros de palanca</h3>
+    <table class="tipo-tabla">
+      <thead><tr><th>Género</th><th>Disposición</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1.er género</strong></td><td>Apoyo entre fuerza y resistencia</td><td>Balancín, alicates, tijeras, balanza</td></tr>
+        <tr><td><strong>2.º género</strong></td><td>Resistencia entre apoyo y fuerza</td><td>Carretilla, cascanueces, abridor de botellas</td></tr>
+        <tr><td><strong>3.er género</strong></td><td>Fuerza entre apoyo y resistencia</td><td>Pinzas, caña de pescar, brazo humano</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-info">
+      <span class="ic">💡</span>
+      <p>Las palancas de <strong>3.er género</strong> son las únicas que NO multiplican fuerza: la pierdes. A cambio ganas velocidad y precisión. Por eso tu brazo está montado así.</p>
+    </div>
+  </section>
+
+
+  <section class="apartado" id="s3">
+    <h2>3. Poleas y polipastos</h2>
+    <p>Una <strong>polea fija</strong> simplemente cambia la dirección de la fuerza (tiras hacia abajo, sube). No multiplica fuerza.</p>
+    <p>Una <strong>polea móvil</strong> se cuelga de la carga: la cuerda sujeta el peso por dos lados, así que cada lado aguanta la mitad. <strong>Divide la fuerza necesaria entre 2</strong>.</p>
+    <p>Un <strong>polipasto</strong> es una combinación de poleas fijas y móviles. Con $n$ tramos de cuerda sujetando la carga:</p>
+
+    <div class="formula">
+      <span class="et">Polipasto</span>
+      $$F = \dfrac{R}{n}$$
+      donde $n$ es el número de tramos de cuerda que sujetan la carga móvil.
+    </div>
+
+    <div class="ejemplo">
+      <span class="et">EJEMPLO</span>
+      <h5>Subir un piano de 200 kg con un polipasto de 4 tramos</h5>
+      <p>$F = 200 / 4 = 50$ kg de fuerza. A cambio, hay que tirar 4 metros de cuerda para subir el piano 1 metro.</p>
+    </div>
+  </section>
+
+
+  <section class="apartado" id="s4">
+    <h2>4. Plano inclinado, cuña y tornillo</h2>
+    <p>Tres parientes cercanos. Todos son el mismo principio: una rampa que cambia un movimiento difícil (subir) por uno más fácil (empujar por la rampa, pero más distancia).</p>
+
+    <div class="formula">
+      <span class="et">Plano inclinado</span>
+      Para subir un peso $P$ por una rampa de longitud $L$ hasta una altura $h$:
+      $$F = P \cdot \dfrac{h}{L}$$
+      Cuanto más larga sea la rampa frente a la altura, menos fuerza.
+    </div>
+
+    <p>La <strong>cuña</strong> es como un plano inclinado que se mueve hasta separar dos cosas (hacha, cuchillo, formón). Cuanto más estrecho su ángulo, más fuerza concentra.</p>
+
+    <p>El <strong>tornillo</strong> es un plano inclinado enrollado alrededor de un cilindro. Al girarlo, se traslada un poco (el «paso» $p$): con cada vuelta avanza una distancia muy pequeña, así que multiplica enormemente la fuerza axial.</p>
+
+    <div class="formula">
+      <span class="et">Tornillo</span>
+      $$F = \dfrac{R \cdot p}{2\pi \cdot r}$$
+      con $r$ = radio del mango/llave y $p$ = paso del tornillo.
+    </div>
+  </section>
+
+
+<!-- ════════ PARTE 2 · TRANSMISIÓN CIRCULAR ════════ -->
+
+  <section class="apartado" id="s5">
+    <h2>5. Relación de transmisión</h2>
+    <p>Cuando dos ejes se acoplan (por engranajes, correa, cadena…), su <strong>velocidad de giro</strong> se relaciona inversamente a sus tamaños. Es la idea clave de toda transmisión circular.</p>
+
+    <div class="formula">
+      <span class="et">Relación de transmisión $i$</span>
+      $$i = \dfrac{n_2}{n_1} = \dfrac{Z_1}{Z_2} = \dfrac{d_1}{d_2}$$
+      Donde $n$ = velocidad de giro (rpm), $Z$ = número de dientes, $d$ = diámetro. <br>
+      <strong>1 → conductor</strong>, <strong>2 → conducido</strong>.
+    </div>
+
+    <ul style="margin-left:20px;line-height:1.7">
+      <li>Si $i > 1$ → <strong>multiplica velocidad</strong> (rueda conducida más pequeña). Pierde par.</li>
+      <li>Si $i < 1$ → <strong>reduce velocidad</strong> (rueda conducida más grande). Gana par.</li>
+      <li>Si $i = 1$ → solo cambia el sentido o transmite a otro eje. Es lo que hace una caja de cambios en directa.</li>
+    </ul>
+
+    <div class="callout callout-ok">
+      <span class="ic">🚲</span>
+      <p>En una bici, cambiar a un plato pequeño con piñón grande reduce velocidad (subes por la cuesta) pero multiplica el par (más fuerza en la rueda). Plato grande + piñón pequeño = mucha velocidad pero poco par (cuesta abajo).</p>
+    </div>
+  </section>
+
+
+  <section class="apartado" id="s6">
+    <h2>6. Ruedas de fricción y poleas-correa</h2>
+    <h3>Ruedas de fricción</h3>
+    <p>Dos ruedas en contacto directo: una arrastra a la otra por rozamiento. Sencillo, silencioso, pero <strong>desliza</strong> bajo cargas grandes. Se usa en cintas transportadoras pequeñas, electrodomésticos.</p>
+
+    <h3>Poleas y correa</h3>
+    <p>Dos poleas unidas por una correa flexible. Permite transmitir entre ejes <strong>alejados</strong> sin contacto directo. Si las poleas giran en el mismo sentido se llama correa abierta; si una se cruza, sentido contrario.</p>
+
+    <div class="formula">
+      <span class="et">Relación poleas-correa</span>
+      $$\dfrac{n_2}{n_1} = \dfrac{d_1}{d_2}$$
+      Si la polea 1 es grande y la 2 pequeña, la 2 gira más rápido.
+    </div>
+
+    <div class="callout callout-warn">
+      <span class="ic">⚠️</span>
+      <p>La correa puede <strong>deslizar</strong> si la carga es muy grande. Por eso en aplicaciones serias se usan correas dentadas (síncronas) que no deslizan. Lavadoras, coches modernos.</p>
+    </div>
+  </section>
+
+
+  <section class="apartado" id="s7">
+    <h2>7. Engranajes y cadena</h2>
+    <h3>Engranajes</h3>
+    <p>Dos ruedas dentadas que engranan directamente. No deslizan. Transmisión muy precisa pero <strong>ejes cercanos</strong> y ruidosos sin lubricación.</p>
+
+    <div class="formula">
+      <span class="et">Relación de engranajes</span>
+      $$\dfrac{n_2}{n_1} = \dfrac{Z_1}{Z_2}$$
+      Con $Z$ = número de dientes. Si engranan 3 o más, los intermedios solo cambian sentido (no afectan a $i$ final).
+    </div>
+
+    <h3>Ruedas dentadas y cadena</h3>
+    <p>Como poleas y correa, pero la correa es una cadena articulada y las ruedas son dentadas. Aporta lo mejor de los dos mundos: <strong>ejes alejados</strong> + <strong>sin deslizamiento</strong>. Es la base de la bicicleta, las motos, las cintas de distribución de motores antiguos.</p>
+  </section>
+
+
+  <section class="apartado" id="s8">
+    <h2>8. Trenes compuestos</h2>
+    <p>Cuando un mecanismo encadena <strong>varias etapas</strong> de transmisión, la relación final es el producto de todas:</p>
+
+    <div class="formula">
+      <span class="et">Tren compuesto</span>
+      $$i_\text{total} = i_1 \cdot i_2 \cdot i_3 \cdots = \dfrac{Z_1 \cdot Z_3 \cdot \ldots}{Z_2 \cdot Z_4 \cdot \ldots}$$
+      Multiplicas las conductoras arriba y las conducidas abajo.
+    </div>
+
+    <div class="ejemplo">
+      <span class="et">EJEMPLO</span>
+      <h5>Reductor de un taladro eléctrico</h5>
+      <p>Motor a 12 000 rpm, etapa 1: $Z_1=10/Z_2=50$ → $n_2 = 12\,000 \cdot 10/50 = 2\,400$ rpm.<br>
+      Etapa 2: $Z_3=12/Z_4=60$ → $n_4 = 2\,400 \cdot 12/60 = 480$ rpm.<br>
+      Salida del mandril a 480 rpm. Velocidad reducida 25 veces; <strong>par multiplicado 25 veces</strong>.</p>
+    </div>
+  </section>
+
+
+<!-- ════════ PARTE 3 · TRANSFORMACIÓN ════════ -->
+
+  <section class="apartado" id="s9">
+    <h2>9. Tornillo sin fin y corona</h2>
+    <p>Un <strong>tornillo sin fin</strong> es un eje con rosca helicoidal que engrana con una rueda dentada (la corona). Es una transmisión <strong>muy reductora</strong>: típicamente $i = 1/Z$ donde $Z$ es el número de dientes de la corona.</p>
+
+    <div class="formula">
+      <span class="et">Tornillo sin fin + corona</span>
+      $$\dfrac{n_\text{corona}}{n_\text{tornillo}} = \dfrac{e}{Z_\text{corona}}$$
+      donde $e$ = número de entradas del tornillo (normalmente 1 o 2). Con $e=1$ y $Z=40$, una vuelta del tornillo solo gira 1/40 la corona.
+    </div>
+
+    <p>Ventaja extra: <strong>irreversibilidad</strong>. Pasas movimiento del tornillo a la corona, pero no al revés. Útil en cintas transportadoras: el motor mueve la cinta, pero la cinta no puede mover el motor si se queda sin energía.</p>
+  </section>
+
+
+  <section class="apartado" id="s10">
+    <h2>10. Piñón-cremallera</h2>
+    <p>Un <strong>piñón</strong> (rueda dentada) engrana con una <strong>cremallera</strong> (barra dentada recta). Transforma giro en desplazamiento lineal y viceversa.</p>
+
+    <div class="formula">
+      <span class="et">Avance por vuelta</span>
+      Por cada vuelta del piñón ($n$ rpm) la cremallera avanza una distancia igual al perímetro del piñón:
+      $$v = \pi \cdot d \cdot n$$
+      con $d$ = diámetro del piñón y $v$ = velocidad lineal.
+    </div>
+
+    <p><strong>Aplicaciones:</strong> dirección de los coches (giro del volante → desplazamiento de las ruedas), apertura de puertas correderas automáticas, telescopios y máquinas-herramienta.</p>
+  </section>
+
+
+  <section class="apartado" id="s11">
+    <h2>11. Husillo-tuerca</h2>
+    <p>Un <strong>husillo</strong> (eje roscado) gira y empuja una <strong>tuerca</strong> que no gira pero se desplaza. Transforma giro en desplazamiento lineal con gran precisión y multiplicando enormemente la fuerza.</p>
+
+    <div class="formula">
+      <span class="et">Avance por vuelta</span>
+      $$v_\text{lineal} = p \cdot n$$
+      donde $p$ = paso del husillo (avance por vuelta) y $n$ = velocidad de giro.
+    </div>
+
+    <p><strong>Aplicaciones:</strong> tornillo de banco, prensas, gatos hidráulicos mecánicos, mesas elevadoras, impresoras 3D (mueven la cama en Z), tornos de mecanizado CNC.</p>
+
+    <div class="callout callout-info">
+      <span class="ic">💪</span>
+      <p>El husillo-tuerca <strong>multiplica la fuerza muchísimo</strong>. Por eso un tornillo de banco pequeño puede aplastar un trozo de madera con muy poca fuerza humana en la manilla.</p>
+    </div>
+  </section>
+
+
+  <section class="apartado" id="s12">
+    <h2>12. Manivela-torno (cabrestante)</h2>
+    <p>Un <strong>torno</strong> o cabrestante es una manivela acoplada a un tambor. Al girar la manivela, una cuerda se enrolla en el tambor levantando una carga.</p>
+
+    <div class="formula">
+      <span class="et">Cabrestante</span>
+      $$F \cdot R_\text{manivela} = P \cdot r_\text{tambor}$$
+      Con manivela larga ($R$) y tambor pequeño ($r$), poca fuerza levanta mucho peso.
+    </div>
+
+    <p><strong>Aplicaciones:</strong> pozos antiguos, grúas, ascensores manuales, cinturones de seguridad de coches (mecanismo de retracción), molinetes de barcos.</p>
+  </section>
+
+
+<!-- ════════ PARTE 4 · ALTERNATIVO ════════ -->
+
+  <section class="apartado" id="s13">
+    <h2>13. Biela-manivela</h2>
+    <p>Es <strong>el</strong> mecanismo de transformación por excelencia: convierte movimiento <strong>giratorio</strong> en movimiento <strong>alternativo lineal</strong> (vaivén). Y al revés también.</p>
+
+    <p>Componentes: una <strong>manivela</strong> (o cigüeñal) que gira y una <strong>biela</strong> articulada que une la manivela con el émbolo (pistón) que se desplaza en línea recta.</p>
+
+    <div class="formula">
+      <span class="et">Carrera y velocidad media</span>
+      La carrera del pistón es $L = 2r$ (donde $r$ = brazo de la manivela). Velocidad media del pistón:
+      $$\overline{v} = \dfrac{2L \cdot n}{60}$$ (m/s, con $L$ en m y $n$ en rpm).
+    </div>
+
+    <p><strong>Aplicaciones:</strong> motores de combustión interna (el cigüeñal recibe el empuje del pistón y lo convierte en giro), máquinas de coser, prensas, sierras alternativas.</p>
+  </section>
+
+
+  <section class="apartado" id="s14">
+    <h2>14. Mecanismos combinados (caso real)</h2>
+    <p>Las máquinas reales casi nunca usan un mecanismo solo: combinan varios para conseguir el efecto deseado. Aquí algunos ejemplos típicos que verás en clase o en casa:</p>
+
+    <table class="tipo-tabla">
+      <thead><tr><th>Máquina</th><th>Mecanismos encadenados</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Lavadora</strong></td><td>Motor → polea-correa (reducción) → tambor</td></tr>
+        <tr><td><strong>Taladro de mano</strong></td><td>Motor → reductor de engranajes → portabrocas</td></tr>
+        <tr><td><strong>Coche</strong></td><td>Motor → biela-manivela → caja de cambios (engranajes) → diferencial (engranajes cónicos) → ruedas</td></tr>
+        <tr><td><strong>Reloj mecánico</strong></td><td>Muelle real → tren de engranajes → escape → agujas</td></tr>
+        <tr><td><strong>Bici</strong></td><td>Pedal (palanca) → plato y piñón con cadena → rueda</td></tr>
+        <tr><td><strong>Cinta transportadora</strong></td><td>Motor → tornillo sin fin (reducción) → eje del tambor → cinta</td></tr>
+      </tbody>
+    </table>
+
+    <p>Para analizar un mecanismo combinado: <strong>identifica cada etapa</strong>, calcula la relación de transmisión de cada una y multiplícalas. La fuerza/par hace el camino inverso.</p>
+  </section>
+
+
+<!-- ════════ PARTE 5 · MOTORES ════════ -->
+
+  <section class="apartado" id="s15">
+    <h2>15. Motores eléctricos</h2>
+    <p>Un <strong>motor eléctrico</strong> convierte energía eléctrica en movimiento. La inmensa mayoría de máquinas modernas los usa: son limpios, silenciosos y muy controlables.</p>
+
+    <h3>Tipos principales</h3>
+    <div class="tipo-box">
+      <div class="ti"><h4>🔋 CC (corriente continua)</h4><p>Funcionan con pilas o baterías. Velocidad proporcional al voltaje. Sencillo, control fácil. Juguetes, robótica básica, ventiladores 12 V.</p></div>
+      <div class="ti azul"><h4>🔌 CA (corriente alterna)</h4><p>Funcionan con la red eléctrica (230 V). Más potencia. Electrodomésticos, máquinas industriales.</p></div>
+      <div class="ti"><h4>👣 Paso a paso</h4><p>Gira en pasos discretos (típicamente 200 pasos = 1 vuelta). Sin sensor de posición. Impresoras 3D, escáneres, CNC.</p></div>
+      <div class="ti azul"><h4>🎯 Servomotor</h4><p>Gira a un ángulo concreto que le ordenas (0-180º). Tiene sensor de posición. Brazos robóticos, control de dirección de un coche RC.</p></div>
+      <div class="ti"><h4>⚡ Brushless (sin escobillas)</h4><p>De CC pero conmutado electrónicamente. Más eficientes y duraderos. Drones, ventiladores PC, coches eléctricos.</p></div>
+    </div>
+
+    <div class="callout callout-info">
+      <span class="ic">🤖</span>
+      <p>En un proyecto de robótica con Arduino o microbit:<br>
+      · <strong>Servo</strong> para mover una articulación a un ángulo concreto.<br>
+      · <strong>Paso a paso</strong> para movimientos precisos en línea recta (impresoras 3D).<br>
+      · <strong>CC con puente H</strong> para mover las ruedas con velocidad variable.</p>
+    </div>
+  </section>
+
+
+  <section class="apartado" id="s16">
+    <h2>16. Motores de combustión interna</h2>
+    <p>Convierten la energía química del combustible (gasolina, diésel) en movimiento mediante explosiones controladas dentro de un cilindro. El pistón es empujado y, vía biela-manivela, hace girar el cigüeñal.</p>
+
+    <h3>Motor de 4 tiempos (Otto)</h3>
+    <p>Cada cilindro completa un ciclo en 4 carreras del pistón = 2 vueltas del cigüeñal:</p>
+    <ol style="margin-left:20px;line-height:1.7">
+      <li><strong>Admisión</strong>: la válvula de admisión se abre. El pistón baja y aspira mezcla aire-gasolina.</li>
+      <li><strong>Compresión</strong>: las dos válvulas cerradas. El pistón sube comprimiendo la mezcla.</li>
+      <li><strong>Explosión / expansión</strong>: la bujía da chispa, la mezcla explota, empuja el pistón hacia abajo (tiempo motor).</li>
+      <li><strong>Escape</strong>: se abre la válvula de escape. El pistón sube expulsando gases quemados.</li>
+    </ol>
+
+    <h3>Motor de 2 tiempos</h3>
+    <p>Más simple: un ciclo en solo 2 carreras = 1 vuelta del cigüeñal. Sin válvulas (usa lumbreras). Más potencia por cilindrada pero más contaminante y menos eficiente. Motosierras, motos pequeñas, motores fueraborda.</p>
+
+    <h3>Diésel vs gasolina</h3>
+    <table class="tipo-tabla">
+      <thead><tr><th></th><th>Gasolina (Otto)</th><th>Diésel</th></tr></thead>
+      <tbody>
+        <tr><td>Encendido</td><td>Bujía (chispa)</td><td>Por compresión (sin chispa)</td></tr>
+        <tr><td>Compresión</td><td>9-12:1</td><td>16-22:1</td></tr>
+        <tr><td>Eficiencia</td><td>~30%</td><td>~40%</td></tr>
+        <tr><td>Aplicación típica</td><td>Coches utilitarios, motos</td><td>Camiones, autobuses, maquinaria pesada</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-warn">
+      <span class="ic">🌍</span>
+      <p><strong>Hacia el motor eléctrico:</strong> la UE prohíbe la venta de coches nuevos de combustión a partir de 2035. La transición ya está en marcha. Los motores eléctricos son más eficientes, más simples (menos piezas móviles) y no emiten directamente CO₂. El reto está en las baterías.</p>
+    </div>
+  </section>
+
+
+<!-- ════════ GLOSARIO ════════ -->
+
+  <section class="apartado" id="glosario">
+    <h2>📖 Glosario</h2>
+    <table class="glosario-tabla">
+      <tbody>
+        <tr><td>Biela</td><td>Barra articulada que une un punto que gira (manivela) con un punto que se desplaza en línea recta (pistón).</td></tr>
+        <tr><td>Cabrestante (torno)</td><td>Tambor con manivela donde se enrolla una cuerda para levantar cargas.</td></tr>
+        <tr><td>Cigüeñal</td><td>Eje con manivelas que convierte la fuerza del pistón en giro (corazón de los motores de combustión).</td></tr>
+        <tr><td>Cremallera</td><td>Barra recta con dientes que engrana con un piñón.</td></tr>
+        <tr><td>Engranaje</td><td>Rueda dentada que engrana con otra para transmitir movimiento giratorio.</td></tr>
+        <tr><td>Fulcro</td><td>Punto fijo donde se apoya una palanca.</td></tr>
+        <tr><td>Husillo</td><td>Eje roscado que, al girar, desplaza una tuerca.</td></tr>
+        <tr><td>Manivela</td><td>Barra acodada que gira alrededor de un eje.</td></tr>
+        <tr><td>Pasa-paso (motor)</td><td>Motor eléctrico que gira en pasos discretos sin necesidad de sensor de posición.</td></tr>
+        <tr><td>Paso (de tornillo)</td><td>Distancia que avanza un tornillo por vuelta completa.</td></tr>
+        <tr><td>Piñón</td><td>Engranaje pequeño (típicamente el que ataca o engrana en una transmisión).</td></tr>
+        <tr><td>Polipasto</td><td>Sistema de poleas que multiplica fuerza por dividir el peso entre varios tramos de cuerda.</td></tr>
+        <tr><td>Reductor</td><td>Mecanismo que reduce la velocidad y aumenta el par. Conjunto de engranajes en caja cerrada.</td></tr>
+        <tr><td>Relación de transmisión (i)</td><td>Cociente entre velocidad de salida y entrada de un mecanismo de transmisión.</td></tr>
+        <tr><td>RPM</td><td>Revoluciones por minuto. Unidad típica de velocidad de giro.</td></tr>
+        <tr><td>Servomotor</td><td>Motor eléctrico que gira hasta un ángulo concreto ordenado por una señal de control.</td></tr>
+        <tr><td>Tornillo sin fin</td><td>Eje con rosca helicoidal que engrana con una corona dentada. Reducción muy alta e irreversible.</td></tr>
+        <tr><td>Tren compuesto</td><td>Mecanismo de transmisión con varias etapas encadenadas.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+</div>
+
+<script src="../../assets/js/common.js"></script>
+<script src="../../assets/js/header.js"></script>
+</body>
+</html>

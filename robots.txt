@@ -1,0 +1,8 @@
+# robots.txt — TyD 3º ESO · IES Jiménez de Quesada
+# Permite a los buscadores indexar todo el contenido público.
+
+User-agent: *
+Allow: /
+
+# Mapa del sitio para facilitar la indexación
+Sitemap: https://tyd3-ies-jdq.malonso72.workers.dev/sitemap.xml

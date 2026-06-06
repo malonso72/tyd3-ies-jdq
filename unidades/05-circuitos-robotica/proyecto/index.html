@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#8C2A3D">
+<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<title>Proyecto · U05 Circuitos y robótica · TyD 3º ESO</title>
+<meta name="description" content="Proyecto integrador: construye un dispositivo con Arduino que resuelva un problema real combinando sensores y actuadores.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/common.css">
+<link rel="stylesheet" href="../../../assets/css/unidad.css">
+<style>
+.pr-wrap{max-width:880px;margin:24px auto 50px;padding:0 20px}
+.pr-hero{text-align:center;margin-bottom:28px}
+.pr-hero h1{font-family:var(--cond);font-size:2rem;color:var(--principal);margin:0 0 8px}
+.pr-hero p{font-size:1rem;color:var(--texto2);margin:0;line-height:1.55}
+.pr-card{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:20px 24px;margin-bottom:18px}
+.pr-card h2{font-family:var(--cond);font-size:1.3rem;color:var(--principal);margin:0 0 10px;display:flex;align-items:center;gap:10px}
+.pr-card h2 .num{display:inline-block;width:36px;height:36px;line-height:36px;text-align:center;background:var(--principal);color:#fff;border-radius:50%;font-size:1rem;flex-shrink:0}
+.pr-card p,.pr-card li{font-size:.96rem;line-height:1.6}
+.pr-card ul,.pr-card ol{margin:8px 0 8px 22px;padding-left:0}
+.pr-fases{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:14px 0}
+.pr-fase{background:#F4F6F9;border-radius:8px;padding:12px 14px}
+.pr-fase h4{font-family:var(--cond);color:var(--principal);margin:0 0 6px;font-size:.95rem}
+.pr-fase p{font-size:.88rem;color:var(--texto2);margin:0;line-height:1.5}
+.pr-rubrica{width:100%;border-collapse:collapse;margin:14px 0;font-size:.92rem}
+.pr-rubrica th{background:var(--principal);color:#fff;padding:8px 10px;font-family:var(--cond);text-align:left}
+.pr-rubrica td{padding:8px 10px;border-bottom:1px solid var(--borde);vertical-align:top}
+.pr-rubrica td:first-child{font-weight:600;width:55%;color:var(--principal2)}
+.pr-rubrica td:last-child{width:15%;text-align:center;font-family:var(--cond);color:var(--principal)}
+.pr-callout{background:#E6F1FB;border-left:4px solid #378ADD;border-radius:0 6px 6px 0;padding:12px 16px;margin:14px 0;font-size:.92rem;line-height:1.55}
+.pr-callout-warn{background:#FFF4E6;border-left-color:#F59E0B}
+.pr-callout-ok{background:#E1F5EE;border-left-color:#1E8E3E}
+.pr-ideas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:14px 0}
+.pr-idea{background:#FBEEEF;border-radius:8px;padding:12px 14px;border-left:3px solid var(--principal)}
+.pr-idea h5{font-family:var(--cond);color:var(--principal);font-size:.95rem;margin:0 0 4px}
+.pr-idea p{font-size:.85rem;color:var(--texto2);margin:0;line-height:1.5}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+<header class="curso-hd"><span class="curso-sb">U05 · Circuitos · Proyecto</span></header>
+<nav class="curso-navcross" role="navigation">
+  <a href="../../../index.html"><span>🏠</span><span class="nc-lbl">Índice</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../index.html"><span>📋</span><span class="nc-lbl">Hub U05</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../libro-digital.html"><span>📖</span><span class="nc-lbl">Libro digital</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../actividades/index.html"><span>✏️</span><span class="nc-lbl">Actividades</span></a>
+  <span class="nc-sep">·</span>
+  <span class="nc-current"><span>🚀</span><span class="nc-lbl">Proyecto</span></span>
+</nav>
+
+<main id="main-content" class="pr-wrap">
+  <section class="pr-hero">
+    <h1>🚀 Proyecto: dispositivo electrónico con Arduino</h1>
+    <p>Diseña, monta y programa un dispositivo que <strong>sense → think → act</strong>: lee al menos un sensor y actúa con al menos un actuador.</p>
+  </section>
+
+  <div class="pr-card">
+    <h2><span class="num">1</span>La idea</h2>
+    <p>Vas a construir un <strong>dispositivo funcional</strong> con Arduino que combine al menos:</p>
+    <ul>
+      <li><strong>1 sensor</strong> (LDR, NTC, ultrasonido, IR, pulsador, potenciómetro…)</li>
+      <li><strong>1 actuador</strong> (LED, zumbador, servo, motor CC, relé…)</li>
+      <li>Una <strong>regla lógica</strong> programada: «si pasa X, hago Y».</li>
+    </ul>
+    <p>Trabajaréis por <strong>parejas</strong> en 4-5 sesiones de aula-taller. La entrega final: dispositivo funcional + código + memoria PDF + defensa oral con demo.</p>
+  </div>
+
+  <div class="pr-card">
+    <h2><span class="num">2</span>Ideas de partida (elige una o propón)</h2>
+    <div class="pr-ideas">
+      <div class="pr-idea"><h5>💡 Farola automática</h5><p>LDR + LED. Se enciende automáticamente al anochecer.</p></div>
+      <div class="pr-idea"><h5>🚗 Sensor de aparcamiento</h5><p>Ultrasonidos + zumbador. Pita más rápido cuanto más cerca.</p></div>
+      <div class="pr-idea"><h5>🚦 Semáforo con paso de peatones</h5><p>3 LEDs + pulsador. Cuando un peatón pulsa, el semáforo cambia.</p></div>
+      <div class="pr-idea"><h5>🌡️ Alarma de temperatura</h5><p>NTC + LED rojo + zumbador. Si supera un umbral, alerta.</p></div>
+      <div class="pr-idea"><h5>🤖 Mini-robot evita-obstáculos</h5><p>Ultrasonidos + 2 motores + chasis. Avanza y gira al detectar pared.</p></div>
+      <div class="pr-idea"><h5>🚪 Detector de visitas</h5><p>Sensor IR + zumbador + LED. Avisa cuando entra alguien por la puerta.</p></div>
+      <div class="pr-idea"><h5>🎵 Mini-piano</h5><p>5 pulsadores + zumbador. Cada tecla suena una nota distinta.</p></div>
+      <div class="pr-idea"><h5>🌱 Maceta inteligente</h5><p>Sensor humedad + LED + bomba/relé. Alerta cuando hay que regar (o riega solo).</p></div>
+      <div class="pr-idea"><h5>🔧 Tu idea</h5><p>Habla con el profesor para validar la dificultad.</p></div>
+    </div>
+  </div>
+
+  <div class="pr-card">
+    <h2><span class="num">3</span>Fases del proyecto</h2>
+    <div class="pr-fases">
+      <div class="pr-fase"><h4>🎯 1. Definir</h4><p>Problema real + qué hace el dispositivo + para quién.</p></div>
+      <div class="pr-fase"><h4>📐 2. Esquema</h4><p>Esquema eléctrico con todos los componentes y conexiones.</p></div>
+      <div class="pr-fase"><h4>🔌 3. Montaje</h4><p>Protoboard, cables, sensores y actuadores conectados.</p></div>
+      <div class="pr-fase"><h4>💻 4. Programa</h4><p>Pseudocódigo → código Arduino. Subir y probar.</p></div>
+      <div class="pr-fase"><h4>🧪 5. Pruebas</h4><p>Funciona en distintas condiciones reales.</p></div>
+      <div class="pr-fase"><h4>🔁 6. Iterar</h4><p>Detectar fallos y mejorar al menos UNA cosa.</p></div>
+      <div class="pr-fase"><h4>📦 7. Carcasa</h4><p>Cartón pluma, caja impresa 3D, MDF cortado a láser.</p></div>
+      <div class="pr-fase"><h4>🎤 8. Defender</h4><p>5 min con demo + memoria PDF + vídeo.</p></div>
+    </div>
+  </div>
+
+  <div class="pr-card">
+    <h2><span class="num">4</span>Entregables</h2>
+    <ol>
+      <li><strong>Dispositivo funcional</strong>: montado, programado y funcionando.</li>
+      <li><strong>Memoria técnica (PDF, 6-8 págs.)</strong>: problema, esquema eléctrico, lista de componentes con justificación, código comentado, pruebas realizadas, mejora aplicada.</li>
+      <li><strong>Código fuente</strong> (.ino) bien comentado.</li>
+      <li><strong>Vídeo (60-90 s)</strong> mostrando el dispositivo en uso.</li>
+      <li><strong>Defensa oral (5 min)</strong> con demo en directo.</li>
+    </ol>
+  </div>
+
+  <div class="pr-card">
+    <h2><span class="num">5</span>Rúbrica</h2>
+    <table class="pr-rubrica">
+      <thead><tr><th>Criterio</th><th>Peso</th></tr></thead>
+      <tbody>
+        <tr><td>Problema bien definido y útil</td><td>10%</td></tr>
+        <tr><td>Esquema eléctrico correcto + justificación de componentes</td><td>15%</td></tr>
+        <tr><td>Montaje físico limpio y funcional</td><td>20%</td></tr>
+        <tr><td>Código correcto, comentado y con la lógica esperada</td><td>25%</td></tr>
+        <tr><td>Pruebas con usuario + iteración real</td><td>10%</td></tr>
+        <tr><td>Carcasa/acabado del prototipo</td><td>10%</td></tr>
+        <tr><td>Defensa oral clara con demo funcionando</td><td>10%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pr-callout pr-callout-ok">✅ <strong>Material necesario por pareja:</strong><br>· 1 Arduino UNO + cable USB<br>· 1 protoboard + cables jumper<br>· Resistencias (220 Ω, 1 kΩ, 10 kΩ)<br>· 2-3 LEDs<br>· Pulsadores<br>· Sensores según el proyecto (LDR, NTC, HC-SR04...)<br>· Actuadores según proyecto (zumbador, servo, motor CC + driver)<br>· Pilas o cargador para alimentación autónoma</div>
+
+  <div class="pr-callout pr-callout-warn">⚠️ <strong>Seguridad:</strong> Nunca conectar el Arduino a 230 V directamente (usar siempre relé con aislamiento). Cuidado con la polaridad de LEDs y motores (se pueden quemar). Si algo huele a quemado, desconecta inmediatamente.</div>
+
+</main>
+<script src="../../../assets/js/common.js"></script>
+<script src="../../../assets/js/header.js"></script>
+</body>
+</html>
