@@ -1,6 +1,6 @@
 # TyD 3º ESO · IES Jiménez de Quesada
 
-**Tecnología y Digitalización · 3º ESO · Curso 2025-26**
+**Tecnología y Digitalización · 3º ESO · Curso 2026-27**
 Profesor: Manuel Alonso Herrera · Santa Fe (Granada)
 
 Sitio estático servido por Cloudflare Workers Static Assets en
