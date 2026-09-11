@@ -226,6 +226,8 @@ footer{max-width:1360px;margin:0 auto;padding:12px 20px 30px;font-size:.82rem;co
 #p-lista .chip .num{min-width:1.7em;margin-right:3px}
 .u-nombre{opacity:.55;pointer-events:none}
 
+.h-nota{font-size:.78rem;color:var(--tinta2);margin:5px 2px 0;line-height:1.35}
+
 </style>
 </head>
 <body>
@@ -373,7 +375,7 @@ footer{max-width:1360px;margin:0 auto;padding:12px 20px 30px;font-size:.82rem;co
 </section>
 </main>
 <footer>
-  Vistas v1.3 · IES Jiménez de Quesada (Santa Fe, Granada). Sistema europeo. Ejes: Z altura, Y anchura, X profundidad.
+  Vistas v1.4 · IES Jiménez de Quesada (Santa Fe, Granada). Sistema europeo. Ejes: Z altura, Y anchura, X profundidad.
   El progreso (piezas y retos terminados) se guarda solo en este navegador. <button class="btn-link" id="borrar-prog" type="button">Borrar mi progreso</button><br>
   Parte de las piezas proceden de fichas educativas de libre difusión (se indica en cada una); sus vistas se han comprobado una a una.<br>
   Incluye three.js r128 (licencia MIT, © three.js authors).
@@ -1375,6 +1377,11 @@ class Hoja {
   constructor(host, op) {
     this.host = host; this.margen = (op && op.margen) || 0;
     this.svg = sv('svg', { class: 'hoja', role: 'img', 'aria-label': 'Hoja con las tres vistas en el sistema europeo' }, host);
+    // la recta a 45° es una ayuda de comprobación, no un trazo de lámina: se dice bajo cada hoja
+    this.nota = document.createElement('p');
+    this.nota.className = 'h-nota';
+    this.nota.innerHTML = 'La <b>recta a 45°</b> sirve para comprobar que la profundidad de la planta y la del perfil coinciden. En la lámina de clase <b>no se traza</b>.';
+    host.appendChild(this.nota);
   }
   aHoja(k, [u, v]) {
     const [W] = this.pz.dims, g = GAP;
@@ -2110,7 +2117,7 @@ const PASOS_SISTEMA = [
     txt: 'Mira el eje <b class="tx">X</b> (profundidad), en ámbar. Con la caja cerrada es una sola arista: la que comparten el plano horizontal y el de perfil. Al abrirla, esa arista se reparte: una copia baja con la planta y otra se va a la derecha con el perfil. No son dos ejes distintos, sino la <b>misma dirección dibujada dos veces</b>. Mueve el deslizador «Abatir» hacia atrás y verás cómo se vuelven a juntar.',
     e: { planos: true, ejes: true, proy: TODAS, abat: 1, xBrilla: true } },
   { t: 'La regla de oro', cam: 'hoja', hoja: true, refs: true,
-    txt: 'Las vistas se corresponden. Alzado y planta tienen la misma <b>anchura</b> (Y): se unen con líneas verticales. Alzado y perfil tienen la misma <b>altura</b> (Z): líneas horizontales. Planta y perfil tienen la misma <b class="tx">profundidad</b> (X): se pasa con la <b>recta a 45°</b>, que vuelve a unir las dos copias del eje X.',
+    txt: 'Las vistas se corresponden. Alzado y planta tienen la misma <b>anchura</b> (Y): se unen con líneas verticales. Alzado y perfil tienen la misma <b>altura</b> (Z): líneas horizontales. Planta y perfil tienen la misma <b class="tx">profundidad</b> (X): se pasa con la <b>recta a 45°</b>, que vuelve a unir las dos copias del eje X.<span class="nota">La recta a 45° es una <b>ayuda para comprobar</b> que la profundidad de la planta y la del perfil coinciden. En la lámina de clase <b>no se traza</b>: allí la profundidad se mide en cada vista desde su línea de separación.</span>',
     e: { planos: true, ejes: true, proy: TODAS, abat: 1, pieza: false, xBrilla: true } },
   { t: 'La hoja', cam: 'hoja', hoja: true, refs: false, boton: true,
     txt: 'Así queda en la ficha: el alzado arriba a la izquierda, la planta debajo y el perfil izquierdo a la derecha, con la cruz de ejes. Fíjate en la línea del centro de la planta: es la arista donde cambia la altura de la pieza. Ahora prueba con otras piezas.',
