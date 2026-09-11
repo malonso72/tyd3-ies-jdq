@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Acotación · Dibujo técnico</title>
-<meta name="description" content="Simulador de acotación: cómo se dibuja una cota, cuándo una pieza está completamente definida y acotación de figuras planas y de piezas en tres vistas.">
+<title>Perspectiva isométrica · Dibujo técnico</title>
+<meta name="description" content="Simulador de perspectiva isométrica: de las tres vistas a la perspectiva, sobre retícula isométrica, con corrección automática.">
 <style>
 :root{
   --fondo:#eef1ee; --panel:#fff; --mesa:#c3cdc6; --mesa-borde:#aebbb2;
@@ -220,120 +220,33 @@ footer{max-width:1360px;margin:0 auto;padding:12px 20px 30px;font-size:.82rem;co
   .dos.solo,.trampa,.colocar{grid-template-columns:minmax(0,1fr)}
   .opciones,.tp-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
-/* =====================================================================
-   ACOTACIÓN
-   ===================================================================== */
-.lamina{display:block;width:100%;height:auto;max-height:78vh;background:#fff;touch-action:manipulation;user-select:none;-webkit-user-select:none}
-.l-papel{fill:#fff}
-.l-cuad{stroke:#e4eaf0;stroke-width:.14;fill:none}
-.l-eje{stroke:var(--tinta2);stroke-width:.3}
-.l-45{stroke:var(--x);stroke-width:.25;stroke-dasharray:2 1}
-.l-letra{font-size:4px;font-weight:700;fill:var(--tinta)}
-.l-letrax{fill:var(--x)}
-.f-pieza{fill:#eef2f6;stroke:var(--tinta);stroke-width:.55;stroke-linejoin:round}
-.f-vis{stroke:var(--tinta);stroke-width:.55;stroke-linecap:round;fill:none}
-.f-ocu{stroke:var(--tinta);stroke-width:.35;stroke-dasharray:1.6 .9;fill:none}
-.f-eje{stroke:var(--tinta2);stroke-width:.22;stroke-dasharray:5 1 .8 1;fill:none}
-.f-fina{stroke:var(--tinta);stroke-width:.3;fill:none}
-.f-alt{fill:rgba(29,92,159,.06);stroke:var(--alzado);stroke-width:.5;stroke-dasharray:1.6 1}
-.l-alt .f-vis,.l-alt .f-ocu{stroke:var(--alzado);stroke-width:.45;stroke-dasharray:1.6 1}
-.l-alt .f-eje{stroke:var(--alzado);opacity:.6}
-.l-alt circle{stroke:var(--alzado)}
-/* cotas */
-.c-aux,.c-lin{stroke:#26303b;stroke-width:.2;fill:none}
-.c-fl{fill:#26303b;stroke:none}
-.c-tx{font-size:3.5px;fill:#1c2430;font-family:var(--f)}
-.cota.red .c-aux,.cota.red .c-lin{stroke:#d27400;stroke-width:.35}
-.cota.red .c-fl,.cota.red .c-tx{fill:#d27400}
-.cota.red .c-tx{font-weight:700}
-.cota.mal .c-aux,.cota.mal .c-lin{stroke:#c62828;stroke-width:.35}
-.cota.mal .c-fl,.cota.mal .c-tx{fill:#c62828}
-.cota.bien .c-aux,.cota.bien .c-lin{stroke:#256a3d}
-.cota.bien .c-fl,.cota.bien .c-tx{fill:#256a3d}
-.cota.cruza .c-aux{stroke:#d27400;stroke-dasharray:1 .6;stroke-width:.3}
-.editable .cota{cursor:pointer}
-.editable .cota:hover .c-tx{fill:#c62828}
-/* carriles */
-.l-guia{stroke:#9fb0c4;stroke-width:.14;stroke-dasharray:.6 .9;opacity:.55}
-.l-guia.act{stroke:var(--x);opacity:1;stroke-width:.2}
-.l-guia.oc{stroke-dasharray:.3 1.2}
-.l-tick{fill:rgba(255,255,255,.15);stroke:#7d8795;stroke-width:.3}
-.editable .l-tick:hover{stroke:var(--x);stroke-width:.5}
-.l-tick.sel{fill:var(--x);stroke:var(--x)}
-.l-tick.oc{stroke-dasharray:.55 .45;fill:#f3f3f3}
-.l-tick.libre{fill:#cfe0f5;stroke:var(--alzado);stroke-width:.5}
-/* anatomía */
-.dos-a{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:14px;align-items:start;margin-bottom:14px}
-#a-fig{margin-top:8px}
-.anat{display:block;width:100%;max-width:560px;height:auto;background:#fff}
-.anat .c-aux,.anat .c-lin{stroke-width:.25}
-.anat .c-lin,.anat .c-aux,.anat .c-fl,.anat .c-tx{visibility:hidden}
-.anat.ver-lin .c-lin,.anat.ver-aux .c-aux,.anat.ver-fl .c-fl,.anat.ver-tx .c-tx{visibility:visible}
-.a-dist{display:none}
-.anat.ver-dist .a-dist{display:inline}
-.a-dl{stroke:var(--x);stroke-width:.35}
-.a-dt{font-size:2.6px;fill:var(--x);font-weight:700;font-family:var(--f)}
-#a-txt h4{margin-top:0}
-#a-txt p{margin:.3em 0}
-/* rondas */
-.rondas{margin-top:4px}
-.cab-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
-.op .letra{position:absolute;top:4px;left:6px;font-weight:700;color:var(--tinta3);font-size:.9rem}
-.op[aria-pressed="true"]{border-color:var(--tinta);box-shadow:inset 0 0 0 1px var(--tinta)}
-.op[aria-pressed="true"] .letra{color:#fff;background:var(--tinta);border-radius:3px;padding:0 5px}
-.op .mini{max-height:170px;margin-top:6px}
-.op .mini .c-tx{font-size:3.5px}
-.op-fb{display:block;font-size:.84rem;margin-top:4px;text-align:left;line-height:1.35}
-.op.malb{cursor:default;opacity:1}
-.op.malb[aria-pressed="false"]{border-color:var(--linea);background:#fff}
-.op.malb[aria-pressed="false"] .op-fb{color:var(--tinta2)}
-.op.malb[aria-pressed="true"] .op-fb{color:#a52a1e}
-.op.bien .op-fb{color:#256a3d}
-.op.bien[aria-pressed="false"]{border-style:dashed}
-.mini-rot{font-size:3px;fill:var(--tinta2);font-family:var(--f)}
-/* ¿está definida? */
-.caso-txt{margin:0 0 8px;color:var(--tinta2)}
-.resp{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
-.resp .btn{text-align:left}
-.resp .btn.bien{background:#eef7f0;border-color:#2f7a4b;color:#256a3d}
-.resp .btn.malb{background:#fbeeee;border-color:#c62828;color:#a52a1e}
-.filas li.k-mal{color:#a52a1e}
-.filas li.k-red{color:#9a5600}
-.filas li.k-libre{color:#1d4f86}
-.k-cruza{color:#9a5600}
+
 .nivel-intro{margin:0 0 10px;color:var(--tinta2);max-width:90ch;font-size:.95rem}
-.nota-caja{background:#fff8e6;border:1px solid #efd9a3;border-radius:4px;padding:8px 10px;margin:8px 0 0;font-size:.92rem}
-.datos-pz{margin-top:10px}
-.k-panel{margin-top:14px}
-#k-3d{aspect-ratio:1/0.85}
-@media (max-width:1050px){.dos-a{grid-template-columns:minmax(0,1fr)}}
+.cuenta-n{opacity:.7;font-size:.85em}
+#p-lista .chip .num{min-width:1.7em;margin-right:3px}
+.u-nombre{opacity:.55;pointer-events:none}
 
-/* ¿bien acotada? */
-.normas{margin-bottom:14px}
-.normas summary{font-weight:650;font-size:1.05rem;cursor:pointer}
-.normas-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:10px}
-.ngrupo h4{margin:0 0 4px;font-size:.95rem}
-.ngrupo ol{margin:0;padding-left:1.6em;font-size:.9rem}
-.ngrupo li{margin:.3em 0}
-.ngrupo li:target{background:#fff3cf}
-.seleccionable .cota{cursor:pointer}
-.cota.sel .c-aux,.cota.sel .c-lin{stroke:var(--sel);stroke-width:.4}
-.cota.sel .c-fl,.cota.sel .c-tx{fill:var(--sel)}
-.cota.sel .c-tx{font-weight:700}
-.cota.fp .c-aux,.cota.fp .c-lin{stroke:#8a939e;stroke-dasharray:1 .7}
-.cota.fp .c-fl,.cota.fp .c-tx{fill:#8a939e}
-.filas li.k-ok{color:#256a3d}
-.filas li .nref{font-weight:700;text-decoration:none;color:inherit;border-bottom:1px dotted}
-#r-falta{margin-bottom:4px}
-@media (max-width:1050px){.normas-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:560px){.normas-grid{grid-template-columns:minmax(0,1fr)}}
-/* cinco pestañas: en pantallas estrechas se desplazan en horizontal */
-.pestanas{overflow-x:auto;scrollbar-width:none}
-.pestanas::-webkit-scrollbar{display:none}
-.pestanas button{flex:0 0 auto;white-space:nowrap}
-@media (max-width:560px){.pestanas button{padding:8px 8px;font-size:.95rem}.pestanas .n{margin-right:4px}}
-
-.l-nvista{font-size:3px;fill:#7a838e;font-family:var(--f);letter-spacing:.02em}
+/* ===== isométrica ===== */
+.h-iso-cuad{stroke:#e2e8f0;stroke-width:.022}
+.h-nudos{fill:#c3ccd8}
+.h-eje-iso{stroke:var(--x);stroke-width:.055;stroke-linecap:round}
+.h-letra-iso{font-size:.42px;fill:var(--x)}
+.h-caja{stroke:#7f8b99;stroke-width:.05;stroke-dasharray:.18 .12;fill:none;stroke-linecap:round}
+.h-caja-vis{stroke:#7f8b99;stroke-width:.06;stroke-dasharray:none}
+.h-medida{stroke:var(--alzado);stroke-width:.05;fill:none;stroke-linecap:round}
+.h-medida-t{font-size:.4px;font-weight:700;fill:var(--alzado)}
+.h-aviso{font-size:.36px;fill:var(--perfil);font-weight:700}
+.h-mal-iso{stroke:#c62828;stroke-width:.07;stroke-dasharray:.16 .1}
+.vistas-dato{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
+.vistas-dato .hoja{max-width:520px;margin:0 auto}
+.dos.disiso{grid-template-columns:minmax(0,1fr) minmax(0,1.25fr)}
+.pieza-3d-oculto{filter:blur(7px);opacity:.55}
+.tapa3d{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(238,241,238,.72);font-weight:600;color:var(--tinta2);text-align:center;padding:10px;cursor:pointer}
+.sw{display:inline-flex;align-items:center;gap:6px;font-size:.88rem;background:#f5f7f5;border:1px solid #9aa89f;border-radius:3px;padding:3px 8px}
+.leyenda-ejes{display:flex;gap:14px;flex-wrap:wrap;font-size:.86rem;color:var(--tinta2);margin:6px 0 0}
+.leyenda-ejes b{color:var(--tinta)}
+/* en esta unidad no se dibuja la recta a 45° */
+.h-45,.h-45t{display:none}
 
 </style>
 </head>
@@ -346,103 +259,139 @@ footer{max-width:1360px;margin:0 auto;padding:12px 20px 30px;font-size:.82rem;co
       <a href="../libro-digital.html">Libro digital</a>
     </nav>
     <div class="titulo">
-      <h1>Acotación</h1>
-      <p class="lema">Con las cotas indicadas, otra persona debe poder dibujar exactamente la misma pieza.</p>
+      <h1>Perspectiva isométrica</h1>
+      <p class="lema">De las tres vistas a la pieza dibujada en perspectiva.</p>
     </div>
   </div>
   <div class="pestanas" role="tablist" aria-label="Partes del simulador">
-    <button role="tab" id="tab-cota" aria-controls="p-cota" aria-selected="true"><span class="n">1</span>La cota</button>
-    <button role="tab" id="tab-revisar" aria-controls="p-revisar" aria-selected="false" tabindex="-1"><span class="n">2</span>¿Bien acotada?</button>
-    <button role="tab" id="tab-planas" aria-controls="p-planas" aria-selected="false" tabindex="-1"><span class="n">3</span>Figuras planas</button>
-    <button role="tab" id="tab-piezas" aria-controls="p-piezas" aria-selected="false" tabindex="-1"><span class="n">4</span>Piezas</button>
+    <button role="tab" id="tab-sistema" aria-controls="p-sistema" aria-selected="true"><span class="n">1</span>El sistema</button>
+    <button role="tab" id="tab-piezas" aria-controls="p-piezas" aria-selected="false" tabindex="-1"><span class="n">2</span>Piezas</button>
+    <button role="tab" id="tab-retos" aria-controls="p-retos" aria-selected="false" tabindex="-1"><span class="n">3</span>Retos</button>
   </div>
 </header>
+
 <main id="contenido">
-<!-- ===================== 1 · LA COTA ===================== -->
-<section class="panel" id="p-cota" role="tabpanel" aria-labelledby="tab-cota">
-  <p class="intro">Primero, cómo se dibuja una cota. Después, a distinguir las cotas bien dibujadas de las que tienen algún error.</p>
-  <div class="dos-a">
-    <div class="caja">
-      <h3>Las partes de una cota</h3>
-      <div class="chips" id="a-partes" role="group" aria-label="Partes"></div>
-      <div id="a-fig"></div>
+<!-- ===================== EL SISTEMA ===================== -->
+<section class="panel" id="p-sistema" role="tabpanel" aria-labelledby="tab-sistema">
+  <p class="intro">Qué son los ejes isométricos, por qué se dibuja sin reducir y cómo se construye una pieza partiendo de su caja envolvente. Avanza paso a paso; puedes girar la pieza en cualquier momento.</p>
+  <div class="banco">
+    <div class="escenario">
+      <div class="barra" id="s-barra"></div>
+      <div class="host3d" id="s-3d"></div>
+      <p class="ayuda">Arrastra para girar. «Vista isométrica» coloca tus ojos justo donde hay que ponerlos para que la pieza se vea como se dibuja.</p>
     </div>
-    <div class="caja" id="a-txt" aria-live="polite"></div>
-  </div>
-  <div class="caja rondas">
-    <div class="cab-h"><h3>¿Bien o mal acotada?</h3><span class="datos-p" id="q-mejor"></span></div>
-    <div id="q-box"></div>
-  </div>
-</section>
-<!-- ===================== 2 · ¿BIEN ACOTADA? ===================== -->
-<section class="panel" id="p-revisar" role="tabpanel" aria-labelledby="tab-revisar" hidden>
-  <p class="intro">Acotar bien es cumplir todas las normas: que la pieza quede completamente definida sin cotas de más (normas 11 y 12) y que cada cota esté bien dibujada, bien colocada y en la vista adecuada. Repasa las normas y después revisa las figuras y piezas ya acotadas. Si falta una cota, el simulador te enseña otra pieza distinta con las mismas cotas; si sobra, te dice de cuáles se deduce.</p>
-  <details class="caja normas" open>
-    <summary>Las normas para acotar</summary>
-    <div class="normas-grid"><div class="ngrupo"><h4>Cómo se dibuja una cota</h4><ol start="1"><li id="norma-1">La línea de cota es fina y paralela a la medida. Va a <b>8 mm</b> del contorno, y entre cotas paralelas se dejan otros 8 mm.</li><li id="norma-2">Las líneas auxiliares son finas y perpendiculares a la medida. Empiezan a <b>2 mm</b> del dibujo, sin tocarlo, y sobrepasan <b>2 mm</b> la línea de cota.</li><li id="norma-3">Las flechas son cerradas y tocan las líneas auxiliares. Si no caben dentro, se dibujan por fuera.</li><li id="norma-4">La cifra es la medida real en mm, sin escribir «mm». Va centrada, encima de la línea de cota y paralela a ella. En las cotas verticales se lee de abajo arriba.</li><li id="norma-5">Las circunferencias se acotan con su diámetro (Ø). Los arcos de hasta 180° se acotan con su radio (R): la línea sale del centro y lleva una sola flecha, sobre el arco.</li></ol></div><div class="ngrupo"><h4>Dónde se colocan</h4><ol start="6"><li id="norma-6">Siempre que se pueda, las cotas van fuera de la figura.</li><li id="norma-7">La línea de cota nunca coincide con una arista ni con un eje.</li><li id="norma-8">Las cotas en serie van alineadas en una misma línea. En las cotas en paralelo, la menor va más cerca de la pieza, para que no se crucen.</li><li id="norma-9">Se evita que las líneas auxiliares atraviesen el dibujo o se crucen con otras cotas.</li><li id="norma-10">No se acota sobre líneas ocultas: esa medida se pone en la vista donde se ve.</li></ol></div><div class="ngrupo"><h4>Qué cotas se ponen</h4><ol start="11"><li id="norma-11">Hay que poner todas las cotas imprescindibles: con ellas, otra persona debe poder dibujar exactamente la misma pieza.</li><li id="norma-12">No se repite ninguna cota ni se pone una que se pueda deducir de otras: no se cierran cadenas.</li><li id="norma-13">Si hay un eje de simetría dibujado, lo que está centrado en él no necesita cota de posición.</li><li id="norma-14">Cada circunferencia lleva su diámetro y la posición de su centro.</li></ol></div><div class="ngrupo"><h4>Al acotar las vistas</h4><ol start="15"><li id="norma-15">Cada medida se pone una sola vez, en la vista donde mejor se ve, aunque aparezca en dos vistas.</li><li id="norma-16">Para no repetir, se acota en L: eje Z en el alzado, por la izquierda; eje X en la planta, por la izquierda; eje Y en la planta, por abajo.</li></ol></div></div>
-  </details>
-  <div class="fila"><div class="chips" id="r-lista" role="group" aria-label="Ejercicios"></div></div>
-  <div class="dos">
-    <div class="caja"><p class="caso-txt" id="r-txt"></p><div id="r-lam"></div></div>
-    <div class="caja">
-      <h3>¿Está bien acotada?</h3>
-      <div class="resp" id="r-resp" role="group" aria-label="Respuestas">
-        <button class="btn sec" type="button" data-r="si">Sí, está bien acotada</button>
-        <button class="btn sec" type="button" data-r="no">No, tiene algún error</button>
+    <aside class="lateral">
+      <div class="caja">
+        <h3 id="s-titulo"></h3>
+        <div class="paso-txt" id="s-txt" aria-live="polite"></div>
+        <div class="nav">
+          <button class="btn sec peq" id="s-ant" type="button">◀ Anterior</button>
+          <span class="cuenta" id="s-cuenta"></span>
+          <button class="btn peq" id="s-sig" type="button">Siguiente ▶</button>
+        </div>
+        <p><button class="btn" id="s-ir" type="button" hidden>Ir a Piezas</button></p>
       </div>
-      <div id="r-paso2" hidden>
-        <p class="consigna">Toca en el dibujo las cotas que tienen algún error (se marcan en ámbar; vuelve a tocarlas para desmarcarlas). Si crees que falta alguna cota, pulsa también este botón:</p>
-        <button class="btn-h" id="r-falta" type="button" aria-pressed="false">Falta alguna cota</button>
-        <div class="nav"><button class="btn" id="r-comp" type="button">Comprobar</button></div>
-      </div>
-      <div id="r-fb" aria-live="polite"></div>
-      <div class="nav"><button class="btn-h" id="r-mover" type="button" aria-pressed="false" hidden>Ver cómo se mueve</button><button class="btn" id="r-sig" type="button" hidden>Siguiente ▶</button></div>
-    </div>
+    </aside>
+  </div>
+  <div class="caja hoja-caja" id="s-hoja-caja" hidden>
+    <h3 id="s-hoja-tit">La retícula</h3>
+    <div id="s-hoja"></div>
+    <p class="leyenda-ejes"><span><b>X</b> anchura: sube hacia la derecha</span><span><b>Y</b> profundidad: baja hacia la derecha</span><span><b>Z</b> altura: vertical</span></p>
   </div>
 </section>
-<!-- ===================== 3 · FIGURAS PLANAS ===================== -->
-<section class="panel" id="p-planas" role="tabpanel" aria-labelledby="tab-planas" hidden>
-  <p class="intro">Acota figuras planas con las cotas mínimas. Los niveles están siempre disponibles: empieza por donde quieras.</p>
-  <div class="fila"><div class="chips" id="f-niveles" role="group" aria-label="Niveles"></div></div>
-  <p class="nivel-intro" id="f-intro"></p>
-  <div class="fila"><div class="chips" id="f-lista" role="group" aria-label="Figuras"></div></div>
-  <div class="dos">
-    <div class="caja"><div id="f-lam"></div></div>
-    <div class="caja">
-      <div class="herr"><button class="btn-h" id="f-desh" type="button">Deshacer</button><button class="btn-h" id="f-limp" type="button">Limpiar</button></div>
-      <div id="f-fb" aria-live="polite"></div>
-      <div class="nav"><button class="btn" id="f-comp" type="button">Comprobar</button><button class="btn-h" id="f-mover" type="button" aria-pressed="false" hidden>Ver cómo se mueve</button><button class="btn sec" id="f-sol" type="button" hidden>Ver una solución</button></div>
-    </div>
-  </div>
-</section>
-<!-- ===================== 4 · PIEZAS ===================== -->
+
+<!-- ===================== PIEZAS ===================== -->
 <section class="panel" id="p-piezas" role="tabpanel" aria-labelledby="tab-piezas" hidden>
-  <p class="intro">La finalidad: acotar una pieza dibujada en alzado, planta y perfil. Cada medida se pone una sola vez, y para no equivocarse se acota en L: <b>eje Z en el alzado, por la izquierda</b>; <b>eje X en la planta, por la izquierda</b>; <b>eje Y en la planta, por abajo</b>.</p>
-  <div class="fila"><div class="chips" id="k-niveles" role="group" aria-label="Niveles"></div></div>
-  <p class="nivel-intro" id="k-intro"></p>
-  <div class="fila"><div class="chips" id="k-lista" role="group" aria-label="Piezas"></div></div>
-  <div class="dos solo">
-    <div>
-      <div class="escenario">
-        <div class="barra"><div class="grupo" id="k-cams"></div></div>
-        <div class="host3d" id="k-3d"></div>
-        <p class="ayuda">Arrastra para girar la pieza.</p>
-      </div>
-      <div class="caja datos-pz"><h3 id="k-nombre"></h3><p class="datos-p" id="k-dims"></p><div id="k-nota"></div></div>
-    </div>
-    <div class="caja"><div id="k-lam"></div></div>
+  <p class="intro">Piezas en tres niveles, siempre disponibles: empieza por donde quieras. En <b>Ver</b> se construye la perspectiva paso a paso; en <b>Guiado</b> eliges cuál de las cuatro perspectivas corresponde a las vistas; en <b>Solo</b> la dibujas tú sobre la retícula y el simulador la corrige.</p>
+  <div class="fila">
+    <div class="chips" id="p-niveles" role="group" aria-label="Niveles"></div>
   </div>
-  <div class="caja k-panel">
-    <div class="herr"><button class="btn-h" id="k-desh" type="button">Deshacer</button><button class="btn-h" id="k-limp" type="button">Limpiar</button></div>
-    <div id="k-fb" aria-live="polite"></div>
-    <div class="nav"><button class="btn" id="k-comp" type="button">Comprobar</button><button class="btn-h" id="k-mover" type="button" aria-pressed="false" hidden>Ver cómo se mueve</button><button class="btn sec" id="k-sol" type="button" hidden>Ver una solución</button></div>
+  <p class="nivel-intro" id="p-nivel-intro"></p>
+  <div class="fila">
+    <div class="chips" id="p-lista" role="group" aria-label="Piezas"></div>
+  </div>
+  <div class="fila">
+    <span class="rot">Modo</span>
+    <div class="modo" id="p-modo" role="group" aria-label="Modo">
+      <button type="button" data-modo="ver" aria-pressed="true">Ver</button>
+      <button type="button" data-modo="guiado" aria-pressed="false">Guiado</button>
+      <button type="button" data-modo="solo" aria-pressed="false">Solo</button>
+    </div>
+    <label class="sw" id="p-sw-ocu" hidden><input type="checkbox" id="p-ocultas"> Dibujar también las aristas ocultas</label>
+  </div>
+  <div class="dos disiso" id="p-dos">
+    <div class="caja hoja-wrap" id="p-datos-wrap">
+      <div class="cab-h"><h3>Lo que sabes de la pieza</h3><button class="btn-h" id="p-ver3d" type="button" aria-pressed="false">Ver la pieza en 3D</button></div>
+      <div class="vistas-dato"><div id="p-vistas"></div></div>
+      <div class="escenario" id="p-esc3d" hidden>
+        <div class="barra" id="p-barra"></div>
+        <div class="host3d" id="p-3d"></div>
+        <p class="ayuda">Arrastra para girar la pieza. La flecha marca el alzado.</p>
+      </div>
+    </div>
+    <div class="caja hoja-wrap" id="p-der-wrap">
+      <div class="cab-h"><h3 id="p-der-tit">La perspectiva</h3><span class="rot" id="p-der-sub"></span></div>
+      <div id="p-herr"></div>
+      <div id="p-lienzo"></div>
+    </div>
+  </div>
+  <div class="inferior" id="p-inferior">
+    <div class="caja" id="p-panel-izq">
+      <h3 id="p-nombre"></h3>
+      <p class="datos-p" id="p-dims"></p>
+      <h4 id="p-titulo"></h4>
+      <div class="paso-txt" id="p-txt" aria-live="polite"></div>
+      <div class="nav">
+        <button class="btn sec peq" id="p-ant" type="button">◀ Anterior</button>
+        <span class="cuenta" id="p-cuenta"></span>
+        <button class="btn peq" id="p-sig" type="button">Siguiente ▶</button>
+      </div>
+    </div>
+    <div class="caja" id="p-panel-der"><div id="p-fb" aria-live="polite"></div></div>
+  </div>
+</section>
+
+<!-- ===================== RETOS ===================== -->
+<section class="panel" id="p-retos" role="tabpanel" aria-labelledby="tab-retos" hidden>
+  <div class="fila">
+    <div class="chips" id="r-sel" role="group" aria-label="Retos">
+      <button class="chip" type="button" data-r="A" aria-pressed="true"><span class="num">A</span>Pieza completa<span class="marcas"></span></button>
+      <button class="chip" type="button" data-r="B" aria-pressed="false"><span class="num">B</span>Lo que la perspectiva esconde<span class="marcas"></span></button>
+    </div>
+  </div>
+  <div id="r-a">
+    <p class="intro" id="r-a-intro">Estas son las tres vistas de una pieza. Dibuja su perspectiva isométrica sin ayudas: no hay 3D ni solución hasta que compruebes. Cada cuadro de las vistas es un lado de la retícula.</p>
+    <div class="dos disiso">
+      <div class="caja hoja-wrap"><h3>Las tres vistas</h3><div id="r-vistas"></div></div>
+      <div class="caja hoja-wrap">
+        <div id="r-herr"></div>
+        <div id="r-lienzo"></div>
+      </div>
+    </div>
+    <div class="inferior solo"><div class="caja" id="r-fb"></div></div>
+  </div>
+  <div id="r-b" hidden>
+    <p class="intro">Esta es la perspectiva isométrica de una pieza. ¿Cuáles de las cuatro piezas de abajo pueden ser? Marca todas las que encajen.</p>
+    <div class="trampa">
+      <div class="caja"><h3>Lo que ves</h3><div id="r-b-iso"></div></div>
+      <div class="caja">
+        <h3>¿Cuáles encajan?</h3>
+        <div class="tp-grid" id="r-b-piezas"></div>
+        <div id="r-b-fb" aria-live="polite"></div>
+        <div class="nav"><button class="btn" id="r-b-comp" type="button">Comprobar</button><button class="btn sec" id="r-b-rep" type="button" hidden>Repetir</button></div>
+        <div class="conclusion" id="r-b-conc" hidden>
+          <h4>Una perspectiva no define una pieza</h4>
+          <p>Desde un solo punto de vista, la parte de atrás y el fondo de los huecos quedan escondidos: varias piezas distintas dan exactamente la misma perspectiva. Por eso la perspectiva sirve para <b>enseñar</b> la pieza, pero quien la fabrica trabaja con las <b>vistas acotadas</b>.</p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 </main>
 <footer>
-  Acotación v1.5 · IES Jiménez de Quesada (Santa Fe, Granada). Medidas en mm. Línea de cota a 8 mm del contorno; auxiliares a 2 mm del dibujo y 2 mm más allá de la línea de cota.
-  El progreso se guarda solo en este navegador. <button class="btn-link" id="borrar-prog" type="button">Borrar mi progreso</button><br>
-  Parte de las piezas proceden de fichas educativas de libre difusión.<br>
+  Perspectiva isométrica v1.1 · IES Jiménez de Quesada (Santa Fe, Granada). Ejes a 120°, dibujo sin reducir (isométrica normalizada). Se ven a la vez las caras del alzado, la planta y el perfil izquierdo.
+  El progreso (piezas y retos terminados) se guarda solo en este navegador. <button class="btn-link" id="borrar-prog" type="button">Borrar mi progreso</button><br>
+  Parte de las piezas proceden de fichas educativas de libre difusión (se indica en cada una).<br>
   Incluye three.js r128 (licencia MIT, © three.js authors).
 </footer>
 
@@ -457,6 +406,7 @@ footer{max-width:1360px;margin:0 auto;padding:12px 20px 30px;font-size:.82rem;co
 </script>
 <script>
 (function(){
+'use strict';
 'use strict';
 /* =====================================================================
    GEOMETRÍA · piezas, aristas, proyecciones y visibilidad
@@ -978,8 +928,207 @@ const CATALOGO = (() => {
 })();
 
 
-/* generado por clasificar.js */
-const CLASIF_PIEZAS = [{"id":"s1","nivel":1,"carriles":null,"g":null,"extra":[]},{"id":"s2","nivel":2,"carriles":null,"g":null,"extra":[]},{"id":"s3","nivel":1,"carriles":null,"g":null,"extra":[]},{"id":"s4","nivel":2,"carriles":null,"g":null,"extra":[]},{"id":"s5","nivel":3,"carriles":[["alzado","izq"],["planta","izq"],["planta","abajo"],["alzado","arriba"]],"g":25,"extra":["alzado-arriba"]},{"id":"s6","nivel":2,"carriles":null,"g":null,"extra":[]},{"id":"s7","nivel":2,"carriles":null,"g":null,"extra":[]},{"id":"s8","nivel":2,"carriles":null,"g":null,"extra":[]},{"id":"s9","nivel":1,"carriles":null,"g":null,"extra":[]},{"id":"s10","nivel":1,"carriles":null,"g":null,"extra":[]},{"id":"s11","nivel":3,"carriles":[["alzado","izq"],["planta","izq"],["planta","abajo"],["perfil","izq"],["perfil","abajo"]],"g":25,"extra":["perfil-izq","perfil-abajo"]},{"id":"s12","nivel":3,"carriles":[["alzado","izq"],["planta","izq"],["planta","abajo"],["alzado","arriba"]],"g":25,"extra":["alzado-arriba"]},{"id":"s13","nivel":1,"carriles":null,"g":null,"extra":[]},{"id":"s14","nivel":2,"carriles":null,"g":null,"extra":[]},{"id":"s15","nivel":1,"carriles":null,"g":null,"extra":[]},{"id":"s16","nivel":1,"carriles":null,"g":null,"extra":[]},{"id":"s17","nivel":2,"carriles":null,"g":null,"extra":[]},{"id":"s18","nivel":3,"carriles":[["alzado","izq"],["planta","izq"],["planta","abajo"],["alzado","arriba"]],"g":25,"extra":["alzado-arriba"]},{"id":"s19","nivel":1,"carriles":null,"g":null,"extra":[]},{"id":"s20","nivel":1,"carriles":null,"g":null,"extra":[]},{"id":"s21","nivel":3,"carriles":[["alzado","izq"],["planta","izq"],["planta","abajo"],["perfil","izq"]],"g":25,"extra":["perfil-izq"]},{"id":"s22","nivel":2,"carriles":null,"g":null,"extra":[]},{"id":"s23","nivel":2,"carriles":null,"g":null,"extra":[]},{"id":"s24","nivel":2,"carriles":null,"g":null,"extra":[]},{"id":"s25","nivel":1,"carriles":null,"g":null,"extra":[]},{"id":"s26","nivel":1,"carriles":null,"g":null,"extra":[]},{"id":"s27","nivel":1,"carriles":null,"g":null,"extra":[]},{"id":"s28","nivel":1,"carriles":null,"g":null,"extra":[]},{"id":"s29","nivel":3,"carriles":[["alzado","izq"],["planta","izq"],["planta","abajo"],["alzado","arriba"]],"g":25,"extra":["alzado-arriba"]},{"id":"p1","nivel":1,"carriles":null,"g":null,"extra":[]},{"id":"p2","nivel":2,"carriles":null,"g":null,"extra":[]},{"id":"p3","nivel":2,"carriles":null,"g":null,"extra":[]},{"id":"p4","nivel":1,"carriles":null,"g":null,"extra":[]},{"id":"p5","nivel":2,"carriles":null,"g":null,"extra":[]},{"id":"p6","nivel":2,"carriles":null,"g":null,"extra":[]},{"id":"p7","nivel":2,"carriles":null,"g":null,"extra":[]},{"id":"p8","nivel":2,"carriles":null,"g":null,"extra":[]},{"id":"p9","nivel":2,"carriles":null,"g":null,"extra":[]},{"id":"p10","nivel":2,"carriles":null,"g":null,"extra":[]},{"id":"p11","nivel":2,"carriles":null,"g":null,"extra":[]}];
+/* =====================================================================
+   ISOMÉTRICA · retícula, proyección y utilidades
+   ---------------------------------------------------------------------
+   La proyección isométrica de G usa
+       u = k·(x + y)        con k = √3/2
+       v = (x − y)/2 + z
+   Si se llaman  m = x + y   y   n = x − y + 2z, queda  u = k·m  y  v = n/2,
+   con m y n siempre de la misma paridad. Esos (m, n) enteros son los nudos
+   de la retícula isométrica: el papel de triángulos de clase.
+   En pantalla (SVG, y hacia abajo):  X = k·m ,  Y = −n/2.
+   Las tres direcciones de los ejes de la pieza sobre la retícula son
+       +x (anchura)     → (m, n) + (1,  1)   arriba a la derecha
+       +y (profundidad) → (m, n) + (1, −1)   abajo a la derecha
+       +z (altura)      → (m, n) + (0,  2)   arriba
+   El observador está delante, arriba y a la izquierda: se ven a la vez la
+   cara del alzado, la de la planta y la del perfil izquierdo.
+   ===================================================================== */
+const K3 = Math.sqrt(3) / 2;
+const EJES_ISO = { x: [1, 1], y: [1, -1], z: [0, 2] };
+
+const aPantalla = ([m, n]) => [K3 * m, -n / 2];
+const aUV = ([m, n]) => [K3 * m, n / 2];
+const aReticula = ([u, v]) => [Math.round(u / K3), Math.round(v * 2)];
+const esNudo = ([m, n]) => ((m + n) % 2 + 2) % 2 === 0;
+const mismoNudo = (a, b) => a && b && a[0] === b[0] && a[1] === b[1];
+
+/* ---------- proyección isométrica de una pieza, en la retícula ---------- */
+function isoDePieza(pz) {
+  if (pz._iso) return pz._iso;
+  G.preparar(pz);
+  const res = G.vista('iso', pz.carasG, pz.aristas);
+  const lin = G.lineasFinales(res, null);
+  const segs = [];
+  let exacta = true;
+  lin.forEach(l => {
+    const a = aReticula(l.p), b = aReticula(l.q);
+    // ¿los extremos caen realmente sobre nudos de la retícula?
+    [[a, l.p], [b, l.q]].forEach(([r, o]) => {
+      const p = aUV(r);
+      if (Math.abs(p[0] - o[0]) > 1e-6 || Math.abs(p[1] - o[1]) > 1e-6 || !esNudo(r)) exacta = false;
+    });
+    if (!mismoNudo(a, b)) segs.push({ tipo: l.tipo, a, b });
+  });
+  let m0 = Infinity, m1 = -Infinity, n0 = Infinity, n1 = -Infinity;
+  segs.forEach(s => [s.a, s.b].forEach(p => {
+    m0 = Math.min(m0, p[0]); m1 = Math.max(m1, p[0]);
+    n0 = Math.min(n0, p[1]); n1 = Math.max(n1, p[1]);
+  }));
+  pz._iso = { segs, exacta, lim: { m0, m1, n0, n1 } };
+  return pz._iso;
+}
+
+/* ---------- caja envolvente de la pieza, en la retícula ---------- */
+function cajaIso(pz) {
+  const [W, D, H] = pz.dims;
+  const P = (x, y, z) => [x + y, x - y + 2 * z];
+  const v = {
+    a: P(0, 0, 0), b: P(W, 0, 0), c: P(W, D, 0), d: P(0, D, 0),
+    A: P(0, 0, H), B: P(W, 0, H), C: P(W, D, H), D2: P(0, D, H)
+  };
+  // visibles desde el observador (delante, arriba, izquierda): cara y=D, cara x=0, cara z=H
+  const vis = [
+    [v.d, v.c], [v.c, v.C], [v.C, v.D2], [v.D2, v.d],          // frente (y = D)
+    [v.a, v.d], [v.d, v.D2], [v.D2, v.A], [v.A, v.a],           // izquierda (x = 0)
+    [v.A, v.B], [v.B, v.C], [v.C, v.D2], [v.D2, v.A]            // tapa (z = H)
+  ];
+  const ocu = [[v.a, v.b], [v.b, v.c], [v.b, v.B]];
+  return { vis, ocu, v };
+}
+
+/* ---------- trozos elementales sobre la retícula ---------- */
+function mcdI(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) [a, b] = [b, a % b]; return a; }
+const cl = (a, b) => { const s = [a[0] + ',' + a[1], b[0] + ',' + b[1]].sort(); return s[0] + '|' + s[1]; };
+function trozosIso(p, q) {
+  const dm = q[0] - p[0], dn = q[1] - p[1];
+  let g = mcdI(dm, dn); if (!g) return [];
+  let sm = dm / g, sn = dn / g;
+  if ((((sm + sn) % 2) + 2) % 2 !== 0) { g = g / 2; sm *= 2; sn *= 2; }   // el paso debe ir de nudo a nudo
+  const out = [];
+  for (let i = 0; i < g; i++) {
+    const a = [p[0] + sm * i, p[1] + sn * i], b = [a[0] + sm, a[1] + sn];
+    out.push({ k: cl(a, b), a, b });
+  }
+  return out;
+}
+const PRI_I = { vis: 2, ocu: 1 };
+function mapaIso(segs) {
+  const m = new Map();
+  segs.forEach(s => trozosIso(s.a, s.b).forEach(t => {
+    const o = m.get(t.k);
+    if (!o || PRI_I[s.tipo] > PRI_I[o.tipo]) m.set(t.k, { tipo: s.tipo, a: t.a, b: t.b });
+  }));
+  return m;
+}
+function desplazarIso(m, t) {
+  const o = new Map();
+  m.forEach(v => { const a = [v.a[0] + t[0], v.a[1] + t[1]], b = [v.b[0] + t[0], v.b[1] + t[1]]; o.set(cl(a, b), { tipo: v.tipo, a, b }); });
+  return o;
+}
+function transformarIso(m, f) {
+  const o = new Map();
+  m.forEach(v => { const a = f(v.a), b = f(v.b); o.set(cl(a, b), { tipo: v.tipo, a, b }); });
+  return o;
+}
+/* mejor traslación de lo esperado E para encajar con lo dibujado D */
+function mejorTrasIso(E, D) {
+  if (!E.size || !D.size) return { t: [0, 0], n: 0 };
+  const pe = new Set(), pd = new Set();
+  E.forEach(v => { pe.add(v.a.join(',')); pe.add(v.b.join(',')); });
+  D.forEach(v => { pd.add(v.a.join(',')); pd.add(v.b.join(',')); });
+  const cand = new Set(['0,0']);
+  pd.forEach(a => { const A = a.split(',').map(Number); pe.forEach(b => { const B = b.split(',').map(Number); cand.add((A[0] - B[0]) + ',' + (A[1] - B[1])); }); });
+  let mejor = { t: [0, 0], n: -1 };
+  cand.forEach(c => {
+    const t = c.split(',').map(Number);
+    if (!esNudo(t)) return;
+    let n = 0;
+    E.forEach(v => { if (D.has(cl([v.a[0] + t[0], v.a[1] + t[1]], [v.b[0] + t[0], v.b[1] + t[1]]))) n++; });
+    if (n > mejor.n || (n === mejor.n && Math.hypot(t[0], t[1]) < Math.hypot(mejor.t[0], mejor.t[1]))) mejor = { t, n };
+  });
+  return mejor;
+}
+function compararIso(E, D) {
+  const { t, n } = mejorTrasIso(E, D), Es = desplazarIso(E, t);
+  const faltan = [], tipoMal = [], sobran = [];
+  Es.forEach((v, k) => { const d = D.get(k); if (!d) faltan.push(v); else if (d.tipo !== v.tipo) tipoMal.push({ esperado: v.tipo, a: v.a, b: v.b, k }); });
+  D.forEach((v, k) => { if (!Es.has(k)) sobran.push({ ...v, k }); });
+  return { t, n, faltan, tipoMal, sobran, exacto: !faltan.length && !sobran.length };
+}
+/* cuenta líneas (tramos contiguos y alineados) */
+function contarIso(lista) {
+  const grupos = new Map();
+  lista.forEach(v => {
+    const d = [v.b[0] - v.a[0], v.b[1] - v.a[1]], L = Math.hypot(d[0], d[1]);
+    let u = [d[0] / L, d[1] / L];
+    if (u[0] < -1e-9 || (Math.abs(u[0]) < 1e-9 && u[1] < 0)) u = [-u[0], -u[1]];
+    const c = Math.round((v.a[0] * -u[1] + v.a[1] * u[0]) * 1000) / 1000;
+    const key = Math.round(u[0] * 1000) / 1000 + ',' + Math.round(u[1] * 1000) / 1000 + '|' + c;
+    if (!grupos.has(key)) grupos.set(key, { iv: [] });
+    const g = grupos.get(key);
+    const t1 = v.a[0] * u[0] + v.a[1] * u[1], t2 = v.b[0] * u[0] + v.b[1] * u[1];
+    g.iv.push([Math.min(t1, t2), Math.max(t1, t2)]);
+  });
+  let n = 0;
+  grupos.forEach(g => { g.iv.sort((a, b) => a[0] - b[0]); let cur = null; g.iv.forEach(iv => { if (cur && iv[0] <= cur[1] + 1e-6) cur[1] = Math.max(cur[1], iv[1]); else { if (cur) n++; cur = iv.slice(); } }); if (cur) n++; });
+  return n;
+}
+function fusionarIso(lista) {
+  const out = [], grupos = new Map();
+  lista.forEach(v => {
+    const d = [v.b[0] - v.a[0], v.b[1] - v.a[1]], L = Math.hypot(d[0], d[1]);
+    let u = [d[0] / L, d[1] / L];
+    if (u[0] < -1e-9 || (Math.abs(u[0]) < 1e-9 && u[1] < 0)) u = [-u[0], -u[1]];
+    const nrm = [-u[1], u[0]], c = v.a[0] * nrm[0] + v.a[1] * nrm[1];
+    const key = Math.round(u[0] * 1e3) + ',' + Math.round(u[1] * 1e3) + '|' + Math.round(c * 1e3) + '|' + v.tipo;
+    if (!grupos.has(key)) grupos.set(key, { u, o: [nrm[0] * c, nrm[1] * c], tipo: v.tipo, iv: [] });
+    const g = grupos.get(key);
+    const t1 = (v.a[0] - g.o[0]) * u[0] + (v.a[1] - g.o[1]) * u[1], t2 = (v.b[0] - g.o[0]) * u[0] + (v.b[1] - g.o[1]) * u[1];
+    g.iv.push([Math.min(t1, t2), Math.max(t1, t2)]);
+  });
+  grupos.forEach(g => {
+    g.iv.sort((a, b) => a[0] - b[0]); let cur = null;
+    const cierra = () => out.push({ tipo: g.tipo, a: [g.o[0] + g.u[0] * cur[0], g.o[1] + g.u[1] * cur[0]], b: [g.o[0] + g.u[0] * cur[1], g.o[1] + g.u[1] * cur[1]] });
+    g.iv.forEach(iv => { if (cur && iv[0] <= cur[1] + 1e-6) cur[1] = Math.max(cur[1], iv[1]); else { if (cur) cierra(); cur = iv.slice(); } });
+    if (cur) cierra();
+  });
+  return out;
+}
+
+/* ---------- rasgos y niveles ---------- */
+function rasgosIso(pz) {
+  if (pz._rasgosI) return pz._rasgosI;
+  G.preparar(pz);
+  const iso = isoDePieza(pz);
+  const ocultas = iso.segs.some(s => s.tipo === 'ocu');
+  let inclinada = false, oblicua = false;
+  pz.carasG.forEach(f => {
+    const n = f.n.map(c => Math.abs(c) < 1e-6 ? 0 : c);
+    const ceros = n.filter(c => c === 0).length;
+    if (ceros === 2) return;              // paralela a un plano
+    if (ceros === 1) inclinada = true; else oblicua = true;
+  });
+  const hueco = pz.carasG.some(f => f.holes && f.holes.length);
+  const nvis = contarIso(iso.segs.filter(s => s.tipo === 'vis'));
+  return (pz._rasgosI = { ocultas, inclinada, oblicua, hueco, exacta: iso.exacta, nvis });
+}
+/* Niveles, calculados a partir de la propia pieza (nunca a mano):
+   1 · todas las caras paralelas a los planos, sin huecos y pocas líneas
+   2 · las mismas con más líneas, o con una cara inclinada
+   3 · huecos que atraviesan la pieza, o caras oblicuas                    */
+function nivelIso(pz) {
+  const r = rasgosIso(pz);
+  if (r.oblicua || r.hueco || !r.exacta) return 3;
+  if (r.inclinada || r.nvis > 18) return 2;
+  return 1;
+}
+const NIVELES_ISO = [
+  { n: 1, t: 'Nivel 1 · Caras rectas', d: 'Piezas con todas las caras paralelas a los planos. Las tres direcciones de la retícula bastan para dibujarlas enteras.' },
+  { n: 2, t: 'Nivel 2 · Más líneas e inclinadas', d: 'Las mismas, con más escalones, y las primeras caras inclinadas: sus aristas ya no siguen ninguna de las tres direcciones.' },
+  { n: 3, t: 'Nivel 3 · Huecos y caras oblicuas', d: 'Huecos que atraviesan la pieza y caras oblicuas, que no son paralelas a ningún plano.' }
+];
 
 /* =====================================================================
    ESCENA 3D (three.js r128)
@@ -1433,1207 +1582,829 @@ class Escena {
 }
 
 /* =====================================================================
-   NÚCLEO DE ACOTACIÓN (sin DOM; se prueba en node)
-   En cada dirección la figura tiene unas cuantas «posiciones» (aristas,
-   vértices, centros). Cada cota fija la distancia entre dos posiciones; un
-   Ø o un R fija un tamaño. Tangencias y ejes de simetría dibujados añaden
-   relaciones propias de la figura.
-     · Completa → no queda ninguna posición ni tamaño libre.
-     · Mínima   → ninguna cota se puede deducir de las demás.
-   Si falta una cota, la parte libre se puede mover: eso da una segunda
-   figura compatible con las mismas cotas.
-   Medidas en mm. Coordenadas del modelo con y hacia ARRIBA.
-   ===================================================================== */
-const CRIT = { dist: 8, sep: 8, hueco: 2, exceso: 2, flL: 3, flA: 0.8, tx: 3.5, txSep: 1 };   // criterio de clase (mm en el papel)
-const K6 = v => Math.round(v * 1e6) / 1e6;
-const R3 = v => Math.round(v * 1000) / 1000;      // las posiciones de las piezas se redondean a milésimas de mm (restos de coma flotante)
-let ESC_PIEZA = 10;                            // 1 cuadro de las piezas de Vistas = 10 mm (dato del simulador); la lámina lo cambia según la escala
-let F_REAL = 1;                                // medida real por cada mm de la hoja (1/escala); solo lo usa la lámina
-
-/* ---------- álgebra lineal: filas dependientes y grados de libertad ---------- */
-function analizarSistema(incog, filas) {
-  const n = incog.length, idx = new Map(incog.map((u, i) => [u, i]));
-  const base = [], dep = [];
-  filas.forEach((f, i) => {
-    const v = new Float64Array(n);
-    for (const k in f.c) { if (!idx.has(k)) throw new Error('incógnita desconocida ' + k); v[idx.get(k)] += f.c[k]; }
-    const comb = new Map([[i, 1]]);
-    for (const b of base) {
-      const x = v[b.piv]; if (Math.abs(x) < 1e-12) continue;
-      const fc = x / b.v[b.piv];
-      for (let j = 0; j < n; j++) v[j] -= fc * b.v[j];
-      b.comb.forEach((c, k) => comb.set(k, (comb.get(k) || 0) - fc * c));
-    }
-    let piv = -1, m = 1e-9;
-    for (let j = 0; j < n; j++) if (Math.abs(v[j]) > m) { m = Math.abs(v[j]); piv = j; }
-    if (piv < 0) { const de = []; comb.forEach((c, k) => { if (k !== i && Math.abs(c) > 1e-9) de.push({ fila: k, coef: -c }); }); dep.push({ fila: i, de }); }
-    else base.push({ v, piv, comb });
-  });
-  base.forEach(b => { const p = b.v[b.piv]; for (let j = 0; j < n; j++) b.v[j] /= p; });
-  for (let a = base.length - 1; a >= 0; a--) for (let c = 0; c < base.length; c++) if (c !== a) {
-    const x = base[c].v[base[a].piv]; if (Math.abs(x) > 1e-12) for (let j = 0; j < n; j++) base[c].v[j] -= x * base[a].v[j];
-  }
-  const pivs = new Set(base.map(b => b.piv)), libres = [];
-  for (let f = 0; f < n; f++) if (!pivs.has(f)) { const x = new Float64Array(n); x[f] = 1; base.forEach(b => { x[b.piv] = -b.v[f]; }); const o = {}; incog.forEach((u, i) => { if (Math.abs(x[i]) > 1e-9) o[u] = x[i]; }); libres.push(o); }
-  return { dep, libres, rango: base.length };
-}
-
-/* ---------- utilidades geométricas 2D ---------- */
-function dentroPoligono(p, P) {
-  let d = false;
-  for (let i = 0, j = P.length - 1; i < P.length; j = i++) if (((P[i][1] > p[1]) !== (P[j][1] > p[1])) && (p[0] < (P[j][0] - P[i][0]) * (p[1] - P[i][1]) / (P[j][1] - P[i][1]) + P[i][0])) d = !d;
-  return d;
-}
-function distSeg(p, a, b) { const ab = [b[0] - a[0], b[1] - a[1]], L2 = ab[0] ** 2 + ab[1] ** 2; let t = L2 ? ((p[0] - a[0]) * ab[0] + (p[1] - a[1]) * ab[1]) / L2 : 0; t = Math.max(0, Math.min(1, t)); return Math.hypot(p[0] - a[0] - ab[0] * t, p[1] - a[1] - ab[1] * t); }
-const DIR_LADO = { abajo: [0, -1], arriba: [0, 1], izq: [-1, 0], der: [1, 0] };
-const horizontalLado = l => l === 'abajo' || l === 'arriba';     // la línea de cota es horizontal
-
-/* =====================================================================
-   FIGURAS PLANAS
-   def.contorno: puntos [x,y] y arcos {arco:{c:[x,y], r, a0, a1}} (grados, múltiplos de 90;
-   el arco empieza en el punto anterior). def.agujeros: [{c, r}]. def.ejes: [{dir:'v'|'h', en}]
-   ===================================================================== */
-function modeloPlana(def) {
-  const M = { tipo: 'plana', def, id: def.id, nombre: def.nombre, incog: [], valor: {}, est: [], ref: [], carriles: [], tamanos: [], ejesSolo: new Set() };
-  const nx = new Set(), ny = new Set(), pts = [], esp = [];   // esp: puntos que pueden recibir cota
-  let prev = null;
-  const arcos = [];
-  def.contorno.forEach(e => {
-    if (Array.isArray(e)) { pts.push(e); esp.push({ p: e, t: 'v' }); prev = e; return; }
-    const a = e.arco; const rid = 'r' + (M.tamanos.length);
-    const paso = a.a1 > a.a0 ? 1 : -1, N = Math.max(8, Math.round(Math.abs(a.a1 - a.a0) / 6));
-    for (let k = 1; k <= N; k++) { const t = (a.a0 + (a.a1 - a.a0) * k / N) * Math.PI / 180; pts.push([K6(a.c[0] + a.r * Math.cos(t)), K6(a.c[1] + a.r * Math.sin(t))]); }
-    const fin = pts[pts.length - 1]; esp.push({ p: fin, t: 'v' });
-    // extremos interiores del arco (0, 90, 180, 270)
-    for (let g = Math.min(a.a0, a.a1) + 1; g < Math.max(a.a0, a.a1); g++) if (g % 90 === 0) { const t = g * Math.PI / 180; esp.push({ p: [K6(a.c[0] + a.r * Math.cos(t)), K6(a.c[1] + a.r * Math.sin(t))], t: 'x' }); }
-    esp.push({ p: a.c, t: 'c', rad: 0 });
-    const arc = { id: rid, tipo: 'R', r: rid, c: a.c, rad: a.r, a0: a.a0, a1: a.a1 };
-    arcos.push(arc); M.tamanos.push(arc); M.valor[rid] = a.r;
-    // tangencias y extremos: relación entre las posiciones y el radio
-    const angs = [a.a0, a.a1]; for (let g = Math.min(a.a0, a.a1) + 1; g < Math.max(a.a0, a.a1); g++) if (g % 90 === 0) angs.push(g);
-    angs.forEach(g => {
-      const t = g * Math.PI / 180, cs = Math.round(Math.cos(t)), sn = Math.round(Math.sin(t));
-      if (Math.abs(Math.cos(t) - cs) > 1e-9 || Math.abs(Math.sin(t) - sn) > 1e-9) throw new Error('arco con extremo no alineado: ' + def.id);
-      if (cs) M.est.push({ c: { ['x:' + K6(a.c[0] + cs * a.r)]: 1, ['x:' + K6(a.c[0])]: -1, [rid]: -cs }, por: 'tangencia' });
-      if (sn) M.est.push({ c: { ['y:' + K6(a.c[1] + sn * a.r)]: 1, ['y:' + K6(a.c[1])]: -1, [rid]: -sn }, por: 'tangencia' });
-    });
-    prev = fin;
-  });
-  (def.agujeros || []).forEach(h => { const rid = 'r' + M.tamanos.length; M.tamanos.push({ id: rid, tipo: 'D', r: rid, c: h.c, rad: h.r }); M.valor[rid] = h.r; esp.push({ p: h.c, t: 'c', rad: h.r }); });
-  esp.forEach(e => { nx.add(K6(e.p[0])); ny.add(K6(e.p[1])); });
-  (def.ejes || []).forEach(ej => {
-    const S = ej.dir === 'v' ? nx : ny, ax = ej.dir === 'v' ? 'x' : 'y', m = K6(ej.en);
-    if (!S.has(m)) { S.add(m); M.ejesSolo.add(ax + ':' + m); }
-    [...S].forEach(a => { const b = K6(2 * m - a); if (a < m && S.has(b)) M.est.push({ c: { [ax + ':' + a]: 1, [ax + ':' + b]: 1, [ax + ':' + m]: -2 }, por: 'simetría' }); });
-  });
-  [...nx].sort((a, b) => a - b).forEach(v => { M.incog.push('x:' + v); M.valor['x:' + v] = v; });
-  [...ny].sort((a, b) => a - b).forEach(v => { M.incog.push('y:' + v); M.valor['y:' + v] = v; });
-  M.tamanos.forEach(t => M.incog.push(t.r));
-  M.ref = ['x:' + Math.min(...nx), 'y:' + Math.min(...ny)];
-  M.poli = pts; M.agujeros = def.agujeros || []; M.arcos = arcos; M.ejes = def.ejes || []; M.esp = esp;
-  const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
-  M.caja = { x0: Math.min(...xs), x1: Math.max(...xs), y0: Math.min(...ys), y1: Math.max(...ys) };
-  // carriles: los cuatro lados de la figura
-  (def.carriles || ['abajo', 'izq', 'arriba', 'der']).forEach(lado => M.carriles.push(carrilPlano(M, lado)));
-  M.material = p => dentroPoligono(p, M.poli) && !M.agujeros.some(h => Math.hypot(p[0] - h.c[0], p[1] - h.c[1]) < h.r - 1e-6);
-  M.carriles.forEach(c => c.ticks.forEach(t => { t.cruza = !t.centro && cruzaMaterial(t.origen, t.hasta, M.material); }));
-  return M;
-}
-function carrilPlano(M, lado) {
-  const hz = horizontalLado(lado), ax = hz ? 'x' : 'y', i = hz ? 0 : 1, j = 1 - i, d = DIR_LADO[lado];
-  const c = M.caja, base = lado === 'abajo' ? c.y0 : lado === 'arriba' ? c.y1 : lado === 'izq' ? c.x0 : c.x1;
-  const vals = [...new Set(M.esp.map(e => K6(e.p[i])))].filter(v => !M.ejesSolo.has(ax + ':' + v)).sort((a, b) => a - b);
-  const ticks = vals.map(v => {
-    // punto de arranque de la auxiliar: el más cercano al lado del carril
-    const cands = M.esp.filter(e => K6(e.p[i]) === v);
-    let mejor = null;
-    cands.forEach(e => {
-      let o = e.p.slice(), hueco = CRIT.hueco;
-      if (e.t === 'c') { o[j] = e.p[j] + (d[j] || 0) * (e.rad ? e.rad + 3 : 3); hueco = 0; }       // centro: se continúa la línea de eje
-      const s = o[j] * (d[j] || 0);
-      if (!mejor || s > mejor.s) mejor = { s, o, hueco, centro: e.t === 'c' };
-    });
-    return { v, pos: v, origen: mejor.o, hueco: mejor.hueco, centro: mejor.centro, oculto: false, hasta: null };
-  });
-  const car = { id: lado, lado, eje: ax, hz, base, ticks };
-  ticks.forEach(t => { t.hasta = hz ? [t.pos, base + d[1] * CRIT.dist] : [base + d[0] * CRIT.dist, t.pos]; });
-  return car;
-}
-function cruzaMaterial(o, h, mat) {
-  const L = Math.hypot(h[0] - o[0], h[1] - o[1]); if (L < 1) return false;
-  for (let s = 0.8; s < L; s += 0.5) { const p = [o[0] + (h[0] - o[0]) * s / L, o[1] + (h[1] - o[1]) * s / L]; if (mat(p)) return true; }
-  return false;
-}
-/* la figura con otros valores de las posiciones (para dibujar la segunda figura posible) */
-function plana2(M, val) {
-  const X = x => val['x:' + K6(x)] ?? x, Y = y => val['y:' + K6(y)] ?? y;
-  const pts = [];
-  M.def.contorno.forEach(e => {
-    if (Array.isArray(e)) { pts.push([X(e[0]), Y(e[1])]); return; }
-    const a = e.arco, rid = M.arcos.find(q => q.c === a.c && q.a0 === a.a0).r, r = val[rid] ?? a.r, c = [X(a.c[0]), Y(a.c[1])];
-    const N = Math.max(8, Math.round(Math.abs(a.a1 - a.a0) / 6));
-    for (let k = 1; k <= N; k++) { const t = (a.a0 + (a.a1 - a.a0) * k / N) * Math.PI / 180; pts.push([c[0] + r * Math.cos(t), c[1] + r * Math.sin(t)]); }
-  });
-  const ag = M.agujeros.map((h, k) => { const t = M.tamanos.find(q => q.tipo === 'D' && q.c === h.c); return { c: [X(h.c[0]), Y(h.c[1])], r: val[t.r] ?? h.r }; });
-  return { poli: pts, agujeros: ag };
-}
-
-/* =====================================================================
-   PIEZAS EN TRES VISTAS (a partir de las piezas del simulador de Vistas)
-   Hoja con y hacia arriba; O en el cruce de los ejes.
-     alzado: X = 10u − 10W − g, Y = 10v + g   (u = x, v = z)
-     planta: X = 10u − 10W − g, Y = 10v − g   (u = x, v = −y)
-     perfil: X = 10u + g,       Y = 10v + g   (u = y, v = z)
-   Ejes internos: x anchura (Y del alumno), y profundidad (X del alumno), z altura (Z).
-   ===================================================================== */
-const EJE_ALUMNO = { x: 'Y', y: 'X', z: 'Z' }, NOMBRE_DIR = { x: 'anchura', y: 'profundidad', z: 'altura' };
-function aHojaV(pz, g, vista, [u, v]) {
-  const W = pz.dims[0] * ESC_PIEZA;
-  if (vista === 'alzado') return [R3(ESC_PIEZA * u - W - g), R3(ESC_PIEZA * v + g)];
-  if (vista === 'planta') return [R3(ESC_PIEZA * u - W - g), R3(ESC_PIEZA * v - g)];
-  return [R3(ESC_PIEZA * u + g), R3(ESC_PIEZA * v + g)];
-}
-// eje interno que mide un carril de una vista
-function ejeCarril(vista, lado) {
-  const hz = horizontalLado(lado);
-  if (vista === 'alzado') return hz ? 'x' : 'z';
-  if (vista === 'planta') return hz ? 'x' : 'y';
-  return hz ? 'y' : 'z';
-}
-// valor del eje (mm) → coordenada de la hoja a lo largo del carril, y al revés
-function posCarril(pz, g, vista, eje, val) {
-  const W = pz.dims[0] * ESC_PIEZA;
-  if (eje === 'x') return val - W - g;
-  if (eje === 'y') return vista === 'planta' ? -val - g : val + g;
-  return val + g;
-}
-function modeloPieza(pz, cfg) {
-  G.preparar(pz);
-  cfg = cfg || {};
-  const g = cfg.g || 10, M = { tipo: 'pieza', pz, g, fReal: F_REAL, id: cfg.id || ('p' + pz.id), nombre: cfg.nombre || pz.nombre, incog: [], valor: {}, est: [], ref: [], carriles: [], tamanos: [], ejesSolo: new Set() };
-  const S = { x: new Set(), y: new Set(), z: new Set() };
-  // posiciones: extremos de las aristas reales (no los vértices de las caras partidas en cuadros)
-  pz.aristas.forEach(e => [e.a, e.b].forEach(p => { S.x.add(R3(p[0] * ESC_PIEZA)); S.y.add(R3(p[1] * ESC_PIEZA)); S.z.add(R3(p[2] * ESC_PIEZA)); }));
-  if (pz.taladro) { S.x.add(pz.taladro.cx * ESC_PIEZA); S.y.add(pz.taladro.cy * ESC_PIEZA); M.tamanos.push({ id: 'r0', tipo: 'D', r: 'r0', vista: 'planta', c: aHojaV(pz, g, 'planta', [pz.taladro.cx, -pz.taladro.cy]), rad: pz.taladro.r * ESC_PIEZA }); M.valor.r0 = pz.taladro.r * ESC_PIEZA; }
-  ['x', 'y', 'z'].forEach(a => [...S[a]].sort((p, q) => p - q).forEach(v => { M.incog.push(a + ':' + v); M.valor[a + ':' + v] = v; }));
-  M.tamanos.forEach(t => M.incog.push(t.r));
-  M.ref = ['x', 'y', 'z'].map(a => a + ':' + Math.min(...S[a]));
-  // vistas en la hoja
-  M.vistas = {};
-  for (const k of ['alzado', 'planta', 'perfil']) {
-    const V = pz.vistas[k];
-    const lineas = V.lineas.map(l => ({ tipo: l.tipo, p: aHojaV(pz, g, k, l.p), q: aHojaV(pz, g, k, l.q), uv: [l.p, l.q] }));
-    const circ = V.circulos.map(c => ({ c: aHojaV(pz, g, k, c.c), r: c.r * ESC_PIEZA, uv: c.c, ru: c.r }));
-    const pols = [];
-    pz.carasG.forEach(f => { if (Math.abs(G.v.dot(f.n, G.VISTAS[k].hacia)) > 1e-6) pols.push(f.pts.map(p => aHojaV(pz, g, k, G.VISTAS[k].uv(p)))); });
-    const todos = lineas.filter(l => l.tipo !== 'eje').flatMap(l => [l.p, l.q]);
-    const caja = { x0: Math.min(...todos.map(p => p[0])), x1: Math.max(...todos.map(p => p[0])), y0: Math.min(...todos.map(p => p[1])), y1: Math.max(...todos.map(p => p[1])) };
-    M.vistas[k] = { lineas, circ, pols, caja, material: p => pols.some(P => dentroPoligono(p, P)) };
-  }
-  // carriles: la L (alzado izq → Z, planta izq → X, planta abajo → Y) y los que añada la pieza
-  const lista = cfg.carriles || [['alzado', 'izq'], ['planta', 'izq'], ['planta', 'abajo']];
-  lista.forEach(([vista, lado]) => M.carriles.push(carrilPieza(M, vista, lado)));
-  M.carriles.forEach(c => c.ticks.forEach(t => { t.cruza = !t.centro && cruzaMaterial(t.origen, t.hasta, M.vistas[c.vista].material); }));
-  return M;
-}
-function carrilPieza(M, vista, lado) {
-  const pz = M.pz, g = M.g, V = M.vistas[vista], eje = ejeCarril(vista, lado), hz = horizontalLado(lado), i = hz ? 0 : 1, j = 1 - i, d = DIR_LADO[lado];
-  const c = V.caja, base = lado === 'abajo' ? c.y0 : lado === 'arriba' ? c.y1 : lado === 'izq' ? c.x0 : c.x1;
-  // valor del eje para una coordenada de la hoja
-  const W = pz.dims[0] * ESC_PIEZA;
-  const valDe = s => R3(eje === 'x' ? s + W + g : eje === 'y' ? (vista === 'planta' ? -s - g : s - g) : s - g);
-  const mapa = new Map();
-  const nota = (p, oculto, centro, dirExt) => {
-    const v = valDe(p[i]); if (!M.valor.hasOwnProperty(eje + ':' + v)) return;
-    const s = p[j] * (d[j] || 0);
-    const o = mapa.get(v);
-    if (!o || (o.oculto && !oculto) || (o.oculto === oculto && s > o.s)) mapa.set(v, { v, pos: p[i], origen: p.slice(), s, oculto, centro, hueco: centro ? 0 : CRIT.hueco });
-  };
-  V.lineas.forEach(l => {
-    if (l.tipo === 'eje') {
-      // la línea de eje perpendicular al carril marca la posición del centro
-      if (Math.abs(l.p[i] - l.q[i]) < 1e-6) { const ext = (l.p[j] * (d[j] || 0) > l.q[j] * (d[j] || 0)) ? l.p : l.q; nota(ext, false, true); }
-      return;
-    }
-    [l.p, l.q].forEach(p => nota(p, l.tipo === 'ocu', false));
-  });
-  const ticks = [...mapa.values()].sort((a, b) => a.v - b.v);
-  ticks.forEach(t => { t.hasta = hz ? [t.pos, base + d[1] * CRIT.dist] : [base + d[0] * CRIT.dist, t.pos]; });
-  return { id: vista + '-' + lado, vista, lado, eje, hz, base, ticks };
-}
-function pieza2(M, val) {
-  // vistas con las posiciones movidas (segunda pieza posible)
-  const pz = M.pz, g = M.g, out = {};
-  const mueve = (k, [u, v]) => {
-    let x, y, z;
-    if (k === 'alzado') { x = R3(u * ESC_PIEZA); z = R3(v * ESC_PIEZA); return aHojaV(pz, g, k, [(val['x:' + x] ?? x) / ESC_PIEZA, (val['z:' + z] ?? z) / ESC_PIEZA]); }
-    if (k === 'planta') { x = R3(u * ESC_PIEZA); y = R3(-v * ESC_PIEZA); return aHojaV(pz, g, k, [(val['x:' + x] ?? x) / ESC_PIEZA, -(val['y:' + y] ?? y) / ESC_PIEZA]); }
-    y = R3(u * ESC_PIEZA); z = R3(v * ESC_PIEZA); return aHojaV(pz, g, k, [(val['y:' + y] ?? y) / ESC_PIEZA, (val['z:' + z] ?? z) / ESC_PIEZA]);
-  };
-  for (const k of ['alzado', 'planta', 'perfil']) {
-    const V = M.vistas[k];
-    out[k] = {
-      lineas: V.lineas.map(l => {
-        if (l.tipo !== 'eje') return { tipo: l.tipo, p: mueve(k, l.uv[0]), q: mueve(k, l.uv[1]) };
-        // el eje se desplaza con el centro del taladro
-        const t = pz.taladro, cv = k === 'planta' ? [t.cx, -t.cy] : k === 'alzado' ? [t.cx, 0] : [t.cy, 0];
-        const c0 = aHojaV(pz, g, k, cv), c1 = mueve(k, cv), dx = c1[0] - c0[0], dy = k === 'planta' ? c1[1] - c0[1] : 0;
-        const f = p => [p[0] + dx, p[1] + dy];
-        return { tipo: 'eje', p: f(l.p), q: f(l.q) };
-      }),
-      circ: V.circ.map(c => { const c1 = mueve(k, c.uv); return { c: c1, r: val.r0 ?? c.r }; })
-    };
-  }
-  // las generatrices ocultas del taladro cambian con el radio
-  if (pz.taladro && val.r0 != null) {
-    const t = pz.taladro, dr = val.r0 - M.valor.r0;
-    for (const k of ['alzado', 'perfil']) out[k].lineas.forEach((l, n) => {
-      const o = M.vistas[k].lineas[n]; if (o.tipo !== 'ocu') return;
-      const cu = (k === 'alzado' ? t.cx : t.cy);
-      const s = Math.sign(o.uv[0][0] - cu); if (!s || Math.abs(o.uv[0][0] - o.uv[1][0]) > 1e-9 || Math.abs(Math.abs(o.uv[0][0] - cu) - t.r) > 1e-9) return;
-      l.p = [l.p[0] + s * dr, l.p[1]]; l.q = [l.q[0] + s * dr, l.q[1]];
-    });
-  }
-  return out;
-}
-
-/* =====================================================================
-   ANÁLISIS DE UNA ACOTACIÓN
-   cota: {id, tipo:'L', carril, a, b}  (a, b: valores del eje en mm)  ·  {id, tipo:'T', tam}
-   ===================================================================== */
-function valorCota(M, c) {
-  const f = M.fReal || 1;
-  if (c.tipo === 'T') { const t = M.tamanos.find(x => x.id === c.tam); return R3((t.tipo === 'D' ? 2 * M.valor[t.r] : M.valor[t.r]) * f); }
-  return R3(Math.abs(c.b - c.a) * f);
-}
-function textoCota(M, c) {
-  const v = +valorCota(M, c).toFixed(1);
-  if (c.tipo === 'T') return (M.tamanos.find(x => x.id === c.tam).tipo === 'D' ? 'Ø' : 'R') + v;
-  return String(v);
-}
-function filaCota(M, c) {
-  if (c.tipo === 'T') { const t = M.tamanos.find(x => x.id === c.tam); return { c: { [t.r]: t.tipo === 'D' ? 2 : 1 } }; }
-  const car = M.carriles.find(x => x.id === c.carril), e = car.eje;
-  const lo = Math.min(c.a, c.b), hi = Math.max(c.a, c.b);
-  return { c: { [e + ':' + K6(hi)]: 1, [e + ':' + K6(lo)]: -1 } };
-}
-function analizar(M, cotas) {
-  const filas = [];
-  M.ref.forEach(r => filas.push({ c: { [r]: 1 }, tipo: 'ref' }));
-  M.est.forEach(e => filas.push({ c: e.c, tipo: 'est', por: e.por }));
-  const n0 = filas.length;
-  cotas.forEach(c => filas.push(Object.assign(filaCota(M, c), { tipo: 'cota', cota: c })));
-  const S = analizarSistema(M.incog, filas);
-  const redundantes = S.dep.filter(d => d.fila >= n0).map(d => {
-    const c = filas[d.fila].cota;
-    const partes = d.de.filter(x => filas[x.fila].tipo === 'cota').map(x => ({ cota: filas[x.fila].cota, coef: x.coef }));
-    const pors = [...new Set(d.de.filter(x => filas[x.fila].tipo === 'est').map(x => filas[x.fila].por))];
-    return { cota: c, partes, pors };
-  });
-  const ocultas = [], cruces = [];
-  cotas.forEach(c => {
-    if (c.tipo !== 'L') return;
-    const car = M.carriles.find(x => x.id === c.carril);
-    const ts = [c.a, c.b].map(v => car.ticks.find(t => Math.abs(t.v - v) < 1e-6));
-    if (ts.some(t => t && t.oculto)) ocultas.push(c);
-    if (ts.some(t => t && t.cruza)) {
-      const alt = M.carriles.find(o => o !== car && o.eje === car.eje && [c.a, c.b].every(v => { const t = o.ticks.find(x => Math.abs(x.v - v) < 1e-6); return t && !t.oculto && !t.cruza; }));
-      if (alt) cruces.push({ cota: c, mejor: alt });
-    }
-  });
-  const libre = S.libres[0] || null;
-  const res = { completa: !S.libres.length, nLibres: S.libres.length, redundantes, ocultas, cruces, libre, libres: S.libres };
-  res.ok = res.completa && !redundantes.length && !ocultas.length;
-  if (libre) res.alt = geometriaAlternativa(M, libre);
-  return res;
-}
-function ordenValido(M, val) {
-  for (const a of ['x', 'y', 'z']) {
-    const ks = M.incog.filter(u => u.startsWith(a + ':')).sort((p, q) => M.valor[p] - M.valor[q]);
-    for (let i = 1; i < ks.length; i++) if (val[ks[i]] - val[ks[i - 1]] < 2.5) return false;
-  }
-  for (const t of M.tamanos) if (val[t.r] < 2.5) return false;
-  if (M.tipo === 'plana') {
-    for (const t of M.tamanos) if (t.tipo === 'D') {         // el taladro sigue dentro de la figura
-      const X = val['x:' + K6(t.c[0])], Y = val['y:' + K6(t.c[1])], r = val[t.r];
-      const P = plana2(M, val).poli;
-      for (let k = 0; k < 16; k++) { const a = k / 16 * 2 * Math.PI; if (!dentroPoligono([X + (r + 1.5) * Math.cos(a), Y + (r + 1.5) * Math.sin(a)], P)) return false; }
-    }
-  }
-  if (M.tipo === 'pieza' && M.pz.taladro) {
-    const X = val['x:' + R3(M.pz.taladro.cx * ESC_PIEZA)], Y = val['y:' + R3(M.pz.taladro.cy * ESC_PIEZA)], r = val.r0;
-    const xs = M.incog.filter(u => u.startsWith('x:')).map(u => val[u]), ys = M.incog.filter(u => u.startsWith('y:')).map(u => val[u]);
-    if (X - r < Math.min(...xs) + 2 || X + r > Math.max(...xs) - 2 || Y - r < Math.min(...ys) + 2 || Y + r > Math.max(...ys) - 2) return false;
-  }
-  return true;
-}
-function geometriaAlternativa(M, v) {
-  const m = Math.max(...Object.values(v).map(Math.abs));
-  for (const t of [10, -10, 8, -8, 12, -12, 6, -6, 15, -15, 5, -5, 4, -4]) {
-    const val = Object.assign({}, M.valor);
-    for (const k in v) val[k] = M.valor[k] + v[k] / m * t;
-    if (ordenValido(M, val)) return { val, t };
-  }
-  return null;
-}
-/* ---------- explicaciones ---------- */
-function nombreCota(M, c) { return textoCota(M, c); }
-function textoRedundante(M, r) {
-  const f = x => { const a = Math.abs(x); return Math.abs(a - 1) < 1e-9 ? '' : Math.abs(a - 0.5) < 1e-9 ? 'la mitad de ' : (Math.abs(a - Math.round(a)) < 1e-9 ? Math.round(a) : +a.toFixed(2)) + ' × '; };
-  let s = '';
-  r.partes.slice().sort((a, b) => b.coef - a.coef).forEach((p, i) => { const sg = p.coef < 0 ? '−' : '+'; s += (i === 0 ? (sg === '−' ? '−' : '') : ' ' + sg + ' ') + f(p.coef) + nombreCota(M, p.cota); });
-  const por = r.pors.length ? ` (${r.pors.includes('tangencia') ? 'el arco es tangente a las rectas' : 'la figura es simétrica respecto al eje'})` : '';
-  if (!r.partes.length) return `La cota ${nombreCota(M, r.cota)} ya queda fijada por la propia figura${por}.`;
-  if (r.partes.length === 1 && Math.abs(Math.abs(r.partes[0].coef) - 1) < 1e-9 && !r.pors.length) {
-    const otra = r.partes[0].cota, donde = M.tipo === 'pieza' && otra.carril ? ` (ya está en ${otra.carril.startsWith('alzado') ? 'el alzado' : otra.carril.startsWith('planta') ? 'la planta' : 'el perfil'})` : '';
-    return `La cota ${nombreCota(M, r.cota)} repite una medida que ya está acotada${donde}: cada medida se pone una sola vez.`;
-  }
-  return `La cota ${nombreCota(M, r.cota)} se deduce de las demás: ${valorCota(M, r.cota)} = ${s}${por}.`;
-}
-function textoLibre(M, v) {
-  const tams = Object.keys(v).filter(k => /^r\d/.test(k));
-  if (tams.length && Object.keys(v).every(k => /^r\d/.test(k))) {
-    const t = M.tamanos.find(x => x.r === tams[0]);
-    return t.tipo === 'D' ? 'Falta el tamaño de la circunferencia: su diámetro (Ø).' : 'Falta el tamaño del arco: su radio (R).';
-  }
-  const ejes = [...new Set(Object.keys(v).filter(k => k.includes(':')).map(k => k[0]))];
-  if (M.tipo === 'plana') return 'Falta fijar una medida en ' + ejes.map(e => e === 'x' ? 'horizontal' : 'vertical').join(' y en ') + ': la parte marcada se puede mover sin que cambie ninguna cota.';
-  return 'Falta una cota en el eje ' + ejes.map(e => `${EJE_ALUMNO[e]} (${NOMBRE_DIR[e]})`).join(' y en el ') + ': la parte marcada se puede mover sin que cambie ninguna cota.';
-}
-/* posiciones que se mueven en la segunda figura (para marcarlas) */
-function posicionesLibres(M, alt) {
-  const s = []; if (!alt) return s;
-  for (const k of M.incog) if (Math.abs(alt.val[k] - M.valor[k]) > 1e-6) s.push(k);
-  return s;
-}
-/* ---------- colocación de las cotas en filas (serie alineada; en paralelo, la menor más cerca) ---------- */
-function colocar(M, cotas) {
-  const filas = {};
-  M.carriles.forEach(car => {
-    const cs = cotas.filter(c => c.tipo === 'L' && c.carril === car.id).map(c => {
-      const ta = car.ticks.find(t => Math.abs(t.v - c.a) < 1e-6), tb = car.ticks.find(t => Math.abs(t.v - c.b) < 1e-6);
-      return { c, ta, tb, lo: Math.min(ta.pos, tb.pos), hi: Math.max(ta.pos, tb.pos) };
-    }).sort((p, q) => (p.c.fila != null ? -1 : 0) - (q.c.fila != null ? -1 : 0) || (p.hi - p.lo) - (q.hi - q.lo) || p.lo - q.lo);
-    const ocup = [], d = DIR_LADO[car.lado], sg = car.hz ? d[1] : d[0];
-    cs.forEach(o => {
-      let k = o.c.fila != null ? o.c.fila : 0;                 // fila forzada (ejercicios de revisión)
-      if (o.c.fila == null) while (ocup[k] && ocup[k].some(([a, b]) => o.lo < b - 1e-6 && o.hi > a + 1e-6)) k++;
-      (ocup[k] = ocup[k] || []).push([o.lo, o.hi]);
-      o.fila = car.base + sg * (o.c.dist != null ? o.c.dist : CRIT.dist + CRIT.sep * k);
-      filas[o.c.id] = o;
-    });
-  });
-  return filas;
-}
-
-
-/* =====================================================================
-   DATOS (medidas en mm; contornos en sentido antihorario, y hacia arriba)
-   ===================================================================== */
-const FIG = {
-  rect: { id: 'rect', nombre: 'Rectángulo', contorno: [[0, 0], [60, 0], [60, 30], [0, 30]] },
-  L: { id: 'L', nombre: 'Figura en L', contorno: [[0, 0], [40, 0], [40, 20], [15, 20], [15, 35], [0, 35]] },
-  T: { id: 'T', nombre: 'Figura en T', contorno: [[0, 0], [60, 0], [60, 15], [40, 15], [40, 40], [20, 40], [20, 15], [0, 15]] },
-  escalera: { id: 'escalera', nombre: 'Escalera', contorno: [[0, 0], [60, 0], [60, 45], [40, 45], [40, 30], [20, 30], [20, 15], [0, 15]] },
-  ranura: { id: 'ranura', nombre: 'Ranura', contorno: [[0, 0], [60, 0], [60, 35], [45, 35], [45, 15], [20, 15], [20, 35], [0, 35]] },
-  cruz: { id: 'cruz', nombre: 'Cruz', contorno: [[15, 0], [35, 0], [35, 15], [50, 15], [50, 35], [35, 35], [35, 50], [15, 50], [15, 35], [0, 35], [0, 15], [15, 15]] },
-  trapecio: { id: 'trapecio', nombre: 'Trapecio', contorno: [[0, 0], [30, 0], [30, 25], [12, 25]] },
-  chaflanes: { id: 'chaflanes', nombre: 'Chaflanes', contorno: [[0, 0], [40, 0], [40, 15], [28, 25], [12, 25], [0, 15]] },
-  paralelo: { id: 'paralelo', nombre: 'Paralelogramo', contorno: [[0, 0], [20, 0], [40, 30], [20, 30]] },
-  casa: { id: 'casa', nombre: 'Pentágono simétrico', contorno: [[0, 0], [40, 0], [40, 25], [20, 40], [0, 25]], ejes: [{ dir: 'v', en: 20 }] },
-  ranuraSim: { id: 'ranuraSim', nombre: 'Ranura centrada (con eje)', contorno: [[0, 0], [60, 0], [60, 25], [40, 25], [40, 15], [20, 15], [20, 25], [0, 25]], ejes: [{ dir: 'v', en: 30 }] },
-  ranuraSinEje: { id: 'ranuraSinEje', nombre: 'Ranura (sin eje)', contorno: [[0, 0], [60, 0], [60, 25], [40, 25], [40, 15], [20, 15], [20, 25], [0, 25]] },
-  arco: { id: 'arco', nombre: 'Arco', contorno: [[0, 0], [40, 0], [40, 25], { arco: { c: [20, 25], r: 20, a0: 0, a1: 180 } }] },
-  placa: { id: 'placa', nombre: 'Placa con taladro', contorno: [[0, 0], [60, 0], [60, 40], [0, 40]], agujeros: [{ c: [20, 20], r: 8 }] },
-  pletina: { id: 'pletina', nombre: 'Pletina redondeada', contorno: [[0, 0], [50, 0], { arco: { c: [50, 15], r: 15, a0: -90, a1: 90 } }, [0, 30]], agujeros: [{ c: [50, 15], r: 6 }] },
-  horquilla: { id: 'horquilla', nombre: 'Horquilla recta', contorno: [[0, 0], [50, 0], [50, 30], [40, 30], [40, 10], [10, 10], [10, 40], [0, 40]] },
-  pedestal: { id: 'pedestal', nombre: 'Pedestal', contorno: [[0, 0], [70, 0], [70, 15], [55, 15], [55, 30], [15, 30], [15, 15], [0, 15]] },
-  colaMilano: { id: 'colaMilano', nombre: 'Cola de milano (con eje)', contorno: [[0, 0], [60, 0], [60, 30], [45, 30], [40, 20], [20, 20], [15, 30], [0, 30]], ejes: [{ dir: 'v', en: 30 }] },
-  flecha: { id: 'flecha', nombre: 'Flecha (con eje)', contorno: [[0, 10], [30, 10], [30, 0], [50, 20], [30, 40], [30, 30], [0, 30]], ejes: [{ dir: 'h', en: 20 }] },
-  placa2: { id: 'placa2', nombre: 'Placa con dos taladros', contorno: [[0, 0], [70, 0], [70, 30], [0, 30]], agujeros: [{ c: [15, 15], r: 5 }, { c: [55, 15], r: 5 }] },
-  escuadra: { id: 'escuadra', nombre: 'Escuadra con taladros', contorno: [[0, 0], [50, 0], [50, 16], [16, 16], [16, 50], [0, 50]], agujeros: [{ c: [8, 40], r: 4 }, { c: [40, 8], r: 4 }] },
-  soporte: { id: 'soporte', nombre: 'Soporte redondeado', contorno: [[0, 0], [60, 0], [60, 20], { arco: { c: [45, 20], r: 15, a0: 0, a1: 90 } }, [0, 35]], agujeros: [{ c: [45, 20], r: 6 }] },
-  entrante: { id: 'entrante', nombre: 'Entrante semicircular', contorno: [[0, 0], [60, 0], [60, 40], [0, 40], [0, 32], { arco: { c: [0, 20], r: 12, a0: 90, a1: -90 } }] }
-};
-/* pestaña «Figuras planas», por niveles (siempre disponibles, sin curso asociado) */
-const NIVELES_PLANAS = [
-  { n: 1, titulo: 'Nivel 1 · Contornos rectos', ids: ['rect', 'L', 'T', 'escalera', 'ranura', 'cruz', 'horquilla', 'pedestal'],
-    intro: 'Figuras con lados horizontales y verticales. En cada dirección hacen falta tantas cotas como posiciones distintas menos una.' },
-  { n: 2, titulo: 'Nivel 2 · Inclinadas y simetría', ids: ['trapecio', 'chaflanes', 'paralelo', 'casa', 'ranuraSim', 'colaMilano', 'flecha'],
-    intro: 'Una arista inclinada se define por las posiciones de sus dos extremos. Si hay un eje de simetría dibujado, lo que está centrado no necesita cota de posición.' },
-  { n: 3, titulo: 'Nivel 3 · Arcos y taladros', ids: ['arco', 'placa', 'pletina', 'entrante', 'placa2', 'escuadra', 'soporte'],
-    intro: 'Una circunferencia necesita su diámetro (Ø) y la posición de su centro. Un arco tangente a las rectas fija él solo varias posiciones: fíjate en qué cotas se vuelven innecesarias.' }
-];
-
-/* piezas en tres vistas */
-const PZ_EXTRA = {
-  trasera: { id: 'T1', nombre: 'Rebaje trasero', dims: [4, 3, 3], caras: () => G.prisma([[0, 1], [1, 1], [1, 0], [3, 0], [3, 3], [0, 3]], 'x', 0, 4) },
-  escalonDer: { id: 'T2', nombre: 'Escalón a la derecha', dims: [4, 2, 3], caras: () => G.prisma([[0, 0], [4, 0], [4, 1], [2, 1], [2, 3], [0, 3]], 'y', 0, 2) }
-};
-const L_BASE = [['alzado', 'izq'], ['planta', 'izq'], ['planta', 'abajo']];
-const NIVELES_PIEZAS = [
-  { n: 1, titulo: 'Nivel 1 · Piezas rectas', intro: 'Piezas de caras rectas. En cada eje hacen falta tantas cotas como posiciones distintas tenga la pieza en ese eje, menos una.',
-    piezas: [{ pieza: () => G.PIEZAS[0] }, { pieza: () => G.PIEZAS[2] }, { pieza: () => G.PIEZAS[1] }] },
-  { n: 2, titulo: 'Nivel 2 · Inclinadas, taladro y detalles interiores', intro: 'Las caras inclinadas se acotan por las posiciones de sus aristas. El taladro lleva su diámetro (Ø) en la planta y su centro se sitúa desde la L. Si una posición queda en el interior de la vista, la auxiliar atraviesa un trozo del dibujo: en piezas sencillas se admite.',
-    piezas: [{ pieza: () => G.PIEZAS[3], nota: 'La ranura queda en el centro: sus posiciones se acotan desde la L aunque la línea auxiliar tenga que atravesar un trozo de la vista. En piezas sencillas como esta se admite.' }, { pieza: () => G.PIEZAS[4] }, { pieza: () => G.PIEZAS[5] }, { pieza: () => G.PIEZAS[6] }, { pieza: () => G.PIEZAS[7] }] },
-  { n: 3, titulo: 'Nivel 3 · Cuando la L no basta', intro: 'Aparecen las excepciones: posiciones que en la vista de la L solo se ven como línea oculta y detalles al otro lado de la vista. En esas piezas hay carriles de cota añadidos.',
-    piezas: [
-      { pieza: () => PZ_EXTRA.trasera, carriles: [...L_BASE, ['perfil', 'izq'], ['perfil', 'abajo']], g: 25,
-        nota: 'El rebaje de abajo atrás solo se ve de verdad en el perfil: en el alzado y en la planta es una línea oculta, y sobre las ocultas no se acota. Por eso aquí el perfil tiene dos carriles de cota.' },
-      { pieza: () => PZ_EXTRA.escalonDer, carriles: [...L_BASE, ['alzado', 'der']], g: 25,
-        nota: 'El escalón está a la derecha del alzado. Acotarlo desde la izquierda obliga a que la línea auxiliar cruce toda la vista; por eso esta pieza tiene también un carril a la derecha del alzado.' },
-      { pieza: () => G.RETO_A, carriles: [...L_BASE, ['alzado', 'der'], ['planta', 'der']], g: 25,
-        nota: 'Pieza completa: cara inclinada, ranura y escalón. Usa la L y, cuando la auxiliar tuviera que cruzar la vista, el carril de la derecha.' }
-    ] }
-];
-
-const NOMBRE_CARRIL_EXTRA = { 'perfil-izq': 'a la izquierda del perfil', 'perfil-abajo': 'debajo del perfil', 'perfil-der': 'a la derecha del perfil', 'perfil-arriba': 'encima del perfil', 'alzado-der': 'a la derecha del alzado', 'planta-der': 'a la derecha de la planta', 'alzado-arriba': 'encima del alzado' };
-CLASIF_PIEZAS.forEach(c => {
-  const pz = CATALOGO.find(p => p.id === c.id); if (!pz) return;
-  const it = { pieza: () => pz };
-  if (c.carriles) {
-    it.carriles = c.carriles; it.g = c.g;
-    const lugares = c.extra.map(e => NOMBRE_CARRIL_EXTRA[e]);
-    it.nota = `Alguna posición de esta pieza solo se ve como línea oculta en las vistas de la L, y sobre las ocultas no se acota. Por eso tiene un carril añadido ${lugares.length > 1 ? lugares.slice(0, -1).join(', ') + ' y ' + lugares[lugares.length - 1] : lugares[0]}: acota esas posiciones donde se ven.`;
-  }
-  NIVELES_PIEZAS[c.nivel - 1].piezas.push(it);
-});
-/* «¿Está completamente definida?» (la respuesta la calcula el simulador) */
-const CASOS = [
-  { id: 'c1', fig: 'rect', cotas: [['abajo', 0, 60]], txt: 'Un rectángulo con una sola cota.' },
-  { id: 'c2', fig: 'L', cotas: [['abajo', 0, 40], ['izq', 0, 35], ['arriba', 0, 15], ['der', 0, 20]], txt: 'La figura en L con cuatro cotas.' },
-  { id: 'c3', fig: 'L', cotas: [['abajo', 0, 40], ['arriba', 0, 15], ['arriba', 15, 40], ['izq', 0, 35], ['der', 0, 20]], txt: 'La misma L con una cota más.' },
-  { id: 'c4', fig: 'ranuraSinEje', cotas: [['abajo', 0, 60], ['izq', 0, 25], ['arriba', 20, 40], ['der', 15, 25]], txt: 'Una ranura de la que se dan su anchura y su profundidad.' },
-  { id: 'c5', fig: 'ranuraSim', cotas: [['abajo', 0, 60], ['izq', 0, 25], ['arriba', 20, 40], ['der', 15, 25]], txt: 'Las mismas cotas, pero ahora con el eje de simetría dibujado.' },
-  { id: 'c6', fig: 'paralelo', cotas: [['arriba', 0, 20], ['arriba', 20, 40], ['abajo', 0, 20], ['izq', 0, 30]], txt: 'Un paralelogramo acotado arriba y abajo.' },
-  { id: 'c7', fig: 'trapecio', cotas: [['abajo', 0, 30], ['izq', 0, 25]], txt: 'Un trapecio con su anchura y su altura.' },
-  { id: 'c8', fig: 'T', cotas: [['arriba', 0, 20], ['arriba', 20, 40], ['arriba', 40, 60], ['abajo', 0, 60], ['izq', 0, 15], ['der', 0, 40]], txt: 'Una T acotada en serie y con la anchura total.' },
-  { id: 'c9', fig: 'placa', cotas: [['abajo', 0, 60], ['izq', 0, 40], ['abajo', 0, 20], ['T', 'r0']], txt: 'Una placa con un taladro.' },
-  { id: 'c10', fig: 'arco', cotas: [['izq', 0, 25], ['T', 'r0']], txt: 'Un arco apoyado sobre un rectángulo.' },
-  { id: 'c11', fig: 'arco', cotas: [['abajo', 0, 40], ['izq', 0, 25], ['T', 'r0']], txt: 'El mismo arco con la anchura también acotada.' },
-  { id: 'c12', pieza: () => G.PIEZAS[0], carriles: [...L_BASE, ['perfil', 'der']], cotas: [['alzado-izq', 0, 10], ['alzado-izq', 0, 30], ['planta-izq', 0, 20], ['planta-abajo', 0, 40], ['planta-abajo', 20, 40], ['perfil-der', 0, 30]], txt: 'La pieza en L acotada en sus vistas.' },
-  { id: 'c13', pieza: () => G.PIEZAS[7], cotas: [['alzado-izq', 0, 20], ['planta-izq', 0, 40], ['planta-abajo', 0, 40], ['planta-abajo', 0, 20], ['planta-izq', 0, 20]], txt: 'El bloque con taladro.' },
-  { id: 'c14', fig: 'colaMilano', cotas: [['abajo', 0, 60], ['izq', 0, 30], ['arriba', 15, 45], ['der', 20, 30]], txt: 'Una cola de milano con su eje de simetría.' },
-  { id: 'c15', fig: 'soporte', cotas: [['abajo', 0, 60], ['izq', 0, 35], ['der', 0, 20], ['T', 'r0'], ['T', 'r1']], txt: 'Un soporte con el extremo redondeado y un taladro.' },
-  { id: 'c16', fig: 'flecha', cotas: [['abajo', 0, 30], ['abajo', 0, 50], ['izq', 10, 30], ['der', 0, 40]], txt: 'Una flecha con su eje de simetría.' },
-  { id: 'c17', pieza: () => CATALOGO.find(p => p.id === 's3'), cotas: [['alzado-izq', 0, 10], ['alzado-izq', 10, 20], ['alzado-izq', 20, 30], ['alzado-izq', 0, 30], ['planta-izq', 0, 10], ['planta-izq', 10, 20], ['planta-izq', 20, 30], ['planta-abajo', 0, 30]], txt: 'Una escalera acotada en sus vistas.' }
-];
-
-/* =====================================================================
-   «¿BIEN ACOTADA?»: figuras y piezas ya acotadas, con o sin errores
-   Cota: [carril, a, b, opciones] o ['T', tamaño, opciones]
-   opciones: {err: errores de dibujo, fila: fila forzada, dist: distancia forzada (mm), n: norma, txt: explicación}
-   Los errores de definición (falta, sobra, sobre oculta) los detecta el propio simulador.
-   ===================================================================== */
-const REVISION = [
-  { id: 'r1', fig: 'rect', cotas: [['abajo', 0, 60], ['izq', 0, 30]] },
-  { id: 'r2', fig: 'L', cotas: [['abajo', 0, 40], ['izq', 0, 35], ['arriba', 0, 15], ['der', 0, 20, { err: { textoHorizontal: 1 }, n: 4, txt: 'La cifra de una cota vertical va paralela a la línea de cota y se lee de abajo arriba.' }]] },
-  { id: 'r3', fig: 'T', cotas: [['abajo', 0, 60], ['izq', 0, 15], ['der', 0, 40], ['arriba', 20, 40]] },
-  { id: 'r4', fig: 'escalera', cotas: [['arriba', 0, 20], ['arriba', 20, 40, { fila: 1, n: 8, txt: 'Las cotas en serie van alineadas en una misma línea: esta está escalonada.' }], ['arriba', 40, 60], ['izq', 0, 15], ['izq', 15, 30], ['izq', 30, 45]] },
-  { id: 'r5', fig: 'ranuraSim', cotas: [['abajo', 0, 60], ['izq', 0, 25], ['arriba', 20, 40], ['der', 15, 25]] },
-  { id: 'r6', fig: 'placa', cotas: [['abajo', 0, 60], ['izq', 0, 40], ['abajo', 0, 20], ['izq', 0, 20], ['T', 'r0', { err: { simboloR: 1 }, n: 5, txt: 'Una circunferencia completa se acota con su diámetro (Ø), no con el radio.' }]] },
-  { id: 'r7', fig: 'casa', cotas: [['abajo', 0, 40], ['izq', 0, 40, { fila: 0, n: 8, txt: 'En las cotas en paralelo la menor va más cerca de la pieza: aquí la mayor está delante y las líneas se cruzan.' }], ['izq', 0, 25, { fila: 1 }]] },
-  { id: 'r8', fig: 'arco', cotas: [['izq', 0, 25], ['T', 'r0'], ['abajo', 0, 40]] },
-  { id: 'r9', fig: 'cruz', cotas: [['abajo', 0, 50, { dist: 3, n: 1, txt: 'La línea de cota está demasiado cerca del contorno: siempre a 8 mm.' }], ['arriba', 0, 15], ['arriba', 15, 35, { err: { hueco: 0 }, n: 2, txt: 'Las líneas auxiliares tocan el dibujo: tienen que empezar a 2 mm de la pieza.' }], ['izq', 0, 15], ['izq', 15, 35], ['izq', 0, 50]] },
-  { id: 'r10', fig: 'pletina', cotas: [['abajo', 0, 50], ['T', 'r0'], ['T', 'r1']] },
-  { id: 'r11', fig: 'soporte', cotas: [['abajo', 0, 60], ['izq', 0, 35], ['T', 'r0', { err: { flechaCentro: 1 }, n: 5, txt: 'En el radio, la flecha va sobre el arco, no en el centro.' }], ['T', 'r1']] },
-  { id: 'r12', fig: 'trapecio', cotas: [['abajo', 0, 30, { err: { mm: 1 }, n: 4, txt: 'No se escribe «mm» detrás de la cifra: todas las medidas van en mm.' }], ['izq', 0, 25], ['arriba', 0, 12]] },
-  { id: 'r13', pieza: () => G.PIEZAS[0], cotas: [['alzado-izq', 0, 10], ['alzado-izq', 0, 30], ['planta-izq', 0, 20], ['planta-abajo', 0, 20], ['planta-abajo', 0, 40]] },
-  { id: 'r14', pieza: () => G.PIEZAS[0], carriles: [...L_BASE, ['perfil', 'der']], cotas: [['alzado-izq', 0, 10], ['alzado-izq', 0, 30], ['planta-izq', 0, 20], ['planta-abajo', 0, 20], ['planta-abajo', 0, 40], ['perfil-der', 0, 30]] },
-  { id: 'r15', pieza: () => PZ_EXTRA.trasera, carriles: [...L_BASE, ['perfil', 'izq'], ['perfil', 'abajo']], g: 25, cotas: [['alzado-izq', 0, 10], ['alzado-izq', 0, 30], ['planta-izq', 0, 30], ['perfil-abajo', 0, 10], ['planta-abajo', 0, 40]] },
-  { id: 'r16', pieza: () => G.PIEZAS[7], cotas: [['alzado-izq', 0, 20], ['planta-izq', 0, 40], ['planta-izq', 0, 20], ['planta-abajo', 0, 40], ['planta-abajo', 0, 20], ['T', 'r0', { err: { horizontal: 1 }, n: 4, txt: 'La cifra del diámetro va paralela a su línea de cota.' }]] },
-  { id: 'r17', pieza: () => G.PIEZAS[1], cotas: [['alzado-izq', 0, 10], ['alzado-izq', 0, 20], ['alzado-izq', 0, 30], ['planta-izq', 0, 10], ['planta-izq', 0, 30], ['planta-abajo', 0, 10], ['planta-abajo', 0, 20], ['planta-abajo', 0, 30]] },
-  { id: 'r18', pieza: () => CATALOGO.find(p => p.id === 's2'), cotas: [['alzado-izq', 0, 10], ['alzado-izq', 0, 20], ['alzado-izq', 0, 30], ['planta-izq', 0, 10], ['planta-izq', 0, 30], ['planta-abajo', 0, 20], ['planta-abajo', 0, 30]] },
-  { id: 'r19', pieza: () => G.PIEZAS[4], cotas: [['alzado-izq', 0, 10], ['alzado-izq', 0, 30], ['planta-izq', 0, 10], ['planta-izq', 0, 30], ['planta-abajo', 0, 30, { err: { textoDebajo: 1 }, n: 4, txt: 'La cifra va encima de la línea de cota, no debajo.' }]] }
-];
-
-/* la revisión incluye los casos de «¿está definida?»: figuras planas primero, después piezas */
-const REVISION_TODO = [
-  ...CASOS.filter(c => c.fig).map(c => ({ ...c })), ...REVISION.filter(r => r.fig),
-  ...CASOS.filter(c => c.pieza).map(c => ({ ...c })), ...REVISION.filter(r => r.pieza)
-];
-
-/* =====================================================================
-   DIBUJO (SVG, en mm). El modelo tiene y hacia arriba; en SVG se invierte.
+   HOJA 2D · disposición europea sobre cuadrícula
+   Origen O en el cruce de los ejes. Unidades: cuadros. En SVG, y hacia abajo.
    ===================================================================== */
 const NS = 'http://www.w3.org/2000/svg';
 function sv(tag, at, par) { const e = document.createElementNS(NS, tag); for (const k in at) if (at[k] != null) e.setAttribute(k, at[k]); if (par) par.appendChild(e); return e; }
 function svT(txt, at, par) { const t = sv('text', at, par); t.textContent = txt; return t; }
-function linea(g, a, b, cls) { return sv('line', { x1: a[0], y1: -a[1], x2: b[0], y2: -b[1], class: cls }, g); }
-function flecha(g, tip, dir, cls) {
-  const L = CRIT.flL, A = CRIT.flA, n = [-dir[1], dir[0]], b = [tip[0] - dir[0] * L, tip[1] - dir[1] * L];
-  return sv('path', { d: `M${tip[0]} ${-tip[1]}L${b[0] + n[0] * A} ${-(b[1] + n[1] * A)}L${b[0] - n[0] * A} ${-(b[1] - n[1] * A)}Z`, class: 'c-fl ' + (cls || '') }, g);
-}
-function texto(g, txt, p, ang, cls) {
-  return svT(txt, { x: p[0], y: -p[1], class: 'c-tx ' + (cls || ''), 'text-anchor': 'middle', transform: ang ? `rotate(${-ang} ${p[0]} ${-p[1]})` : null }, g);
-}
-const anchoTexto = t => t.length * CRIT.tx * 0.6;
 
-/* ---------- cota lineal ----------
-   o: {a, b: puntos de arranque (modelo), hz, fila, texto, huecoA, huecoB, err, cls} */
-function cotaLineal(g, o) {
-  const e = o.err || {}, hz = o.hz, j = hz ? 1 : 0, i = 1 - j;
-  const G0 = sv('g', { class: 'cota ' + (o.cls || '') }, g);
-  const pa = o.a[i], pb = o.b[i], f = o.fila;
-  const P = v => hz ? [v, f] : [f, v];
-  // líneas auxiliares
-  [[o.a, o.huecoA ?? CRIT.hueco], [o.b, o.huecoB ?? CRIT.hueco]].forEach(([p, hu]) => {
-    const d = f - p[j]; if (Math.abs(d) < 0.05) return;
-    const s = Math.sign(d);
-    let ini = p[j] + s * (e.hueco ?? hu), fin = f + s * (e.sinExceso ? 0 : e.cortas ? -3 : e.excesoLargo ? 8 : CRIT.exceso);
-    if ((fin - ini) * s <= 0) return;
-    linea(G0, hz ? [p[0], ini] : [ini, p[1]], hz ? [p[0], fin] : [fin, p[1]], 'c-aux');
-  });
-  // línea de cota y flechas
-  const L = Math.abs(pb - pa), lo = Math.min(pa, pb), hi = Math.max(pa, pb);
-  const fuera = e.flechasFuera || (L < 2 * CRIT.flL + 2 && !e.flechasDentro);
-  const txt = o.texto + (e.mm ? ' mm' : '');
-  let tp = (lo + hi) / 2;
-  if (e.textoDescentrado) tp = lo + Math.max(CRIT.flL + anchoTexto(txt) / 2 + 1, L * 0.2);
-  const hueco = e.textoCortando ? anchoTexto(txt) / 2 + 1 : 0;
-  const ext = fuera ? CRIT.flL + 3 : 0;
-  if (hueco) { linea(G0, P(lo - ext), P(tp - hueco), 'c-lin'); linea(G0, P(tp + hueco), P(hi + ext), 'c-lin'); }
-  else linea(G0, P(lo - ext), P(hi + ext), 'c-lin');
-  if (!e.sinFlechas) {
-    const u = hz ? [1, 0] : [0, 1], k = e.flechasNoLlegan ? 2.2 : 0;
-    if (!fuera) { flecha(G0, P(lo + k), [-u[0], -u[1]]); flecha(G0, P(hi - k), u); }
-    else { flecha(G0, P(lo), u); flecha(G0, P(hi), [-u[0], -u[1]]); }
-  }
-  // cifra: encima de la línea, centrada y paralela; en las verticales se lee de abajo arriba
-  if (hz) {
-    let y = f + CRIT.txSep;
-    if (e.textoDebajo) y = f - CRIT.txSep - CRIT.tx * 0.75;
-    if (e.textoCortando) y = f - CRIT.tx * 0.36;
-    texto(G0, txt, [tp, y], 0);
-  } else {
-    if (e.textoHorizontal) { const t = texto(G0, txt, [f - CRIT.txSep - anchoTexto(txt) / 2, tp - CRIT.tx * 0.36], 0); }
-    else if (e.textoInvertido) texto(G0, txt, [f - CRIT.txSep - CRIT.tx * 0.75, tp], -90);
-    else if (e.textoOtroLado) texto(G0, txt, [f + CRIT.txSep + CRIT.tx * 0.75, tp], 90);
-    else if (e.textoCortando) texto(G0, txt, [f + CRIT.tx * 0.36, tp], 90);
-    else texto(G0, txt, [f - CRIT.txSep, tp], 90);
-  }
-  return G0;
-}
-/* ---------- diámetro y radio ---------- */
-function cotaDiametro(g, o) {
-  const e = o.err || {}, G0 = sv('g', { class: 'cota ' + (o.cls || '') }, g);
-  const ang = e.sobreEje ? 0 : (o.ang ?? 45), a = ang * Math.PI / 180, u = [Math.cos(a), Math.sin(a)], c = o.c, r = o.r;
-  const txt = e.simboloR ? 'R' + (o.valor / 2) : e.sinSimbolo ? String(o.valor) : 'Ø' + o.valor;
-  const P1 = [c[0] - r * u[0], c[1] - r * u[1]], P2 = [c[0] + r * u[0], c[1] + r * u[1]];
-  const W = anchoTexto(txt), E = [P2[0] + u[0] * (W + 4), P2[1] + u[1] * (W + 4)];
-  linea(G0, P1, E, 'c-lin');
-  flecha(G0, P1, [-u[0], -u[1]]); if (!e.simboloR) flecha(G0, P2, u);
-  const n = [-u[1], u[0]], m = [P2[0] + u[0] * (W / 2 + 2.5) + n[0] * CRIT.txSep, P2[1] + u[1] * (W / 2 + 2.5) + n[1] * CRIT.txSep];
-  let angT = ang; if (angT > 90) angT -= 180; if (angT < -90) angT += 180;
-  texto(G0, txt, e.horizontal ? [m[0] + 2, m[1] + 1] : m, e.horizontal ? 0 : angT);
-  return G0;
-}
-function cotaRadio(g, o) {
-  const e = o.err || {}, G0 = sv('g', { class: 'cota ' + (o.cls || '') }, g);
-  const a = (o.ang ?? 45) * Math.PI / 180, u = [Math.cos(a), Math.sin(a)], n = [-u[1], u[0]];
-  let c = o.c.slice(); if (e.noCentro) c = [c[0] + n[0] * 5, c[1] + n[1] * 5];
-  const P = [o.c[0] + o.r * u[0], o.c[1] + o.r * u[1]], txt = e.simboloD ? 'Ø' + o.valor * 2 : 'R' + o.valor;
-  linea(G0, c, P, 'c-lin');
-  if (e.flechaCentro) flecha(G0, c, [-u[0], -u[1]]); else flecha(G0, P, u);
-  const W = anchoTexto(txt), dentro = !o.fuera && o.r > W + CRIT.flL + 4;
-  let angT = o.ang ?? 45; if (angT > 90) angT -= 180; if (angT <= -90) angT += 180;
-  const m = dentro ? [c[0] + (P[0] - c[0]) * 0.45, c[1] + (P[1] - c[1]) * 0.45] : [P[0] + u[0] * (W / 2 + 2), P[1] + u[1] * (W / 2 + 2)];
-  const nn = Math.cos(angT * Math.PI / 180) * u[0] + Math.sin(angT * Math.PI / 180) * u[1] >= 0 ? n : [-n[0], -n[1]];
-  if (!dentro) linea(G0, P, [P[0] + u[0] * (W + 3), P[1] + u[1] * (W + 3)], 'c-lin');
-  texto(G0, txt, [m[0] + nn[0] * CRIT.txSep, m[1] + nn[1] * CRIT.txSep], angT);
-  return G0;
-}
-/* ---------- figura plana y vistas ---------- */
-function pintarPlana(g, F, M, cls) {
-  const d = 'M' + F.poli.map(p => p[0] + ' ' + (-p[1])).join('L') + 'Z' + F.agujeros.map(h => `M${h.c[0] + h.r} ${-h.c[1]}A${h.r} ${h.r} 0 1 0 ${h.c[0] - h.r} ${-h.c[1]}A${h.r} ${h.r} 0 1 0 ${h.c[0] + h.r} ${-h.c[1]}Z`).join('');
-  sv('path', { d, class: cls || 'f-pieza', 'fill-rule': 'evenodd' }, g);
-  if (cls) return;
-  F.agujeros.forEach(h => { linea(g, [h.c[0] - h.r - 3, h.c[1]], [h.c[0] + h.r + 3, h.c[1]], 'f-eje'); linea(g, [h.c[0], h.c[1] - h.r - 3], [h.c[0], h.c[1] + h.r + 3], 'f-eje'); });
-  (M.arcos || []).forEach(a => { if (F.agujeros.some(h => h.c[0] === a.c[0] && h.c[1] === a.c[1])) return; linea(g, [a.c[0] - 3, a.c[1]], [a.c[0] + 3, a.c[1]], 'f-eje'); linea(g, [a.c[0], a.c[1] - 3], [a.c[0], a.c[1] + 3], 'f-eje'); });
-  (M.ejes || []).forEach(ej => { const c = M.caja; if (ej.dir === 'v') linea(g, [ej.en, c.y0 - 5], [ej.en, c.y1 + 5], 'f-eje'); else linea(g, [c.x0 - 5, ej.en], [c.x1 + 5, ej.en], 'f-eje'); });
-}
-function pintarVistas(g, V3, cls) {
-  for (const k of ['alzado', 'planta', 'perfil']) {
-    const V = V3[k], gk = sv('g', { class: 'v-' + k + ' ' + (cls || '') }, g);
-    V.lineas.forEach(l => linea(gk, l.p, l.q, 'f-' + l.tipo));
-    V.circ.forEach(c => sv('circle', { cx: c.c[0], cy: -c.c[1], r: c.r, class: 'f-vis', fill: 'none' }, gk));
-  }
-}
-
-/* =====================================================================
-   LÁMINA: figura o vistas + carriles de cota + cotas
-   ===================================================================== */
-class Lamina {
+class Hoja {
   constructor(host, op) {
-    this.op = op || {};
-    this.svg = sv('svg', { class: 'lamina', role: 'img' }, host);
-    this.cotas = []; this.pend = null; this.marcas = null; this.nid = 1; this.hist = [];
-    this.sel = new Set(); this.clases = null;
-    if (this.op.seleccionable) {
-      this.svg.classList.add('seleccionable');
-      this.svg.addEventListener('pointerup', e => {
-        if (!this.selActiva) return;
-        const el = document.elementFromPoint(e.clientX, e.clientY), g = el && el.closest && el.closest('g.cota');
-        if (!g || !g.dataset.id) return;
-        const id = +g.dataset.id; if (this.sel.has(id)) this.sel.delete(id); else this.sel.add(id);
-        this.pintar(); if (this.op.alSeleccionar) this.op.alSeleccionar(this.sel);
-      });
-    }
-    if (this.op.editable) {
-      this.svg.classList.add('editable');
-      this.svg.addEventListener('pointerup', e => this._tocar(e));
-      this.svg.addEventListener('pointermove', e => this._sobre(e));
-    }
+    this.host = host; this.margen = (op && op.margen) || 0;
+    this.svg = sv('svg', { class: 'hoja', role: 'img', 'aria-label': 'Hoja con las tres vistas en el sistema europeo' }, host);
   }
-  set(M, cotas) {
-    this.M = M; this.cotas = (cotas || []).map(c => ({ ...c })); this.nid = Math.max(0, ...this.cotas.map(c => c.id)) + 1;
-    this.pend = null; this.marcas = null; this.hist = []; this.alt = null; this.solucion = null;
-    this.sel = new Set(); this.clases = null; this.selActiva = false; this.altT = null;
-    // encuadre fijo (con sitio para tres filas de cotas en cada carril)
-    let x0, y0, x1, y1;
-    if (M.tipo === 'plana') ({ x0, y0, x1, y1 } = M.caja);
-    else { const cs = Object.values(M.vistas).map(v => v.caja); x0 = Math.min(...cs.map(c => c.x0)); x1 = Math.max(...cs.map(c => c.x1)); y0 = Math.min(...cs.map(c => c.y0)); y1 = Math.max(...cs.map(c => c.y1)); x1 = Math.max(x1, 8); y1 = Math.max(y1, 8); }
-    const m = CRIT.dist + 2 * CRIT.sep + 9;
-    const L = M.carriles.map(c => c.lado);
-    const ids = M.carriles.map(c => c.id);
-    const mx0 = m, mx1 = M.tipo === 'plana' || ids.includes('perfil-der') ? m : 14, my0 = M.tipo === 'plana' ? m : m + 7, my1 = M.tipo === 'plana' || ids.some(i => i.endsWith('arriba')) ? m : 18;
-    this.caja = { x0: x0 - mx0, x1: x1 + mx1, y0: y0 - my0, y1: y1 + my1 };
-    const c = this.caja;
-    this.svg.setAttribute('viewBox', `${c.x0} ${-c.y1} ${c.x1 - c.x0} ${c.y1 - c.y0}`);
-    this.pintar();
+  aHoja(k, [u, v]) {
+    const [W] = this.pz.dims, g = GAP;
+    if (k === 'alzado') return [u - W - g, -(v + g)];
+    if (k === 'planta') return [u - W - g, -v + g];
+    return [u + g, -(v + g)];
   }
-  _cambio() { this.marcas = null; this.alt = null; this.solucion = null; this.pintar(); if (this.op.alCambiar) this.op.alCambiar(this.cotas); }
-  deshacer() { const h = this.hist.pop(); if (!h) return; if (h.op === 'poner') this.cotas = this.cotas.filter(c => c.id !== h.c.id); else if (h.op === 'quitar') this.cotas.splice(h.i, 0, h.c); else if (h.op === 'limpiar') this.cotas = h.antes; this.pend = null; this._cambio(); }
-  limpiar() { if (!this.cotas.length) return; this.hist.push({ op: 'limpiar', antes: this.cotas.slice() }); this.cotas = []; this.pend = null; this._cambio(); }
-  marcar(res) { this.marcas = res; this.pintar(); }
-  verAlt(t) { this.altT = t; if (this.M) this.pintar(); }
-  pintar() {
-    const s = this.svg, M = this.M, c = this.caja; s.textContent = '';
-    sv('rect', { x: c.x0, y: -c.y1, width: c.x1 - c.x0, height: c.y1 - c.y0, class: 'l-papel' }, s);
-    let d = ''; for (let x = Math.ceil(c.x0 / 5) * 5; x <= c.x1; x += 5) d += `M${x} ${-c.y1}V${-c.y0}`; for (let y = Math.ceil(c.y0 / 5) * 5; y <= c.y1; y += 5) d += `M${c.x0} ${-y}H${c.x1}`;
-    sv('path', { d, class: 'l-cuad' }, s);
-    const gF = sv('g', {}, s);
-    if (M.tipo === 'plana') pintarPlana(gF, M, M);
-    else {
-      linea(gF, [c.x0 + 2, 0], [c.x1 - 2, 0], 'l-eje'); linea(gF, [0, c.y0 + 2], [0, c.y1 - 2], 'l-eje');
-      linea(gF, [0, 0], [c.x1 - 3, -(c.x1 - 3)], 'l-45');
-      svT('Z', { x: 1.5, y: -(c.y1 - 5), class: 'l-letra' }, gF); svT('Y', { x: c.x0 + 2.5, y: -1.5, class: 'l-letra' }, gF);
-      svT('X', { x: c.x1 - 6, y: -1.5, class: 'l-letra l-letrax' }, gF); svT('X', { x: 1.5, y: -(c.y0 + 3), class: 'l-letra l-letrax' }, gF);
-      pintarVistas(gF, M.vistas);
+  setPieza(pz) {
+    this.pz = pz; const [W, D, H] = pz.dims, g = GAP;
+    const s = this.svg; s.textContent = '';
+    const m = this.margen, x0 = -(W + g) - 1.8 - m, x1 = D + g + 1.8 + m, y0 = -(H + g) - 1.6 - m, y1 = D + g + 1.8 + m;
+    s.setAttribute('viewBox', `${x0} ${y0} ${x1 - x0} ${y1 - y0}`);
+    this.lim = { x0, x1, y0, y1 };
+    sv('rect', { x: x0, y: y0, width: x1 - x0, height: y1 - y0, class: 'h-papel' }, s);
+    // cuadrícula
+    let d = '';
+    for (let x = Math.ceil(x0); x <= Math.floor(x1); x++) d += `M${x} ${y0}V${y1}`;
+    for (let y = Math.ceil(y0); y <= Math.floor(y1); y++) d += `M${x0} ${y}H${x1}`;
+    sv('path', { d, class: 'h-cuad' }, s);
+    this.gRefs = sv('g', { class: 'h-refs' }, s);
+    // cruz de ejes y recta a 45°
+    const ge = sv('g', {}, s);
+    sv('line', { x1: x0 + 0.6, y1: 0, x2: 0, y2: 0, class: 'h-eje' }, ge);
+    sv('line', { x1: 0, y1: 0, x2: 0, y2: y0 + 0.6, class: 'h-eje' }, ge);
+    sv('line', { x1: 0, y1: 0, x2: x1 - 0.6, y2: 0, class: 'h-eje h-ejex' }, ge);
+    sv('line', { x1: 0, y1: 0, x2: 0, y2: y1 - 0.6, class: 'h-eje h-ejex' }, ge);
+    sv('line', { x1: 0, y1: 0, x2: D + g + 0.9, y2: D + g + 0.9, class: 'h-45' }, ge);
+    svT('Z', { x: 0.2, y: y0 + 0.9, class: 'h-letra' }, ge);
+    svT('Y', { x: x0 + 0.55, y: -0.25, class: 'h-letra' }, ge);
+    svT('X', { x: x1 - 0.95, y: -0.25, class: 'h-letra h-letrax' }, ge);
+    svT('X', { x: 0.25, y: y1 - 0.65, class: 'h-letra h-letrax' }, ge);
+    svT('45°', { x: 0.95, y: 0.55, class: 'h-45t' }, ge);
+    // vistas
+    this.gV = {};
+    const nombres = { alzado: 'Alzado', planta: 'Planta', perfil: 'Perfil izquierdo' };
+    for (const k of ['alzado', 'planta', 'perfil']) {
+      const gv = sv('g', { class: 'h-vista h-' + k }, s); this.gV[k] = gv;
+      pz.vistas[k].lineas.forEach(l => { const a = this.aHoja(k, l.p), b = this.aHoja(k, l.q); sv('line', { x1: a[0], y1: a[1], x2: b[0], y2: b[1], class: 'h-' + l.tipo }, gv); });
+      pz.vistas[k].circulos.forEach(c => { const cc = this.aHoja(k, c.c); sv('circle', { cx: cc[0], cy: cc[1], r: c.r, class: 'h-vis', fill: 'none' }, gv); });
+      const pos = k === 'alzado' ? [-(W + g), -(H + g) - 0.35] : k === 'planta' ? [-(W + g), D + g + 0.9] : [g, -(H + g) - 0.35];
+      svT(nombres[k], { x: pos[0], y: pos[1], class: 'h-nombre h-n' + k }, gv);
     }
-    // segunda figura posible (cuando falta una cota)
-    const alt = this.marcas && this.marcas.alt;
-    if (alt) {
-      const t = this.altT ?? 1, val = {};
-      for (const k in M.valor) val[k] = M.valor[k] + (alt.val[k] - M.valor[k]) * t;
-      const gA = sv('g', { class: 'l-alt' }, s);
-      if (M.tipo === 'plana') pintarPlana(gA, plana2(M, val), M, 'f-alt');
-      else pintarVistas(gA, pieza2(M, val), 'alt');
-    }
-    // carriles y marcas de posición
-    const libres = new Set(this.marcas && this.marcas.alt ? posicionesLibres(M, this.marcas.alt) : []);
-    const gC = sv('g', { class: 'l-carriles' }, s);
-    if (this.op.editable || this.op.verCarriles) M.carriles.forEach(car => {
-      const act = this.pend && this.pend.carril === car.id;
-      car.ticks.forEach(t => {
-        const lib = libres.has(car.eje + ':' + t.v);
-        linea(gC, t.origen, t.hasta, 'l-guia' + (act ? ' act' : '') + (t.oculto ? ' oc' : ''));
-        const sel = act && Math.abs(this.pend.v - t.v) < 1e-6;
-        sv('circle', { cx: t.hasta[0], cy: -t.hasta[1], r: sel ? 1.7 : 1.25, class: 'l-tick' + (t.oculto ? ' oc' : '') + (sel ? ' sel' : '') + (lib ? ' libre' : '') }, gC);
-      });
+    this.gRes = sv('g', { class: 'h-res' }, s);
+    this._refs();
+  }
+  _refs() {
+    const pz = this.pz, [W, D, H] = pz.dims, g = GAP, gr = this.gRefs; gr.textContent = '';
+    const xs = new Set(), ys = new Set(), zs = new Set();
+    pz.aristas.forEach(e => [e.a, e.b].forEach(p => { xs.add(+p[0].toFixed(4)); ys.add(+p[1].toFixed(4)); zs.add(+p[2].toFixed(4)); }));
+    if (pz.taladro) { const t = pz.taladro; [t.cx - t.r, t.cx, t.cx + t.r].forEach(v => xs.add(v)); [t.cy - t.r, t.cy, t.cy + t.r].forEach(v => ys.add(v)); }
+    xs.forEach(x => { const sx = x - W - g; sv('line', { x1: sx, y1: -(H + g), x2: sx, y2: D + g, class: 'h-ref h-refy' }, gr); });
+    zs.forEach(z => { const sy = -(z + g); sv('line', { x1: -(W + g), y1: sy, x2: D + g, y2: sy, class: 'h-ref h-refz' }, gr); });
+    ys.forEach(y => { const a = y + g; sv('polyline', { points: `${-g},${a} ${a},${a} ${a},${-(H + g)}`, class: 'h-ref h-refx', fill: 'none' }, gr); });
+  }
+  mostrar(vistas, refs) {
+    for (const k in this.gV) this.gV[k].style.display = vistas[k] ? '' : 'none';
+    this.gRefs.style.display = refs ? '' : 'none';
+  }
+  /* resaltado del inspector: {alzado:[{p,q,tipo}|{punto}|{poly:[...]}], ...} */
+  resaltar(r) {
+    const g = this.gRes; g.textContent = '';
+    if (!r) return;
+    for (const k of ['alzado', 'planta', 'perfil']) (r[k] || []).forEach(l => {
+      if (l.poly) {
+        const pts = l.poly.map(p => this.aHoja(k, p));
+        const d = 'M' + pts.map(p => p.join(' ')).join('L') + 'Z' + (l.agujero ? (() => { const c = this.aHoja(k, l.agujero.c), rr = l.agujero.r; return `M${c[0] + rr} ${c[1]}A${rr} ${rr} 0 1 0 ${c[0] - rr} ${c[1]}A${rr} ${rr} 0 1 0 ${c[0] + rr} ${c[1]}Z`; })() : '');
+        sv('path', { d, class: 'h-rpoly', 'fill-rule': 'evenodd' }, g);
+      } else if (l.circulo) { const c = this.aHoja(k, l.circulo.c); sv('circle', { cx: c[0], cy: c[1], r: l.circulo.r, class: 'h-rlin', fill: 'none' }, g); }
+      else if (l.punto) { const c = this.aHoja(k, l.punto); sv('circle', { cx: c[0], cy: c[1], r: 0.16, class: 'h-rpunto' }, g); }
+      else { const a = this.aHoja(k, l.p), b = this.aHoja(k, l.q); sv('line', { x1: a[0], y1: a[1], x2: b[0], y2: b[1], class: 'h-rlin' + (l.tipo === 'ocu' ? ' h-rocu' : '') }, g); }
     });
-    // cotas
-    const gK = sv('g', {}, s), filas = colocar(M, this.cotas), mk = this.marcas;
-    const red = new Set(mk ? mk.redundantes.map(r => r.cota.id) : []), oc = new Set(mk ? mk.ocultas.map(c => c.id) : []), cr = new Set(mk ? mk.cruces.map(x => x.cota.id) : []);
-    this.cotas.forEach(q => {
-      let cls = this.clases ? (this.clases[q.id] || '') : mk ? (mk.ok ? 'bien' : red.has(q.id) ? 'red' : oc.has(q.id) ? 'mal' : cr.has(q.id) ? 'cruza' : '') : '';
-      if (this.sel.has(q.id) && !this.clases) cls += ' sel';
-      if (q.tipo === 'T') {
-        const tm = M.tamanos.find(x => x.id === q.tam), val = valorCota(M, q);
-        if (tm.tipo === 'D') cotaDiametro(gK, { c: tm.c, r: tm.rad, valor: val, ang: this._angDiam(tm, val), cls, err: q.err }).dataset.id = q.id;
-        else { const mid = (tm.a0 + tm.a1) / 2; cotaRadio(gK, { c: tm.c, r: tm.rad, valor: val, ang: mid % 90 === 0 ? mid - 45 : mid, fuera: true, cls, err: q.err }).dataset.id = q.id; }
-        return;
-      }
-      const o = filas[q.id];
-      cotaLineal(gK, { a: o.ta.origen, b: o.tb.origen, hz: horizontalLado(M.carriles.find(x => x.id === q.carril).lado), fila: o.fila, texto: textoCota(M, q), huecoA: o.ta.hueco, huecoB: o.tb.hueco, cls, err: q.err }).dataset.id = q.id;
-    });
-    this.filas = filas;
-    if (M.tipo === 'pieza') this._nombres(s, filas);
   }
-  /* nombres de las vistas: alzado y perfil encima, planta debajo, fuera de las cotas */
-  _nombres(s, filas) {
-    const M = this.M, g = sv('g', { class: 'l-nombres' }, s);
-    const extremo = (vista, lado) => {
-      const V = M.vistas[vista].caja; let v = lado === 'arriba' ? V.y1 : V.y0;
-      this.cotas.forEach(c => { if (c.tipo !== 'L' || !filas[c.id]) return; const car = M.carriles.find(x => x.id === c.carril); if (car.vista !== vista || car.lado !== lado) return; const f = filas[c.id].fila; v = lado === 'arriba' ? Math.max(v, f + CRIT.txSep + CRIT.tx) : Math.min(v, f - CRIT.exceso); });
-      return v;
-    };
-    const t = (txt, x, y) => svT(txt, { x, y: -y, class: 'l-nvista' }, g);
-    t('Alzado', M.vistas.alzado.caja.x0, extremo('alzado', 'arriba') + 2.5);
-    t('Perfil izquierdo', M.vistas.perfil.caja.x0, extremo('perfil', 'arriba') + 2.5);
-    t('Planta', M.vistas.planta.caja.x0, extremo('planta', 'abajo') - 5.5);
-  }
-  /* dirección del Ø: la primera (45°, 135°, −45°, −135°) cuya cifra no pisa ninguna línea del dibujo */
-  _angDiam(tm, val) {
-    const M = this.M, segs = [];
-    if (M.tipo === 'plana') { const P = M.poli; for (let i = 0; i < P.length; i++) segs.push([P[i], P[(i + 1) % P.length]]); }
-    else Object.values(M.vistas).forEach(V => V.lineas.forEach(l => { if (l.tipo !== 'eje') segs.push([l.p, l.q]); }));
-    const W = anchoTexto('Ø' + val);
-    for (const ang of [45, 135, -45, -135]) {
-      const a = ang * Math.PI / 180, u = [Math.cos(a), Math.sin(a)];
-      let libre = true;
-      for (let d = tm.rad + 1; d <= tm.rad + W + 4 && libre; d += 0.7) {
-        const p = [tm.c[0] + u[0] * d, tm.c[1] + u[1] * d + 1.8];
-        if (segs.some(([a2, b2]) => distSeg(p, a2, b2) < 2.2)) libre = false;
-      }
-      if (libre) return ang;
-    }
-    return 45;
-  }
-  /* ---------- interacción ---------- */
-  _pt(e) { const p = this.svg.createSVGPoint(); p.x = e.clientX; p.y = e.clientY; const q = p.matrixTransform(this.svg.getScreenCTM().inverse()); return [q.x, -q.y]; }
-  _tickCerca(p) {
-    let m = null;
-    const esc = Math.abs(this.svg.getScreenCTM().a) || 1, tol = Math.max(3.6, 16 / esc);   // al menos 16 px de pantalla (móvil)
-    this.M.carriles.forEach(car => car.ticks.forEach(t => { const d = Math.hypot(p[0] - t.hasta[0], p[1] - t.hasta[1]); if (d < tol && (!m || d < m.d)) m = { d, car, t }; }));
-    return m;
-  }
-  _sobre(e) { const p = this._pt(e), t = this._tickCerca(p); this.svg.style.cursor = t ? 'pointer' : 'default'; }
-  _tocar(e) {
-    const p = this._pt(e), M = this.M;
-    const tk = this._tickCerca(p);
-    if (tk) {
-      if (this.pend && this.pend.carril === tk.car.id) {
-        if (Math.abs(this.pend.v - tk.t.v) < 1e-6) { this.pend = null; this.pintar(); return; }
-        const a = Math.min(this.pend.v, tk.t.v), b = Math.max(this.pend.v, tk.t.v);
-        this.pend = null;
-        if (this.cotas.some(c => c.tipo === 'L' && c.carril === tk.car.id && c.a === a && c.b === b)) { this.pintar(); this.aviso('Esa cota ya está puesta.'); return; }
-        const c = { id: this.nid++, tipo: 'L', carril: tk.car.id, a, b }; this.cotas.push(c); this.hist.push({ op: 'poner', c }); this._cambio(); return;
-      }
-      this.pend = { carril: tk.car.id, v: tk.t.v }; this.pintar(); return;
-    }
-    // ¿una cota ya puesta? (tocar la cifra o la línea la quita)
-    const el = document.elementFromPoint(e.clientX, e.clientY), g = el && el.closest && el.closest('g.cota');
-    if (g && g.dataset.id) { const id = +g.dataset.id, i = this.cotas.findIndex(c => c.id === id); if (i >= 0) { const [c] = this.cotas.splice(i, 1); this.hist.push({ op: 'quitar', c, i }); this.pend = null; this._cambio(); return; } }
-    // ¿una circunferencia o un arco? → su Ø o su R
-    for (const t of M.tamanos) {
-      const d = Math.abs(Math.hypot(p[0] - t.c[0], p[1] - t.c[1]) - t.rad);
-      if (d < 2.5) {
-        if (t.tipo === 'R') { const a = Math.atan2(p[1] - t.c[1], p[0] - t.c[0]) * 180 / Math.PI; const lo = Math.min(t.a0, t.a1), hi = Math.max(t.a0, t.a1); if (!((a >= lo - 1 && a <= hi + 1) || (a + 360 >= lo - 1 && a + 360 <= hi + 1))) continue; }
-        const ya = this.cotas.findIndex(c => c.tipo === 'T' && c.tam === t.id);
-        if (ya >= 0) { const [c] = this.cotas.splice(ya, 1); this.hist.push({ op: 'quitar', c, i: ya }); }
-        else { const c = { id: this.nid++, tipo: 'T', tam: t.id }; this.cotas.push(c); this.hist.push({ op: 'poner', c }); }
-        this.pend = null; this._cambio(); return;
-      }
-    }
-    if (this.pend) { this.pend = null; this.pintar(); }
-  }
-  aviso(t) { if (this.op.aviso) this.op.aviso(t); }
-}
-/* una acotación correcta (para «Ver una solución»): medida total, después posiciones desde la referencia
-   (primero los centros) y, si hace falta, posiciones consecutivas; siempre en carriles sin ocultas y, si se puede, sin cruces */
-function solucionAuto(M) {
-  const cotas = []; let id = 1;
-  M.tamanos.forEach(t => cotas.push({ id: id++, tipo: 'T', tam: t.id }));
-  const centros = new Set();
-  M.tamanos.forEach(t => { if (M.tipo === 'plana') { centros.add('x:' + t.c[0]); centros.add('y:' + t.c[1]); } });
-  if (M.tipo === 'pieza' && M.pz.taladro) { centros.add('x:' + M.pz.taladro.cx * ESC_PIEZA); centros.add('y:' + M.pz.taladro.cy * ESC_PIEZA); }
-  const mejorCarril = (ax, a, b) => M.carriles.filter(c => c.eje === ax).map((c, k) => { const ta = c.ticks.find(t => t.v === a), tb = c.ticks.find(t => t.v === b); return ta && tb ? { c, mal: (ta.oculto || tb.oculto) * 10 + (ta.cruza || tb.cruza) + k * 0.01 } : null; }).filter(Boolean).sort((p, q) => p.mal - q.mal)[0];
-  const prueba = (ax, a, b, maxMal) => {
-    const m = mejorCarril(ax, a, b); if (!m || m.mal >= maxMal) return false;
-    const c = { id: id, tipo: 'L', carril: m.c.id, a, b };
-    if (analizar(M, [...cotas, c]).redundantes.length) return false;
-    cotas.push(c); id++; return true;
-  };
-  for (const maxMal of [1, 2, 10]) for (const ax of ['x', 'y', 'z']) {
-    const vals = [...new Set(M.carriles.filter(c => c.eje === ax).flatMap(c => c.ticks.map(t => t.v)))].sort((a, b) => a - b);
-    if (vals.length < 2) continue;
-    const r = vals[0], cand = [[r, vals[vals.length - 1]]];
-    vals.slice(1).filter(v => centros.has(ax + ':' + v)).forEach(v => cand.push([r, v]));
-    vals.slice(1).filter(v => !centros.has(ax + ':' + v)).forEach(v => cand.push([r, v]));
-    for (let i = 1; i < vals.length; i++) cand.push([vals[i - 1], vals[i]]);
-    const R = vals[vals.length - 1]; vals.slice(0, -1).forEach(v => cand.push([v, R]));
-    cand.forEach(([a, b]) => prueba(ax, a, b, maxMal));
-  }
-  return cotas;
 }
 
 /* =====================================================================
-   APLICACIÓN
+   HOJA ISOMÉTRICA · retícula de triángulos y dibujo sobre ella
+   Coordenadas de retícula (m, n) con m+n par. En pantalla: X = k·m, Y = −n/2.
+   ===================================================================== */
+class HojaIso {
+  constructor(host, op) {
+    op = op || {};
+    this.margen = op.margen != null ? op.margen : 1.2;
+    this.svg = sv('svg', { class: 'hoja hoja-iso', role: 'img', 'aria-label': 'Retícula isométrica' }, host);
+    this.conReticula = op.reticula !== false;
+  }
+  encuadrar(lim) {
+    const s = this.svg; s.textContent = '';
+    const m = this.margen;
+    const p0 = aPantalla([lim.m0, lim.n1]), p1 = aPantalla([lim.m1, lim.n0]);
+    const x0 = p0[0] - m * K3 * 2, x1 = p1[0] + m * K3 * 2, y0 = p0[1] - m, y1 = p1[1] + m;
+    this.lim = lim; this.box = { x0, x1, y0, y1 };
+    s.setAttribute('viewBox', `${x0} ${y0} ${x1 - x0} ${y1 - y0}`);
+    sv('rect', { x: x0, y: y0, width: x1 - x0, height: y1 - y0, class: 'h-papel' }, s);
+    if (this.conReticula) this._reticula();
+    this.gExtra = sv('g', {}, s);
+    this.gFig = sv('g', {}, s);
+    return this;
+  }
+  _reticula() {
+    const { x0, x1, y0, y1 } = this.box;
+    let d = '';
+    for (let mm = Math.ceil(x0 / K3); mm <= Math.floor(x1 / K3); mm++) { const x = K3 * mm; d += `M${x} ${y0}V${y1}`; }
+    const esquinas = [[x0, y0], [x1, y0], [x0, y1], [x1, y1]];
+    const fam = (fn, eje) => {
+      const cs = esquinas.map(fn);
+      for (let j = Math.ceil(Math.min(...cs) / K3); j <= Math.floor(Math.max(...cs) / K3); j++) {
+        const c = K3 * j;
+        // 0.5X + k·Y = c  →  Y = (c − 0.5X)/k ;  −0.5X + k·Y = c  →  Y = (c + 0.5X)/k
+        const ya = eje > 0 ? (c - 0.5 * x0) / K3 : (c + 0.5 * x0) / K3;
+        const yb = eje > 0 ? (c - 0.5 * x1) / K3 : (c + 0.5 * x1) / K3;
+        d += `M${x0} ${ya}L${x1} ${yb}`;
+      }
+    };
+    fam(([X, Y]) => 0.5 * X + K3 * Y, 1);
+    fam(([X, Y]) => -0.5 * X + K3 * Y, -1);
+    sv('path', { d, class: 'h-cuad h-iso-cuad' }, this.svg);
+    // nudos
+    let dn = '';
+    for (let mm = Math.ceil(x0 / K3); mm <= Math.floor(x1 / K3); mm++) {
+      for (let nn = Math.ceil(-y1 * 2); nn <= Math.floor(-y0 * 2); nn++) {
+        if (!esNudo([mm, nn])) continue;
+        const p = aPantalla([mm, nn]);
+        dn += `M${p[0] - 0.035} ${p[1]}a0.035 0.035 0 1 0 0.07 0a0.035 0.035 0 1 0 -0.07 0`;
+      }
+    }
+    sv('path', { d: dn, class: 'h-nudos' }, this.svg);
+  }
+  pintar(segs, g, pref) {
+    (g || this.gFig).textContent = '';
+    segs.forEach(s => {
+      const a = aPantalla(s.a), b = aPantalla(s.b);
+      sv('line', { x1: a[0], y1: a[1], x2: b[0], y2: b[1], class: (pref || 'h-') + s.tipo }, g || this.gFig);
+    });
+  }
+  ejes(origen, largo) {
+    const g = sv('g', { class: 'h-ejes-iso' }, this.gExtra);
+    const L = largo || 3;
+    for (const [k, e] of Object.entries(EJES_ISO)) {
+      const a = aPantalla(origen), b = aPantalla([origen[0] + e[0] * L, origen[1] + e[1] * L]);
+      sv('line', { x1: a[0], y1: a[1], x2: b[0], y2: b[1], class: 'h-eje-iso' }, g);
+      const t = aPantalla([origen[0] + e[0] * (L + 0.55), origen[1] + e[1] * (L + 0.55)]);
+      svT(k.toUpperCase(), { x: t[0], y: t[1] + 0.12, class: 'h-letra h-letra-iso', 'text-anchor': 'middle' }, g);
+    }
+    return g;
+  }
+}
+
+/* =====================================================================
+   EDITOR sobre la retícula isométrica
+   ===================================================================== */
+class EditorIso {
+  constructor(host, alCambiar) {
+    this.hoja = new HojaIso(host, { margen: 1.4 });
+    this.svg = this.hoja.svg; this.svg.classList.add('editor');
+    this.svg.setAttribute('aria-label', 'Retícula isométrica para dibujar: toca un nudo y después otro');
+    this.alCambiar = alCambiar || (() => {});
+    this.herr = 'vis'; this.trazos = []; this.hist = []; this.inicio = null; this.hover = null; this.nid = 1;
+    const svg = this.svg;
+    svg.addEventListener('pointerdown', e => { if (e.pointerType === 'mouse' && e.button !== 0) return; e.preventDefault(); try { svg.focus({ preventScroll: true }); } catch (_) {} this._abajo = this._punto(e); try { svg.setPointerCapture(e.pointerId); } catch (_) {} });
+    svg.addEventListener('pointermove', e => { this.hover = this._punto(e); this._cursor(); });
+    svg.addEventListener('pointerup', e => { const u = this._punto(e), d = this._abajo; this._abajo = null; if (d) this._accion(d, u); });
+    svg.addEventListener('pointerleave', () => { this.hover = null; this._cursor(); });
+    svg.addEventListener('keydown', e => { if (e.key === 'Escape') { this.inicio = null; this._cursor(); } });
+    svg.setAttribute('tabindex', '0');
+  }
+  setPieza(pz, op) {
+    op = op || {};
+    this.pz = pz; this.conOcultas = !!op.ocultas;
+    const iso = isoDePieza(pz);
+    // hueco cómodo alrededor de la pieza para que se pueda colocar donde quiera
+    const L = iso.lim, h = 2;
+    this.hoja.encuadrar({ m0: L.m0 - h, m1: L.m1 + h, n0: L.n0 - h * 2, n1: L.n1 + h * 2 });
+    const s = this.svg;
+    this.gSol = sv('g', { class: 'u-sol' }, s); this.gSol.style.display = 'none';
+    this.hoja.pintar(iso.segs.filter(x => this.conOcultas || x.tipo === 'vis'), this.gSol, 'u-');
+    this.gT = sv('g', {}, s); this.gF = sv('g', {}, s); this.gC = sv('g', { class: 'u-cursor' }, s);
+    this.trazos = []; this.hist = []; this.inicio = null; this.marcas = null;
+    this._pintar();
+  }
+  _punto(e) {
+    const pt = this.svg.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY;
+    const p = pt.matrixTransform(this.svg.getScreenCTM().inverse());
+    const mf = p.x / K3, nf = -p.y * 2;
+    let mejor = null;
+    for (const dm of [0, 1, -1]) for (const dn of [0, 1, -1, 2, -2]) {
+      const c = [Math.round(mf) + dm, Math.round(nf) + dn];
+      if (!esNudo(c)) continue;
+      const q = aPantalla(c), d = Math.hypot(q[0] - p.x, q[1] - p.y);
+      if (!mejor || d < mejor.d) mejor = { c, d };
+    }
+    const B = this.hoja.box;
+    const dentro = mejor && mejor.d < 0.42 && (() => { const q = aPantalla(mejor.c); return q[0] >= B.x0 && q[0] <= B.x1 && q[1] >= B.y0 && q[1] <= B.y1; })();
+    return { raw: [p.x, p.y], snap: dentro ? mejor.c : null };
+  }
+  herramienta(h) { this.herr = h; this.inicio = null; this._cursor(); }
+  _accion(d, u) {
+    if (this.herr === 'borrar') {
+      let mejor = null;
+      this.trazos.forEach(t => {
+        const A = aPantalla(t.a), B = aPantalla(t.b);
+        const ab = [B[0] - A[0], B[1] - A[1]], L2 = ab[0] ** 2 + ab[1] ** 2;
+        let k = ((u.raw[0] - A[0]) * ab[0] + (u.raw[1] - A[1]) * ab[1]) / L2;
+        k = Math.max(0, Math.min(1, k));
+        const dist = Math.hypot(u.raw[0] - A[0] - ab[0] * k, u.raw[1] - A[1] - ab[1] * k);
+        if (dist < 0.3 && (!mejor || dist < mejor.d)) mejor = { d: dist, t };
+      });
+      if (mejor) { const i = this.trazos.indexOf(mejor.t); this.trazos.splice(i, 1); this.hist.push({ op: 'quitar', t: mejor.t, i }); this._cambio(); }
+      return;
+    }
+    if (!u.snap) return;
+    if (d.snap && !mismoNudo(d.snap, u.snap)) { this._anadir({ tipo: this.herr, a: d.snap, b: u.snap }); this.inicio = null; this._cursor(); return; }
+    if (!this.inicio) this.inicio = u.snap;
+    else if (mismoNudo(this.inicio, u.snap)) this.inicio = null;
+    else { this._anadir({ tipo: this.herr, a: this.inicio, b: u.snap }); this.inicio = u.snap; }
+    this._cursor();
+  }
+  _anadir(t) {
+    const ya = this.trazos.some(o => o.tipo === t.tipo && ((mismoNudo(o.a, t.a) && mismoNudo(o.b, t.b)) || (mismoNudo(o.a, t.b) && mismoNudo(o.b, t.a))));
+    if (ya) return;
+    t.id = this.nid++; this.trazos.push(t); this.hist.push({ op: 'poner', t }); this._cambio();
+  }
+  deshacer() {
+    const h = this.hist.pop(); if (!h) return;
+    if (h.op === 'poner') this.trazos.splice(this.trazos.indexOf(h.t), 1);
+    else if (h.op === 'quitar') this.trazos.splice(h.i, 0, h.t);
+    else if (h.op === 'limpiar') this.trazos = h.antes;
+    this.inicio = null; this._cambio();
+  }
+  limpiar() { if (!this.trazos.length) return; this.hist.push({ op: 'limpiar', antes: this.trazos.slice() }); this.trazos = []; this.inicio = null; this._cambio(); }
+  _cambio() { this.marcas = null; this._pintar(); this._cursor(); this.alCambiar(); }
+  solucion(ver) { this.gSol.style.display = ver ? '' : 'none'; }
+  marcar(res, mostrarFaltan) { this.marcas = { res, mostrarFaltan }; this._pintar(); }
+  _pintar() {
+    this.gT.textContent = ''; this.gF.textContent = '';
+    const m = this.marcas;
+    this.trazos.forEach(t => {
+      let cls = 'u-' + t.tipo;
+      if (m) cls += m.res.ok ? ' u-bien' : m.res.malos.has(t.id) ? ' u-mal' : m.res.tipoMal.has(t.id) ? ' u-tipomal' : '';
+      const a = aPantalla(t.a), b = aPantalla(t.b);
+      sv('line', { x1: a[0], y1: a[1], x2: b[0], y2: b[1], class: cls }, this.gT);
+    });
+    if (m && m.mostrarFaltan && !m.res.ok) (m.res.faltanSeg || []).forEach(s => {
+      const a = aPantalla(s.a), b = aPantalla(s.b);
+      sv('line', { x1: a[0], y1: a[1], x2: b[0], y2: b[1], class: 'u-falta' + (s.tipo === 'ocu' ? ' u-falta-ocu' : '') }, this.gF);
+    });
+  }
+  _cursor() {
+    const g = this.gC; if (!g) return; g.textContent = '';
+    const h = this.hover && this.hover.snap;
+    if (this.inicio) {
+      const i = aPantalla(this.inicio);
+      sv('circle', { cx: i[0], cy: i[1], r: 0.16, class: 'u-inicio' }, g);
+      if (h && this.herr !== 'borrar') { const q = aPantalla(h); sv('line', { x1: i[0], y1: i[1], x2: q[0], y2: q[1], class: 'u-goma u-g' + this.herr }, g); }
+    }
+    if (h && this.herr !== 'borrar') { const q = aPantalla(h); sv('circle', { cx: q[0], cy: q[1], r: 0.11, class: 'u-hover' }, g); }
+  }
+}
+
+/* ---------- corrección del modo Solo ---------- */
+function corregirIso(pz, trazos, conOcultas) {
+  const iso = isoDePieza(pz);
+  const esperados = iso.segs.filter(s => conOcultas || s.tipo === 'vis');
+  const E = mapaIso(esperados);
+  const D = mapaIso(trazos.filter(t => conOcultas ? true : t.tipo === 'vis'));
+  const res = { msgs: [], malos: new Set(), tipoMal: new Set(), faltanSeg: [], ok: false };
+  // trazos ocultos dibujados cuando no se piden
+  if (!conOcultas) {
+    const ocu = trazos.filter(t => t.tipo === 'ocu');
+    if (ocu.length) { ocu.forEach(t => res.malos.add(t.id)); res.msgs.push('En esta pieza no hay que dibujar las aristas ocultas: quítalas o activa el interruptor de arriba.'); }
+  }
+  if (!D.size) { res.msgs.push('Todavía no has dibujado nada.'); res.faltanSeg = fusionarIso([...E.values()]); res.vacio = true; return res; }
+  const c = compararIso(E, D);
+  res.cmp = c;
+  // ¿se parece a una versión reflejada? (error típico: cambiar las dos direcciones de los ejes)
+  if (!c.exacto) {
+    const bb = (() => { let m0 = Infinity, m1 = -Infinity; E.forEach(v => [v.a, v.b].forEach(p => { m0 = Math.min(m0, p[0]); m1 = Math.max(m1, p[0]); })); return { m0, m1 }; })();
+    const M = transformarIso(E, p => [bb.m0 + bb.m1 - p[0], p[1]]);
+    if (compararIso(M, D).exacto) { res.msgs.push('La pieza está reflejada: has cambiado entre sí las direcciones de la anchura y de la profundidad. La anchura sube hacia la derecha y la profundidad baja hacia la derecha.'); res.reflejada = true; }
+  }
+  const sobraK = new Set(c.sobran.map(v => v.k)), tipoK = new Set(c.tipoMal.map(v => v.k));
+  trazos.forEach(t => {
+    if (!conOcultas && t.tipo === 'ocu') return;
+    const ks = trozosIso(t.a, t.b).map(x => x.k);
+    if (ks.some(x => sobraK.has(x))) res.malos.add(t.id);
+    else if (ks.some(x => tipoK.has(x) && D.get(x).tipo === t.tipo)) res.tipoMal.add(t.id);
+  });
+  if (!res.reflejada) {
+    const vo = c.tipoMal.filter(v => v.esperado === 'vis'), ov = c.tipoMal.filter(v => v.esperado === 'ocu');
+    if (ov.length) { const n = contarIso(ov); res.msgs.push(`${n === 1 ? 'Una arista oculta está dibujada' : n + ' aristas ocultas están dibujadas'} con línea continua (en naranja).`); }
+    if (vo.length) { const n = contarIso(vo); res.msgs.push(`${n === 1 ? 'Una arista visible está dibujada' : n + ' aristas visibles están dibujadas'} con trazos (en naranja): desde aquí sí se ven.`); }
+    if (c.sobran.length) { const n = contarIso(c.sobran); res.msgs.push(`${n === 1 ? 'Sobra una línea' : 'Sobran ' + n + ' líneas'} (en rojo). Repasa las aristas que no se ven desde este lado.`); }
+    if (c.faltan.length) { const n = contarIso(c.faltan); res.msgs.push(`${n === 1 ? 'Falta una línea' : 'Faltan ' + n + ' líneas'}.`); }
+  }
+  res.faltanSeg = fusionarIso(c.faltan);
+  res.ok = c.exacto && !c.tipoMal.length && !res.malos.size;
+  return res;
+}
+
+/* =====================================================================
+   APP · Perspectiva isométrica
    ===================================================================== */
 const $ = s => document.querySelector(s);
-function el(tag, at, par, html) { const e = document.createElement(tag); for (const k in (at || {})) if (at[k] != null) { if (k === 'class') e.className = at[k]; else e.setAttribute(k, at[k]); } if (html != null) e.innerHTML = html; if (par) par.appendChild(e); return e; }
-const PROG_CLAVE = 'ies-jdq-acotacion-v1';
+const $$ = s => [...document.querySelectorAll(s)];
+const el = (t, at, par) => { const e = document.createElement(t); for (const k in at) if (at[k] != null) { if (k === 'html') e.innerHTML = at[k]; else if (k === 'txt') e.textContent = at[k]; else e.setAttribute(k, at[k]); } if (par) par.appendChild(e); return e; };
+
+/* ---- la cámara «isométrica» es la isométrica de verdad ---- */
+const _preset = Escena.prototype.presetCamara;
+Escena.prototype.presetCamara = function (nombre) {
+  const p = _preset.call(this, nombre);
+  if (nombre === 'iso') { p.th = -Math.PI / 4; p.ph = Math.acos(1 / Math.sqrt(3)); }
+  return p;
+};
+
+/* ---- progreso ---- */
+const CLAVE = 'ies-jdq-isometrica-v1';
 const Prog = {
-  d: { rondas: null, casos: {}, planas: {}, piezas: {}, revision: {} },
-  cargar() { try { const x = JSON.parse(localStorage.getItem(PROG_CLAVE)); if (x) Object.assign(this.d, x); } catch (_) {} this.d.revision = this.d.revision || {}; Object.keys(this.d.casos || {}).forEach(k => { this.d.revision[k] = true; }); },
-  guardar() { try { localStorage.setItem(PROG_CLAVE, JSON.stringify(this.d)); } catch (_) {} },
-  borrar() { this.d = { rondas: null, casos: {}, planas: {}, piezas: {}, revision: {} }; try { localStorage.removeItem(PROG_CLAVE); } catch (_) {} }
+  d: (() => { try { return JSON.parse(localStorage.getItem(CLAVE)) || {}; } catch (_) { return {}; } })(),
+  get(id) { return this.d[id] || {}; },
+  marcar(id, k) { const o = this.d[id] || (this.d[id] = {}); if (o[k]) return; o[k] = 1; this.guardar(); pintarMarcas(); },
+  guardar() { try { localStorage.setItem(CLAVE, JSON.stringify(this.d)); } catch (_) {} },
+  borrar() { this.d = {}; try { localStorage.removeItem(CLAVE); } catch (_) {} pintarMarcas(); }
 };
-const NOMBRE_CARRIL = { abajo: 'de abajo', arriba: 'de arriba', izq: 'de la izquierda', der: 'de la derecha' };
-function nombreCarril(M, id) {
-  if (M.tipo === 'plana') return 'el carril ' + NOMBRE_CARRIL[id];
-  const [v, l] = id.split('-'); return `el carril ${NOMBRE_CARRIL[l]} ${v === 'alzado' ? 'del alzado' : v === 'planta' ? 'de la planta' : 'del perfil'}`;
-}
+
+/* ---- catálogo ordenado por niveles ---- */
+const LISTA = CATALOGO.map(p => G.preparar(p));
+LISTA.forEach(p => { p.nivelIso = nivelIso(p); });
+const PORNIVEL = { 1: [], 2: [], 3: [] };
+LISTA.forEach(p => PORNIVEL[p.nivelIso].push(p));
 
 /* =====================================================================
-   PESTAÑA 1 · LA COTA
+   PESTAÑAS
    ===================================================================== */
-const PARTES = {
-  lin: { t: 'Línea de cota', txt: 'Línea fina y paralela a la medida. Se dibuja a <b>8 mm</b> del contorno; si hay varias cotas paralelas, cada una otros 8 mm más lejos. Nunca encima de una arista ni de un eje de simetría.' },
-  aux: { t: 'Líneas auxiliares', txt: 'Líneas finas, perpendiculares a la medida, que llevan la medida desde el dibujo hasta la línea de cota. Empiezan a <b>2 mm</b> del dibujo, sin tocarlo, y sobrepasan <b>2 mm</b> la línea de cota. <span class="nota">¿Por qué no tocan el dibujo? Porque dibujamos a lápiz y las líneas finas y gruesas se parecen mucho: si la auxiliar tocara la pieza, se confundiría con una arista.</span>' },
-  fl: { t: 'Flechas', txt: 'Puntas cerradas y rellenas que tocan las líneas auxiliares. Siempre que quepan, van dentro; si la cota es muy pequeña, se dibujan por fuera apuntando hacia dentro.' },
-  tx: { t: 'Cifra de cota', txt: 'La medida <b>real</b> de la pieza en mm, aunque el dibujo esté a escala, y sin escribir «mm». Va centrada, encima de la línea de cota y paralela a ella. En las cotas verticales se lee de abajo arriba (girando la hoja hacia la derecha).' },
-  dist: { t: 'Distancias', txt: 'Las tres medidas de una cota: la línea de cota, siempre a <b>8 mm</b> del contorno (y 8 mm entre cotas paralelas); la auxiliar empieza a <b>2 mm</b> del dibujo y sobrepasa <b>2 mm</b> la línea de cota.' }
-};
-function iniciarAnatomia() {
-  const s = sv('svg', { class: 'anat', viewBox: '-24 -31 104 46', role: 'img', 'aria-label': 'Partes de una cota' }, $('#a-fig'));
-  sv('path', { d: 'M0 0H50V-25H0Z', class: 'f-pieza' }, s);
-  cotaLineal(s, { a: [0, 0], b: [50, 0], hz: true, fila: -8, texto: '50' });
-  cotaLineal(s, { a: [0, 0], b: [0, 25], hz: false, fila: -8, texto: '25' });
-  const gd = sv('g', { class: 'a-dist' }, s);
-  // 8 mm entre contorno y línea de cota; 2 mm de hueco y 2 mm de exceso en las auxiliares (sobre la auxiliar de la derecha)
-  const marca = (x, y0, y1, t, ty) => { linea(gd, [x, y0], [x, y1], 'a-dl'); linea(gd, [x - 1, y0], [x + 1, y0], 'a-dl'); linea(gd, [x - 1, y1], [x + 1, y1], 'a-dl'); svT(t, { x: x + 2, y: -ty, class: 'a-dt' }, gd); };
-  marca(52.5, 0, -2, '2 mm', -1.9);
-  marca(52.5, -8, -10, '2 mm', -10);
-  marca(66, 0, -8, '8 mm', -5);
-  const box = $('#a-partes');
-  Object.entries(PARTES).forEach(([k, p]) => {
-    const b = el('button', { class: 'chip', type: 'button', 'aria-pressed': 'false', 'data-k': k }, box, p.t);
-    b.addEventListener('click', () => {
-      const on = b.getAttribute('aria-pressed') !== 'true';
-      b.setAttribute('aria-pressed', String(on));
-      s.classList.toggle('ver-' + k, on);
-      if (on) textoParte(k);
-      else { const otra = [...box.querySelectorAll('.chip[aria-pressed="true"]')].pop(); if (otra) textoParte(otra.dataset.k); else textoParte(null); }
-    });
+const TABS = [['tab-sistema', 'p-sistema'], ['tab-piezas', 'p-piezas'], ['tab-retos', 'p-retos']];
+function irPestana(id) {
+  TABS.forEach(([t, p]) => {
+    const on = t === id;
+    const bt = $('#' + t);
+    bt.setAttribute('aria-selected', on ? 'true' : 'false');
+    bt.tabIndex = on ? 0 : -1;
+    $('#' + p).hidden = !on;
   });
-  textoParte(null);
+  if (id === 'tab-piezas' && S3D.esc) S3D.esc.redimensionar();
+  if (id === 'tab-retos') retoRedim();
+  window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
 }
-function textoParte(k) {
-  $('#a-txt').innerHTML = k ? `<h4>${PARTES[k].t}</h4><p>${PARTES[k].txt}</p>`
-    : '<h4>Construye la cota</h4><p>Pulsa cada parte para que aparezca en el dibujo y lee su explicación. Si vuelves a pulsarla, desaparece.</p>';
-}
-/* ---------- ¿bien o mal? (rondas al estilo del test de clase) ---------- */
-const RECT = (g, w, h) => sv('path', { d: `M0 0H${w}V${-h}H0Z`, class: 'f-pieza' }, g);
-const ESCAL = g => sv('path', { d: 'M0 0H45V-30H30V-20H15V-10H0Z', class: 'f-pieza' }, g);
-const ESQ = g => { sv('path', { d: 'M0 0H40V-30H15A15 15 0 0 0 0 -15Z', class: 'f-pieza' }, g); linea(g, [12, 15], [18, 15], 'f-eje'); linea(g, [15, 12], [15, 18], 'f-eje'); };
-const ORIG_ESC = { 0: [0, 10], 15: [15, 20], 30: [30, 30], 45: [45, 30] };
-const cotaH = (g, a, b, fila, t, err) => cotaLineal(g, { a: [a, 0], b: [b, 0], hz: true, fila, texto: t, err });
-const RONDAS = [
-  { t: 'Dónde va la línea de cota', caja: [-6, -13, 52, 37], fig: g => RECT(g, 40, 20), ops: [
-    { ok: 1, d: g => cotaH(g, 0, 40, -8, '40'), txt: 'Correcta: la línea de cota está a 8 mm del contorno.' },
-    { d: g => cotaH(g, 0, 40, -4, '40'), txt: 'La línea de cota está demasiado cerca del contorno: siempre a 8 mm.' },
-    { d: g => cotaH(g, 0, 40, 0, '40'), txt: 'La línea de cota pisa la arista: no se distingue la pieza de la cota.' },
-    { d: g => cotaLineal(g, { a: [0, 10], b: [40, 10], hz: true, fila: 10, texto: '40' }), txt: 'La cota está dentro de la figura: siempre que se pueda, va fuera.' }] },
-  { t: 'Líneas auxiliares', caja: [-6, -14, 52, 38], fig: g => RECT(g, 40, 20), ops: [
-    { ok: 1, d: g => cotaH(g, 0, 40, -8, '40'), txt: 'Correcta: las auxiliares sobrepasan 2 mm la línea de cota.' },
-    { d: g => cotaH(g, 0, 40, -8, '40', { sinExceso: 1 }), txt: 'Las auxiliares se quedan justo en la línea de cota: deben sobrepasarla 2 mm.' },
-    { d: g => cotaH(g, 0, 40, -8, '40', { cortas: 1 }), txt: 'Las auxiliares no llegan hasta la línea de cota.' },
-    { d: g => cotaH(g, 0, 40, -8, '40', { hueco: 0 }), txt: 'Las auxiliares tocan el dibujo: a lápiz se confunden con las aristas. Empiezan a 2 mm de la pieza.' }] },
-  { t: 'La cifra en una cota horizontal', caja: [-6, -15, 52, 39], fig: g => RECT(g, 40, 20), ops: [
-    { ok: 1, d: g => cotaH(g, 0, 40, -8, '40'), txt: 'Correcta: centrada, encima de la línea y paralela a ella.' },
-    { d: g => cotaH(g, 0, 40, -8, '40', { textoDebajo: 1 }), txt: 'La cifra está debajo de la línea de cota: va encima.' },
-    { d: g => cotaH(g, 0, 40, -8, '40', { textoDescentrado: 1 }), txt: 'La cifra no está centrada.' },
-    { d: g => cotaH(g, 0, 40, -8, '40', { textoCortando: 1 }), txt: 'La cifra corta la línea de cota: va encima de ella, sin interrumpirla.' }] },
-  { t: 'La cifra en una cota vertical', caja: [-17, -4, 42, 38], fig: g => RECT(g, 20, 30), ops: [
-    { ok: 1, d: g => cotaLineal(g, { a: [0, 0], b: [0, 30], hz: false, fila: -8, texto: '30' }), txt: 'Correcta: paralela a la línea y se lee de abajo arriba.' },
-    { d: g => cotaLineal(g, { a: [0, 0], b: [0, 30], hz: false, fila: -8, texto: '30', err: { textoHorizontal: 1 } }), txt: 'La cifra está horizontal: tiene que ser paralela a la línea de cota.' },
-    { d: g => cotaLineal(g, { a: [0, 0], b: [0, 30], hz: false, fila: -8, texto: '30', err: { textoInvertido: 1 } }), txt: 'La cifra se lee de arriba abajo: en las verticales se lee de abajo arriba.' },
-    { d: g => cotaLineal(g, { a: [0, 0], b: [0, 30], hz: false, fila: -8, texto: '30', err: { textoOtroLado: 1 } }), txt: 'La cifra está al otro lado de la línea, entre la cota y la pieza.' }] },
-  { t: 'Qué número se escribe (dibujo a escala 1:2)', caja: [-6, -13, 54, 37], fig: g => { RECT(g, 40, 20); svT('Escala 1:2', { x: 20, y: -9, class: 'mini-rot', 'text-anchor': 'middle' }, g); }, ops: [
-    { ok: 1, d: g => cotaH(g, 0, 40, -8, '80'), txt: 'Correcta: el dibujo mide 40 mm, pero la pieza real mide 80 mm, y la cota dice la realidad.' },
-    { d: g => cotaH(g, 0, 40, -8, '40'), txt: 'Es la medida del papel. La cifra de cota es siempre la medida real de la pieza.' },
-    { d: g => cotaH(g, 0, 40, -8, '80', { mm: 1 }), txt: 'No se escribe «mm» detrás de la cifra: se sobreentiende.' },
-    { d: g => cotaH(g, 0, 40, -8, '8 cm'), txt: 'Todas las cotas se ponen en la misma unidad, en mm, sin escribirla.' }] },
-  { t: 'Las flechas', caja: [-6, -13, 58, 37], fig: g => RECT(g, 40, 20), ops: [
-    { ok: 1, d: g => cotaH(g, 0, 40, -8, '40'), txt: 'Correcta: flechas dentro, tocando las líneas auxiliares.' },
-    { ok: 1, d: g => { sv('path', { d: 'M40 0V-20', class: 'f-vis' }, g); sv('path', { d: 'M34 0V-20', class: 'f-fina' }, g); cotaH(g, 34, 40, -8, '6'); }, txt: 'Correcta: en una cota tan pequeña las flechas no caben dentro y se dibujan por fuera.' },
-    { d: g => cotaH(g, 0, 40, -8, '40', { sinFlechas: 1 }), txt: 'Faltan las flechas en los extremos de la línea de cota.' },
-    { d: g => cotaH(g, 0, 40, -8, '40', { flechasNoLlegan: 1 }), txt: 'Las flechas no llegan a tocar las líneas auxiliares.' }] },
-  { t: 'Circunferencias', caja: [-18, -18, 44, 42], fig: g => { sv('circle', { cx: 0, cy: 0, r: 12, class: 'f-pieza' }, g); linea(g, [-15, 0], [15, 0], 'f-eje'); linea(g, [0, -15], [0, 15], 'f-eje'); }, ops: [
-    { ok: 1, d: g => cotaDiametro(g, { c: [0, 0], r: 12, valor: 24 }), txt: 'Correcta: una circunferencia se acota con su diámetro (Ø), con la línea inclinada.' },
-    { d: g => cotaDiametro(g, { c: [0, 0], r: 12, valor: 24, err: { simboloR: 1 } }), txt: 'Una circunferencia completa se acota con el diámetro (Ø), no con el radio.' },
-    { d: g => cotaDiametro(g, { c: [0, 0], r: 12, valor: 24, err: { sinSimbolo: 1 } }), txt: 'Falta el símbolo Ø delante de la cifra.' },
-    { d: g => cotaDiametro(g, { c: [0, 0], r: 12, valor: 24, err: { sobreEje: 1 } }), txt: 'La línea de cota coincide con un eje: se inclina para no pisarlo.' }] },
-  { t: 'Arcos', caja: [-8, -8, 56, 44], fig: ESQ, ops: [
-    { ok: 1, d: g => cotaRadio(g, { c: [15, 15], r: 15, valor: 15, ang: 135 }), txt: 'Correcta: un arco se acota con su radio (R), desde el centro, con una sola flecha que toca el arco.' },
-    { d: g => cotaRadio(g, { c: [15, 15], r: 15, valor: 15, ang: 135, err: { simboloD: 1 } }), txt: 'Los arcos de hasta 180° se acotan con el radio (R), no con el diámetro.' },
-    { d: g => cotaRadio(g, { c: [15, 15], r: 15, valor: 15, ang: 135, err: { flechaCentro: 1 } }), txt: 'La flecha va en el arco, no en el centro.' },
-    { d: g => cotaRadio(g, { c: [15, 15], r: 15, valor: 15, ang: 135, err: { noCentro: 1 } }), txt: 'La línea de cota del radio tiene que pasar por el centro del arco.' }] },
-  { t: 'Cotas en serie', caja: [-6, -4, 58, 58], fig: ESCAL, ops: [
-    { ok: 1, d: g => [[0, 15], [15, 30], [30, 45]].forEach(([a, b]) => cotaLineal(g, { a: ORIG_ESC[a], b: ORIG_ESC[b], hz: true, fila: 38, texto: String(b - a) })), txt: 'Correcta: las cotas en serie van alineadas en una misma línea.' },
-    { d: g => [[0, 15, 18], [15, 30, 28], [30, 45, 38]].forEach(([a, b, f]) => cotaLineal(g, { a: ORIG_ESC[a], b: ORIG_ESC[b], hz: true, fila: f, texto: String(b - a) })), txt: 'Las cotas están escalonadas: en serie van alineadas en la misma línea.' },
-    { d: g => { [[0, 15], [15, 30], [30, 45]].forEach(([a, b]) => cotaLineal(g, { a: ORIG_ESC[a], b: ORIG_ESC[b], hz: true, fila: 38, texto: String(b - a) })); cotaLineal(g, { a: ORIG_ESC[0], b: ORIG_ESC[45], hz: true, fila: 46, texto: '45' }); }, txt: 'Sobra una cota: el 45 total se deduce de 15 + 15 + 15.' }] },
-  { t: 'Cotas en paralelo', caja: [-6, -4, 58, 66], fig: ESCAL, ops: [
-    { ok: 1, d: g => [[15, 38], [30, 46], [45, 54]].forEach(([b, f]) => cotaLineal(g, { a: ORIG_ESC[0], b: ORIG_ESC[b], hz: true, fila: f, texto: String(b) })), txt: 'Correcta: desde la misma referencia, la cota menor más cerca de la pieza.' },
-    { d: g => [[45, 38], [30, 46], [15, 54]].forEach(([b, f]) => cotaLineal(g, { a: ORIG_ESC[0], b: ORIG_ESC[b], hz: true, fila: f, texto: String(b) })), txt: 'La cota mayor está más cerca: las auxiliares cruzan las otras líneas de cota. La menor va más cerca.' },
-    { d: g => [[15, 38], [30, 41.5], [45, 45]].forEach(([b, f]) => cotaLineal(g, { a: ORIG_ESC[0], b: ORIG_ESC[b], hz: true, fila: f, texto: String(b) })), txt: 'Las cotas paralelas están demasiado juntas: entre ellas se dejan 8 mm.' }] },
-  { t: 'Aristas y ejes', caja: [-8, -13, 56, 37], fig: g => { RECT(g, 40, 20); linea(g, [-5, 10], [45, 10], 'f-eje'); }, ops: [
-    { ok: 1, d: g => cotaH(g, 0, 40, -8, '40'), txt: 'Correcta: la cota está fuera y separada de la arista.' },
-    { d: g => cotaLineal(g, { a: [0, 10], b: [40, 10], hz: true, fila: 10, texto: '40' }), txt: 'La línea de cota va encima del eje de simetría: no debe coincidir con él.' },
-    { d: g => cotaH(g, 0, 40, 0, '40'), txt: 'La línea de cota pisa la arista.' }] }
+TABS.forEach(([t]) => $('#' + t).addEventListener('click', () => irPestana(t)));
+
+/* =====================================================================
+   1 · EL SISTEMA
+   ===================================================================== */
+const PZ_SIS = LISTA.find(p => p.id === 's1') || LISTA[0];
+const PASOS_S = [
+  {
+    t: 'La pieza y el punto de vista', cam: 'iso', e: { flecha: true },
+    txt: 'En perspectiva isométrica el observador se coloca <b>delante, arriba y a la izquierda</b> de la pieza, a la misma distancia de las tres direcciones. Desde ahí se ven a la vez las tres caras que conoces: la del <b class="ta">alzado</b>, la de la <b class="tp">planta</b> y la del <b class="tf">perfil izquierdo</b>.',
+    hoja: null
+  },
+  {
+    t: 'Los tres ejes, a 120°', cam: 'iso', e: { flecha: true },
+    txt: 'Los ejes se dibujan formando <b>120° entre sí</b>: el de la altura vertical, y los otros dos a <b>30° sobre la horizontal</b>. La <b>anchura sube hacia la derecha</b>, la <b>profundidad baja hacia la derecha</b> y la <b>altura</b> va hacia arriba.',
+    hoja: 'ejes', hojaTit: 'Los ejes isométricos'
+  },
+  {
+    t: 'El papel isométrico', cam: 'iso', e: { flecha: true },
+    txt: 'La retícula de triángulos es el papel isométrico: todos sus lados van en una de las tres direcciones de los ejes. Dibujar sobre ella es contar nudos, igual que contabas cuadros en las vistas.<span class="nota">Las medidas solo se pueden llevar sobre las tres direcciones. Las diagonales y los ángulos no se conservan: nunca se miden.</span>',
+    hoja: 'red', hojaTit: 'La retícula'
+  },
+  {
+    t: 'La caja envolvente', cam: 'iso', e: { flecha: true },
+    txt: 'Se empieza siempre por la <b>caja de las dimensiones generales</b>: la anchura, la profundidad y la altura máximas de la pieza, llevadas sobre los tres ejes. Dentro de esa caja cabe la pieza entera.',
+    hoja: 'caja', hojaTit: 'La caja envolvente'
+  },
+  {
+    t: 'Quitar lo que sobra', cam: 'iso', e: { flecha: true },
+    txt: 'A partir de la caja se va <b>quitando</b>: cada escalón, cada hueco y cada rebaje se marca contando nudos sobre las tres direcciones. Las aristas de la pieza aparecen dentro de la caja.',
+    hoja: 'construir', hojaTit: 'De la caja a la pieza'
+  },
+  {
+    t: 'La pieza terminada', cam: 'iso', e: { flecha: true },
+    txt: 'Se repasan las <b>aristas visibles</b> y se borran las líneas de construcción. Las aristas que quedan detrás no se dibujan, salvo que se pidan expresamente.<span class="nota">Una perspectiva no se acota para fabricar: para eso están las vistas.</span>',
+    hoja: 'pieza', hojaTit: 'La pieza terminada'
+  },
+  {
+    t: 'El coeficiente de reducción', cam: 'iso', e: { flecha: true },
+    txt: 'Al proyectar, las aristas se acortan: una de 100 mm mide 81,65 mm en la proyección. Aplicar ese <b>0,8165</b> a cada medida sería un suplicio, así que <b>se dibuja sin reducir</b>: se llevan las medidas reales sobre los ejes. El dibujo sale <b>1,22 veces mayor</b>, con la misma forma. Eso es la <b>isométrica normalizada</b>, y es lo que se hace siempre.',
+    hoja: 'pieza', hojaTit: 'La pieza terminada'
+  }
 ];
-const Q = { i: 0, aciertos: 0, hecha: false };
-function iniciarRondas() { Q.i = 0; Q.aciertos = 0; ronda(); }
-function ronda() {
-  const r = RONDAS[Q.i], box = $('#q-box'); box.textContent = ''; Q.hecha = false;
-  el('p', { class: 'datos-p' }, box, `Ronda ${Q.i + 1} de ${RONDAS.length} · ${Q.aciertos} acertadas`);
-  el('h4', {}, box, r.t);
-  el('p', { class: 'consigna' }, box, '¿Cuáles están bien acotadas? Marca todas las correctas y pulsa «Comprobar».');
-  const grid = el('div', { class: 'opciones' }, box);
-  const orden = r.ops.map((o, i) => i).sort(() => Math.random() - 0.5);
-  const bs = orden.map((oi, n) => {
-    const o = r.ops[oi], b = el('button', { class: 'op', type: 'button', 'aria-pressed': 'false', 'aria-label': 'Opción ' + 'ABCD'[n] }, grid, `<span class="letra">${'ABCD'[n]}</span>`);
-    const [x, y, w, h] = r.caja, s = sv('svg', { viewBox: `${x} ${-(y + h)} ${w} ${h}`, class: 'mini' }, b);
-    r.fig(s); o.d(s);
-    el('span', { class: 'op-fb' }, b);
-    b.addEventListener('click', () => { if (!Q.hecha) b.setAttribute('aria-pressed', String(b.getAttribute('aria-pressed') !== 'true')); });
-    return { b, o };
+const S3D = {};
+let sPaso = 0;
+function initSistema() {
+  const host = $('#s-3d');
+  S3D.esc = new Escena(host, { aspecto: 0.68 });
+  const b = $('#s-barra');
+  const g = el('div', { class: 'grupo' }, b);
+  [['iso', 'Vista isométrica'], ['frente', 'De frente'], ['arriba', 'Desde arriba'], ['izquierda', 'Desde la izquierda']].forEach(([k, t]) => {
+    const bt = el('button', { class: 'btn-h', type: 'button', txt: t }, g);
+    bt.addEventListener('click', () => S3D.esc.irCamara(k, 500));
   });
-  const fb = el('div', { class: 'fb-g', 'aria-live': 'polite' }, box), nav = el('div', { class: 'nav' }, box);
-  const bC = el('button', { class: 'btn', type: 'button' }, nav, 'Comprobar');
-  bC.addEventListener('click', () => {
-    Q.hecha = true; let bien = true;
-    bs.forEach(({ b, o }) => {
-      const m = b.getAttribute('aria-pressed') === 'true', ok = !!o.ok;
-      if (m !== ok) bien = false;
-      b.classList.add(ok ? 'bien' : 'malb');
-      b.querySelector('.op-fb').textContent = ok && !m ? 'Esta también era correcta: ' + o.txt.replace(/^Correcta: /, '') : o.txt;
-    });
-    if (bien) Q.aciertos++;
-    fb.innerHTML = bien ? '<p class="fb-bien">¡Bien! Has marcado exactamente las correctas.</p>' : '<p class="fb-mal">No del todo: lee la explicación de cada opción.</p>';
-    bC.hidden = true;
-    const bS = el('button', { class: 'btn', type: 'button' }, nav, Q.i < RONDAS.length - 1 ? 'Siguiente ronda ▶' : 'Terminar');
-    bS.addEventListener('click', () => { Q.i++; if (Q.i < RONDAS.length) ronda(); else finRondas(); }); bS.focus();
-  });
+  S3D.esc.setPieza(PZ_SIS);
+  S3D.hoja = new HojaIso($('#s-hoja'), { margen: 1.6 });
+  $('#s-ant').addEventListener('click', () => { sPaso = Math.max(0, sPaso - 1); pintarSistema(); });
+  $('#s-sig').addEventListener('click', () => { if (sPaso < PASOS_S.length - 1) { sPaso++; pintarSistema(); } });
+  $('#s-ir').addEventListener('click', () => irPestana('tab-piezas'));
+  pintarSistema(true);
 }
-function finRondas() {
-  const box = $('#q-box'); Prog.d.rondas = Math.max(Prog.d.rondas || 0, Q.aciertos); Prog.guardar(); pintarMarcas();
-  box.innerHTML = `<h4>Rondas terminadas</h4><p class="${Q.aciertos === RONDAS.length ? 'fb-bien' : 'consigna'}">Has acertado ${Q.aciertos} de ${RONDAS.length} rondas.</p>`;
-  const b = el('button', { class: 'btn sec', type: 'button' }, el('div', { class: 'nav' }, box), 'Empezar otra vez'); b.addEventListener('click', iniciarRondas);
+function pintarSistema(primera) {
+  const p = PASOS_S[sPaso];
+  $('#s-titulo').textContent = p.t;
+  $('#s-txt').innerHTML = p.txt;
+  $('#s-cuenta').textContent = `${sPaso + 1} / ${PASOS_S.length}`;
+  $('#s-ant').disabled = sPaso === 0;
+  $('#s-sig').disabled = sPaso === PASOS_S.length - 1;
+  $('#s-ir').hidden = sPaso !== PASOS_S.length - 1;
+  S3D.esc.aplicar(p.e, !primera);
+  if (primera) S3D.esc.irCamara(p.cam, 0);
+  $('#s-hoja-caja').hidden = !p.hoja;
+  if (p.hoja) { $('#s-hoja-tit').textContent = p.hojaTit; dibujarHojaSistema(p.hoja); }
 }
-
-/* =====================================================================
-   RESULTADO DE UNA COMPROBACIÓN (texto)
-   ===================================================================== */
-function textoResultado(M, res, cotas) {
-  const f = [];
-  if (res.ok) {
-    f.push(`<p class="fb-bien">¡Completamente definida y sin cotas de más! (${cotas.length} cotas)</p>`);
-  } else {
-    if (res.ocultas.length) f.push(`<li class="k-mal">${res.ocultas.length === 1 ? 'Una cota se apoya' : res.ocultas.length + ' cotas se apoyan'} en aristas ocultas (en rojo). Sobre las líneas ocultas no se acota: pon esa medida en la vista donde se vea.</li>`);
-    res.redundantes.forEach(r => f.push(`<li class="k-red">${textoRedundante(M, r)} ${r.partes.length === 1 && !r.pors.length ? 'Quita una de las dos.' : 'Sobra: quita esa cota (en naranja) o una de las que la forman.'}</li>`));
-    if (!res.completa) f.push(`<li class="k-libre">${res.nLibres === 1 ? 'Falta una cota.' : `Faltan ${res.nLibres} cotas.`} ${textoLibre(M, res.libre)}${res.alt ? ' En azul discontinuo, otra ' + (M.tipo === 'plana' ? 'figura' : 'pieza') + ' que tendría exactamente las mismas cotas.' : ''}</li>`);
-    f.unshift('<ul class="filas">'); f.push('</ul>');
-  }
-  res.cruces.forEach(x => f.push(`<p class="nota k-cruza">Consejo: en la cota ${textoCota(M, x.cota)} la línea auxiliar cruza el dibujo; queda más clara en ${nombreCarril(M, x.mejor.id)}.</p>`));
-  return f.join('');
-}
-function animador(lam) {
-  let id = null, t0 = 0;
-  return {
-    activo: () => !!id,
-    empezar() { if (id) return; t0 = performance.now(); const paso = t => { lam.verAlt((1 - Math.cos((t - t0) / 700)) / 2); id = requestAnimationFrame(paso); }; id = requestAnimationFrame(paso); },
-    parar() { if (!id) return; cancelAnimationFrame(id); id = null; lam.verAlt(1); }
+/* rótulos de las medidas generales sobre aristas visibles de la caja */
+function rotularCaja(pz, c, g) {
+  const [W, D, H] = pz.dims;
+  const centro = aPantalla([(c.v.a[0] + c.v.C[0]) / 2, (c.v.a[1] + c.v.C[1]) / 2]);
+  const pon = (p, q, txt) => {
+    const A = aPantalla(p), B = aPantalla(q);
+    const M = [(A[0] + B[0]) / 2, (A[1] + B[1]) / 2];
+    let d = [M[0] - centro[0], M[1] - centro[1]];
+    const L = Math.hypot(d[0], d[1]) || 1;
+    d = [d[0] / L * 0.5, d[1] / L * 0.5];
+    svT(txt, { x: M[0] + d[0], y: M[1] + d[1] + 0.14, class: 'h-medida-t', 'text-anchor': 'middle' }, g);
   };
+  pon(c.v.d, c.v.c, W + '');     // anchura, en la arista de abajo del frente
+  pon(c.v.a, c.v.d, D + '');     // profundidad, en la arista de abajo de la izquierda
+  pon(c.v.a, c.v.A, H + '');     // altura, en la arista vertical de la izquierda
+}
+function dibujarHojaSistema(modo) {
+  const pz = PZ_SIS, iso = isoDePieza(pz), c = cajaIso(pz), h = S3D.hoja;
+  h.encuadrar({ m0: iso.lim.m0 - 1, m1: iso.lim.m1 + 1, n0: iso.lim.n0 - 2, n1: iso.lim.n1 + 2 });
+  const g = h.gExtra;
+  if (modo === 'ejes') { h.ejes(c.v.a, 4); return; }
+  if (modo === 'red') return;
+  if (modo === 'caja' || modo === 'construir') {
+    const segs = c.vis.map(([a, b]) => ({ tipo: 'vis', a, b })).concat(c.ocu.map(([a, b]) => ({ tipo: 'ocu', a, b })));
+    segs.forEach(s => { const A = aPantalla(s.a), B = aPantalla(s.b); sv('line', { x1: A[0], y1: A[1], x2: B[0], y2: B[1], class: s.tipo === 'vis' ? 'h-caja-vis' : 'h-caja' }, g); });
+    rotularCaja(pz, c, g);
+  }
+  if (modo === 'construir' || modo === 'pieza') h.pintar(iso.segs.filter(s => s.tipo === 'vis'), h.gFig, 'h-');
 }
 
 /* =====================================================================
-   PESTAÑAS 3 y 4 · ACOTA TÚ (figuras planas y piezas)
+   2 · PIEZAS
    ===================================================================== */
-function panelAcota(pref, op) {
-  const P = { pref, op, cotas: {} };
-  P.lam = new Lamina($(`#${pref}-lam`), { editable: true, alCambiar: c => { P.cotas[P.M.id] = c.map(x => ({ ...x })); P.cambio(); }, aviso: t => { $(`#${pref}-fb`).innerHTML = `<p class="nota">${t}</p>`; } });
-  P.anim = animador(P.lam);
-  P.cambio = () => { P.anim.parar(); $(`#${pref}-mover`).hidden = true; $(`#${pref}-mover`).setAttribute('aria-pressed', 'false'); if (P.n) $(`#${pref}-fb`).innerHTML = '<p class="vacio">Has cambiado las cotas. Pulsa «Comprobar» cuando quieras.</p>'; };
-  $(`#${pref}-desh`).addEventListener('click', () => P.lam.deshacer());
-  $(`#${pref}-limp`).addEventListener('click', () => P.lam.limpiar());
-  $(`#${pref}-comp`).addEventListener('click', () => {
-    P.n = (P.n || 0) + 1;
-    const res = analizar(P.M, P.lam.cotas);
-    P.lam.marcar(res);
-    $(`#${pref}-fb`).innerHTML = (P.lam.cotas.length ? textoResultado(P.M, res, P.lam.cotas) : '<p class="vacio">Todavía no hay ninguna cota.</p>');
-    $(`#${pref}-mover`).hidden = !res.alt;
-    $(`#${pref}-sol`).hidden = false;
-    if (res.ok && op.alTerminar) op.alTerminar(P.M);
-  });
-  $(`#${pref}-mover`).addEventListener('click', () => { const on = !P.anim.activo(); if (on) P.anim.empezar(); else P.anim.parar(); $(`#${pref}-mover`).setAttribute('aria-pressed', String(on)); });
-  $(`#${pref}-sol`).addEventListener('click', () => {
-    const sol = solucionAuto(P.M);
-    P.lam.hist.push({ op: 'limpiar', antes: P.lam.cotas.slice() }); P.lam.cotas = sol; P.lam.nid = sol.length + 1; P.cotas[P.M.id] = sol.map(x => ({ ...x }));
-    const res = analizar(P.M, sol); P.anim.parar(); P.lam.marcar(res); $(`#${pref}-mover`).hidden = true;
-    $(`#${pref}-fb`).innerHTML = `<p class="nota">Una acotación posible (${sol.length} cotas). No es la única: vale cualquier otra completa y sin cotas de más.</p>`;
-  });
-  P.cargar = (M) => {
-    P.M = M; P.n = 0; P.anim.parar();
-    P.lam.set(M, P.cotas[M.id] || []);
-    $(`#${pref}-fb`).innerHTML = `<p class="vacio">${op.consigna}</p>`;
-    $(`#${pref}-mover`).hidden = true; $(`#${pref}-sol`).hidden = true;
-  };
-  return P;
-}
-/* ---------- figuras planas ---------- */
-const F = { nivel: 0 };
-function iniciarPlanas() {
-  F.P = panelAcota('f', { consigna: 'Toca dos marcas del mismo lado para poner una cota entre ellas. Toca una circunferencia o un arco para poner su Ø o su R. Toca una cota para quitarla.', alTerminar: M => { Prog.d.planas[M.id] = true; Prog.guardar(); pintarMarcas(); } });
-  const nv = $('#f-niveles');
-  NIVELES_PLANAS.forEach((n, i) => { const b = el('button', { class: 'chip', type: 'button', 'aria-pressed': String(i === 0) }, nv, n.titulo); b.addEventListener('click', () => { nv.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', String(x === b))); nivelPlanas(i); }); });
-  nivelPlanas(0);
-}
-function nivelPlanas(i) {
-  F.nivel = i; const n = NIVELES_PLANAS[i], box = $('#f-lista'); box.textContent = '';
-  $('#f-intro').textContent = n.intro;
-  n.ids.forEach((id, k) => { const b = el('button', { class: 'chip', type: 'button', 'aria-pressed': String(k === 0), 'data-id': id }, box, FIG[id].nombre + '<span class="marcas"></span>'); b.addEventListener('click', () => { box.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', String(x === b))); F.P.cargar(modeloPlana(FIG[id])); }); });
-  F.P.cargar(modeloPlana(FIG[n.ids[0]])); pintarMarcas();
-}
-/* ---------- piezas en tres vistas ---------- */
-const K = { nivel: 0 };
-function iniciarPiezas() {
-  K.esc = new Escena($('#k-3d'), { aspecto: 0.85 });
-  if (K.esc.sinWebGL) $('#k-3d').innerHTML = '<p class="aviso-gl">Este navegador no puede mostrar gráficos 3D.</p>';
-  const cams = [['iso', 'Vista inicial'], ['frente', 'De frente'], ['arriba', 'Desde arriba'], ['izquierda', 'Desde la izquierda']];
-  cams.forEach(([k, t]) => { const b = el('button', { class: 'btn-h', type: 'button' }, $('#k-cams'), t); b.addEventListener('click', () => K.esc.irCamara(k)); });
-  K.P = panelAcota('k', { consigna: 'Toca dos marcas del mismo carril para poner una cota entre ellas. Toca la circunferencia para poner su Ø. Toca una cota para quitarla.', alTerminar: M => { Prog.d.piezas[M.id] = true; Prog.guardar(); pintarMarcas(); } });
-  const nv = $('#k-niveles');
-  NIVELES_PIEZAS.forEach((n, i) => { const b = el('button', { class: 'chip', type: 'button', 'aria-pressed': String(i === 0) }, nv, n.titulo); b.addEventListener('click', () => { nv.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', String(x === b))); nivelPiezas(i); }); });
-  nivelPiezas(0);
-}
-function nivelPiezas(i) {
-  K.nivel = i; const n = NIVELES_PIEZAS[i], box = $('#k-lista'); box.textContent = '';
-  $('#k-intro').textContent = n.intro;
-  n.piezas.forEach((it, k) => {
-    const pz = it.pieza(), b = el('button', { class: 'chip', type: 'button', 'aria-pressed': String(k === 0), 'data-id': idPieza(it) }, box, pz.nombre + '<span class="marcas"></span>');
-    b.addEventListener('click', () => { box.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', String(x === b))); cargarPieza(it); });
-  });
-  cargarPieza(n.piezas[0]); pintarMarcas();
-}
-function idPieza(it) { return 'pz-' + it.pieza().id; }
-function cargarPieza(it) {
-  const pz = it.pieza(), M = modeloPieza(pz, { carriles: it.carriles, g: it.g, id: idPieza(it) });
-  K.esc.setPieza(pz); K.esc.alSeleccionar = null;
-  const [W, D0, H] = pz.dims;
-  $('#k-nombre').textContent = pz.nombre;
-  $('#k-dims').textContent = `${W * ESC_PIEZA} de anchura × ${D0 * ESC_PIEZA} de profundidad × ${H * ESC_PIEZA} de altura (mm). Cada cuadro de la pieza son 10 mm.`;
-  $('#k-nota').innerHTML = it.nota ? `<p class="nota-caja">${it.nota}</p>` : '';
-  K.P.cargar(M);
-}
+const P = { nivel: 1, pz: null, modo: 'ver', paso: 0, intento: 0, ocultas: false };
+let hojaVistas = null, hojaIso = null, editor = null, esc3d = null;
 
-/* =====================================================================
-   PESTAÑA 2 · ¿BIEN ACOTADA? (normas + revisión, incluida la definición)
-   ===================================================================== */
-const RV = {};
-function iniciarRevision() {
-  RV.lam = new Lamina($('#r-lam'), { seleccionable: true }); RV.anim = animador(RV.lam);
-  const lista = $('#r-lista');
-  REVISION_TODO.forEach((r, i) => { const b = el('button', { class: 'chip', type: 'button', 'aria-pressed': String(i === 0), 'aria-label': 'Ejercicio ' + (i + 1) }, lista, `<span class="num">${i + 1}</span><span class="marcas"></span>`); b.addEventListener('click', () => cargarRev(i)); });
-  document.querySelectorAll('#r-resp button').forEach(b => b.addEventListener('click', () => responderRev(b.dataset.r)));
-  $('#r-falta').addEventListener('click', () => { const b = $('#r-falta'); b.setAttribute('aria-pressed', String(b.getAttribute('aria-pressed') !== 'true')); });
-  $('#r-comp').addEventListener('click', comprobarRev);
-  $('#r-mover').addEventListener('click', () => { const on = !RV.anim.activo(); if (on) RV.anim.empezar(); else RV.anim.parar(); $('#r-mover').setAttribute('aria-pressed', String(on)); });
-  $('#r-sig').addEventListener('click', () => cargarRev((RV.i + 1) % REVISION_TODO.length));
-  cargarRev(0);
-}
-function erroresRev(M, cotas, res) {
-  const E = [];
-  cotas.filter(c => c.n).forEach(c => E.push({ ids: [c.id], n: c.n, txt: c.txt, cls: 'mal' }));
-  res.redundantes.forEach(r => {
-    const vistas = new Set([r.cota, ...r.partes.map(p => p.cota)].map(c => c.carril ? c.carril.split('-')[0] : 'T'));
-    E.push({ ids: [r.cota.id, ...r.partes.map(p => p.cota.id)], principal: r.cota.id, n: M.tipo === 'pieza' && vistas.size > 1 ? 15 : 12, txt: textoRedundante(M, r), cls: 'red' });
+function initPiezas() {
+  // niveles
+  const cn = $('#p-niveles');
+  NIVELES_ISO.forEach(N => {
+    const b = el('button', { class: 'chip', type: 'button', 'data-n': N.n }, cn);
+    el('span', { class: 'num', txt: N.n }, b);
+    b.appendChild(document.createTextNode(N.t.replace(/^Nivel \d+ · /, '')));
+    el('span', { class: 'cuenta-n', txt: ` (${PORNIVEL[N.n].length})` }, b);
+    b.addEventListener('click', () => { P.nivel = N.n; pintarNivel(); seleccionar(PORNIVEL[N.n][0]); });
   });
-  res.ocultas.forEach(c => E.push({ ids: [c.id], n: 10, txt: `La cota ${textoCota(M, c)} se apoya en una arista oculta: esa medida se pone en la vista donde se ve.`, cls: 'mal' }));
-  if (!res.completa) E.push({ falta: true, n: 11, txt: textoLibre(M, res.libre) + (res.alt ? ' En azul discontinuo, otra ' + (M.tipo === 'plana' ? 'figura' : 'pieza') + ' con las mismas cotas.' : '') });
-  return E;
+  $$('#p-modo button').forEach(b => b.addEventListener('click', () => setModo(b.dataset.modo)));
+  $('#p-ocultas').addEventListener('change', e => { P.ocultas = e.target.checked; if (P.modo === 'solo') montarSolo(); });
+  $('#p-ver3d').addEventListener('click', () => {
+    const on = $('#p-ver3d').getAttribute('aria-pressed') !== 'true';
+    $('#p-ver3d').setAttribute('aria-pressed', on ? 'true' : 'false');
+    $('#p-esc3d').hidden = !on;
+    if (on) { crear3D(); esc3d.setPieza(P.pz); esc3d.aplicar({ flecha: true }, false); esc3d.irCamara('iso', 0); esc3d.redimensionar(); }
+  });
+  $('#p-ant').addEventListener('click', () => { P.paso = Math.max(0, P.paso - 1); pintarVer(); });
+  $('#p-sig').addEventListener('click', () => { const n = pasosVer(P.pz).length; if (P.paso < n - 1) { P.paso++; pintarVer(); } });
+  hojaVistas = new Hoja($('#p-vistas'), { margen: 0.2 });
+  pintarNivel(); seleccionar(PORNIVEL[1][0]);
 }
-function cargarRev(i) {
-  RV.i = i; const r = REVISION_TODO[i]; RV.anim.parar(); RV.hecho = false;
-  document.querySelectorAll('#r-lista .chip').forEach((b, j) => b.setAttribute('aria-pressed', String(j === i)));
-  RV.M = r.fig ? modeloPlana(FIG[r.fig]) : modeloPieza(r.pieza(), { carriles: r.carriles || L_BASE, g: r.g, id: 'rev-' + r.id });
-  let id = 1;
-  RV.cotas = r.cotas.map(q => q[0] === 'T' ? Object.assign({ id: id++, tipo: 'T', tam: q[1] }, q[2] || {}) : Object.assign({ id: id++, tipo: 'L', carril: q[0], a: q[1], b: q[2] }, q[3] || {}));
-  RV.res = analizar(RV.M, RV.cotas); RV.errores = erroresRev(RV.M, RV.cotas, RV.res);
-  RV.lam.set(RV.M, RV.cotas);
-  $('#r-txt').textContent = RV.M.tipo === 'plana' ? `Figura: ${RV.M.nombre}.` : `Pieza: ${RV.M.nombre}, acotada en sus vistas.`;
-  $('#r-fb').innerHTML = '<p class="vacio">Revisa cada cota con las normas: cómo está dibujada, dónde está colocada y si la figura queda completamente definida sin cotas de más.</p>';
-  document.querySelectorAll('#r-resp button').forEach(b => { b.disabled = false; b.classList.remove('bien', 'malb'); });
-  $('#r-paso2').hidden = true; $('#r-falta').setAttribute('aria-pressed', 'false'); $('#r-mover').hidden = true; $('#r-sig').hidden = true;
+function crear3D() {
+  if (esc3d) return;
+  esc3d = new Escena($('#p-3d'), { aspecto: 0.62 });
+  const g = el('div', { class: 'grupo' }, $('#p-barra'));
+  [['iso', 'Vista isométrica'], ['frente', 'De frente'], ['arriba', 'Desde arriba'], ['izquierda', 'Desde la izquierda']].forEach(([k, t]) => {
+    const bt = el('button', { class: 'btn-h', type: 'button', txt: t }, g);
+    bt.addEventListener('click', () => esc3d.irCamara(k, 500));
+  });
 }
-const nref = n => `<a class="nref" href="#norma-${n}">norma ${n}</a>`;
-function pintarErroresRev(encontrados, fps) {
-  const cl = {};
-  RV.errores.forEach(E => { if (E.ids) (E.principal ? [E.principal] : E.ids).forEach(id => { cl[id] = E.cls; }); });
-  (fps || []).forEach(id => { cl[id] = 'fp'; });
-  RV.lam.clases = cl; RV.lam.selActiva = false;
-  RV.lam.marcas = { alt: RV.errores.some(E => E.falta) ? RV.res.alt : null, redundantes: [], ocultas: [], cruces: [], ok: false };
-  RV.lam.pintar();
-  $('#r-mover').hidden = !RV.lam.marcas.alt;
-}
-function responderRev(r) {
-  const bien = RV.errores.length === 0, b = document.querySelector(`#r-resp [data-r="${r}"]`);
-  document.querySelectorAll('#r-resp button').forEach(x => { x.disabled = true; });
-  const n = RV.errores.length, nTxt = n === 1 ? 'un error' : n + ' errores';
-  if (bien && r === 'si') {
-    b.classList.add('bien'); RV.lam.clases = Object.fromEntries(RV.cotas.map(c => [c.id, 'bien'])); RV.lam.pintar();
-    $('#r-fb').innerHTML = '<p class="fb-bien">Correcto: está bien acotada. Todas las cotas están bien dibujadas y colocadas, y la figura queda completamente definida sin cotas de más.</p>';
-    marcarRev(); $('#r-sig').hidden = false; return;
-  }
-  if (bien && r === 'no') {
-    b.classList.add('malb'); RV.lam.clases = Object.fromEntries(RV.cotas.map(c => [c.id, 'bien'])); RV.lam.pintar();
-    $('#r-fb').innerHTML = '<p class="fb-mal">Pues está bien acotada: todas las cotas cumplen las normas y la figura queda completamente definida sin cotas de más.</p>';
-    $('#r-sig').hidden = false; return;
-  }
-  if (r === 'si') {
-    b.classList.add('malb'); pintarErroresRev();
-    $('#r-fb').innerHTML = `<p class="fb-mal">No: tiene ${nTxt}.</p><ul class="filas">${RV.errores.map(E => `<li class="k-mal">${nref(E.n)}: ${E.txt}</li>`).join('')}</ul>`;
-    $('#r-sig').hidden = false; return;
-  }
-  b.classList.add('bien');
-  $('#r-fb').innerHTML = `<p class="fb-bien">Correcto: tiene ${nTxt}. Ahora encuéntralo${n > 1 ? 's' : ''}.</p>`;
-  $('#r-paso2').hidden = false; RV.lam.selActiva = true;
-}
-function comprobarRev() {
-  const sel = RV.lam.sel, falta = $('#r-falta').getAttribute('aria-pressed') === 'true';
-  const res = RV.errores.map(E => ({ E, ok: E.falta ? falta : E.ids.some(id => sel.has(id)) }));
-  const fps = [...sel].filter(id => !RV.errores.some(E => E.ids && E.ids.includes(id)));
-  const faltaFp = falta && !RV.errores.some(E => E.falta);
-  pintarErroresRev(null, fps);
-  const todo = res.every(x => x.ok) && !fps.length && !faltaFp;
-  const f = [todo ? '<p class="fb-bien">¡Bien! Has encontrado todos los errores.</p>' : '<p class="fb-mal">Casi: repasa lo que te ha faltado.</p>', '<ul class="filas">'];
-  res.forEach(({ E, ok }) => f.push(`<li class="${ok ? 'k-ok' : 'k-mal'}">${ok ? '✓ Lo has encontrado' : '✗ No lo has visto'} · ${nref(E.n)}: ${E.txt}</li>`));
-  fps.forEach(id => f.push(`<li class="k-mal">✗ La cota ${textoCota(RV.M, RV.cotas.find(c => c.id === id))} está bien (en gris): cumple las normas y hace falta.</li>`));
-  if (faltaFp) f.push('<li class="k-mal">✗ No falta ninguna cota: la figura queda completamente definida.</li>');
-  f.push('</ul>');
-  $('#r-fb').innerHTML = f.join('');
-  $('#r-paso2').hidden = true; $('#r-sig').hidden = false;
-  if (todo) marcarRev();
-}
-function marcarRev() { if (!Prog.d.revision[REVISION_TODO[RV.i].id]) { Prog.d.revision[REVISION_TODO[RV.i].id] = true; Prog.guardar(); pintarMarcas(); } }
-
-/* =====================================================================
-   PROGRESO, PESTAÑAS Y ARRANQUE
-   ===================================================================== */
-function pintarMarcas() {
-  document.querySelectorAll('#f-lista .chip').forEach(b => { b.querySelector('.marcas').innerHTML = Prog.d.planas[b.dataset.id] ? '<span class="mk">✓</span>' : ''; });
-  document.querySelectorAll('#k-lista .chip').forEach(b => { b.querySelector('.marcas').innerHTML = Prog.d.piezas[b.dataset.id] ? '<span class="mk">✓</span>' : ''; });
-  document.querySelectorAll('#r-lista .chip').forEach((b, i) => { b.querySelector('.marcas').innerHTML = (Prog.d.revision || {})[REVISION_TODO[i].id] ? '<span class="mk">✓</span>' : ''; });
-  const r = $('#q-mejor'); if (r) r.textContent = Prog.d.rondas != null ? `Tu mejor resultado: ${Prog.d.rondas} de ${RONDAS.length} rondas.` : '';
-}
-Prog.cargar();
-const INICIADO = {};
-const TABS = ['cota', 'revisar', 'planas', 'piezas'];
-function abrir(id) {
-  TABS.forEach(k => { const on = k === id, t = $('#tab-' + k); t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; $('#p-' + k).hidden = !on; });
-  if (!INICIADO[id]) { INICIADO[id] = true; if (id === 'cota') { iniciarAnatomia(); iniciarRondas(); } if (id === 'planas') iniciarPlanas(); if (id === 'piezas') iniciarPiezas(); if (id === 'revisar') iniciarRevision(); }
-  else if (id === 'piezas' && K.esc && !K.esc.sinWebGL) K.esc.redimensionar();
+function pintarNivel() {
+  $$('#p-niveles .chip').forEach(b => b.setAttribute('aria-pressed', +b.dataset.n === P.nivel ? 'true' : 'false'));
+  const N = NIVELES_ISO.find(x => x.n === P.nivel);
+  $('#p-nivel-intro').textContent = N.d;
+  const c = $('#p-lista'); c.textContent = '';
+  PORNIVEL[P.nivel].forEach((pz, i) => {
+    const b = el('button', { class: 'chip', type: 'button', 'data-id': pz.id }, c);
+    el('span', { class: 'num', txt: i + 1 }, b);
+    b.appendChild(document.createTextNode(pz.nombre));
+    el('span', { class: 'marcas' }, b);
+    b.addEventListener('click', () => seleccionar(pz));
+  });
   pintarMarcas();
-  try { history.replaceState(null, '', '#' + id); } catch (_) {}
 }
-document.querySelectorAll('[role=tab]').forEach((t, i, all) => {
-  t.addEventListener('click', () => abrir(t.id.replace('tab-', '')));
-  t.addEventListener('keydown', ev => { let j = null; if (ev.key === 'ArrowRight') j = (i + 1) % all.length; else if (ev.key === 'ArrowLeft') j = (i - 1 + all.length) % all.length; if (j != null) { ev.preventDefault(); all[j].focus(); abrir(all[j].id.replace('tab-', '')); } });
-});
-$('#borrar-prog').addEventListener('click', () => { if (!confirm('¿Borrar el progreso guardado en este navegador?')) return; Prog.borrar(); pintarMarcas(); });
-abrir(TABS.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'cota');
+function pintarMarcas() {
+  $$('#p-lista .chip').forEach(b => {
+    const p = Prog.get(b.dataset.id), m = b.querySelector('.marcas');
+    if (!m) return; m.textContent = '';
+    if (p.guiado) el('span', { class: 'mk', txt: 'G' }, m);
+    if (p.solo) el('span', { class: 'mk', txt: 'S' }, m);
+  });
+  $$('#r-sel .chip').forEach(b => {
+    const p = Prog.get('reto' + b.dataset.r), m = b.querySelector('.marcas');
+    if (!m) return; m.textContent = '';
+    if (p.ok) el('span', { class: 'mk', txt: '✓' }, m);
+  });
+}
+function seleccionar(pz) {
+  P.pz = pz; P.paso = 0; P.intento = 0;
+  $$('#p-lista .chip').forEach(b => b.setAttribute('aria-pressed', b.dataset.id === pz.id ? 'true' : 'false'));
+  $('#p-nombre').textContent = pz.nombre;
+  const [W, D, H] = pz.dims;
+  $('#p-dims').innerHTML = `${W} de anchura × ${D} de profundidad × ${H} de altura, en cuadros.` + (pz.origen ? ` <span class="nota">${pz.origen}</span>` : '');
+  hojaVistas.setPieza(pz); hojaVistas.mostrar({ alzado: 1, planta: 1, perfil: 1 }, false);
+  if ($('#p-esc3d').hidden === false) { crear3D(); esc3d.setPieza(pz); esc3d.aplicar({ flecha: true }, false); esc3d.irCamara('iso', 0); }
+  setModo(P.modo);
+}
+function setModo(m) {
+  P.modo = m; P.intento = 0;
+  $$('#p-modo button').forEach(b => b.setAttribute('aria-pressed', b.dataset.modo === m ? 'true' : 'false'));
+  $('#p-sw-ocu').hidden = m !== 'solo';
+  $('#p-panel-izq').hidden = m !== 'ver';
+  $('#p-panel-der').hidden = m === 'ver';
+  $('#p-inferior').classList.toggle('solo', m !== 'ver');
+  $('#p-herr').textContent = ''; $('#p-lienzo').textContent = ''; $('#p-fb').textContent = '';
+  hojaIso = null; editor = null;
+  if (m === 'ver') { $('#p-der-tit').textContent = 'La perspectiva, paso a paso'; P.paso = 0; montarVer(); }
+  else if (m === 'guiado') { $('#p-der-tit').textContent = '¿Cuál es la perspectiva de esta pieza?'; montarGuiado(); }
+  else { $('#p-der-tit').textContent = 'Dibuja la perspectiva'; montarSolo(); }
+}
+
+/* ---------- modo VER ---------- */
+function pasosVer(pz) {
+  const r = rasgosIso(pz);
+  const p = [
+    { t: 'La caja envolvente', txt: 'Lleva sobre los tres ejes la <b>anchura</b>, la <b>profundidad</b> y la <b>altura</b> máximas que ves en las vistas, y cierra la caja.', modo: 'caja' },
+    { t: 'Marcar los cortes', txt: 'Cuenta en las vistas dónde están los escalones y los rebajes, y lleva esas medidas sobre las direcciones de los ejes. Nunca en diagonal.', modo: 'construir' },
+    { t: 'Repasar las aristas visibles', txt: 'Quedan las aristas que se ven desde el punto de vista isométrico. Las líneas de construcción se borran.', modo: 'pieza' }
+  ];
+  if (r.ocultas) p.push({ t: 'Las aristas ocultas', txt: 'Las que quedan detrás. En perspectiva <b>normalmente no se dibujan</b>: se muestran aquí solo para que veas qué parte de la pieza no estás viendo.', modo: 'ocultas' });
+  p.push({ t: 'Comprobar con las vistas', txt: 'Compara con las tres vistas de la izquierda: la cara del <b class="ta">alzado</b>, la de la <b class="tp">planta</b> y la del <b class="tf">perfil izquierdo</b> son las tres que se ven en la perspectiva.', modo: 'comprobar' });
+  return p;
+}
+function montarVer() {
+  hojaIso = new HojaIso($('#p-lienzo'), { margen: 1.4 });
+  $('#p-der-sub').textContent = '';
+  pintarVer();
+}
+function pintarVer() {
+  const pz = P.pz, pasos = pasosVer(pz), p = pasos[P.paso];
+  $('#p-titulo').textContent = p.t;
+  $('#p-txt').innerHTML = p.txt;
+  $('#p-cuenta').textContent = `${P.paso + 1} / ${pasos.length}`;
+  $('#p-ant').disabled = P.paso === 0;
+  $('#p-sig').disabled = P.paso === pasos.length - 1;
+  const iso = isoDePieza(pz), c = cajaIso(pz), h = hojaIso;
+  h.encuadrar({ m0: iso.lim.m0 - 1, m1: iso.lim.m1 + 1, n0: iso.lim.n0 - 2, n1: iso.lim.n1 + 2 });
+  const g = h.gExtra;
+  if (p.modo === 'caja' || p.modo === 'construir') {
+    c.vis.forEach(([a, b]) => { const A = aPantalla(a), B = aPantalla(b); sv('line', { x1: A[0], y1: A[1], x2: B[0], y2: B[1], class: 'h-caja-vis' }, g); });
+    c.ocu.forEach(([a, b]) => { const A = aPantalla(a), B = aPantalla(b); sv('line', { x1: A[0], y1: A[1], x2: B[0], y2: B[1], class: 'h-caja' }, g); });
+    rotularCaja(pz, c, g);
+  }
+  if (p.modo === 'construir') {
+    c.vis.forEach(() => {});
+    h.pintar(iso.segs.filter(s => s.tipo === 'vis'), h.gFig, 'h-');
+  }
+  if (p.modo === 'pieza' || p.modo === 'comprobar') h.pintar(iso.segs.filter(s => s.tipo === 'vis'), h.gFig, 'h-');
+  if (p.modo === 'ocultas') h.pintar(iso.segs, h.gFig, 'h-');
+  $('#p-der-sub').textContent = p.modo === 'ocultas' ? 'con las aristas ocultas' : '';
+}
+
+/* ---------- modo GUIADO ---------- */
+function piezaTransformada(pz, f, sufijo) {
+  const nueva = { id: pz.id + sufijo, nombre: pz.nombre, dims: pz.dims, caras: () => pz.caras().map(c => G.cara(c.pts.map(f).reverse(), (c.holes || []).map(h => h.map(f).reverse()))) };
+  return nueva;
+}
+function claveIso(pz) {
+  const iso = isoDePieza(pz);
+  const m = mapaIso(iso.segs.filter(s => s.tipo === 'vis'));
+  let m0 = Infinity, n0 = Infinity;
+  m.forEach(v => [v.a, v.b].forEach(p => { m0 = Math.min(m0, p[0]); n0 = Math.min(n0, p[1]); }));
+  return [...m.values()].map(v => `${v.a[0] - m0},${v.a[1] - n0}|${v.b[0] - m0},${v.b[1] - n0}`).sort().join(';');
+}
+function opcionesGuiado(pz) {
+  const [W, D, H] = pz.dims;
+  const cands = [
+    { f: p => [W - p[0], p[1], p[2]], s: '_mx', txt: 'Es la pieza <b>reflejada</b>: lo que en el alzado está a la izquierda, aquí aparece a la derecha. Comprueba la anchura contando desde el eje X.' },
+    { f: p => [p[0], D - p[1], p[2]], s: '_my', txt: 'Aquí la pieza está <b>vuelta de delante a atrás</b>: lo que en la planta queda delante ha pasado al fondo.' },
+    { f: p => [p[0], p[1], H - p[2]], s: '_mz', txt: 'Esta pieza está <b>boca abajo</b>: compara con el alzado, que dice qué hay arriba y qué hay abajo.' },
+    { f: p => [p[1] * W / D, p[0] * D / W, p[2]], s: '_xy', txt: 'Se han <b>cambiado entre sí la anchura y la profundidad</b>. En la retícula, la anchura sube hacia la derecha y la profundidad baja hacia la derecha.' }
+  ];
+  const buena = claveIso(pz);
+  const ops = [{ pz, ok: true }];
+  const usadas = new Set([buena]);
+  for (const c of cands) {
+    if (ops.length === 4) break;
+    let q;
+    try { q = piezaTransformada(pz, c.f, c.s); G.preparar(q); isoDePieza(q); } catch (_) { continue; }
+    const k = claveIso(q);
+    if (usadas.has(k)) continue;
+    usadas.add(k); ops.push({ pz: q, ok: false, txt: c.txt });
+  }
+  // si faltan opciones, se completan con otras piezas del catálogo
+  for (const otra of LISTA) {
+    if (ops.length === 4) break;
+    if (otra.id === pz.id) continue;
+    const k = claveIso(otra);
+    if (usadas.has(k)) continue;
+    usadas.add(k); ops.push({ pz: otra, ok: false, txt: 'Esta es otra pieza distinta: fíjate en el contorno que dibujan las tres vistas.' });
+  }
+  // barajar de forma estable para cada pieza
+  let semilla = 0; for (const ch of pz.id) semilla = (semilla * 31 + ch.charCodeAt(0)) % 9973;
+  const rnd = () => { semilla = (semilla * 1103515245 + 12345) % 2147483648; return semilla / 2147483648; };
+  for (let i = ops.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [ops[i], ops[j]] = [ops[j], ops[i]]; }
+  return ops;
+}
+function miniIso(pz, host) {
+  const iso = isoDePieza(pz), m = 0.6;
+  let m0 = Infinity, m1 = -Infinity, n0 = Infinity, n1 = -Infinity;
+  iso.segs.filter(x => x.tipo === 'vis').forEach(s => [s.a, s.b].forEach(q => {
+    m0 = Math.min(m0, q[0]); m1 = Math.max(m1, q[0]); n0 = Math.min(n0, q[1]); n1 = Math.max(n1, q[1]);
+  }));
+  const L = { m0, m1, n0, n1 };
+  const p0 = aPantalla([L.m0, L.n1]), p1 = aPantalla([L.m1, L.n0]);
+  const x0 = p0[0] - m, x1 = p1[0] + m, y0 = p0[1] - m, y1 = p1[1] + m;
+  const s = sv('svg', { class: 'mini', viewBox: `${x0} ${y0} ${x1 - x0} ${y1 - y0}` }, host);
+  iso.segs.filter(x => x.tipo === 'vis').forEach(x => { const a = aPantalla(x.a), b = aPantalla(x.b); sv('line', { x1: a[0], y1: a[1], x2: b[0], y2: b[1], class: 'm-vis' }, s); });
+  return s;
+}
+function montarGuiado() {
+  const cont = $('#p-lienzo'); cont.textContent = '';
+  $('#p-der-sub').textContent = 'una sola es correcta';
+  const ops = opcionesGuiado(P.pz);
+  const grid = el('div', { class: 'opciones' }, cont);
+  const fb = $('#p-fb'); fb.innerHTML = '<p class="consigna">Mira las tres vistas de la izquierda y elige la perspectiva que les corresponde.</p>';
+  let resuelto = false;
+  ops.forEach((o, i) => {
+    const b = el('button', { class: 'op', type: 'button' }, grid);
+    el('span', { class: 'letra', txt: 'ABCD'[i] }, b);
+    miniIso(o.pz, b);
+    b.addEventListener('click', () => {
+      if (resuelto) return;
+      if (o.ok) {
+        resuelto = true; b.classList.add('bien');
+        $$('.op', grid).forEach(x => { x.disabled = true; });
+        fb.innerHTML = '<p class="fb-bien">Correcta. Esas son las tres caras que se ven desde el punto de vista isométrico.</p>';
+        Prog.marcar(P.pz.id, 'guiado');
+      } else {
+        b.classList.add('malb'); b.disabled = true;
+        fb.innerHTML = `<p class="fb-mal">${o.txt}</p>`;
+      }
+    });
+  });
+}
+
+/* ---------- modo SOLO ---------- */
+function herramientas(host, ed, conOcultas) {
+  host.textContent = '';
+  const c = el('div', { class: 'herr' }, host);
+  const mk = (h, txt, dash) => {
+    const b = el('button', { class: 'btn-h herr-b', type: 'button', 'aria-pressed': ed.herr === h ? 'true' : 'false' }, c);
+    const s = sv('svg', { viewBox: '0 0 28 12' }, b);
+    sv('line', { x1: 2, y1: 6, x2: 26, y2: 6, stroke: 'currentColor', 'stroke-width': dash ? 1.4 : 2.2, 'stroke-dasharray': dash || null, 'stroke-linecap': 'round' }, s);
+    b.appendChild(document.createTextNode(txt));
+    b.addEventListener('click', () => { ed.herramienta(h); [...c.children].forEach(x => x.setAttribute('aria-pressed', 'false')); b.setAttribute('aria-pressed', 'true'); });
+    return b;
+  };
+  mk('vis', 'Arista', null);
+  if (conOcultas) mk('ocu', 'Oculta', '4 3');
+  const bb = el('button', { class: 'btn-h', type: 'button', txt: 'Borrar' }, c);
+  bb.addEventListener('click', () => { ed.herramienta('borrar'); [...c.children].forEach(x => x.setAttribute('aria-pressed', 'false')); bb.setAttribute('aria-pressed', 'true'); });
+  el('span', { class: 'rot', txt: '·' }, c);
+  const bd = el('button', { class: 'btn-h', type: 'button', txt: 'Deshacer' }, c); bd.addEventListener('click', () => ed.deshacer());
+  const bl = el('button', { class: 'btn-h', type: 'button', txt: 'Limpiar' }, c); bl.addEventListener('click', () => ed.limpiar());
+  return c;
+}
+function montarSolo() {
+  const cont = $('#p-lienzo'); cont.textContent = '';
+  P.intento = 0;
+  $('#p-der-sub').textContent = 'toca un nudo y después otro';
+  editor = new EditorIso(cont, () => { $('#p-fb').querySelector('.fb-solo') && pintarFbSolo(null); });
+  editor.setPieza(P.pz, { ocultas: P.ocultas });
+  herramientas($('#p-herr'), editor, P.ocultas);
+  el('p', { class: 'ayuda-ed', txt: 'Toca un nudo y después otro para trazar una arista; si sigues tocando, las líneas se encadenan. Puedes colocar la pieza donde quieras dentro de la retícula.' }, cont);
+  const fb = $('#p-fb'); fb.textContent = '';
+  el('p', { class: 'consigna', html: 'Dibuja la perspectiva isométrica de la pieza a partir de sus tres vistas. Cada cuadro de las vistas es un lado de la retícula.' }, fb);
+  el('div', { class: 'fb-solo' }, fb);
+  const nav = el('div', { class: 'nav' }, fb);
+  const bc = el('button', { class: 'btn', type: 'button', txt: 'Comprobar' }, nav);
+  const bs = el('button', { class: 'btn sec', type: 'button', txt: 'Ver solución', hidden: 'hidden' }, nav);
+  bc.addEventListener('click', () => {
+    const res = corregirIso(P.pz, editor.trazos, P.ocultas);
+    P.intento++;
+    editor.marcar(res, P.intento >= 2);
+    pintarFbSolo(res);
+    if (res.ok) { Prog.marcar(P.pz.id, 'solo'); bs.hidden = true; }
+    else if (P.intento >= 2) bs.hidden = false;
+  });
+  bs.addEventListener('click', () => { editor.solucion(true); bs.disabled = true; });
+}
+function pintarFbSolo(res) {
+  const d = $('#p-fb .fb-solo'); if (!d) return;
+  d.textContent = '';
+  if (!res) return;
+  if (res.ok) { el('p', { class: 'fb-bien', txt: '¡Bien! La perspectiva es correcta.' }, d); return; }
+  res.msgs.forEach(m => el('p', { class: 'fb-mal', html: m }, d));
+  if (P.intento === 1 && !res.vacio) el('p', { class: 'nota', txt: 'En rojo, lo que sobra. Vuelve a comprobar y te marcaré también lo que falta.' }, d);
+  else if (P.intento >= 2) el('p', { class: 'nota', txt: 'En verde discontinuo, las líneas que faltan.' }, d);
+}
+
+/* =====================================================================
+   3 · RETOS
+   ===================================================================== */
+let edReto = null, hojaRetoV = null, retoB = null;
+function initRetos() {
+  $$('#r-sel .chip').forEach(b => b.addEventListener('click', () => {
+    const k = b.dataset.r;
+    $$('#r-sel .chip').forEach(x => x.setAttribute('aria-pressed', x.dataset.r === k ? 'true' : 'false'));
+    $('#r-a').hidden = k !== 'A'; $('#r-b').hidden = k !== 'B';
+    if (k === 'B' && !retoB) montarRetoB();
+  }));
+  montarRetoA();
+}
+function montarRetoA() {
+  const pz = G.preparar(G.RETO_A);
+  hojaRetoV = new Hoja($('#r-vistas'), { margen: 0.2 });
+  hojaRetoV.setPieza(pz); hojaRetoV.mostrar({ alzado: 1, planta: 1, perfil: 1 }, false);
+  const cont = $('#r-lienzo'); cont.textContent = '';
+  edReto = new EditorIso(cont, () => {});
+  edReto.setPieza(pz, { ocultas: false });
+  herramientas($('#r-herr'), edReto, false);
+  const fb = $('#r-fb'); fb.textContent = '';
+  const d = el('div', { class: 'fb-solo' }, fb);
+  const nav = el('div', { class: 'nav' }, fb);
+  const bc = el('button', { class: 'btn', type: 'button', txt: 'Comprobar' }, nav);
+  const bs = el('button', { class: 'btn sec', type: 'button', txt: 'Ver solución', hidden: 'hidden' }, nav);
+  let intento = 0;
+  bc.addEventListener('click', () => {
+    const res = corregirIso(pz, edReto.trazos, false);
+    intento++; edReto.marcar(res, intento >= 2); d.textContent = '';
+    if (res.ok) { el('p', { class: 'fb-bien', txt: '¡Bien! Perspectiva correcta, y sin ayudas.' }, d); Prog.marcar('retoA', 'ok'); }
+    else { res.msgs.forEach(m => el('p', { class: 'fb-mal', html: m }, d)); if (intento >= 2) bs.hidden = false; }
+  });
+  bs.addEventListener('click', () => { edReto.solucion(true); bs.disabled = true; });
+}
+function montarRetoB() {
+  const cubo = c => ({ id: 'tb' + c, nombre: '', dims: [3, 3, 3], caras: () => G.voxeles(c) });
+  // El observador ve las caras x=0, y=D y z=H: lo que se quite en la esquina x=W, y=0, z=0 no se ve.
+  const lleno = [['###', '###', '###'], ['###', '###', '###'], ['###', '###', '###']];
+  const quitar = (c, i, j, k) => c.map((cap, z) => cap.map((fila, y) => fila.split('').map((ch, x) => (x === i && y === j && z === k) ? '.' : ch).join('')));
+  const A = cubo(lleno);
+  const B = cubo(quitar(lleno, 2, 0, 0));                                   // esquina escondida (atrás-derecha-abajo)
+  const C = cubo(quitar(lleno, 0, 2, 2));                                   // esquina a la vista
+  const D = cubo(quitar(quitar(lleno, 2, 0, 0), 2, 0, 1));                  // dos cubos escondidos, uno encima de otro
+  const piezas = [
+    { pz: A, ok: true, nombre: 'Pieza 1', txt: 'Bloque entero: encaja, claro.' },
+    { pz: B, ok: true, nombre: 'Pieza 2', txt: 'Le falta un cubo en la esquina de atrás, abajo y a la derecha. Encaja: esa esquina no se ve desde aquí.' },
+    { pz: C, ok: false, nombre: 'Pieza 3', txt: 'Le falta un cubo en la esquina de delante, arriba y a la izquierda. No encaja: ese hueco sí se vería.' },
+    { pz: D, ok: true, nombre: 'Pieza 4', txt: 'Le faltan dos cubos, uno encima de otro, en la esquina de atrás. Encaja: los dos quedan escondidos.' }
+  ];
+  piezas.forEach(p => G.preparar(p.pz));
+  miniIso(A, $('#r-b-iso'));
+  const grid = $('#r-b-piezas'); grid.textContent = '';
+  const sel = new Set();
+  piezas.forEach((p, i) => {
+    const carta = el('div', { class: 'tp-carta' }, grid);
+    const b = el('button', { class: 'tp-b', type: 'button', 'aria-pressed': 'false' }, carta);
+    miniIso(p.pz, b);
+    el('span', { class: 'tp-n', txt: p.nombre }, b);
+    el('p', { class: 'tp-fb', id: 'rb-fb-' + i }, carta);
+    b.addEventListener('click', () => {
+      if (b.disabled) return;
+      const on = b.getAttribute('aria-pressed') !== 'true';
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      if (on) sel.add(i); else sel.delete(i);
+    });
+  });
+  const fb = $('#r-b-fb');
+  $('#r-b-comp').addEventListener('click', () => {
+    let bien = true;
+    piezas.forEach((p, i) => {
+      const b = grid.children[i].querySelector('.tp-b');
+      const marcada = sel.has(i);
+      if (marcada !== p.ok) bien = false;
+      b.classList.add(p.ok ? 'bien' : (marcada ? 'malb' : ''));
+      b.disabled = true;
+      $('#rb-fb-' + i).textContent = p.txt;
+    });
+    fb.innerHTML = bien ? '<p class="fb-bien">Exacto: tres de las cuatro dan la misma perspectiva.</p>' : '<p class="fb-mal">No del todo. Mira las explicaciones de cada una.</p>';
+    $('#r-b-conc').hidden = false;
+    $('#r-b-comp').hidden = true; $('#r-b-rep').hidden = false;
+    if (bien) Prog.marcar('retoB', 'ok');
+  });
+  $('#r-b-rep').addEventListener('click', () => { retoB = null; $('#r-b-conc').hidden = true; $('#r-b-comp').hidden = false; $('#r-b-rep').hidden = true; fb.textContent = ''; montarRetoB(); });
+  retoB = true;
+}
+function retoRedim() {}
+
+/* ---- arranque ---- */
+$('#borrar-prog').addEventListener('click', () => { if (confirm('¿Seguro que quieres borrar tu progreso en este navegador?')) Prog.borrar(); });
+initSistema();
+initPiezas();
+initRetos();
+pintarMarcas();
 
 
 
