@@ -50,6 +50,7 @@ table.tipo-tabla td strong{color:var(--principal2)}
 .glosario-tabla td{padding:8px 10px;border-bottom:1px solid var(--borde)}
 .glosario-tabla td:first-child{font-weight:600;color:var(--principal2);white-space:nowrap;width:25%}
 @media print{.curso-hd,.curso-navcross,.sb-side{display:none!important}.apartado{break-inside:avoid}}
+table.tipo-tabla td,table.tipo-tabla th{overflow-wrap:anywhere}
 </style>
 </head>
 <body>
@@ -216,7 +217,7 @@ table.tipo-tabla td strong{color:var(--principal2)}
 
     <ul style="margin-left:20px;line-height:1.7">
       <li>Si $i > 1$ → <strong>multiplica velocidad</strong> (rueda conducida más pequeña). Pierde par.</li>
-      <li>Si $i < 1$ → <strong>reduce velocidad</strong> (rueda conducida más grande). Gana par.</li>
+      <li>Si $i &lt; 1$ → <strong>reduce velocidad</strong> (rueda conducida más grande). Gana par.</li>
       <li>Si $i = 1$ → solo cambia el sentido o transmite a otro eje. Es lo que hace una caja de cambios en directa.</li>
     </ul>
 

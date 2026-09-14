@@ -11,27 +11,31 @@ Sitio estático servido por Cloudflare Workers Static Assets en
 ```
 tyd3-ies-jdq/
 ├── index.html                  Hub principal con las 6 unidades
-├── unidades/                   6 unidades didácticas
+├── unidades/
 │   └── NN-slug/
-│       ├── index.html          Hub de la unidad
-│       ├── teoria.html
-│       ├── actividades.html
-│       └── img/
-├── herramientas/
-├── proyectos/
+│       ├── index.html          Hub de la unidad (Saber/Hacer/Aplicar + recursos)
+│       ├── libro-digital.html  Teoría (teoria.html redirige aquí)
+│       ├── interactivos/       Simuladores y microactividades
+│       ├── actividades/        Ejercicios resueltos (actividades.html redirige aquí)
+│       ├── autocomprobacion/   Test de 18 preguntas con corrección
+│       └── proyecto/           Proyecto de la unidad con rúbrica
 ├── _soluciones/                Privado, NO se despliega
 ├── img/
 ├── assets/{css,js,templates}/
-├── documentacion/              Privado: PROGRAMACION, DECISIONES, PENDIENTES
-└── scripts/                    Auditoría
+├── documentacion/              PROGRAMACION, DECISIONES, PENDIENTES (no se despliega)
+└── scripts/                    Verificación (HTML, enlaces) y hook de pre-push
 ```
 
 ## Despliegue
 
+`git push` a `main` despliega automáticamente en Cloudflare (integración con GitHub).
+El hook de pre-push ejecuta antes los verificadores de HTML y enlaces y bloquea el push si algo falla.
+
 ```bash
-python3 -m http.server 8000          # test local
-python3 scripts/comprobar_enlaces.py # validación pre-push
-npx wrangler deploy                  # deploy
+python3 -m http.server 8000          # prueba local
+python3 scripts/verificar_html.py    # HTML bien formado
+python3 scripts/verificar_enlaces.py # enlaces y anclas
+git push                             # despliega
 ```
 
 ## Versionado

@@ -54,6 +54,7 @@ table.tipo-tabla td strong{color:var(--principal2)}
 .glosario-tabla td{padding:8px 10px;border-bottom:1px solid var(--borde)}
 .glosario-tabla td:first-child{font-weight:600;color:var(--principal2);white-space:nowrap;width:25%}
 @media print{.curso-hd,.curso-navcross,.sb-side{display:none!important}.apartado{break-inside:avoid}}
+table.tipo-tabla td,table.tipo-tabla th{overflow-wrap:anywhere}
 </style>
 </head>
 <body>
@@ -126,7 +127,7 @@ table.tipo-tabla td strong{color:var(--principal2)}
 
     <div class="callout callout-info">
       <span class="ic">💡</span>
-      <p>App Inventor es visual <em>por encima</em>, pero genera <em>de verdad</em> código Java que se ejecuta en tu móvil. No es un "juguete": apps publicadas en Google Play han nacido en App Inventor.</p>
+      <p>App Inventor es visual <em>por encima</em>, pero genera <em>de verdad</em> una app Android (un archivo APK) que se ejecuta en tu móvil. No es un "juguete": apps publicadas en Google Play han nacido en App Inventor.</p>
     </div>
   </section>
 
@@ -260,7 +261,7 @@ primera = tareas[0]   // → "lavar"</div>
       <thead><tr><th>Sensor</th><th>Qué mide</th><th>Idea de app</th></tr></thead>
       <tbody>
         <tr><td><strong>Acelerómetro</strong></td><td>Movimiento y agitación</td><td>Detector de pasos, "agita para borrar"</td></tr>
-        <tr><td><strong>Giroscopio</strong></td><td>Orientación (girar)</td><td>Brújula, nivel de albañil</td></tr>
+        <tr><td><strong>Giroscopio</strong></td><td>Giros y orientación del móvil</td><td>Juegos que se controlan inclinando, nivel de albañil</td></tr>
         <tr><td><strong>Localizador GPS</strong></td><td>Coordenadas</td><td>Distancia a un punto, geocaching</td></tr>
         <tr><td><strong>Sensor de proximidad</strong></td><td>Algo cerca de la pantalla</td><td>Apagar pantalla en llamada</td></tr>
         <tr><td><strong>Cámara y micrófono</strong></td><td>Imagen, sonido</td><td>Apps con visión / voz</td></tr>
@@ -437,7 +438,7 @@ cuando Botón1.Click
     <div class="ejemplo">
       <span class="et">CASO REAL</span>
       <h5>COMPAS: predicción de reincidencia delictiva</h5>
-      <p>En EE.UU., un algoritmo (COMPAS) predecía la probabilidad de que un detenido volviese a delinquir. Se demostró que <strong>asignaba mayor probabilidad a personas negras</strong> que blancas con expedientes idénticos. El sesgo venía de datos históricos sobre detenciones, que ya estaban sesgados.</p>
+      <p>En EE.UU., un algoritmo (COMPAS) predecía la probabilidad de que un detenido volviese a delinquir. Una investigación periodística (ProPublica, 2016) mostró que, con historiales parecidos, <strong>marcaba por error como «alto riesgo» a casi el doble de personas negras</strong> que blancas. El sesgo venía de datos históricos sobre detenciones, que ya estaban sesgados.</p>
     </div>
 
     <h3>De dónde salen los sesgos</h3>
@@ -467,7 +468,7 @@ cuando Botón1.Click
     </div>
 
     <h3>Derechos de autor</h3>
-    <p>Si una IA genera una imagen estilo «Van Gogh» tras entrenarse con Van Gogh, ¿quién es el autor? ¿La IA? ¿El usuario que escribió la descripción? ¿Van Gogh? Aún no hay respuesta legal clara. En 2024 la oficina de copyright de EE.UU. dictaminó que <strong>una imagen 100 % generada por IA no se puede registrar</strong> (no hay autor humano).</p>
+    <p>Si una IA genera una imagen estilo «Van Gogh» tras entrenarse con Van Gogh, ¿quién es el autor? ¿La IA? ¿El usuario que escribió la descripción? ¿Van Gogh? Aún no hay respuesta legal clara. En 2023 la oficina de copyright de EE.UU. dictaminó que <strong>una imagen 100 % generada por IA no se puede registrar</strong> (no hay autor humano).</p>
 
     <h3>Usos responsables, en clase</h3>
     <ul style="margin-left:20px;line-height:1.7">

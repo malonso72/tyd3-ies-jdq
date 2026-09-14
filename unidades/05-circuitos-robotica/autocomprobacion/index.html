@@ -104,7 +104,7 @@ window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},svg:{fontCache:'globa
     <div class="test-opts">
       <button class="test-opt" data-opt="a">V = R / I</button>
       <button class="test-opt" data-opt="b">I = V · R</button>
-      <button class="test-opt" data-opt="c">V = I · R (la tensión es el producto de corriente por resistencia)</button>
+      <button class="test-opt" data-opt="c">V = I · R</button>
       <button class="test-opt" data-opt="d">R = V · I</button>
     </div>
     <div class="test-fb">$V = I \cdot R$. Las otras dos formas se obtienen despejando: $I = V/R$ y $R = V/I$. <a href="../libro-digital.html#s2">Repasar →</a></div>
@@ -154,10 +154,10 @@ window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},svg:{fontCache:'globa
   <div class="test-q" data-answer="b">
     <p class="test-qtext"><span class="test-num">P5</span>Para resolver un circuito mixto, lo PRIMERO que hay que hacer es... <span class="test-tipo-tag">opción única</span></p>
     <div class="test-opts">
-      <button class="test-opt" data-opt="a">Calcular la potencia total</button>
-      <button class="test-opt" data-opt="b">Identificar los grupos en serie y en paralelo, y empezar a simplificar por el más interno</button>
-      <button class="test-opt" data-opt="c">Calcular I dividiendo V entre cada resistencia</button>
-      <button class="test-opt" data-opt="d">Sumar todas las resistencias</button>
+      <button class="test-opt" data-opt="a">Calcular la potencia total que consume el circuito</button>
+      <button class="test-opt" data-opt="b">Identificar los grupos en serie y en paralelo</button>
+      <button class="test-opt" data-opt="c">Dividir la tensión entre cada resistencia por separado</button>
+      <button class="test-opt" data-opt="d">Sumar todas las resistencias como si fueran serie</button>
     </div>
     <div class="test-fb">Método mixto: <strong>identificar grupos → simplificar de dentro hacia fuera → obtener R_eq total → calcular I total → volver atrás aplicando Ohm en cada tramo</strong>. <a href="../libro-digital.html#s4">Repasar →</a></div>
   </div>
@@ -228,10 +228,10 @@ window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},svg:{fontCache:'globa
   <div class="test-q" data-answer="b">
     <p class="test-qtext"><span class="test-num">P11</span>Un <strong>LED</strong> se conecta a una pila de 5 V SIN resistencia en serie. ¿Qué pasa? <span class="test-tipo-tag">opción única</span></p>
     <div class="test-opts">
-      <button class="test-opt" data-opt="a">Brilla más fuerte que con resistencia</button>
-      <button class="test-opt" data-opt="b">Se quema casi al instante porque pasa demasiada corriente</button>
-      <button class="test-opt" data-opt="c">No se enciende</button>
-      <button class="test-opt" data-opt="d">Cambia de color</button>
+      <button class="test-opt" data-opt="a">Brilla más fuerte que con la resistencia</button>
+      <button class="test-opt" data-opt="b">Se quema casi al instante por exceso de corriente</button>
+      <button class="test-opt" data-opt="c">No se enciende porque le falta la resistencia</button>
+      <button class="test-opt" data-opt="d">Cambia de color por el exceso de tensión</button>
     </div>
     <div class="test-fb">El LED tiene una resistencia interna muy baja. Sin resistencia limitadora se quema en milisegundos. Por eso siempre se pone una en serie (típicamente 220-470 Ω). <a href="../libro-digital.html#s8">Repasar →</a></div>
   </div>
@@ -239,10 +239,10 @@ window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},svg:{fontCache:'globa
   <div class="test-q" data-answer="c">
     <p class="test-qtext"><span class="test-num">P12</span>Resistencia con bandas <strong>Marrón - Negro - Rojo - Dorado</strong>. ¿Cuánto vale? <span class="test-tipo-tag">opción única</span></p>
     <div class="test-opts">
-      <button class="test-opt" data-opt="a">120 Ω</button>
-      <button class="test-opt" data-opt="b">100 Ω</button>
-      <button class="test-opt" data-opt="c">1000 Ω = 1 kΩ (±5%)</button>
-      <button class="test-opt" data-opt="d">10 kΩ</button>
+      <button class="test-opt" data-opt="a">120 Ω ±5 %</button>
+      <button class="test-opt" data-opt="b">100 Ω ±5 %</button>
+      <button class="test-opt" data-opt="c">1 kΩ ±5 %</button>
+      <button class="test-opt" data-opt="d">10 kΩ ±5 %</button>
     </div>
     <div class="test-fb">Marrón = 1, Negro = 0, Rojo = ×100, Dorado = ±5%. Valor: 10 × 100 = 1000 Ω = <strong>1 kΩ</strong>. <a href="../libro-digital.html#s7">Repasar →</a></div>
   </div>
@@ -250,10 +250,10 @@ window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},svg:{fontCache:'globa
   <div class="test-q" data-answer="b">
     <p class="test-qtext"><span class="test-num">P13</span>Sensor que mide la <strong>distancia</strong> a un objeto. Más usado en robótica educativa: <span class="test-tipo-tag">opción única</span></p>
     <div class="test-opts">
-      <button class="test-opt" data-opt="a">LDR</button>
-      <button class="test-opt" data-opt="b">HC-SR04 (ultrasonidos)</button>
-      <button class="test-opt" data-opt="c">NTC</button>
-      <button class="test-opt" data-opt="d">DHT11</button>
+      <button class="test-opt" data-opt="a">LDR, resistencia sensible a la luz</button>
+      <button class="test-opt" data-opt="b">HC-SR04, sensor de ultrasonidos</button>
+      <button class="test-opt" data-opt="c">NTC, resistencia sensible a la temperatura</button>
+      <button class="test-opt" data-opt="d">DHT11, sensor de temperatura y humedad</button>
     </div>
     <div class="test-fb">El <strong>HC-SR04</strong> emite un chasquido ultrasónico y mide el tiempo del eco para calcular la distancia. Rango ≈ 2 cm a 4 m. <a href="../libro-digital.html#s9">Repasar →</a></div>
   </div>
@@ -263,7 +263,7 @@ window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},svg:{fontCache:'globa
     <div class="test-opts">
       <button class="test-opt" data-opt="a">Un LED en serie</button>
       <button class="test-opt" data-opt="b">Un transistor directamente</button>
-      <button class="test-opt" data-opt="c">Un módulo relé (el Arduino activa la bobina del relé, que cierra el contacto de 230 V)</button>
+      <button class="test-opt" data-opt="c">Un módulo relé</button>
       <button class="test-opt" data-opt="d">Un sensor LDR</button>
     </div>
     <div class="test-fb">El <strong>relé</strong> aísla galvánicamente el Arduino del circuito de 230 V. NUNCA se conecta el Arduino directamente a 230 V: se quema y es peligroso. <a href="../libro-digital.html#s10">Repasar →</a></div>
@@ -293,7 +293,7 @@ window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},svg:{fontCache:'globa
     <div class="test-opts">
       <button class="test-opt" data-opt="a">digitalRead()</button>
       <button class="test-opt" data-opt="b">digitalWrite()</button>
-      <button class="test-opt" data-opt="c">analogRead() (devuelve un valor entre 0 y 1023)</button>
+      <button class="test-opt" data-opt="c">analogRead()</button>
       <button class="test-opt" data-opt="d">analogWrite()</button>
     </div>
     <div class="test-fb">Los pines A0-A5 leen tensiones entre 0 y 5 V con <strong>analogRead()</strong>, que devuelve un entero de 0 a 1023. Para sensores que solo dan ON/OFF (pulsador) se usa digitalRead. <a href="../libro-digital.html#s13">Repasar →</a></div>

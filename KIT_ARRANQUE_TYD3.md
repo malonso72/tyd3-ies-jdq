@@ -1,6 +1,6 @@
 # Kit de arranque · TyD 3º ESO (tyd3-ies-jdq)
 
-Última actualización: junio 2026
+Última actualización: septiembre 2026
 Mantenedor: Manuel Alonso Herrera (malonso72@gmail.com)
 Repositorio: github.com/malonso72/tyd3-ies-jdq
 Web en vivo: https://tyd3-ies-jdq.malonso72.workers.dev
@@ -11,7 +11,7 @@ Web en vivo: https://tyd3-ies-jdq.malonso72.workers.dev
 
 - Profesor de Tecnología y Digitalización en el IES Jiménez de Quesada (Santa Fe, Granada).
 - Esta es la web docente del curso **Tecnología y Digitalización · 3º ESO**.
-- Cloudflare Workers (Static Assets). Despliegue manual con `npx wrangler deploy` desde la raíz. No hay auto-deploy desde GitHub.
+- Cloudflare Workers (Static Assets). `git push` a `main` despliega solo (integración con GitHub); el hook de pre-push verifica HTML y enlaces antes.
 
 ## Las 6 unidades del curso
 
@@ -38,7 +38,7 @@ Si te pido tocar algo de OTRO curso, no es este repo. Dilo y abrimos otro chat.
 - No uses emojis salvo que yo los use primero.
 - Cambio en varios pasos → primero RECAP de lo entendido y espera mi OK antes de tocar nada.
 - Cambio claro y autocontenido → hazlo y resumes al final.
-- Los deploys los hago yo (`git push` + `npx wrangler deploy`); tú no tienes credenciales.
+- El push lo decido yo: tú haces commit y me preguntas antes de hacer push (despliega a la web que usan los alumnos).
 - A veces se cuelga `.git/index.lock` y bloquea commits desde GitHub Desktop. Hay que borrarlo del disco.
 - Antes de cambios grandes deja backup con sufijo `.bak_<descripcion>`.
 
@@ -74,20 +74,21 @@ Esquema por defecto (mismo que TyD 2º) salvo que te diga otra cosa:
 - Solucionario en VERDE con paso a paso.
 - Tensión por defecto: 12 V (números redondos).
 
-## Estado al cerrar este chat (junio 2026)
+## Estado (septiembre 2026)
 
-Repo LIMPIO. `git status` = nothing to commit. Branch `main` al día con origin.
+Las 6 unidades completas: hub, libro digital, interactivos, actividades (U4 con el cuadernillo de 64
+ejercicios integrado), autocomprobación y proyecto. U1 Dibujo técnico comparte libro, simuladores y
+láminas con 2.º y 4.º (misma unidad progresiva). Enlaces de repaso a TyD 2.º en los hubs, verificados.
 
-Trabajo hecho hasta ahora en este repo:
-- Las 6 unidades creadas con su estructura base.
-- U5 con hub Circuitos y robótica, libro digital ampliado, actividades con mixtos, autocomprobación, 3 interactivos (calc mixtos, componentes, Arduino blink), y proyecto (robot/linterna).
+Pasada de limpieza de septiembre de 2026 (misma que en tec4): tests con opciones equilibradas en
+longitud, erratas de contenido, desbordes en móvil, docs al día. Lo que queda está en
+`documentacion/PENDIENTES.md`.
 
-Pendiente (cuando vuelvas en septiembre, no lo arranques tú solo — espera mi tarea):
-- Posiblemente seguir puliendo unidades cuando se vean en clase.
-- Posibles exámenes por unidad con el formato test + ejercicios.
-- Más interactivos o microactividades.
+Convenciones:
+- Los tests de autocomprobación tienen las opciones equilibradas en longitud: al añadir preguntas, la correcta no debe ser la más larga.
+- El libro es material de apoyo: no ampliar texto; sí figuras donde el contenido es visual.
 
-## Cómo arrancar conmigo en septiembre
+## Cómo arrancar conmigo
 
 Cuando vuelva, espera a que te diga la tarea. No audites el repo ni propongas cosas por tu cuenta. Solo:
 

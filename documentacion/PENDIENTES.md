@@ -2,17 +2,26 @@
 
 Lista de lo que queda por completar. Se actualiza con cada sprint.
 
-## Bloqueante para v1.1.0 (Fase H del brief)
+## Hecho (a fecha de septiembre de 2026)
 
-- [ ] **U4 Mecanismos y motores**: integrar `cuadernillo_ejercicios_3eso_v6.html`
-  (64 ejercicios) en `unidades/04-mecanismos-motores/actividades.html`.
-  Manuel debe indicar la ruta local del archivo. Aplicar paleta burdeos al
-  CSS interno si fuera necesario, ajustar rutas a `assets/css/` y `assets/js/`
-  del nuevo entorno. Verificar MathJax, vídeos y autocorrección.
-- [ ] Si el cuadernillo trae teoría embebida, extraer a
-  `unidades/04-mecanismos-motores/teoria.html`.
-- [ ] Quitar el `<span class="pending-badge">Próximamente</span>` de la
-  tarjeta U4 en el `index.html` cuando su material esté integrado.
+- [x] U4: cuadernillo de 64 ejercicios integrado en `actividades/`.
+- [x] Etiquetas «Próximamente» retiradas del índice.
+- [x] Repo en git y worker desplegado con auto-deploy (`git push`).
+- [x] Enlaces de repaso a TyD 2.º en los hubs (U1, U2, U3, U4, U5, U6), comprobados contra el repo de 2.º.
+- [x] Limpieza de septiembre de 2026: 108 preguntas de test reequilibradas en longitud (antes la correcta
+  era la más larga en 87), erratas en U6 (App Inventor genera un APK, no «código Java»; giroscopio no es
+  brújula; caso COMPAS descrito como lo documentó ProPublica; dictamen de copyright de 2023), desbordes
+  en móvil (libro U3, arduino-blink), README y KIT al día.
+
+## Pendiente
+
+- [ ] Figuras en los libros donde el contenido es visual (U2-U6 no tienen ninguna): mecanismos y
+  motor en U4 (palanca, polea, engranajes, tren compuesto, biela-manivela, 4 tiempos), circuitos
+  serie/paralelo/mixto y CGMP en U5 (o enlazar a los interactivos que ya lo hacen), red doméstica en U3,
+  diagrama de flujo en U6. Se puede reutilizar `figuras.py` de la auditoría de tec4.
+- [ ] Revisar contenido con fecha: prohibición UE de coches de combustión en 2035 (libro U4; la UE lo está
+  revisando).
+- [ ] Criterios de evaluación LOMLOE concretos por unidad y bullets Saber/Hacer/Aplicar (de Manuel).
 
 ## Pendientes de Manuel (no bloqueantes)
 
@@ -29,15 +38,7 @@ Lista de lo que queda por completar. Se actualiza con cada sprint.
 
 ## Infraestructura
 
-- [ ] **`git init`**: el sistema en el que se generó este repo no tenía
-  git instalado. Manuel debe ejecutar al recibirlo:
-  ```bash
-  cd tyd3-ies-jdq && git init -b main && git add . && \
-  git commit -m "Bootstrap del sitio TyD 3º ESO [v1.0.0]"
-  ```
-- [ ] **Configuración del worker Cloudflare**: crear el subdominio
-  `tyd3-ies-jdq.malonso72.workers.dev`. Probar primer deploy con
-  `npx wrangler deploy`.
+- [x] Repo en git y worker desplegado (`tyd3-ies-jdq.malonso72.workers.dev`), auto-deploy con `git push`.
 - [ ] **Google Search Console**: añadir verificación si se quiere indexar.
 
 ## Enlaces cruzados (§6.3 del brief)
