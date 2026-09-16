@@ -12,15 +12,26 @@ Lista de lo que queda por completar. Se actualiza con cada sprint.
   era la más larga en 87), erratas en U6 (App Inventor genera un APK, no «código Java»; giroscopio no es
   brújula; caso COMPAS descrito como lo documentó ProPublica; dictamen de copyright de 2023), desbordes
   en móvil (libro U3, arduino-blink), README y KIT al día.
+- [x] Sprint del 16 de septiembre de 2026: símbolos electrónicos SVG en `identifica-componente` de U5
+  (sustituyen a los emojis, que además desinformaban), 9 figuras en el libro de U4, 4 en el de U2 y 3 de
+  red en el de U3, las 27 imágenes del cuadernillo de U4 extraídas a `/img/u04` en WebP (la página pasa
+  de 1335 KB a 78 KB y las imágenes de 944 KB a 223 KB, con `alt` real y `loading=lazy`),
+  `relacion-transmision` convertido en simulador con ruedas que giran y deslizadores, el veto europeo
+  de 2035 matizado en el libro de U4, y la foto de fachada de 398 KB a 158 KB.
 
 ## Pendiente
 
-- [ ] Figuras en los libros donde el contenido es visual (U2-U6 no tienen ninguna): mecanismos y
-  motor en U4 (palanca, polea, engranajes, tren compuesto, biela-manivela, 4 tiempos), circuitos
-  serie/paralelo/mixto y CGMP en U5 (o enlazar a los interactivos que ya lo hacen), red doméstica en U3,
-  diagrama de flujo en U6. Se puede reutilizar `figuras.py` de la auditoría de tec4.
-- [ ] Revisar contenido con fecha: prohibición UE de coches de combustión en 2035 (libro U4; la UE lo está
-  revisando).
+- [ ] Figuras en los libros que aún no tienen: circuitos serie/paralelo/mixto y CGMP en U5 (los
+  interactivos `tipos-circuitos`, `cgmp` y `abierto-cerrado-cortocircuito` ya suman 19 SVG entre los
+  tres: probablemente salga más a cuenta enlazarlos que redibujar), y diagrama de flujo en U6. Las dos
+  son de 3.ª evaluación.
+- [ ] Interactivos que son test de texto y podrían llevar dibujo: `identifica-material`,
+  `proceso-fabricacion` y `red-domestica`. En `malware`, `detecta-sesgo` y `elige-tecnologia` no hay
+  símbolo normalizado que dibujar y el test de texto se sostiene tal cual.
+- [ ] Calculadoras que ganarían con deslizador en vez de casilla: `calculadora-mixtos` y
+  `tren-compuesto` (el patrón está en `relacion-transmision`).
+- [ ] Los 6 interactivos de dibujo técnico están duplicados byte a byte con tec4: cualquier arreglo hay
+  que hacerlo dos veces. Un `assets/interactivos-compartidos/` + script de copia lo resolvería.
 - [ ] Criterios de evaluación LOMLOE concretos por unidad y bullets Saber/Hacer/Aplicar (de Manuel).
 
 ## Pendientes de Manuel (no bloqueantes)
