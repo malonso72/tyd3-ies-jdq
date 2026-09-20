@@ -28,7 +28,7 @@ Lista de lo que queda por completar. Se actualiza con cada sprint.
 - [ ] Interactivos que son test de texto y podrían llevar dibujo: `identifica-material`,
   `proceso-fabricacion` y `red-domestica`. En `malware`, `detecta-sesgo` y `elige-tecnologia` no hay
   símbolo normalizado que dibujar y el test de texto se sostiene tal cual.
-- [ ] Calculadoras que ganarían con deslizador en vez de casilla: `calculadora-mixtos` y
+- [ ] Calculadoras que ganarían con deslizador en vez de casilla: (la calculadora de mixtos ya no existe: la sustituyó «Circuitos paso a paso») y
   `tren-compuesto` (el patrón está en `relacion-transmision`).
 - [ ] Los 6 interactivos de dibujo técnico están duplicados byte a byte con tec4: cualquier arreglo hay
   que hacerlo dos veces. Un `assets/interactivos-compartidos/` + script de copia lo resolvería.

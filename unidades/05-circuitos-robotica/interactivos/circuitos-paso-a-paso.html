@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Circuitos paso a paso · U05 · TyD 3º ESO</title>
+<meta name="description" content="Simulador de la U5: circuitos serie, paralelo y mixtos resueltos paso a paso. Del circuito original a la resistencia equivalente y de vuelta, con el potencial de cada punto, tensiones, intensidades y potencias.">
+<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap">
+
+<style>
+  :root{
+    --ground:#F7F7F4; --surface:#FFFFFF; --surface-2:#EFEFEA;
+    --ink:#1A1C1F; --ink-soft:#5B616A; --line:#D7D9D3;
+    --tension:#2C5BAA; --tension-bg:#E6EDF9;
+    --corriente:#B85C08; --corriente-bg:#FAEADA;
+    --grupo:#1F7A5A; --grupo-bg:#DFF0E8;
+    --hilo:#3A3F46;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#121316; --surface:#1B1D21; --surface-2:#232629;
+      --ink:#ECEEF1; --ink-soft:#98A0AA; --line:#2F333A;
+      --tension:#83AAEA; --tension-bg:#16233A;
+      --corriente:#EBA45E; --corriente-bg:#2E2114;
+      --grupo:#74C9A8; --grupo-bg:#152A23;
+      --hilo:#AAB2BC;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#121316; --surface:#1B1D21; --surface-2:#232629;
+    --ink:#ECEEF1; --ink-soft:#98A0AA; --line:#2F333A;
+    --tension:#83AAEA; --tension-bg:#16233A;
+    --corriente:#EBA45E; --corriente-bg:#2E2114;
+    --grupo:#74C9A8; --grupo-bg:#152A23;
+    --hilo:#AAB2BC;
+  }
+
+  *{box-sizing:border-box}
+  body{background:var(--ground);color:var(--ink);
+    font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:17px;line-height:1.5;
+    padding-inline:18px;padding-block:0}
+  .app{max-width:1060px;margin-inline:auto;padding-block:26px 60px;display:flex;flex-direction:column;gap:22px}
+
+  .migas{display:flex;gap:14px;font-size:.88rem;margin-bottom:10px}
+  .migas a{color:var(--ink-soft);text-decoration:none}
+  .migas a:hover{color:var(--tension);text-decoration:underline}
+  h1{font-family:Archivo,system-ui,sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);margin:0;font-weight:700;letter-spacing:-.02em}
+  .sub{color:var(--ink-soft);margin:4px 0 0;font-size:1rem}
+  h2{font-family:Archivo,system-ui,sans-serif;font-size:1.05rem;margin:0;font-weight:600}
+
+  .barra{display:flex;flex-wrap:wrap;gap:16px}
+  .familia{display:flex;flex-direction:column;gap:6px}
+  .familia>span{font-size:.72rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-soft);font-weight:600}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  button{font:inherit;cursor:pointer}
+  .chip{background:var(--surface);border:1px solid var(--line);color:var(--ink);
+    border-radius:7px;padding:7px 13px;font-size:.92rem}
+  .chip[aria-pressed="true"]{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+
+  .lienzo{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 6px;overflow-x:auto}
+  svg{display:block;margin-inline:auto;max-width:100%;height:auto}
+
+  .hilo{stroke:var(--hilo);stroke-width:2.5;fill:none;stroke-linecap:round}
+  .zig{stroke:var(--ink);stroke-width:2.8;fill:none;stroke-linejoin:round;stroke-linecap:round}
+  .nodo{fill:var(--hilo)}
+  .rotulo{fill:var(--ink);font-family:"IBM Plex Mono",monospace;font-size:17px;font-weight:600}
+  .dato{fill:var(--ink-soft);font-family:"IBM Plex Mono",monospace;font-size:15px}
+  .dato.v{fill:var(--tension)}
+  .dato.i{fill:var(--corriente)}
+  .letra{fill:var(--hilo);font-family:Archivo,sans-serif;font-size:16px;font-weight:700}
+  .sonda{stroke:var(--tension);stroke-width:1.6;fill:none;stroke-dasharray:4 4;opacity:.8}
+  .sonda.duda{opacity:.35}
+  .pot{fill:var(--tension);font-family:"IBM Plex Mono",monospace;font-size:16px;font-weight:600}
+  .pot.duda{opacity:.5}
+  .min{font-size:11px}
+  .flecha{stroke:var(--tension);stroke-width:1.8;fill:none}
+  .flechaI{stroke:var(--corriente);stroke-width:2;fill:none}
+  .caida{fill:var(--tension);font-family:"IBM Plex Mono",monospace;font-size:15px}
+  .caida.tenue{fill:var(--ink-soft);font-size:13px}
+  .marco{fill:var(--grupo-bg);stroke:var(--grupo);stroke-width:2;stroke-dasharray:6 4}
+  .marco.solido{stroke-dasharray:none;fill:none}
+
+  .mando{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .mando .btn{background:var(--ink);color:var(--ground);border:0;border-radius:8px;padding:9px 16px;font-size:.95rem;font-weight:600}
+  .mando .btn[disabled]{opacity:.35;cursor:default}
+  .mando .btn.sec{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+  .pasos{display:flex;gap:4px;flex:1;min-width:120px}
+  .pasos i{flex:1;height:5px;border-radius:3px;background:var(--line)}
+  .pasos i.on{background:var(--ink)}
+  .pasos i.baja.on{background:var(--grupo)}
+  .pasos i.sube.on{background:var(--corriente)}
+
+  .explica{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--grupo);
+    border-radius:0 10px 10px 0;padding:16px 18px;display:flex;flex-direction:column;gap:8px;min-height:132px}
+  .explica.sube{border-left-color:var(--corriente)}
+  .explica .fase{font-size:.72rem;letter-spacing:.11em;text-transform:uppercase;font-weight:600;color:var(--ink-soft)}
+  .explica h3{font-family:Archivo,sans-serif;font-size:1.12rem;margin:0;font-weight:600}
+  .explica p{margin:0}
+  .formula{font-family:"IBM Plex Mono",monospace;font-size:1.02rem;background:var(--surface-2);
+    border-radius:7px;padding:9px 12px;align-self:flex-start;max-width:100%;overflow-x:auto;white-space:nowrap}
+
+  .abajo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start}
+  @media (max-width:760px){.abajo{grid-template-columns:minmax(0,1fr)}}
+  .caja{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .caja>h2{padding:13px 16px;border-bottom:1px solid var(--line);background:var(--surface-2)}
+  table{border-collapse:collapse;width:100%;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-size:.98rem}
+  th,td{padding:9px 14px;text-align:right;border-bottom:1px solid var(--line)}
+  th:first-child,td:first-child{text-align:left;font-weight:600}
+  thead th{font-size:.82rem;color:var(--ink-soft);font-family:"IBM Plex Sans",sans-serif;letter-spacing:.04em}
+  tbody tr:last-child td{border-bottom:0}
+  tbody tr.total td{border-top:2px solid var(--line);font-weight:600}
+  tbody tr.eq td{color:var(--grupo)}
+  tbody tr.eq td:first-child{font-weight:600}
+  td.vacio{color:var(--ink-soft);opacity:.45}
+  td.v{color:var(--tension)}
+  td.i{color:var(--corriente)}
+  td.p{color:var(--ink)}
+  .caja>h2{display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .opcion{font-family:"IBM Plex Sans",sans-serif;font-weight:400;font-size:.9rem;display:flex;align-items:center;gap:6px;cursor:pointer}
+  #lienzo svg{animation:aparece .28s ease}
+  @keyframes aparece{from{opacity:.25}to{opacity:1}}
+  @media (prefers-reduced-motion:reduce){#lienzo svg{animation:none}}
+  .lista{padding:14px 16px;display:flex;flex-direction:column;gap:9px;font-size:.96rem}
+  .lista div{display:flex;gap:9px;align-items:baseline}
+  .lista b{font-family:"IBM Plex Mono",monospace;font-weight:600;color:var(--tension);min-width:5.4em}
+  .lista span{color:var(--ink-soft)}
+  footer{font-size:.85rem;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:16px}
+  :focus-visible{outline:2px solid var(--tension);outline-offset:2px;border-radius:6px}
+</style>
+<style>body{margin:0} html{color-scheme:light dark}</style>
+</head>
+<body>
+<div class="app">
+
+  <header>
+    <nav class="migas" aria-label="Navegación"><a href="../index.html">U5 · Circuitos y robótica</a><a href="../libro-digital.html">Libro digital</a></nav>
+    <h1>Circuitos paso a paso</h1>
+    <p class="sub">Del circuito original a la resistencia equivalente, y de vuelta al original repartiendo tensiones e intensidades.</p>
+  </header>
+
+  <div class="barra" id="barra"></div>
+
+  <div class="lienzo" id="lienzo"></div>
+
+  <div class="mando">
+    <button class="btn sec" id="ini" type="button">⟲ Inicio</button>
+    <button class="btn" id="ant" type="button">◀ Atrás</button>
+    <button class="btn" id="sig" type="button">Siguiente ▶</button>
+    <div class="pasos" id="pasos"></div>
+  </div>
+
+  <div class="explica" id="explica"></div>
+
+  <div class="abajo">
+    <div class="caja">
+      <h2>Resultados <label class="opcion"><input type="checkbox" id="verP"> Potencia</label></h2>
+      <table>
+        <thead><tr><th>Elemento</th><th>R (Ω)</th><th>V (V)</th><th>I (A)</th><th id="thP" hidden>P (W)</th></tr></thead>
+        <tbody id="tabla"></tbody>
+      </table>
+    </div>
+    <div class="caja">
+      <h2>Potencial en cada punto</h2>
+      <div class="lista" id="potenciales"></div>
+    </div>
+  </div>
+
+  <footer>Circuitos paso a paso v1.0 · TyD 3.º ESO · IES Jiménez de Quesada (Santa Fe, Granada). Circuitos de corriente continua reducibles por serie y paralelo. Los puntos se nombran A, B, C… y la caída en cada resistencia es la diferencia de potencial entre sus dos extremos. Se mueve con los botones o con las flechas del teclado.</footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ====================== catálogo ====================== */
+const r = (n, R) => ({t:'r', n, R});
+const s = (...h) => ({t:'s', h});
+const p = (...h) => ({t:'p', h});
+
+const CIRCUITOS = [
+  {fam:'Serie', id:'s1', nom:'Serie · 2 resistencias', V:9,  a:s(r(1,3), r(2,6))},
+  {fam:'Serie', id:'s2', nom:'Serie · 3 resistencias', V:12, a:s(r(1,2), r(2,4), r(3,6))},
+  {fam:'Serie', id:'s3', nom:'Serie · valores altos',  V:24, a:s(r(1,20), r(2,30), r(3,70))},
+  {fam:'Paralelo', id:'p1', nom:'Paralelo · 2 ramas', V:12, a:p(r(1,4), r(2,12))},
+  {fam:'Paralelo', id:'p2', nom:'Paralelo · 3 ramas', V:12, a:p(r(1,6), r(2,12), r(3,4))},
+  {fam:'Paralelo', id:'p3', nom:'Paralelo · dos ramas iguales', V:12, a:p(r(1,6), r(2,6))},
+  {fam:'Mixto', id:'m1', nom:'Mixto · R₁ y dos en paralelo', V:12, a:s(r(1,3), p(r(2,12), r(3,4)))},
+  {fam:'Mixto', id:'m2', nom:'Mixto · paralelo y luego R₃',  V:18, a:s(p(r(1,6), r(2,3)), r(3,4))},
+  {fam:'Mixto', id:'m3', nom:'Mixto · dos paralelos',        V:12, a:s(p(r(1,4), r(2,4)), p(r(3,6), r(4,3)))},
+  {fam:'Mixto', id:'m4', nom:'Mixto · serie dentro de una rama', V:12, a:s(r(1,3), p(r(2,6), s(r(3,2), r(4,4))))},
+  {fam:'Mixto', id:'m5', nom:'Mixto · dos niveles', V:12, a:s(r(1,3), p(r(2,6), s(r(3,4), p(r(4,4), r(5,4)))))},
+  {fam:'Mixto', id:'m6', nom:'Mixto · nueve resistencias', V:24,
+    a:s(r(1,2), p(s(r(2,4), r(3,8)), r(4,6), s(r(5,2), r(6,10))), r(7,3), p(r(8,5), r(9,20)))},
+  {fam:'Libro', id:'l1', nom:'Libro · ejemplo 1', V:12, a:s(r(1,4), p(r(2,6), r(3,12)))},
+  {fam:'Libro', id:'l2', nom:'Libro · ejemplo 2', V:9,  a:p(s(r(1,2), r(2,4)), r(3,12))}
+];
+
+/* ====================== utilidades ====================== */
+const SUB = "₀₁₂₃₄₅₆₇₈₉";
+const sub = t => String(t).split('').map(c => SUB[+c] ?? c).join('');
+function num(x){
+  if (!isFinite(x)) return '—';
+  const v = Math.round(x*1000)/1000;
+  let str = (Math.abs(v - Math.round(v)) < 1e-9) ? String(Math.round(v)) : v.toFixed(2).replace(/0$/,'');
+  return str.replace('.', ',');
+}
+const esc = t => String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+
+/* ====================== preparar el árbol ====================== */
+let gid = 0;
+function preparar(nodo){
+  if (nodo.t === 'r'){ nodo.id = 'R'+nodo.n; nodo.nombre = 'R'+sub(nodo.n); nodo.hojas=[nodo.n]; return nodo; }
+  nodo.h.forEach(preparar);
+  nodo.hojas = nodo.h.flatMap(c => c.hojas);
+  nodo.id = 'G'+(++gid);
+  nodo.nombre = 'R' + sub(nodo.hojas.slice().sort((a,b)=>a-b).join(''));
+  return nodo;
+}
+function resistencia(nodo){
+  if (nodo.t === 'r') return nodo.R;
+  const rr = nodo.h.map(resistencia);
+  return nodo.t === 's' ? rr.reduce((a,b)=>a+b,0) : 1/rr.reduce((a,b)=>a+1/b,0);
+}
+
+/* nodos eléctricos: cada elemento recibe extremo izquierdo y derecho */
+function asignarNodos(nodo, a, b, cont){
+  nodo.a = a; nodo.b = b;
+  if (nodo.t === 'r') return;
+  if (nodo.t === 'p'){ nodo.h.forEach(c => asignarNodos(c, a, b, cont)); return; }
+  let prev = a;
+  nodo.h.forEach((c,i) => {
+    const sig = (i === nodo.h.length-1) ? b : cont.n++;
+    asignarNodos(c, prev, sig, cont);
+    prev = sig;
+  });
+}
+
+/* V e I de cada elemento, resolviendo desde la raíz */
+function repartir(nodo, V, I, val){
+  val[nodo.id] = {V, I, R:resistencia(nodo)};
+  if (nodo.t === 'r') return;
+  if (nodo.t === 's') nodo.h.forEach(c => repartir(c, I*resistencia(c), I, val));
+  else nodo.h.forEach(c => repartir(c, V, V/resistencia(c), val));
+}
+
+/* ====================== reducción ====================== */
+const clon = n => n.t === 'r' ? {...n} : {...n, h:n.h.map(clon)};
+
+/* grupo más profundo cuyos hijos son todos resistencias */
+function buscarGrupo(nodo){
+  if (nodo.t === 'r') return null;
+  for (const c of nodo.h){ const d = buscarGrupo(c); if (d) return d; }
+  return nodo.h.every(c => c.t === 'r') ? nodo : null;
+}
+function sustituir(nodo, objetivo){
+  if (nodo === objetivo) return {t:'r', id:objetivo.id, nombre:objetivo.nombre, n:null,
+                                 R:resistencia(objetivo), a:objetivo.a, b:objetivo.b, hojas:objetivo.hojas};
+  if (nodo.t === 'r') return nodo;
+  return {...nodo, h: nodo.h.map(c => sustituir(c, objetivo))};
+}
+
+/* ====================== medida y colocación ====================== */
+/* ar y ab: cuánto sobresale el elemento por encima y por debajo de su propia línea */
+const LARGO = 118, HUECO = 46, RAIL = 26, CABO = 40, SEPRAMA = 104, ETIQ = 80;
+function medir(n){
+  if (n.t === 'r'){ n.w = LARGO; n.ar = 0; n.ab = 0; return n; }
+  n.h.forEach(medir);
+  if (n.t === 's'){
+    n.w = n.h.reduce((a,c)=>a+c.w,0) + HUECO*(n.h.length-1);
+    n.ar = Math.max(...n.h.map(c=>c.ar));
+    n.ab = Math.max(...n.h.map(c=>c.ab));
+  } else {
+    n.w = Math.max(...n.h.map(c=>c.w)) + 2*(RAIL + CABO);
+    const lin = [0];
+    for (let i=1;i<n.h.length;i++) lin.push(lin[i-1] + n.h[i-1].ab + SEPRAMA + n.h[i].ar);
+    const centro = (lin[0] + lin[lin.length-1]) / 2;   // el bloque se centra sobre el hilo
+    n.h.forEach((c,i) => c.off = lin[i] - centro);
+    n.ar = -n.h[0].off + n.h[0].ar;
+    n.ab = n.h[n.h.length-1].off + n.h[n.h.length-1].ab;
+  }
+  return n;
+}
+function colocar(n, x, y){
+  n.x1 = x; n.x2 = x + n.w; n.y = y;
+  if (n.t === 'r') return;
+  if (n.t === 's'){
+    let cx = x;
+    n.h.forEach(c => { colocar(c, cx, y); cx += c.w + HUECO; });
+  } else {
+    const dentro = n.w - 2*(RAIL + CABO);
+    n.h.forEach(c => colocar(c, x + RAIL + CABO + (dentro - c.w)/2, y + c.off));
+  }
+}
+
+/* ====================== dibujo ====================== */
+function zigzag(x, y){
+  const L = 62, x0 = x + (LARGO-L)/2, n = 6, dx = L/n;
+  let d = `M${x} ${y}H${x0}`;
+  for (let i=0;i<n;i++) d += `L${(x0+dx*(i+0.5)).toFixed(1)} ${(y + (i%2?9:-9))}`;
+  d += `L${x0+L} ${y}H${x+LARGO}`;
+  return d;
+}
+
+function flechaI(out, x1, x2, y, txt){
+  out.push(`<path class="flechaI" d="M${x1} ${y}H${x2}M${x2} ${y}l-8 -5M${x2} ${y}l-8 5"/>`);
+  if (txt) out.push(`<text class="dato i" x="${(x1+x2)/2}" y="${y-8}" text-anchor="middle">${esc(txt)}</text>`);
+}
+function puntoNodo(out, x, y, letra){
+  out.push(`<circle class="nodo" cx="${x}" cy="${y}" r="4.5"/>`);
+  out.push(`<text class="letra" x="${x}" y="${y+22}" text-anchor="middle">${letra}</text>`);
+}
+
+function dibujarElem(n, out, ctx){
+  if (n.t === 'r'){
+    out.push(`<path class="zig" d="${zigzag(n.x1, n.y)}"/>`);
+    const cx = n.x1 + LARGO/2;
+    out.push(`<text class="rotulo" x="${cx}" y="${n.y+30}" text-anchor="middle">${esc(n.nombre)} = ${num(n.R)} Ω</text>`);
+    const v = ctx.mostrar[n.id];
+    if (v){
+      out.push(`<text class="dato v" x="${cx}" y="${n.y+50}" text-anchor="middle">${esc(n.nombre.replace('R','V'))} = ${num(v.V)} V</text>`);
+      out.push(`<text class="dato i" x="${cx}" y="${n.y+68}" text-anchor="middle">${esc(n.nombre.replace('R','I'))} = ${num(v.I)} A</text>`);
+    }
+    return;
+  }
+  if (n.t === 's'){
+    n.h.forEach((c,i) => {
+      dibujarElem(c, out, ctx);
+      if (i){
+        out.push(`<path class="hilo" d="M${n.h[i-1].x2} ${n.y}H${c.x1}"/>`);
+        puntoNodo(out, (n.h[i-1].x2 + c.x1)/2, n.y, ctx.letra[c.a]);
+      }
+    });
+  } else {
+    out.push(`<path class="hilo" d="M${n.x1} ${n.y}H${n.x1+RAIL}"/>`);
+    out.push(`<path class="hilo" d="M${n.x2-RAIL} ${n.y}H${n.x2}"/>`);
+    const ya = n.y + n.h[0].off, yb = n.y + n.h[n.h.length-1].off;
+    out.push(`<path class="hilo" d="M${n.x1+RAIL} ${ya}V${yb}"/>`);
+    out.push(`<path class="hilo" d="M${n.x2-RAIL} ${ya}V${yb}"/>`);
+    n.h.forEach(c => {
+      dibujarElem(c, out, ctx);
+      out.push(`<path class="hilo" d="M${n.x1+RAIL} ${c.y}H${c.x1}"/>`);
+      out.push(`<path class="hilo" d="M${c.x2} ${c.y}H${n.x2-RAIL}"/>`);
+      const v = ctx.mostrar[c.id];
+      if (v) flechaI(out, n.x1+RAIL+4, n.x1+RAIL+CABO-6, c.y, num(v.I)+' A');
+    });
+  }
+}
+
+function caja(n){
+  const pad = 16;
+  const y1 = n.y - n.ar - 20, y2 = n.y + n.ab + (n.t === 'p' ? ETIQ : 22) + pad;   // por arriba no invade la banda de flechas
+  return {x:n.x1-pad, y:y1, w:n.w+2*pad, h:y2-y1};
+}
+
+function dibujar(estado, ctx){
+  medir(estado);
+  const HMAX = 132;
+  const X0 = 184;
+  const Y0 = 40 + HMAX + 52 + estado.ar;  // hilo principal
+  colocar(estado, X0, Y0);
+  const yTope = Y0 - estado.ar - 30;      // justo encima del circuito: potencial 0
+  const xFin = estado.x2, yBajo = Y0 + estado.ab + ETIQ + 44;
+  const W = xFin + 128, H = yBajo + 40;
+  const out = [];
+  const altura = v => yTope - (v / ctx.V) * HMAX;
+
+  /* marco del grupo destacado */
+  if (ctx.marco){
+    const g = ctx.buscar(estado, ctx.marco);
+    if (g){ const c = caja(g);
+      out.push(`<rect class="marco${ctx.marcoSolido?' solido':''}" x="${c.x}" y="${c.y}" width="${c.w}" height="${c.h}" rx="10"/>`); }
+  }
+
+  /* pila, en el lado izquierdo entre el hilo de arriba y el de vuelta */
+  const xP = 84, yM = (Y0 + yBajo)/2;
+  out.push(`<path class="hilo" d="M${xP} ${Y0}H${X0}"/>`);
+  out.push(`<path class="hilo" d="M${xP} ${Y0}V${yM-22}"/>`);
+  out.push(`<path class="hilo" d="M${xP} ${yM+22}V${yBajo}"/>`);
+  out.push(`<path class="hilo" d="M${xFin} ${Y0}H${xFin+58}V${yBajo}H${xP}"/>`);
+  out.push(`<path class="hilo" d="M${xP-27} ${yM-22}H${xP+27}"/>`);
+  out.push(`<path class="hilo" d="M${xP-13} ${yM-8}H${xP+13}"/>`);
+  out.push(`<path class="hilo" d="M${xP-27} ${yM+6}H${xP+27}"/>`);
+  out.push(`<path class="hilo" d="M${xP-13} ${yM+22}H${xP+13}"/>`);
+  out.push(`<text class="rotulo" x="${xP+36}" y="${yM-26}">+</text>`);
+  out.push(`<text class="rotulo" x="${xP+36}" y="${yM+34}">−</text>`);
+  out.push(`<text class="rotulo" x="${xP-36}" y="${yM+6}" text-anchor="end">${num(ctx.V)} V</text>`);
+
+  /* elementos */
+  dibujarElem(estado, out, ctx);
+
+  /* sondas de potencial: la altura de cada línea ES el potencial de ese punto */
+  const camino = estado.t === 's' ? estado.h : [estado];
+  const puntos = [{nodo:estado.a, x:X0}];
+  camino.forEach((c,i) => puntos.push({nodo:c.b, x: i === camino.length-1 ? xFin : (c.x2 + camino[i+1].x1)/2}));
+  const tope = {};
+  puntoNodo(out, X0, Y0, ctx.letra[estado.a]);
+  puntoNodo(out, xFin, Y0, ctx.letra[estado.b]);
+  puntos.forEach(pt => {
+    const v = ctx.pot[pt.nodo], conocido = v !== undefined;
+    const yT = conocido ? altura(v) : yTope - 12;
+    tope[pt.nodo] = yT;
+    out.push(`<path class="sonda${conocido ? '' : ' duda'}" d="M${pt.x} ${Y0}V${yT}"/>`);
+    out.push(`<text class="pot${conocido ? '' : ' duda'}" x="${pt.x+10}" y="${yT-7}">V<tspan class="min" dy="4">${ctx.letra[pt.nodo]}</tspan><tspan dy="-4"> = ${conocido ? num(v)+' V' : '?'}</tspan></text>`);
+  });
+  /* flechas de caída: apuntan hacia el punto de mayor potencial, al revés que la intensidad */
+  camino.forEach((c,i) => {
+    const A = puntos[i], B = puntos[i+1];
+    const y = Math.min(Math.max(tope[A.nodo], tope[B.nodo]) + 20, yTope - 48);   // nunca baja a la fila de etiquetas ni al circuito
+    const cx = (A.x + B.x)/2;
+    out.push(`<path class="flecha" d="M${B.x-6} ${y}H${A.x+6}M${A.x+6} ${y}l7 -4.5M${A.x+6} ${y}l7 4.5"/>`);
+    const v = ctx.mostrar[c.id];
+    const nombres = (c.t === 'p' ? c.h : [c]).map(k => k.nombre.replace('R','V')).join(' = ');
+    out.push(`<text class="caida tenue" x="${cx}" y="${y-28}" text-anchor="middle">${esc(nombres)}</text>`);
+    out.push(`<text class="caida" x="${cx}" y="${y-10}" text-anchor="middle">V<tspan class="min" dy="4">${ctx.letra[A.nodo]}${ctx.letra[B.nodo]}</tspan><tspan dy="-4">${v ? ' = '+num(v.V)+' V' : ''}</tspan></text>`);
+  });
+
+  /* intensidad total, sobre el hilo que sale de la pila */
+  const vt = ctx.mostrar[estado.id];
+  const xi1 = xP + 16, xi2 = X0 - 16;
+  out.push(`<path class="flechaI" d="M${xi1} ${Y0-18}H${xi2}M${xi2} ${Y0-18}l-8 -5M${xi2} ${Y0-18}l-8 5"/>`);
+  out.push(`<text class="dato i" x="${xi2}" y="${Y0-28}" text-anchor="end">I = ${vt ? num(vt.I)+' A' : '?'}</text>`);
+
+  return `<svg viewBox="0 0 ${W} ${H}" width="${W}" role="img" aria-label="Esquema del circuito">${out.join('')}</svg>`;
+}
+
+/* ====================== construir la secuencia de pasos ====================== */
+let E = null;
+
+/* fórmula del paralelo con el paso intermedio de las fracciones */
+const mcd = (a,b) => b ? mcd(b, a % b) : a;
+function formulaParalelo(g){
+  const rr = g.h.map(c => resistencia(c)), nombre = g.nombre, Req = resistencia(g);
+  const enteros = rr.every(x => Number.isInteger(x));
+  const lineas = [];
+  if (enteros){
+    const den = rr.reduce((a,b) => a*b/mcd(a,b), 1);
+    const nums = rr.map(x => den/x), suma = nums.reduce((a,b)=>a+b,0);
+    lineas.push(`1/${nombre} = ${rr.map(x=>'1/'+x).join(' + ')} = ${nums.map(k=>k+'/'+den).join(' + ')} = ${suma}/${den}  →  ${nombre} = ${den}/${suma} = ${num(Req)} Ω`);
+  } else {
+    lineas.push(`1/${nombre} = ${rr.map(x=>'1/'+num(x)).join(' + ')} = ${num(rr.reduce((a,b)=>a+1/b,0))}  →  ${nombre} = ${num(Req)} Ω`);
+  }
+  if (rr.length === 2)
+    lineas.push(`o también: ${nombre} = ${num(rr[0])} · ${num(rr[1])} / (${num(rr[0])} + ${num(rr[1])}) = ${num(rr[0]*rr[1])} / ${num(rr[0]+rr[1])} = ${num(Req)} Ω`);
+  return lineas;
+}
+
+function montar(def){
+  gid = 0;
+  const raiz = preparar(clon(def.a));
+  if (raiz.t !== 'r') raiz.nombre = 'Rₜ';
+  const cont = {n:2};
+  asignarNodos(raiz, 0, 1, cont);
+
+  /* letras por orden de aparición de izquierda a derecha */
+  medir(raiz); colocar(raiz, 0, 0);
+  const xs = {};
+  (function rec(n){ xs[n.a] = Math.min(xs[n.a] ?? 1e9, n.x1); xs[n.b] = Math.max(xs[n.b] ?? -1e9, n.x2);
+                    if (n.t !== 'r') n.h.forEach(rec); })(raiz);
+  /* primero los puntos del camino principal, en orden; después los interiores de las ramas, de izquierda a derecha */
+  const letra = {};
+  const principal = [raiz.a].concat((raiz.t === 's' ? raiz.h : [raiz]).map(c => c.b));
+  const resto = Object.keys(xs).map(Number).filter(nd => !principal.includes(nd)).sort((a,b)=>xs[a]-xs[b]);
+  principal.concat(resto).forEach((nd,i) => letra[nd] = String.fromCharCode(65+i));
+
+  const val = {};
+  const Rt = resistencia(raiz);
+  repartir(raiz, def.V, def.V/Rt, val);
+
+  /* potenciales de cada nodo */
+  const pot = {}; pot[raiz.a] = def.V; pot[raiz.b] = 0;
+  (function rec(n){
+    if (n.t === 's'){ let acc = pot[n.a];
+      n.h.forEach(c => { acc -= val[c.id].V; pot[c.b] = Math.round(acc*1e6)/1e6; rec(c); }); }
+    else if (n.t === 'p') n.h.forEach(rec);
+  })(raiz);
+
+  /* cadena de estados y grupos colapsados */
+  const estados = [raiz]; const grupos = [];
+  let act = raiz;
+  while (act.t !== 'r'){
+    const g = buscarGrupo(act);
+    grupos.push(g);
+    act = sustituir(act, g);
+    estados.push(act);
+  }
+  const K = grupos.length;
+
+  /* pasos */
+  const pasos = [];
+  pasos.push({fase:'baja', estado:0, marco:null, titulo:'El circuito de partida',
+    texto:`Lo primero es nombrar los puntos. ${letra[raiz.a]} toca el polo positivo, así que V${letra[raiz.a]} = ${num(def.V)} V. ${letra[raiz.b]} toca el negativo, así que V${letra[raiz.b]} = 0 V. Los demás puntos todavía no los sabemos, pero el potencial tiene que ir bajando de uno al siguiente.`,
+    formula:null, verValores:false, pot:{[raiz.a]:def.V, [raiz.b]:0}});
+
+  grupos.forEach((g,k) => {
+    const rr = g.h.map(c => c.nombre);
+    const vals = g.h.map(c => num(resistencia(c)));
+    const Req = resistencia(g);
+    const enSerie = g.t === 's';
+    pasos.push({
+      fase:'baja', estado:k, marco:g.id, titulo: enSerie ? `${rr.join(' y ')} están en serie` : `${rr.join(' y ')} están en paralelo`,
+      texto: enSerie
+        ? `Van una detrás de otra por el mismo camino: por todas pasa la misma intensidad. Se sustituyen por una sola resistencia, que vale la suma.`
+        : `Sus dos extremos son los mismos puntos, ${letra[g.a]} y ${letra[g.b]}. Como comparten extremos, tienen la misma tensión entre ellos. Se sustituyen por una sola resistencia.`,
+      formula: enSerie
+        ? [`${g.nombre} = ${vals.join(' + ')} = ${num(Req)} Ω`]
+        : formulaParalelo(g),
+      verValores:false, pot:{[raiz.a]:def.V, [raiz.b]:0}
+    });
+  });
+
+  pasos.push({fase:'baja', estado:K, marco:estados[K].id, marcoSolido:true,
+    titulo:'Circuito equivalente total',
+    texto:`Todo el circuito se ha quedado en una sola resistencia, Rₜ. Ahora ya se puede calcular la intensidad que sale de la pila.`,
+    formula:[`Rₜ = ${num(Rt)} Ω`], verValores:false, pot:{[raiz.a]:def.V, [raiz.b]:0}});
+
+  pasos.push({fase:'sube', estado:K, marco:estados[K].id, marcoSolido:true,
+    titulo:'La intensidad total',
+    texto:`Con la ley de Ohm en el circuito equivalente: la tensión de la pila dividida entre la resistencia total.`,
+    formula:[`I = V / Rₜ = ${num(def.V)} / ${num(Rt)} = ${num(def.V/Rt)} A`],
+    verValores:true, hasta:K, pot:{[raiz.a]:def.V, [raiz.b]:0}});
+
+  for (let k = K-1; k >= 0; k--){
+    const g = grupos[k];
+    const hijos = g.h.map(c => c.nombre);
+    const enSerie = g.t === 's';
+    const v = val[g.id];
+    pasos.push({
+      fase:'sube', estado:k, marco:g.id,
+      titulo:`Volvemos a abrir ${g.nombre}`,
+      texto: enSerie
+        ? `Por ${hijos.join(' y ')} pasa la misma intensidad que por ${g.nombre}: ${num(v.I)} A. Lo que cambia es la tensión, que se reparte: cada una se queda con I · R.`
+        : `${hijos.join(' y ')} tienen la misma tensión que ${g.nombre}: ${num(v.V)} V. Lo que cambia es la intensidad, que se reparte: por la resistencia más pequeña pasa más.`,
+      formula: enSerie
+        ? g.h.map(c => `${c.nombre.replace('R','V')} = ${num(v.I)} · ${num(resistencia(c))} = ${num(val[c.id].V)} V`)
+        : g.h.map(c => `${c.nombre.replace('R','I')} = ${num(v.V)} / ${num(resistencia(c))} = ${num(val[c.id].I)} A`),
+      verValores:true, hasta:k, pot:'auto'
+    });
+  }
+
+  /* comprobación final: las caídas del camino principal suman la pila; en cada paralelo las intensidades suman la del grupo */
+  const comp = [];
+  const camino = raiz.t === 's' ? raiz.h : [raiz];
+  if (camino.length > 1)
+    comp.push(`${camino.map(c => num(val[c.id].V)).join(' + ')} = ${num(camino.reduce((a,c)=>a+val[c.id].V,0))} V, la tensión de la pila`);
+  grupos.filter(g => g.t === 'p').forEach(g => {
+    comp.push(`En ${g.nombre}: ${g.h.map(c => num(val[c.id].I)).join(' + ')} = ${num(val[g.id].I)} A, la intensidad que entra en ${letra[g.a]}`);
+  });
+  grupos.filter(g => g.t === 's' && g.id !== raiz.id).forEach(g => {
+    comp.push(`En ${g.nombre}: ${g.h.map(c => num(val[c.id].V)).join(' + ')} = ${num(val[g.id].V)} V, la tensión entre ${letra[g.a]} y ${letra[g.b]}`);
+  });
+  pasos.push({fase:'sube', estado:0, marco:null, titulo:'Comprobación',
+    texto:`Nada se pierde por el camino: lo que baja el potencial en cada tramo suma la tensión de la pila, y en cada bifurcación la intensidad que entra es la que sale.`,
+    formula:comp, verValores:true, hasta:0, pot:'auto'});
+
+  /* potencias, si están activadas */
+  if (document.getElementById('verP').checked){
+    const hojas = [];
+    (function rec(n){ if (n.t === 'r') hojas.push(n); else n.h.forEach(rec); })(raiz);
+    hojas.sort((a,b)=>a.n-b.n);
+    const Pt = def.V * val[raiz.id].I;
+    pasos.push({fase:'sube', estado:0, marco:null, titulo:'Potencia en cada resistencia',
+      texto:`La potencia que se disipa en cada resistencia es su tensión por su intensidad. Sumadas dan la que entrega la pila, que también sale de V · I con los valores totales.`,
+      formula: hojas.map(h => `${h.nombre.replace('R','P')} = ${num(val[h.id].V)} · ${num(val[h.id].I)} = ${num(val[h.id].V*val[h.id].I)} W`)
+        .concat([`${hojas.map(h => num(val[h.id].V*val[h.id].I)).join(' + ')} = ${num(Pt)} W = ${num(def.V)} · ${num(val[raiz.id].I)}, la potencia de la pila`]),
+      verValores:true, hasta:0, pot:'auto'});
+  }
+
+  E = {def, raiz, estados, grupos, K, val, pot, letra, Rt, pasos, i:0};
+}
+
+/* elementos visibles en el estado k, para saber qué valores enseñar */
+function visibles(n, set){ set.add(n.id); if (n.t !== 'r') n.h.forEach(c => visibles(c, set)); return set; }
+function buscarPorId(n, id){
+  if (n.id === id) return n;
+  if (n.t === 'r') return null;
+  for (const c of n.h){ const d = buscarPorId(c, id); if (d) return d; }
+  return null;
+}
+
+/* ====================== pintar ====================== */
+function pintar(){
+  const P = E.pasos[E.i], estado = E.estados[P.estado];
+
+  /* en la subida se conoce todo lo visible desde el estado actual hasta el equivalente total */
+  const mostrar = {};
+  if (P.verValores){
+    for (let j = P.hasta; j <= E.K; j++)
+      visibles(E.estados[j], new Set()).forEach(id => { if (E.val[id]) mostrar[id] = E.val[id]; });
+  }
+
+  /* potenciales conocidos en este paso */
+  let pot = {};
+  if (P.pot === 'auto'){
+    pot[E.raiz.a] = E.def.V; pot[E.raiz.b] = 0;
+    const set = visibles(E.estados[P.hasta], new Set());
+    set.forEach(id => { const n = buscarPorId(E.estados[P.hasta], id); if (n) { pot[n.a] = E.pot[n.a]; pot[n.b] = E.pot[n.b]; } });
+  } else pot = {...P.pot};
+
+  const ctx = {V:E.def.V, letra:E.letra, pot, mostrar, marco:P.marco, marcoSolido:P.marcoSolido,
+               buscar:(raiz,id) => buscarPorId(raiz,id)};
+  document.getElementById('lienzo').innerHTML = dibujar(estado, ctx);
+
+  const ex = document.getElementById('explica');
+  ex.className = 'explica' + (P.fase === 'sube' ? ' sube' : '');
+  ex.innerHTML = `<span class="fase">${P.fase === 'baja' ? 'Simplificando · paso '+(E.i+1)+' de '+E.pasos.length : 'Calculando · paso '+(E.i+1)+' de '+E.pasos.length}</span>`
+    + `<h3>${esc(P.titulo)}</h3><p>${esc(P.texto)}</p>`
+    + (P.formula ? P.formula.map(f => `<div class="formula">${esc(f)}</div>`).join('') : '');
+
+  /* progreso */
+  document.getElementById('pasos').innerHTML = E.pasos.map((q,k) =>
+    `<i class="${q.fase} ${k <= E.i ? 'on':''}"></i>`).join('');
+
+  /* tabla: resistencias, equivalentes creadas hasta ahora y total */
+  const conP = document.getElementById('verP').checked;
+  document.getElementById('thP').hidden = !conP;
+  const celdas = (v, clase) => v
+    ? `<td class="v">${num(v.V)}</td><td class="i">${num(v.I)}</td>${conP ? `<td class="p">${num(v.V*v.I)}</td>` : ''}`
+    : `<td class="vacio">—</td><td class="vacio">—</td>${conP ? '<td class="vacio">—</td>' : ''}`;
+  const filas = [];
+  const hojas = [];
+  (function rec(n){ if (n.t === 'r' && n.n) hojas.push(n); else if (n.t !== 'r') n.h.forEach(rec); })(E.raiz);
+  hojas.sort((a,b)=>a.n-b.n).forEach(h =>
+    filas.push(`<tr><td>${esc(h.nombre)}</td><td>${num(h.R)}</td>${celdas(mostrar[h.id])}</tr>`));
+  const creados = P.fase === 'baja' ? Math.min(P.estado, E.K) : E.K;
+  E.grupos.slice(0, creados).filter(g => g.id !== E.raiz.id).forEach(g =>
+    filas.push(`<tr class="eq"><td>${esc(g.nombre)}</td><td>${num(resistencia(g))}</td>${celdas(mostrar[g.id])}</tr>`));
+  filas.push(`<tr class="total"><td>Rₜ</td><td>${E.i >= E.K ? num(E.Rt) : '—'}</td>${celdas(mostrar[E.raiz.id])}</tr>`);
+  document.getElementById('tabla').innerHTML = filas.join('');
+
+  /* potenciales */
+  const orden = Object.keys(E.letra).map(Number).sort((a,b)=>E.letra[a] < E.letra[b] ? -1 : 1);
+  document.getElementById('potenciales').innerHTML = orden.map(nd => {
+    const L = E.letra[nd], v = pot[nd];
+    const nota = nd === E.raiz.a ? 'conectado al polo +' : nd === E.raiz.b ? 'conectado al polo −' : '';
+    return `<div><b>V${L} = ${v === undefined ? '?' : num(v)+' V'}</b><span>${nota}</span></div>`;
+  }).join('');
+
+  document.getElementById('ant').disabled = E.i === 0;
+  document.getElementById('sig').disabled = E.i === E.pasos.length-1;
+}
+
+/* ====================== interfaz ====================== */
+const barra = document.getElementById('barra');
+['Serie','Paralelo','Mixto','Libro'].forEach(fam => {
+  const d = document.createElement('div'); d.className = 'familia';
+  d.innerHTML = `<span>${fam}</span>`;
+  const chips = document.createElement('div'); chips.className = 'chips';
+  CIRCUITOS.filter(c => c.fam === fam).forEach(c => {
+    const b = document.createElement('button');
+    b.className = 'chip'; b.type = 'button'; b.dataset.id = c.id;
+    b.setAttribute('aria-pressed', String(c.id === CIRCUITOS[0].id));
+    b.textContent = c.nom.split('· ')[1];
+    b.addEventListener('click', () => elegir(c.id));
+    chips.appendChild(b);
+  });
+  d.appendChild(chips); barra.appendChild(d);
+});
+
+function elegir(id){
+  document.querySelectorAll('.chip').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.id === id)));
+  montar(CIRCUITOS.find(c => c.id === id));
+  E.i = 0; pintar();
+}
+document.getElementById('sig').addEventListener('click', () => { if (E.i < E.pasos.length-1){ E.i++; pintar(); } });
+document.getElementById('ant').addEventListener('click', () => { if (E.i > 0){ E.i--; pintar(); } });
+document.getElementById('ini').addEventListener('click', () => { E.i = 0; pintar(); });
+const verP = document.getElementById('verP');
+verP.checked = true;
+try { if (localStorage.getItem('circuitos.potencia') === '0') verP.checked = false; } catch (e) {}
+verP.addEventListener('change', () => {
+  try { localStorage.setItem('circuitos.potencia', verP.checked ? '1' : '0'); } catch (e) {}
+  const i = E.i, id = E.def.id;
+  montar(CIRCUITOS.find(c => c.id === id)); E.i = Math.min(i, E.pasos.length-1); pintar();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight'){ if (E.i < E.pasos.length-1){ E.i++; pintar(); } }
+  if (e.key === 'ArrowLeft'){ if (E.i > 0){ E.i--; pintar(); } }
+});
+
+elegir(CIRCUITOS[0].id);
+})();
+</script>
+</body>
+</html>
