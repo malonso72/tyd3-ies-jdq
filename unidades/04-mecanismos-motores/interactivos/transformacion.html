@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1B4F8A">
+<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<title>Transformación del movimiento · U04 · TyD 3º ESO</title>
+<meta name="description" content="Simulador de mecanismos de transformación del movimiento: piñón-cremallera, husillo-tuerca, tornillo sin fin y corona, y biela-manivela, con sus fórmulas y retos. TyD 3º ESO.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/common.css">
+<link rel="stylesheet" href="../../../assets/css/unidad.css">
+<style>
+:root{--c1:#c44a3a;--c2:#2c5f8d;--ok:#1f7a4c;--ko:#c0392b}
+.mt-wrap{max-width:1180px;margin:18px auto 50px;padding:0 18px}
+.mt-hero{text-align:center;margin-bottom:12px}
+.mt-hero h1{font-family:var(--cond);font-size:2rem;color:var(--principal);margin:0 0 4px}
+.mt-hero p{color:var(--texto2);margin:0 auto;max-width:880px;line-height:1.5}
+.mt-barra{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between;margin:12px 0 10px}
+.mt-grupo{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.mt-grupo b{font-family:var(--cond);color:var(--texto2);font-weight:600;margin-right:2px}
+.mt-btn{font-family:var(--cond);font-size:1.05rem;background:#fff;color:var(--principal);border:1.5px solid var(--principal);border-radius:7px;padding:6px 13px;cursor:pointer}
+.mt-btn:hover,.mt-btn.on{background:var(--principal);color:#fff}
+.mt-btn:disabled{opacity:.45;cursor:not-allowed}
+.mt-esc{background:linear-gradient(#f7fafd,#eef3f8);border:1px solid var(--borde);border-radius:12px;padding:6px;position:relative}
+.mt-esc svg{width:100%;height:auto;display:block;user-select:none}
+.mt-tipo{font-family:var(--cond);font-size:1.35rem;font-weight:700;color:#fff;background:var(--principal);padding:5px 14px;border-radius:8px;margin:4px 4px 2px;display:inline-block}
+.mt-tipo small{display:block;font-family:var(--sans);font-weight:500;font-size:.84rem;opacity:.92}
+.mt-lenta{position:absolute;right:14px;top:14px;font-size:.84rem;color:var(--texto2);background:rgba(255,255,255,.88);padding:4px 9px;border-radius:6px}
+.mt-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:14px;margin-top:12px}
+@media(max-width:900px){.mt-grid{grid-template-columns:1fr}.mt-lenta{position:static;display:inline-block;margin:0 4px}}
+.mt-card{background:#fff;border:1px solid var(--borde);border-radius:12px;padding:14px 16px}
+.mt-card h3{font-family:var(--cond);color:var(--principal);margin:0 0 8px;font-size:1.25rem}
+.mt-sl{display:grid;grid-template-columns:170px 1fr 110px;gap:10px;align-items:center;margin:10px 0}
+.mt-sl label{font-weight:600;color:var(--c1)}
+.mt-sl input[type=range]{width:100%;accent-color:var(--c1)}
+.mt-sl .v{font-family:'JetBrains Mono',monospace;font-weight:600;text-align:right;font-size:1.05rem;color:var(--c1)}
+.mt-ec{font-family:'JetBrains Mono',monospace;font-size:1.1rem;line-height:1.85;text-align:center}
+.mt-ec .ley{font-family:var(--cond);font-size:1.7rem;color:var(--texto);line-height:1.35}
+.mt-ec .a{color:var(--c1);font-weight:600}.mt-ec .b{color:var(--c2);font-weight:600}
+.mt-ec hr{border:0;border-top:1px dashed var(--borde);margin:6px 0}
+.mt-nota{margin-top:8px;color:var(--texto2);font-size:.98rem;line-height:1.45;text-align:center}
+.mt-reto{display:none;margin-top:12px;border:2px solid #e8b647;background:#fffaf0;border-radius:12px;padding:12px 16px}
+.mt-reto.on{display:block}
+.mt-reto h3{font-family:var(--cond);color:#9a6a00;margin:0 0 6px;font-size:1.25rem}
+.mt-reto .fila{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px}
+.mt-reto input{font-family:'JetBrains Mono',monospace;font-size:1.1rem;width:130px;padding:6px 8px;border:1.5px solid var(--borde);border-radius:6px}
+.mt-fb{font-weight:600;margin-top:8px}.mt-fb.ok{color:var(--ok)}.mt-fb.ko{color:var(--ko)}
+.t-et{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px}
+.t-v{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:18px}
+.t-c{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:16px;paint-order:stroke;stroke:#fff;stroke-width:5px;stroke-linejoin:round}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+<header class="curso-hd"><span class="curso-sb">U04 · Mecanismos · Transformación del movimiento</span></header>
+<nav class="curso-navcross" role="navigation" aria-label="Navegación de la unidad">
+  <a href="../../../index.html"><span>🏠</span><span class="nc-lbl">Inicio</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../index.html"><span>📋</span><span class="nc-lbl">Hub U04</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../libro-digital.html"><span>📘</span><span class="nc-lbl">Libro digital</span></a>
+  <span class="nc-sep">·</span>
+  <span class="nc-current"><span>🔄</span><span class="nc-lbl">Transformación del movimiento</span></span>
+</nav>
+
+<main id="main-content" class="mt-wrap">
+  <section class="mt-hero">
+    <h1>🔄 Transformación del movimiento</h1>
+    <p>Cuatro mecanismos del libro, en marcha: mira qué movimiento entra, qué movimiento sale, cuenta las vueltas y comprueba la fórmula de cada uno.</p>
+  </section>
+
+  <div class="mt-barra">
+    <div class="mt-grupo" role="group" aria-label="Mecanismo"><b>Mecanismo</b>
+      <button class="mt-btn" data-m="pin">Piñón-cremallera</button>
+      <button class="mt-btn" data-m="hus">Husillo-tuerca</button>
+      <button class="mt-btn" data-m="sin">Tornillo sin fin y corona</button>
+      <button class="mt-btn" data-m="bie">Biela-manivela</button>
+    </div>
+    <div class="mt-grupo">
+      <button class="mt-btn" id="b-pausa">⏸ Pausa</button>
+      <button class="mt-btn" id="b-cero">↺ Al inicio</button>
+      <button class="mt-btn" id="b-reto">🎯 Reto</button>
+    </div>
+  </div>
+
+  <div class="mt-esc">
+    <div class="mt-tipo" id="tipo"></div>
+    <div class="mt-lenta" id="lenta"></div>
+    <svg id="svg" viewBox="0 0 1000 440" role="img" aria-label="Mecanismo de transformación del movimiento"></svg>
+  </div>
+
+  <div class="mt-reto" id="reto" aria-live="polite">
+    <h3>🎯 Reto</h3>
+    <div id="reto-txt"></div>
+    <div class="fila"><span id="reto-inc"></span><input type="number" id="reto-in" step="any" min="0"><span id="reto-ud"></span>
+      <button class="mt-btn" id="reto-ok">Comprobar</button><button class="mt-btn" id="reto-sol">Ver solución</button><button class="mt-btn" id="reto-fin">Salir del reto</button></div>
+    <div class="mt-fb" id="reto-fb"></div>
+  </div>
+
+  <div class="mt-grid">
+    <div class="mt-card">
+      <h3>Valores</h3>
+      <div id="sliders"></div>
+    </div>
+    <div class="mt-card" aria-live="polite">
+      <h3 id="ec-tit"></h3>
+      <div class="mt-ec" id="ec"></div>
+      <div class="mt-nota" id="nota"></div>
+    </div>
+  </div>
+</main>
+
+<script>
+(function(){
+const NS='http://www.w3.org/2000/svg',svg=document.getElementById('svg');
+const W=1000,H=440,C1='#c44a3a',C2='#2c5f8d',PI=Math.PI;
+function el(t,at,p){const e=document.createElementNS(NS,t);for(const k in at)e.setAttribute(k,at[k]);(p||svg).appendChild(e);return e;}
+function tx(x,y,s,cls,at,p){const e=el('text',Object.assign({x,y,class:cls},at||{}),p);e.textContent=s;return e;}
+const fmt=(v,d=2)=>(Math.round(v*Math.pow(10,d))/Math.pow(10,d)).toLocaleString('es-ES',{maximumFractionDigits:d});
+const fmt1=v=>(Math.floor(v*10+1e-9)/10).toLocaleString('es-ES',{minimumFractionDigits:1,maximumFractionDigits:1});
+
+// ------------------------------------------------------------------ mecanismos
+const MEC={
+  pin:{nom:'Piñón-cremallera',sub:'Giro del piñón → desplazamiento rectilíneo de la cremallera',tit:'Avance de la cremallera',
+    sl:[{k:'d',lab:'Diámetro del piñón d',min:20,max:80,step:4,u:'mm'},{k:'n',lab:'Velocidad del piñón n',min:5,max:60,step:5,u:'rpm'}],
+    nota:'Transforma giro en movimiento rectilíneo y también al revés: si empujas la cremallera, el piñón gira. Dirección de los coches, puertas correderas automáticas.'},
+  hus:{nom:'Husillo-tuerca',sub:'Giro del husillo → desplazamiento rectilíneo de la tuerca',tit:'Avance de la tuerca',
+    sl:[{k:'p',lab:'Paso del husillo p',min:1,max:5,step:0.5,u:'mm'},{k:'n',lab:'Velocidad del husillo n',min:10,max:120,step:10,u:'rpm'}],
+    nota:'La tuerca no gira porque la guía se lo impide: solo avanza. Muchas vueltas para poco avance, por eso multiplica mucho la fuerza y es muy preciso. Tornillo de banco, prensas, gatos, impresoras 3D.'},
+  sin:{nom:'Tornillo sin fin y corona',sub:'Giro del tornillo → giro muy lento de la corona (ejes perpendiculares)',tit:'Velocidad de la corona',
+    sl:[{k:'Z',lab:'Dientes de la corona Z',min:20,max:60,step:1,u:''},{k:'e',lab:'Entradas del tornillo e',min:1,max:3,step:1,u:''},{k:'n',lab:'Velocidad del tornillo n',min:10,max:300,step:10,u:'rpm'}],
+    nota:'Cada vuelta del tornillo hace avanzar la corona tantos dientes como entradas tenga el tornillo. Es irreversible: la corona no puede mover el tornillo. Cintas transportadoras, clavijas de guitarra.'},
+  bie:{nom:'Biela-manivela',sub:'Giro de la manivela ↔ movimiento alternativo (vaivén) del émbolo',tit:'Carrera y velocidad media del émbolo',
+    sl:[{k:'r',lab:'Radio de la manivela r',min:20,max:60,step:5,u:'mm'},{k:'n',lab:'Velocidad de la manivela n',min:10,max:3000,step:10,u:'rpm'}],
+    nota:'En cada vuelta de la manivela el émbolo va y vuelve: recorre dos veces la carrera. Funciona en los dos sentidos: en el motor, el pistón mueve el cigüeñal; en la máquina de coser, la manivela mueve la aguja.'}
+};
+const S={m:'pin',v:{pin:{d:40,n:20},hus:{p:2,n:60},sin:{Z:30,e:1,n:60},bie:{r:40,n:60}},th:0,pausa:false,fin:false,reto:null,t0:null};
+const V=()=>S.v[S.m];
+
+// ------------------------------------------------------------------ dibujo: elementos comunes
+const defs=el('defs',{});
+defs.innerHTML='<radialGradient id="gMet" cx="45%" cy="40%" r="70%"><stop offset="0" stop-color="#f3f5f7"/><stop offset="1" stop-color="#aeb8c2"/></radialGradient>'+
+ '<linearGradient id="gBar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9edf1"/><stop offset=".5" stop-color="#c3cbd3"/><stop offset="1" stop-color="#8f9aa6"/></linearGradient>'+
+ '<linearGradient id="gCil" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dfe4e9"/><stop offset=".35" stop-color="#f6f8fa"/><stop offset="1" stop-color="#9aa5b0"/></linearGradient>'+
+ '<marker id="mk1" markerWidth="5" markerHeight="5" refX="2.5" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 z" fill="'+C1+'"/></marker>'+
+ '<marker id="mk2" markerWidth="5" markerHeight="5" refX="2.5" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 z" fill="'+C2+'"/></marker>'+
+ '<marker id="ct2" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M4,0 L4,8" stroke="'+C2+'" stroke-width="2"/></marker>'+
+ '<clipPath id="clHus"><rect x="110" y="0" width="790" height="440"/></clipPath>';
+const gE=el('g',{});let D={};
+function engranaje(r,Z,M,col){const ra=r+M,rf=r-1.25*M,p=2*PI/Z;let d='';
+  for(let k=0;k<Z;k++){const a=k*p;[[a-0.5*p,rf],[a-0.27*p,rf],[a-0.15*p,ra],[a+0.15*p,ra],[a+0.27*p,rf]].forEach(([an,rr],j)=>{d+=(k===0&&j===0?'M':'L')+(rr*Math.cos(an)).toFixed(2)+' '+(rr*Math.sin(an)).toFixed(2)+' ';});}
+  return d+'Z';}
+function marca(g,r,col){el('line',{x1:0,y1:0,x2:0,y2:-r,stroke:col,'stroke-width':5,'stroke-linecap':'round'},g);el('circle',{cx:0,cy:-r,r:6,fill:col},g);el('circle',{cx:0,cy:0,r:8,fill:'#2e343b'},g);}
+function flechaGiro(cx,cy,R,cw,col,mk,a1g,a2g){const a1=a1g*PI/180,a2=a2g*PI/180,P=a=>[cx+R*Math.cos(a),cy+R*Math.sin(a)],[x1,y1]=P(cw?a1:a2),[x2,y2]=P(cw?a2:a1);
+  el('path',{d:`M ${x1.toFixed(1)} ${y1.toFixed(1)} A ${R} ${R} 0 0 ${cw?1:0} ${x2.toFixed(1)} ${y2.toFixed(1)}`,fill:'none',stroke:col,'stroke-width':4,'marker-end':`url(#${mk})`},gE);}
+function flechaRecta(x1,y1,x2,y2,col,mk){el('line',{x1,y1,x2,y2,stroke:col,'stroke-width':5,'marker-end':`url(#${mk})`},gE);}
+const inc=()=>S.reto&&!S.reto.resuelto?S.reto.inc:null;
+
+// ------------------------------------------------------------------ montaje de cada mecanismo
+function monta(){
+  gE.innerHTML='';D={};const v=V();
+  if(S.m==='pin'){
+    const SC=2.4,mm=2,r=v.d/2*SC,Z=v.d/mm,M=mm*SC,cx=500,cy=150,pit=PI*mm*SC;
+    D.r=r;D.SC=SC;
+    // cremallera (larga, sale de la pantalla)
+    const yb=cy+r,xL=-1100,xR=960;let d=`M ${xL} ${yb+M*1.25+26} L ${xL} ${yb+M*1.25} `;
+    for(let x=cx+pit/2-Math.ceil((cx+pit/2-xL)/pit)*pit;x<xR;x+=pit){d+=`L ${(x-0.5*pit).toFixed(2)} ${yb+1.25*M} L ${(x-0.27*pit).toFixed(2)} ${yb+1.25*M} L ${(x-0.15*pit).toFixed(2)} ${yb-M} L ${(x+0.15*pit).toFixed(2)} ${yb-M} L ${(x+0.27*pit).toFixed(2)} ${yb+1.25*M} `;}
+    d+=`L ${xR} ${yb+1.25*M} L ${xR} ${yb+M*1.25+26} Z`;
+    D.gr=el('g',{},gE);el('path',{d,fill:'url(#gBar)',stroke:'#4f5862','stroke-width':1.6,'stroke-linejoin':'round'},D.gr);
+    D.ym=yb+M*1.25+13;el('circle',{cx:cx,cy:D.ym,r:7,fill:C2},D.gr);                  // marca móvil de la cremallera
+    el('line',{x1:cx,y1:D.ym+30,x2:cx,y2:D.ym+70,stroke:'#7a828c','stroke-width':1.5,'stroke-dasharray':'4 4'},gE); // posición de partida
+    tx(cx,D.ym+88,'inicio','t-c',{'text-anchor':'middle',fill:'#7a828c'},gE);
+    el('rect',{x:20,y:D.ym+16,width:960,height:8,fill:'#cfd5db'},gE);              // guía
+    D.gp=el('g',{},gE);el('path',{d:engranaje(r,Z,M),fill:'url(#gMet)',stroke:C1,'stroke-width':2,'stroke-linejoin':'round'},D.gp);marca(D.gp,r-1.8*M,C1);
+    D.cx=cx;D.cy=cy;D.gc=el('g',{},gE);
+    flechaGiro(cx,cy,r+M+16,false,C1,'mk1',-150,-40);
+    D.max=(cx-r-40-xL-60)/SC;                                                       // recorrido disponible (mm)
+  }else if(S.m==='hus'){
+    const SC=10,y=170,R=22,x0=120,x1=900,pit=v.p*SC;D.SC=SC;D.y=y;D.pit=pit;
+    el('rect',{x:40,y:y-60,width:30,height:120,rx:4,fill:'#8c96a1'},gE);el('rect',{x:930,y:y-60,width:30,height:120,rx:4,fill:'#8c96a1'},gE);   // soportes
+    el('rect',{x:x0,y:y-R,width:x1-x0,height:2*R,fill:'url(#gCil)',stroke:'#59626d','stroke-width':1.5},gE);
+    D.gh=el('g',{'clip-path':'url(#clHus)'},gE);const gH=el('g',{},D.gh);D.gH=gH;
+    for(let x=x0-2*pit-40;x<x1+pit+40;x+=pit)el('line',{x1:x,y1:y+R,x2:x+pit*0.5,y2:y-R,stroke:'#59626d','stroke-width':2.2},gH);
+    el('line',{x1:70,y1:y,x2:x0,y2:y,stroke:'#59626d','stroke-width':10},gE);el('line',{x1:x1,y1:y,x2:930,y2:y,stroke:'#59626d','stroke-width':10},gE);
+    el('rect',{x:20,y:y+82,width:960,height:10,fill:'#cfd5db'},gE);tx(950,y+112,'guía','t-c',{'text-anchor':'end',fill:'#7a828c'},gE);
+    D.gt=el('g',{},gE);                                                             // tuerca (se mueve)
+    el('rect',{x:-46,y:-R-26,width:92,height:2*R+52,rx:6,fill:'#5d7fa3',stroke:'#2c4d70','stroke-width':2},D.gt);
+    el('line',{x1:-46,y1:-R-8,x2:46,y2:-R-8,stroke:'#2c4d70','stroke-width':1.2},D.gt);el('line',{x1:-46,y1:R+8,x2:46,y2:R+8,stroke:'#2c4d70','stroke-width':1.2},D.gt);
+    el('rect',{x:-14,y:R+26,width:28,height:38,fill:'#5d7fa3',stroke:'#2c4d70','stroke-width':2},D.gt);  // patín sobre la guía
+    tx(0,6,'tuerca','t-c',{'text-anchor':'middle',fill:'#fff',style:'stroke:none'},D.gt);
+    D.x00=200;D.max=(820-200)/SC;
+    el('line',{x1:D.x00,y1:y+100,x2:D.x00,y2:y+140,stroke:'#7a828c','stroke-width':1.5,'stroke-dasharray':'4 4'},gE);
+    D.gm=el('g',{},gE);                                                             // manivela (se redibuja)
+    D.gc=el('g',{},gE);
+  }else if(S.m==='sin'){
+    const M=4.6,r=M*v.Z/2,cx=500,cy=440-60-r+((60-v.Z)*1.2),rw=24,yw=cy-r-rw,pit=PI*M;D.M=M;D.r=r;D.cx=cx;D.cy=cy;D.pit=pit;D.yw=yw;
+    D.gc=el('g',{},gE);el('path',{d:engranaje(r,v.Z,M),fill:'url(#gMet)',stroke:C2,'stroke-width':2,'stroke-linejoin':'round'},D.gc);marca(D.gc,r-1.8*M,C2);
+    el('circle',{cx:0,cy:0,r:Math.max(12,r*0.55),fill:'none',stroke:'#8b949e','stroke-width':1.2},D.gc);
+    const xa=cx-230,xb=cx+230,hw=rw+M;
+    el('line',{x1:xa-60,y1:yw,x2:xb+40,y2:yw,stroke:'#59626d','stroke-width':12},gE);
+    el('rect',{x:xb+40,y:yw-34,width:90,height:68,rx:8,fill:'#6b7580',stroke:'#3e454d','stroke-width':2},gE);tx(xb+85,yw+6,'motor','t-c',{'text-anchor':'middle',fill:'#fff',style:'stroke:none'},gE);
+    el('rect',{x:xa,y:yw-hw,width:xb-xa,height:2*hw,rx:6,fill:'url(#gCil)',stroke:C1,'stroke-width':2},gE);
+    el('clipPath',{id:'clSin'},defs).innerHTML=`<rect x="${xa}" y="${yw-hw}" width="${xb-xa}" height="${2*hw}" rx="6"/>`;
+    const gh=el('g',{'clip-path':'url(#clSin)'},gE),gH=el('g',{},gh);D.gH=gH;
+    for(let x=xa-3*pit;x<xb+3*pit;x+=pit)el('line',{x1:x+pit*0.35,y1:yw+hw,x2:x-pit*0.35,y2:yw-hw,stroke:'#59626d','stroke-width':3},gH);
+    D.flc=null;flechaGiro(cx,cy,r+M+16,true,C2,'mk2',-20,40);
+    D.gx=el('g',{},gE);
+  }else{
+    const SC=2.2,r=v.r*SC,Lb=150*SC,cx=200,cy=200;D.SC=SC;D.r=r;D.Lb=Lb;D.cx=cx;D.cy=cy;
+    const xPMS=cx+r+Lb,xPMI=cx-r+Lb,pw=80;D.pw=pw;
+    el('rect',{x:xPMI-12,y:cy-52,width:(xPMS-xPMI)+pw+60,height:104,fill:'#e3e8ed',stroke:'#7d8792','stroke-width':3},gE);      // cilindro
+    el('rect',{x:xPMI-12,y:cy-48,width:(xPMS-xPMI)+pw+56,height:96,fill:'#f4f6f8'},gE);
+    el('circle',{cx,cy,r:r+30,fill:'none',stroke:'#cfd5db','stroke-width':2,'stroke-dasharray':'6 6'},gE);
+    // PMS y PMI y cota de la carrera
+    [[xPMS,'PMS'],[xPMI,'PMI']].forEach(([x,t])=>{el('line',{x1:x,y1:cy-80,x2:x,y2:cy+110,stroke:'#7a828c','stroke-width':1.5,'stroke-dasharray':'5 4'},gE);tx(x,cy-88,t,'t-c',{'text-anchor':'middle',fill:'#6b7580'},gE);});
+    el('line',{x1:xPMI,y1:cy+96,x2:xPMS,y2:cy+96,stroke:C2,'stroke-width':2,'marker-start':'url(#ct2)','marker-end':'url(#ct2)'},gE);
+    D.tCarr=tx((xPMI+xPMS)/2,cy+124,'','t-c',{'text-anchor':'middle',fill:C2},gE);
+    D.gm=el('g',{},gE);D.gc=el('g',{},gE);
+    flechaGiro(cx,cy,r+44,true,C1,'mk1',-150,-60);
+  }
+  D.gt2=el('g',{},gE);
+  pon();
+}
+
+// ------------------------------------------------------------------ posición en cada instante
+function pon(){
+  const v=V(),th=S.th,vu=th/(2*PI),ri=inc(),oc=S.reto&&!S.reto.resuelto;
+  D.gt2.innerHTML='';
+  const L=(x,y,t,col,anc)=>tx(x,y,t,'t-c',{'text-anchor':anc||'middle',fill:col},D.gt2);
+  if(S.m==='pin'){
+    const desp=Math.min(D.max,vu*PI*v.d);if(desp>=D.max-1e-9&&!S.fin){S.fin=true;}
+    const ang=-desp/(PI*v.d)*360;D.gp.setAttribute('transform',`translate(${D.cx} ${D.cy}) rotate(${ang.toFixed(3)})`);
+    D.gr.setAttribute('transform',`translate(${(desp*D.SC).toFixed(2)} 0)`);
+    const xm=D.cx+desp*D.SC,y=D.ym+50;
+    if(desp>0.01){el('line',{x1:D.cx,y1:y,x2:xm,y2:y,stroke:C2,'stroke-width':2,'marker-start':'url(#ct2)','marker-end':'url(#ct2)'},D.gt2);}
+    L(Math.max(D.cx+90,(D.cx+xm)/2),y-10,oc?'':'avance = '+fmt(desp,1)+' mm',C2);
+    L(D.cx-D.r-120,D.cy-70,oc?'':fmt1(desp/(PI*v.d))+' vueltas',C1);
+    L(D.cx-D.r-120,D.cy-46,'d = '+(ri==='d'?'?':v.d+' mm'),C1);
+    L(D.cx-D.r-120,D.cy-22,'n = '+(ri==='n'?'?':v.n+' rpm'),C1);
+    flechaRecta(D.cx+D.r+60,D.cy+D.r+4,D.cx+D.r+130,D.cy+D.r+4,C2,'mk2');
+  }else if(S.m==='hus'){
+    const desp=Math.min(D.max,vu*v.p);if(desp>=D.max-1e-9)S.fin=true;
+    const sh=(desp*D.SC)%D.pit;D.gH.setAttribute('transform',`translate(${sh.toFixed(2)} 0)`);
+    const xt=D.x00+desp*D.SC;D.gt.setAttribute('transform',`translate(${xt.toFixed(2)} ${D.y})`);
+    // manivela vista de lado: el puño sube y baja al girar
+    const a=desp/v.p*2*PI,yk=D.y-62*Math.cos(a),front=Math.sin(a)>0;
+    D.gm.innerHTML='';el('line',{x1:55,y1:D.y,x2:55,y2:yk,stroke:'#3e454d','stroke-width':9,'stroke-linecap':'round'},D.gm);
+    el('rect',{x:front?22:38,y:yk-8,width:front?36:22,height:16,rx:7,fill:C1,opacity:front?1:.75},D.gm);
+    if(desp>0.01){const y=D.y+120;el('line',{x1:D.x00,y1:y,x2:xt,y2:y,stroke:C2,'stroke-width':2,'marker-start':'url(#ct2)','marker-end':'url(#ct2)'},D.gt2);}
+    L(Math.max(D.x00+90,(D.x00+xt)/2),D.y+150,oc?'':'avance = '+fmt(desp,1)+' mm',C2);
+    L(60,D.y-90,oc?'':fmt1(desp/v.p)+' vueltas',C1,'start');
+    L(250,D.y-90,'p = '+(ri==='p'?'?':fmt(v.p,1)+' mm'),C1,'start');
+    L(420,D.y-90,'n = '+(ri==='n'?'?':v.n+' rpm'),C1,'start');
+    flechaRecta(xt+60,D.y-60,xt+120,D.y-60,C2,'mk2');
+  }else if(S.m==='sin'){
+    const sh=(vu*v.e*D.pit)%D.pit;D.gH.setAttribute('transform',`translate(${sh.toFixed(2)} 0)`);
+    const ac=vu*v.e/v.Z*360;D.gc.setAttribute('transform',`translate(${D.cx} ${D.cy}) rotate(${ac.toFixed(3)})`);
+    L(D.cx-250,D.yw-60,oc?'':'tornillo: '+fmt1(vu)+' vueltas',C1,'start');
+    L(D.cx-250,D.yw-38,'e = '+(ri==='e'?'?':v.e)+' · n = '+(ri==='n'?'?':v.n+' rpm'),C1,'start');
+    const xl=D.cx+D.r+40;
+    L(xl,D.cy-10,oc?'':'corona: '+fmt(vu*v.e/v.Z,2).replace(/^(\d+)$/,'$1')+' vueltas',C2,'start');
+    L(xl,D.cy+14,oc?'':'('+Math.floor(vu*v.e+1e-9)+' dientes avanzados)',C2,'start');
+    L(xl,D.cy+38,'Z = '+(ri==='Z'?'?':v.Z),C2,'start');
+  }else{
+    const a=th,cx=D.cx,cy=D.cy,r=D.r,Lb=D.Lb,px=cx+r*Math.cos(a),py=cy+r*Math.sin(a),xs=px+Math.sqrt(Lb*Lb-(py-cy)*(py-cy));
+    D.gm.innerHTML='';
+    el('circle',{cx,cy,r:r+16,fill:'url(#gMet)',stroke:'#59626d','stroke-width':2},D.gm);
+    el('line',{x1:cx,y1:cy,x2:px,y2:py,stroke:C1,'stroke-width':16,'stroke-linecap':'round'},D.gm);
+    el('rect',{x:xs,y:cy-44,width:D.pw,height:88,rx:6,fill:'#5d7fa3',stroke:'#2c4d70','stroke-width':2},D.gm);
+    tx(xs+D.pw/2,cy+6,'émbolo','t-c',{'text-anchor':'middle',fill:'#fff',style:'stroke:none','font-size':14},D.gm);
+    el('line',{x1:px,y1:py,x2:xs,y2:cy,stroke:'#6b7580','stroke-width':12,'stroke-linecap':'round'},D.gm);
+    el('circle',{cx,cy,r:9,fill:'#2e343b'},D.gm);el('circle',{cx:px,cy:py,r:7,fill:'#fff',stroke:'#2e343b','stroke-width':3},D.gm);el('circle',{cx:xs,cy,r:7,fill:'#fff',stroke:'#2e343b','stroke-width':3},D.gm);
+    tx((px+xs)/2,(py+cy)/2-14,'biela','t-c',{'text-anchor':'middle',fill:'#4f5862'},D.gm);
+    D.tCarr.textContent=ri==='L'?'carrera L = ?':(ri==='r'?'carrera L = '+(2*v.r)+' mm':'carrera L = 2 · r = '+(2*v.r)+' mm');
+    L(cx,cy+r+64,oc?'':fmt1(vu)+' vueltas · '+Math.floor(vu+1e-9)+' idas y vueltas',C1);
+    L(cx,cy+r+88,'r = '+(ri==='r'?'?':v.r+' mm')+' · n = '+(ri==='n'?'?':v.n+' rpm'),C1);
+  }
+}
+
+// ------------------------------------------------------------------ panel
+function sliders(){
+  const c=document.getElementById('sliders');c.innerHTML='';
+  MEC[S.m].sl.forEach(s=>{const d=document.createElement('div');d.className='mt-sl';
+    d.innerHTML='<label for="s-'+s.k+'">'+s.lab+'</label><input type="range" id="s-'+s.k+'" min="'+s.min+'" max="'+s.max+'" step="'+s.step+'"><span class="v" id="v-'+s.k+'"></span>';
+    c.appendChild(d);
+    d.querySelector('input').addEventListener('input',e=>{V()[s.k]=+e.target.value;if(s.k!=='n'){S.th=0;S.fin=false;}actualiza(s.k!=='n');});});
+}
+function actualiza(remontar){
+  const m=MEC[S.m],v=V(),ri=inc(),oc=!!ri;
+  document.getElementById('tipo').innerHTML=m.nom+'<small>'+m.sub+'</small>';
+  document.querySelectorAll('[data-m]').forEach(b=>b.classList.toggle('on',b.dataset.m===S.m));
+  m.sl.forEach(s=>{const i=document.getElementById('s-'+s.k);i.value=ri===s.k?(s.min+s.max)/2:v[s.k];i.disabled=oc;
+    document.getElementById('v-'+s.k).textContent=ri===s.k?'?':(fmt(v[s.k],1)+(s.u?' '+s.u:''));});
+  ['b-pausa','b-cero'].forEach(id=>document.getElementById(id).disabled=oc);
+  document.querySelectorAll('[data-m]').forEach(b=>b.disabled=oc);
+  const ec=document.getElementById('ec');document.getElementById('ec-tit').textContent=m.tit;
+  let ley,num='';
+  if(S.m==='pin'){ley='<span class="b">v</span> = π · <span class="a">d</span> · <span class="a">n</span>';
+    num='<div>Avance por vuelta = π · d = π · '+v.d+' = <span class="b">'+fmt(PI*v.d,1)+' mm</span></div><div><span class="b">v</span> = π · '+v.d+' · '+v.n+' = <span class="b">'+fmt(PI*v.d*v.n,0)+' mm/min</span> = '+fmt(PI*v.d*v.n/1000,2)+' m/min</div>';}
+  else if(S.m==='hus'){ley='<span class="b">v</span> = <span class="a">p</span> · <span class="a">n</span>';
+    num='<div>Avance por vuelta = paso = <span class="b">'+fmt(v.p,1)+' mm</span></div><div><span class="b">v</span> = '+fmt(v.p,1)+' · '+v.n+' = <span class="b">'+fmt(v.p*v.n,0)+' mm/min</span></div><div>Para avanzar 10 mm hacen falta 10 / '+fmt(v.p,1)+' = <strong>'+fmt(10/v.p,1)+' vueltas</strong></div>';}
+  else if(S.m==='sin'){ley='<span class="b">n<sub>corona</sub></span> / <span class="a">n<sub>tornillo</sub></span> = <span class="a">e</span> / <span class="b">Z</span>';
+    num='<div><span class="b">n<sub>corona</sub></span> = '+v.n+' · '+v.e+' / '+v.Z+' = <span class="b">'+fmt(v.n*v.e/v.Z,2)+' rpm</span></div><div>i = e / Z = '+v.e+' / '+v.Z+' = '+fmt(v.e/v.Z,3)+'</div><div>Para que la corona dé 1 vuelta, el tornillo da Z / e = <strong>'+fmt(v.Z/v.e,1)+' vueltas</strong></div>';}
+  else{ley='<span class="b">L</span> = 2 · <span class="a">r</span> &nbsp;·&nbsp; <span class="b">v̄</span> = 2 · L · n / 60';
+    const Lm=2*v.r/1000;num='<div><span class="b">L</span> = 2 · '+v.r+' = <span class="b">'+(2*v.r)+' mm</span> = '+fmt(Lm,3)+' m</div><div><span class="b">v̄</span> = 2 · '+fmt(Lm,3)+' · '+v.n+' / 60 = <span class="b">'+fmt(2*Lm*v.n/60,2)+' m/s</span></div>';}
+  ec.innerHTML='<div class="ley">'+ley+'</div>'+(oc?'':'<hr>'+num);
+  document.getElementById('nota').innerHTML=oc?'Calcula el valor que falta con la fórmula del mecanismo.':m.nota;
+  const rps=v.n/60;S.f=Math.min(1,1/rps);
+  document.getElementById('lenta').textContent=oc?'⏸ Animación detenida':(S.fin?'Fin del recorrido: pulsa «↺ Al inicio»':(S.f<1?'Animación a cámara lenta (×1/'+fmt(1/S.f,0)+')':'Animación a velocidad real'));
+  document.getElementById('b-pausa').textContent=S.pausa?'▶ Seguir':'⏸ Pausa';
+  if(remontar!==false)monta();else pon();
+}
+
+// ------------------------------------------------------------------ controles
+document.querySelectorAll('[data-m]').forEach(b=>b.addEventListener('click',()=>{finReto();S.m=b.dataset.m;S.th=0;S.fin=false;sliders();actualiza();}));
+document.getElementById('b-pausa').addEventListener('click',()=>{S.pausa=!S.pausa;actualiza(false);});
+document.getElementById('b-cero').addEventListener('click',()=>{S.th=0;S.fin=false;actualiza(false);});
+
+// ------------------------------------------------------------------ retos
+const R_=n=>Math.floor(Math.random()*n),pick=a=>a[R_(a.length)];
+function empiezaReto(){
+  finReto();const m=pick(['pin','hus','sin','bie']),t={m,resuelto:false};let v;
+  if(m==='pin'){v={d:pick([20,24,32,40,48,60,80]),n:pick([5,10,15,20,30])};t.inc=pick(['av','v']);
+    if(t.inc==='av'){t.sol=PI*v.d;t.u='mm';t.lab='avance';t.txt='El piñón tiene <strong>d = '+v.d+' mm</strong>. ¿Cuánto avanza la cremallera en <strong>una vuelta</strong> del piñón?';}
+    else{t.sol=PI*v.d*v.n;t.u='mm/min';t.lab='v';t.txt='El piñón tiene <strong>d = '+v.d+' mm</strong> y gira a <strong>'+v.n+' rpm</strong>. ¿A qué velocidad <strong>v</strong> avanza la cremallera?';}}
+  else if(m==='hus'){v={p:pick([1,1.5,2,2.5,3,4,5]),n:pick([20,30,40,60,90,120])};t.inc=pick(['v','vu','p']);
+    if(t.inc==='v'){t.sol=v.p*v.n;t.u='mm/min';t.lab='v';t.txt='El husillo tiene un paso de <strong>p = '+fmt(v.p,1)+' mm</strong> y gira a <strong>'+v.n+' rpm</strong>. ¿A qué velocidad avanza la tuerca?';}
+    else if(t.inc==='vu'){const x=pick([10,12,15,20,24,30,36,40]);t.sol=x/v.p;t.u='vueltas';t.lab='vueltas';t.txt='Con un husillo de paso <strong>p = '+fmt(v.p,1)+' mm</strong>, ¿cuántas vueltas hay que dar para que la tuerca avance <strong>'+x+' mm</strong>?';}
+    else{const nv=pick([4,5,6,8,10,12]);t.sol=v.p;t.u='mm';t.lab='p';t.inc='p';t.txt='Después de <strong>'+nv+' vueltas</strong> la tuerca ha avanzado <strong>'+fmt(nv*v.p,1)+' mm</strong>. ¿Cuál es el paso <strong>p</strong> del husillo?';}}
+  else if(m==='sin'){v={Z:pick([20,24,30,36,40,45,48,50,60]),e:pick([1,1,2]),n:pick([60,90,120,150,180,240,300])};t.inc=pick(['nc','vu','Z']);
+    if(t.inc==='nc'){t.sol=v.n*v.e/v.Z;t.u='rpm';t.lab='n corona';t.txt='Tornillo de <strong>'+v.e+' entrada'+(v.e>1?'s':'')+'</strong> a <strong>'+v.n+' rpm</strong> y corona de <strong>'+v.Z+' dientes</strong>. ¿A qué velocidad gira la corona?';}
+    else if(t.inc==='vu'){t.sol=v.Z/v.e;t.u='vueltas';t.lab='vueltas';t.txt='Tornillo de <strong>'+v.e+' entrada'+(v.e>1?'s':'')+'</strong> y corona de <strong>'+v.Z+' dientes</strong>. ¿Cuántas vueltas da el tornillo mientras la corona da una?';}
+    else{t.sol=v.Z;t.u='dientes';t.lab='Z';t.txt='Un tornillo de <strong>'+v.e+' entrada'+(v.e>1?'s':'')+'</strong> gira a <strong>'+v.n+' rpm</strong> y la corona a <strong>'+fmt(v.n*v.e/v.Z,2)+' rpm</strong>. ¿Cuántos dientes tiene la corona?';}}
+  else{v={r:pick([20,25,30,35,40,45,50,60]),n:pick([60,120,300,600,900,1200,1500,3000])};t.inc=pick(['L','vm','r']);
+    if(t.inc==='L'){t.sol=2*v.r;t.u='mm';t.lab='L';t.txt='La manivela tiene un radio <strong>r = '+v.r+' mm</strong>. ¿Cuál es la carrera <strong>L</strong> del émbolo?';}
+    else if(t.inc==='vm'){t.sol=2*(2*v.r/1000)*v.n/60;t.u='m/s';t.lab='v̄';t.txt='Manivela de <strong>r = '+v.r+' mm</strong> girando a <strong>'+v.n+' rpm</strong>. ¿Cuál es la velocidad media del émbolo? (L en metros)';}
+    else{t.sol=v.r;t.u='mm';t.lab='r';t.txt='El émbolo tiene una carrera de <strong>'+(2*v.r)+' mm</strong>. ¿Qué radio <strong>r</strong> tiene la manivela?';}}
+  S.m=m;S.v[m]=Object.assign({},S.v[m],v);S.th=0;S.fin=false;S.reto=t;
+  t.inc2=t.inc;   // en pantalla se oculta el dato que se pregunta
+  t.inc={pin:{av:'-',v:'-'},hus:{v:'-',vu:'-',p:'p'},sin:{nc:'-',vu:'-',Z:'Z'},bie:{L:'L',vm:'-',r:'r'}}[m][t.inc2];
+  document.getElementById('reto').classList.add('on');document.getElementById('reto-txt').innerHTML=t.txt;
+  document.getElementById('reto-inc').textContent=t.lab+' =';document.getElementById('reto-ud').textContent=t.u;
+  document.getElementById('reto-in').value='';const fb=document.getElementById('reto-fb');fb.textContent='';fb.className='mt-fb';
+  sliders();actualiza();document.getElementById('reto-in').focus({preventScroll:true});
+}
+function finReto(){S.reto=null;document.getElementById('reto').classList.remove('on');}
+function explica(t){const v=S.v[t.m],k=t.inc2;
+  if(t.m==='pin')return k==='av'?'avance = π · d = π · '+v.d+' = '+fmt(t.sol,1)+' mm':'v = π · d · n = π · '+v.d+' · '+v.n+' = '+fmt(t.sol,0)+' mm/min';
+  if(t.m==='hus')return k==='v'?'v = p · n = '+fmt(v.p,1)+' · '+v.n+' = '+fmt(t.sol,0)+' mm/min':(k==='vu'?'vueltas = avance / p = '+fmt(t.sol*v.p,1)+' / '+fmt(v.p,1)+' = '+fmt(t.sol,1):'p = avance / vueltas = '+fmt(t.sol,1)+' mm');
+  if(t.m==='sin')return k==='nc'?'n corona = n · e / Z = '+v.n+' · '+v.e+' / '+v.Z+' = '+fmt(t.sol,2)+' rpm':(k==='vu'?'vueltas = Z / e = '+v.Z+' / '+v.e+' = '+fmt(t.sol,1):'Z = n tornillo · e / n corona = '+v.Z+' dientes');
+  return k==='L'?'L = 2 · r = 2 · '+v.r+' = '+t.sol+' mm':(k==='vm'?'v̄ = 2 · L · n / 60 = 2 · '+fmt(2*v.r/1000,3)+' · '+v.n+' / 60 = '+fmt(t.sol,2)+' m/s':'r = L / 2 = '+(2*v.r)+' / 2 = '+t.sol+' mm');}
+function prueba(val,sol){const t=S.reto;if(!t)return;const fb=document.getElementById('reto-fb');
+  if(sol||Math.abs(val-t.sol)<=0.01*Math.max(Math.abs(t.sol),1e-9)){fb.className='mt-fb ok';fb.textContent=(sol?'Solución: ':'✔ Correcto: ')+explica(t)+'. Pulsa «Reto» para otro.';t.resuelto=true;S.pausa=false;actualiza();}
+  else{fb.className='mt-fb ko';fb.textContent='✘ No es correcto. Repasa la fórmula del panel y las unidades.';}}
+document.getElementById('b-reto').addEventListener('click',empiezaReto);
+document.getElementById('reto-fin').addEventListener('click',()=>{finReto();actualiza();});
+document.getElementById('reto-ok').addEventListener('click',()=>{const x=parseFloat(String(document.getElementById('reto-in').value).replace(',','.'));if(!isNaN(x))prueba(x,false);});
+document.getElementById('reto-in').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('reto-ok').click();});
+document.getElementById('reto-sol').addEventListener('click',()=>prueba(0,true));
+
+// ------------------------------------------------------------------ animación
+function frame(t){
+  if(S.t0!==null){const dt=Math.min(0.1,(t-S.t0)/1000);
+    if(!S.pausa&&!S.fin&&!(S.reto&&!S.reto.resuelto)){S.th+=V().n/60*2*PI*S.f*dt;pon();if(S.fin)actualiza(false);}}
+  S.t0=t;requestAnimationFrame(frame);}
+sliders();actualiza();requestAnimationFrame(frame);
+window.__mtS=S;window.__mtAct=actualiza;window.__mtListo=true;
+})();
+</script>
+<script src="../../../assets/js/common.js"></script>
+<script src="../../../assets/js/header.js"></script>
+<script data-goatcounter="https://malonso72.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
