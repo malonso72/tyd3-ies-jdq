@@ -3,192 +3,334 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#8C2A3D">
+<meta name="theme-color" content="#1B4F8A">
 <link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
 <title>Tren compuesto · U04 · TyD 3º ESO</title>
-<meta name="description" content="Encadena 2 o 3 etapas de transmisión y observa la relación total. Calculadora educativa con visualización.">
+<meta name="description" content="Simulador de tren compuesto de engranajes de 2 o 3 etapas: ruedas solidarias en el mismo eje, relación de transmisión total, velocidad de cada eje, sentido de giro y retos. TyD 3º ESO.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../../assets/css/common.css">
 <link rel="stylesheet" href="../../../assets/css/unidad.css">
 <style>
-.tc-wrap{max-width:900px;margin:30px auto;padding:0 20px 60px}
-.tc-hero{text-align:center;margin-bottom:22px}
-.tc-hero h1{font-family:var(--cond);font-size:2rem;color:var(--principal);margin:0 0 8px}
-.tc-hero p{font-size:.95rem;color:var(--texto2);margin:0;line-height:1.55}
-.tc-card{background:#fff;border:1px solid var(--borde);border-radius:12px;padding:22px;box-shadow:0 1px 6px rgba(0,0,0,.05);margin-bottom:18px}
-.tc-tabs{display:flex;gap:6px;margin-bottom:14px}
-.tc-tab{font-family:var(--cond);background:#fff;border:1.5px solid var(--borde);padding:8px 14px;border-radius:18px;cursor:pointer;font-size:.88rem;color:var(--texto2)}
-.tc-tab.activa{background:var(--principal);color:#fff;border-color:var(--principal)}
-.tc-etapa{background:#FAFBFC;border:1px solid var(--borde);border-radius:10px;padding:14px 18px;margin-bottom:12px}
-.tc-etapa h4{font-family:var(--cond);color:var(--principal);margin:0 0 10px;font-size:1rem}
-.tc-row{display:grid;grid-template-columns:1fr 1fr 80px;gap:10px;align-items:end}
-@media(max-width:560px){.tc-row{grid-template-columns:1fr 1fr}}
-.tc-inp{display:flex;flex-direction:column;gap:4px}
-.tc-inp label{font-family:var(--cond);font-size:.78rem;color:var(--texto2);letter-spacing:.5px}
-.tc-inp input{font-family:'JetBrains Mono',monospace;background:#FBEEEF;border:1.5px solid var(--borde);border-radius:6px;padding:8px 10px;font-size:.92rem;color:var(--principal);width:100%}
-.tc-inp input:focus{outline:none;border-color:var(--principal);background:#fff}
-.tc-i-etapa{background:#fff;border-left:3px solid var(--principal);padding:8px 12px;border-radius:0 6px 6px 0;text-align:center;font-family:'JetBrains Mono',monospace;font-size:.9rem;color:var(--principal);align-self:end}
-.tc-i-etapa small{display:block;font-size:.7rem;color:var(--texto2);font-family:var(--cond);font-weight:400;letter-spacing:.5px}
-.tc-entrada{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
-.tc-summary{margin-top:20px;padding:18px 22px;background:linear-gradient(135deg,#FBEEEF,#fff);border:2px solid var(--principal);border-radius:10px;text-align:center}
-.tc-summary h3{font-family:var(--cond);color:var(--principal);margin:0 0 10px;font-size:1.1rem}
-.tc-summary .salida{display:flex;justify-content:center;gap:30px;flex-wrap:wrap;margin-top:6px}
-.tc-summary .salida .it{display:flex;flex-direction:column;align-items:center;gap:2px}
-.tc-summary .salida .it .lab{font-family:var(--cond);font-size:.78rem;color:var(--texto2);letter-spacing:1px;text-transform:uppercase}
-.tc-summary .salida .it .v{font-family:'JetBrains Mono',monospace;font-size:1.6rem;color:var(--principal);font-weight:600}
-.tc-summary .salida .it .u{font-size:.78rem;color:var(--texto2)}
-.tc-summary .formula{margin-top:14px;padding:10px 14px;background:#F4F6F9;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.92rem;color:var(--texto);line-height:1.6}
-.tc-interpret{margin-top:14px;padding:12px 16px;background:#E6F1FB;border-left:4px solid #378ADD;border-radius:0 6px 6px 0;font-size:.92rem;line-height:1.55}
-.tc-presets{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-.tc-preset{font-family:var(--cond);background:#fff;border:1.5px solid var(--borde);padding:7px 12px;border-radius:14px;cursor:pointer;font-size:.82rem;color:var(--texto2)}
-.tc-preset:hover{border-color:var(--principal);color:var(--principal)}
+:root{--c1:#c44a3a;--c2:#2c5f8d;--cm:#4d7a3a;--ok:#1f7a4c;--ko:#c0392b}
+.tc-wrap{max-width:1180px;margin:18px auto 50px;padding:0 18px}
+.tc-hero{text-align:center;margin-bottom:12px}
+.tc-hero h1{font-family:var(--cond);font-size:2rem;color:var(--principal);margin:0 0 4px}
+.tc-hero p{color:var(--texto2);margin:0 auto;max-width:880px;line-height:1.5}
+.tc-barra{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between;margin:12px 0 10px}
+.tc-grupo{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.tc-grupo b{font-family:var(--cond);color:var(--texto2);font-weight:600;margin-right:2px}
+.tc-btn{font-family:var(--cond);font-size:1.05rem;background:#fff;color:var(--principal);border:1.5px solid var(--principal);border-radius:7px;padding:6px 13px;cursor:pointer}
+.tc-btn:hover,.tc-btn.on{background:var(--principal);color:#fff}
+.tc-btn:disabled{opacity:.45;cursor:not-allowed}
+.tc-btn.peq{font-size:.95rem;padding:4px 10px}
+.tc-esc{background:linear-gradient(#f7fafd,#eef3f8);border:1px solid var(--borde);border-radius:12px;padding:6px;position:relative}
+.tc-esc svg{width:100%;height:auto;display:block;user-select:none}
+.tc-tipo{font-family:var(--cond);font-size:1.35rem;font-weight:700;color:#fff;background:var(--principal);padding:5px 14px;border-radius:8px;margin:4px 4px 2px;display:inline-block}
+.tc-tipo small{display:block;font-family:var(--sans);font-weight:500;font-size:.84rem;opacity:.92}
+.tc-lenta{position:absolute;right:14px;top:14px;font-size:.84rem;color:var(--texto2);background:rgba(255,255,255,.88);padding:4px 9px;border-radius:6px}
+.tc-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:14px;margin-top:12px}
+@media(max-width:900px){.tc-grid{grid-template-columns:1fr}.tc-lenta{position:static;display:inline-block;margin:0 4px}}
+.tc-card{background:#fff;border:1px solid var(--borde);border-radius:12px;padding:14px 16px}
+.tc-card h3{font-family:var(--cond);color:var(--principal);margin:0 0 8px;font-size:1.25rem}
+.tc-et{border-top:1px dashed var(--borde);padding-top:6px;margin-top:6px}
+.tc-et h4{font-family:var(--cond);margin:0;color:var(--texto2);font-size:1.05rem}
+.tc-sl{display:grid;grid-template-columns:110px 1fr 54px;gap:10px;align-items:center;margin:6px 0}
+.tc-sl label{font-weight:600}
+.tc-sl input[type=range]{width:100%}
+.tc-sl .v{font-family:'JetBrains Mono',monospace;font-weight:600;text-align:right;font-size:1.05rem}
+.tc-sl.a label,.tc-sl.a .v{color:var(--c1)}.tc-sl.a input{accent-color:var(--c1)}
+.tc-sl.b label,.tc-sl.b .v{color:var(--c2)}.tc-sl.b input{accent-color:var(--c2)}
+.tc-sl.n{grid-template-columns:110px 1fr 104px}
+.tc-fila{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;margin-top:8px}
+.tc-ec{font-family:'JetBrains Mono',monospace;font-size:1.08rem;line-height:1.8;text-align:center}
+.tc-ec .ley{font-family:var(--cond);font-size:1.6rem;color:var(--texto);line-height:1.35}
+.tc-ec .a{color:var(--c1);font-weight:600}.tc-ec .b{color:var(--c2);font-weight:600}.tc-ec .m{color:var(--cm);font-weight:600}
+.tc-ec hr{border:0;border-top:1px dashed var(--borde);margin:6px 0}
+.tc-tab{width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:1rem;margin-top:4px}
+.tc-tab td{padding:3px 6px;border-bottom:1px solid #eef1f4}
+.tc-tab td:last-child{text-align:right;font-weight:600}
+.tc-est{margin-top:8px;text-align:center;font-family:var(--cond);font-size:1.3rem;font-weight:700;padding:6px;border-radius:8px;background:#eef3f8;color:var(--principal)}
+.tc-nota{margin-top:8px;color:var(--texto2);font-size:.98rem;line-height:1.45;text-align:center}
+.tc-reto{display:none;margin-top:12px;border:2px solid #e8b647;background:#fffaf0;border-radius:12px;padding:12px 16px}
+.tc-reto.on{display:block}
+.tc-reto h3{font-family:var(--cond);color:#9a6a00;margin:0 0 6px;font-size:1.25rem}
+.tc-reto .fila{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px}
+.tc-reto input{font-family:'JetBrains Mono',monospace;font-size:1.1rem;width:130px;padding:6px 8px;border:1.5px solid var(--borde);border-radius:6px}
+.tc-fb{font-weight:600;margin-top:8px}.tc-fb.ok{color:var(--ok)}.tc-fb.ko{color:var(--ko)}
+.t-pill{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:15px}
+.t-ve{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:18px}
+.t-vt{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px}
 </style>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
 <header class="curso-hd"><span class="curso-sb">U04 · Mecanismos · Tren compuesto</span></header>
-<nav class="curso-navcross" role="navigation">
-  <a href="../../../index.html"><span>🏠</span><span class="nc-lbl">Índice</span></a>
+<nav class="curso-navcross" role="navigation" aria-label="Navegación de la unidad">
+  <a href="../../../index.html"><span>🏠</span><span class="nc-lbl">Inicio</span></a>
   <span class="nc-sep">·</span>
   <a href="../index.html"><span>📋</span><span class="nc-lbl">Hub U04</span></a>
   <span class="nc-sep">·</span>
-  <a href="../libro-digital.html"><span>📖</span><span class="nc-lbl">Libro digital</span></a>
+  <a href="../libro-digital.html"><span>📘</span><span class="nc-lbl">Libro digital</span></a>
   <span class="nc-sep">·</span>
-  <span class="nc-current"><span>⛓️</span><span class="nc-lbl">Tren</span></span>
+  <span class="nc-current"><span>⛓️</span><span class="nc-lbl">Tren compuesto</span></span>
 </nav>
 
 <main id="main-content" class="tc-wrap">
   <section class="tc-hero">
-    <h1>⛓️ Tren de transmisión compuesto</h1>
-    <p>Encadena 2 o 3 etapas con sus dientes. La relación total es el producto de todas. Multiplica reducciones para conseguir grandes pares.</p>
+    <h1>⛓️ Tren compuesto de engranajes</h1>
+    <p>Las ruedas 2 y 3 van <strong>en el mismo eje</strong> (solidarias): giran juntas, a la misma velocidad. La relación total es el producto de las relaciones de cada etapa: <strong>i = (Z₁ · Z₃ · …) / (Z₂ · Z₄ · …)</strong>, conductoras arriba y conducidas abajo.</p>
   </section>
 
-  <div class="tc-card">
-    <div class="tc-tabs">
-      <button class="tc-tab activa" data-n="2">2 etapas</button>
-      <button class="tc-tab" data-n="3">3 etapas</button>
+  <div class="tc-barra">
+    <div class="tc-grupo" role="group" aria-label="Número de etapas"><b>Etapas</b>
+      <button class="tc-btn" data-et="2">2 etapas</button>
+      <button class="tc-btn" data-et="3">3 etapas</button>
     </div>
-
-    <div class="tc-entrada">
-      <div class="tc-inp">
-        <label>n₁ · Velocidad de entrada (rpm)</label>
-        <input type="number" id="entN" value="3000" step="100" min="0">
-      </div>
-      <div class="tc-inp">
-        <label>M₁ · Par de entrada (N·m)</label>
-        <input type="number" id="entM" value="0.5" step="0.1" min="0">
-      </div>
-    </div>
-
-    <div id="etapas"></div>
-
-    <div class="tc-summary">
-      <h3>Salida del tren</h3>
-      <div class="salida">
-        <div class="it"><span class="lab">i total</span><span class="v" id="iTotal">—</span><span class="u">relación</span></div>
-        <div class="it"><span class="lab">Velocidad</span><span class="v" id="vTotal">—</span><span class="u">rpm</span></div>
-        <div class="it"><span class="lab">Par</span><span class="v" id="mTotal">—</span><span class="u">N·m</span></div>
-      </div>
-      <div class="formula" id="formula">—</div>
-    </div>
-
-    <div class="tc-interpret" id="interpret">📌 Interpretación: ...</div>
-
-    <div class="tc-presets">
-      <span style="font-family:var(--cond);font-size:.82rem;color:var(--texto2);align-self:center">Casos típicos:</span>
-      <button class="tc-preset" data-preset="taladro">🪛 Taladro (×25 reducción)</button>
-      <button class="tc-preset" data-preset="cinta">📦 Cinta transportadora (×50)</button>
-      <button class="tc-preset" data-preset="coche2a">🚗 Coche 2ª marcha</button>
+    <div class="tc-grupo">
+      <button class="tc-btn" id="b-pausa">⏸ Pausa</button>
+      <button class="tc-btn" id="b-cero">↺ Vueltas a 0</button>
+      <button class="tc-btn" id="b-reto">🎯 Reto</button>
     </div>
   </div>
 
-  <div class="tc-card">
-    <h3 style="font-family:var(--cond);color:var(--principal);margin:0 0 10px;font-size:1.05rem">💡 ¿Para qué un tren compuesto?</h3>
-    <p style="font-size:.94rem;line-height:1.6;color:var(--texto2);margin:0">Un solo par de engranajes no puede dar reducciones muy altas (los dientes serían enormes). Encadenando 2 o 3 etapas <strong>multiplicamos sus relaciones</strong> y conseguimos grandes reducciones con engranajes razonables. Es lo que hay dentro de cualquier reductor industrial, caja de cambios, motor de impresora 3D o reloj mecánico.</p>
+  <div class="tc-esc">
+    <div class="tc-tipo" id="tipo"></div>
+    <div class="tc-lenta" id="lenta"></div>
+    <svg id="svg" viewBox="0 0 1000 470" role="img" aria-label="Tren compuesto de engranajes"></svg>
+  </div>
+
+  <div class="tc-reto" id="reto" aria-live="polite">
+    <h3>🎯 Reto</h3>
+    <div id="reto-txt"></div>
+    <div class="fila"><span id="reto-inc"></span><input type="number" id="reto-in" step="any" min="0"><span id="reto-ud"></span>
+      <button class="tc-btn" id="reto-ok">Comprobar</button><button class="tc-btn" id="reto-sol">Ver solución</button><button class="tc-btn" id="reto-fin">Salir del reto</button></div>
+    <div class="tc-fb" id="reto-fb"></div>
+  </div>
+
+  <div class="tc-grid">
+    <div class="tc-card">
+      <h3>Valores</h3>
+      <div class="tc-sl a n"><label for="sn">Velocidad n₁</label><input type="range" id="sn" min="100" max="12000" step="100"><span class="v" id="vn"></span></div>
+      <div id="sliders"></div>
+      <div class="tc-fila">
+        <button class="tc-btn peq" data-pre="tal">Taladro del libro</button>
+        <button class="tc-btn peq" data-pre="red">Reductor de 3 etapas</button>
+        <button class="tc-btn peq" data-pre="mul">Multiplicador</button>
+      </div>
+    </div>
+    <div class="tc-card" aria-live="polite">
+      <h3>Relación de transmisión y velocidades</h3>
+      <div class="tc-ec" id="ec"></div>
+      <div class="tc-est" id="est"></div>
+      <div class="tc-nota" id="nota"></div>
+    </div>
   </div>
 </main>
 
 <script>
-(function(){'use strict';
-var nEtapas=2;
-var etapasDiv=document.getElementById('etapas'),iT=document.getElementById('iTotal'),vT=document.getElementById('vTotal'),mT=document.getElementById('mTotal'),forms=document.getElementById('formula'),interpret=document.getElementById('interpret'),entN=document.getElementById('entN'),entM=document.getElementById('entM');
+(function(){
+const NS='http://www.w3.org/2000/svg',svg=document.getElementById('svg');
+const W=1000,H=470,M=4.2,C1='#c44a3a',C2='#2c5f8d',CM='#4d7a3a';
+const SUB=['₀','₁','₂','₃','₄','₅','₆'];
+function el(t,at,p){const e=document.createElementNS(NS,t);for(const k in at)e.setAttribute(k,at[k]);(p||svg).appendChild(e);return e;}
+function tx(x,y,s,cls,at,p){const e=el('text',Object.assign({x,y,class:cls},at||{}),p);e.textContent=s;return e;}
+const fmt=(v,d=2)=>{const r=Math.round(v*Math.pow(10,d))/Math.pow(10,d);return r.toLocaleString('es-ES',{maximumFractionDigits:d});};
 
-document.querySelectorAll('.tc-tab').forEach(function(b){
-  b.addEventListener('click',function(){
-    document.querySelectorAll('.tc-tab').forEach(function(t){t.classList.remove('activa');});
-    b.classList.add('activa');
-    nEtapas=parseInt(b.dataset.n);
-    pintarEtapas();
-    calcular();
-  });
-});
+const S={et:2,Z:[0,10,50,12,60,15,45],n1:1200,th:0,pausa:false,reto:null,t0:null};
+const PRE={tal:{et:2,Z:[0,10,50,12,60,15,45],n1:12000},red:{et:3,Z:[0,12,36,10,40,15,45],n1:3600},mul:{et:2,Z:[0,60,15,48,12,15,45],n1:100}};
 
-var defaults={1:{a:10,b:50},2:{a:12,b:60},3:{a:15,b:45}};
-function pintarEtapas(){
-  var prev={};
-  // preservar valores actuales
-  etapasDiv.querySelectorAll('.tc-etapa').forEach(function(et,idx){
-    var inps=et.querySelectorAll('input');
-    prev[idx]={a:inps[0].value,b:inps[1].value};
-  });
-  etapasDiv.innerHTML='';
-  for(var i=1;i<=nEtapas;i++){
-    var d=defaults[i];
-    var va=prev[i-1]?prev[i-1].a:d.a;
-    var vb=prev[i-1]?prev[i-1].b:d.b;
-    var et=document.createElement('div');
-    et.className='tc-etapa';
-    et.innerHTML='<h4>Etapa '+i+'</h4>'+
-      '<div class="tc-row">'+
-        '<div class="tc-inp"><label>Z conductor</label><input type="number" data-e="'+i+'" data-k="a" value="'+va+'" min="5" max="200" step="1"></div>'+
-        '<div class="tc-inp"><label>Z conducido</label><input type="number" data-e="'+i+'" data-k="b" value="'+vb+'" min="5" max="200" step="1"></div>'+
-        '<div class="tc-i-etapa" id="i-et-'+i+'">—<small>i etapa</small></div>'+
-      '</div>';
-    etapasDiv.appendChild(et);
+// ------------------------------------------------------------------ cálculo
+function ejes(){   // velocidades de los ejes: eje 1 (rueda 1), eje 2 (ruedas 2-3), eje 3 (ruedas 4-5), eje 4 (rueda 6)
+  const n=[S.n1];for(let e=1;e<=S.et;e++)n.push(n[e-1]*S.Z[2*e-1]/S.Z[2*e]);return n;}
+const iTot=()=>{let a=1,b=1;for(let e=1;e<=S.et;e++){a*=S.Z[2*e-1];b*=S.Z[2*e];}return a/b;};
+
+// ------------------------------------------------------------------ dibujo
+const defs=el('defs',{});
+defs.innerHTML='<radialGradient id="gMet" cx="45%" cy="40%" r="70%"><stop offset="0" stop-color="#f3f5f7"/><stop offset="1" stop-color="#b3bcc6"/></radialGradient>'+
+ '<radialGradient id="gMet2" cx="45%" cy="40%" r="70%"><stop offset="0" stop-color="#e4e8ec"/><stop offset="1" stop-color="#97a2ad"/></radialGradient>'+
+ '<marker id="fl1" markerWidth="5" markerHeight="5" refX="2.5" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 z" fill="'+C1+'"/></marker>'+
+ '<marker id="fl2" markerWidth="5" markerHeight="5" refX="2.5" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 z" fill="'+C2+'"/></marker>';
+const gEsc=el('g',{}),gFijo=el('g',{});
+let G=null;   // geometría montada
+function camino(r,Z){const ra=r+M,rf=r-1.25*M,p=2*Math.PI/Z;let d='';
+  for(let k=0;k<Z;k++){const a=k*p;[[a-0.5*p,rf],[a-0.27*p,rf],[a-0.15*p,ra],[a+0.15*p,ra],[a+0.27*p,rf]].forEach(([an,rr],j)=>{d+=(k===0&&j===0?'M':'L')+(rr*Math.cos(an)).toFixed(2)+' '+(rr*Math.sin(an)).toFixed(2)+' ';});}
+  return d+'Z';}
+function monta(){
+  gEsc.innerHTML='';gFijo.innerHTML='';
+  const N=2*S.et,Z=S.Z,r=Z.map(z=>M*z/2);
+  // posición de los ejes: cada etapa avanza hacia la derecha, en zigzag
+  const dir=[0,0,32,-32].map(a=>a*Math.PI/180);
+  const ej=[{x:0,y:0}];
+  for(let e=1;e<=S.et;e++){const d=r[2*e-1]+r[2*e],a=dir[e],p=ej[e-1];ej.push({x:p.x+d*Math.cos(a),y:p.y+d*Math.sin(a)});}
+  // rueda k (1..N) está en el eje: 1→0, 2,3→1, 4,5→2, 6→3
+  const ejeDe=k=>Math.floor(k/2);
+  // fases para que engranen
+  const psi=[0,0];
+  for(let e=1;e<=S.et;e++){const A=2*e-1,B=2*e,phi=dir[e],pA=2*Math.PI/Z[A],pB=2*Math.PI/Z[B];
+    psi[A]=psi[A]||0;psi[B]=phi+Math.PI-pB*(0.5-(phi-psi[A])/pA);if(e<S.et)psi[B+1]=0;}
+  // encuadre automático
+  let x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;
+  for(let k=1;k<=N;k++){const c=ej[ejeDe(k)],R=r[k]+M;x0=Math.min(x0,c.x-R);x1=Math.max(x1,c.x+R);y0=Math.min(y0,c.y-R);y1=Math.max(y1,c.y+R);}
+  y0-=28;y1+=6;
+  const esc=Math.min(1.25,(W-80)/(x1-x0),(H-120)/(y1-y0)),ox=W/2-esc*(x0+x1)/2,oy=40+(H-120)/2-esc*(y0+y1)/2+10;
+  gEsc.setAttribute('transform',`translate(${ox.toFixed(1)} ${oy.toFixed(1)}) scale(${esc.toFixed(4)})`);
+  const gs=[];
+  const enReto=S.reto&&!S.reto.resuelto;
+  const pareja=k=>k%2===0?k+1:k-1;                                    // la otra rueda del mismo eje
+  const esAtras=k=>k!==1&&k!==N&&(r[k]>r[pareja(k)]||(r[k]===r[pareja(k)]&&k%2===0));   // en un eje compartido, la grande va detrás
+  const orden=[];for(let k=1;k<=N;k++)if(esAtras(k))orden.push(k);for(let k=1;k<=N;k++)if(!esAtras(k))orden.push(k);
+  for(const k of orden){
+    const c=ej[ejeDe(k)],g=el('g',{},gEsc),fin=k===N,ini=k===1,atras=esAtras(k);
+    el('path',{d:camino(r[k],Z[k]),fill:atras?'url(#gMet2)':'url(#gMet)',stroke:ini?C1:(fin?C2:'#4f5862'),'stroke-width':(ini||fin?2.4:1.6)/esc,'stroke-linejoin':'round'},g);
+    el('circle',{cx:0,cy:0,r:Math.max(5,(r[k]-1.25*M)*0.65),fill:'none',stroke:'#8b949e','stroke-width':1.1/esc},g);
+    if(!atras){const rr=r[k]-1.6*M;el('line',{x1:0,y1:0,x2:0,y2:-rr,stroke:ini?C1:(fin?C2:CM),'stroke-width':4.5/esc,'stroke-linecap':'round'},g);
+      el('circle',{cx:0,cy:-rr,r:Math.max(3,Math.min(7,r[k]*0.09))/Math.sqrt(esc),fill:ini?C1:(fin?C2:CM)},g);}
+    gs.push({g,c,k,eje:ejeDe(k),psi:psi[k]||0});
   }
-  etapasDiv.querySelectorAll('input').forEach(function(el){el.addEventListener('input',calcular);});
+  // ejes (encima de todo)
+  ej.forEach((c,i)=>el('circle',{cx:c.x,cy:c.y,r:7/esc,fill:'#2e343b'},gEsc));
+  // etiquetas Z (pastillas): primero las de las ruedas de delante, luego las de detrás buscando un hueco libre
+  const puestas=[],pill=(k,X,Y)=>{const col=k===1?C1:(k===N?C2:CM),t='Z'+SUB[k]+' = '+Z[k],w=t.length*9.2+14;puestas.push({X,Y});
+    el('rect',{x:X-w/2,y:Y-12,width:w,height:24,rx:12,fill:'#fff',stroke:col,'stroke-width':2,opacity:.95},gFijo);
+    tx(X,Y+5,t,'t-pill',{'text-anchor':'middle',fill:col},gFijo);};
+  const P=(x,y)=>[ox+esc*x,oy+esc*y];
+  for(let k=1;k<=N;k++){if(esAtras(k))continue;const c=ej[ejeDe(k)],compart=k!==1&&k!==N;
+    if(compart||r[k]*esc<44){const [X,Y]=P(c.x,c.y);pill(k,X,Y+(compart?0:(r[k]+M)*esc+16));}
+    else{const [X,Y]=P(c.x,c.y+Math.min(r[k]*0.5,r[k]-1.6*M-10/esc));pill(k,X,Y);}}
+  for(let k=1;k<=N;k++){if(!esAtras(k))continue;const c=ej[ejeDe(k)],rf=r[pareja(k)],rho=(rf+M+r[k]-1.25*M)/2;let mejor=-1e9,best=null;
+    for(let a=0;a<360;a+=10){const t=a*Math.PI/180,qx=c.x+rho*Math.cos(t),qy=c.y+rho*Math.sin(t),[X,Y]=P(qx,qy);
+      let dmin=1e9;
+      ej.forEach((o,i)=>{if(i!==ejeDe(k)){const rr=Math.max(r[2*i]||0,r[2*i+1]||0)+M;dmin=Math.min(dmin,(Math.hypot(qx-o.x,qy-o.y)-rr)*esc);}});
+      puestas.forEach(q=>{dmin=Math.min(dmin,Math.hypot((X-q.X)/2.6,Y-q.Y)-26);});
+      if(Y<40)dmin-=60;
+      if(dmin>mejor){mejor=dmin;best=[X,Y];}}
+    pill(k,best[0],best[1]);}
+  // flechas de sentido en la rueda de entrada y en la de salida
+  const flecha=(k,col,mk)=>{const c=ej[ejeDe(k)],R=(r[k]+M+12/esc),cw=ejeDe(k)%2===0,X=ox+esc*c.x,Y=oy+esc*c.y,Rs=R*esc;
+    const a1=-150*Math.PI/180,a2=-80*Math.PI/180,P=a=>[X+Rs*Math.cos(a),Y+Rs*Math.sin(a)],[xa,ya]=P(cw?a1:a2),[xb,yb]=P(cw?a2:a1);
+    el('path',{d:`M ${xa.toFixed(1)} ${ya.toFixed(1)} A ${Rs.toFixed(1)} ${Rs.toFixed(1)} 0 0 ${cw?1:0} ${xb.toFixed(1)} ${yb.toFixed(1)}`,fill:'none',stroke:col,'stroke-width':4,'marker-end':`url(#${mk})`},gFijo);};
+  flecha(1,C1,'fl1');flecha(N,C2,'fl2');
+  // velocidades de entrada y salida y contadores de vueltas
+  const n=ejes(),inc=enReto?S.reto.inc:null,cA=ej[0],cB=ej[S.et];
+  const yb=H-34;
+  const bloque=(x,anchor,col,t1,t2,id)=>{tx(x,yb,t1,'t-vt',{'text-anchor':anchor,fill:col},gFijo);const e2=tx(x,yb+24,t2,'t-ve',{'text-anchor':anchor,fill:col},gFijo);return e2;};
+  bloque(24,'start',C1,'Entrada · eje 1',(inc==='n1'?'n₁ = ?':'n₁ = '+fmt(n[0])+' rpm'));
+  bloque(W-24,'end',C2,'Salida · eje '+(S.et+1),(inc==='nf'?'n'+SUB[N]+' = ?':'n'+SUB[N]+' = '+fmt(n[S.et])+' rpm'));
+  G={gs,N,esc,vu:[tx(24,yb-28,'','t-ve',{'text-anchor':'start',fill:'#454d57','font-size':15},gFijo),tx(W-24,yb-28,'','t-ve',{'text-anchor':'end',fill:'#454d57','font-size':15},gFijo)]};
+  pon();
+}
+function pon(){
+  if(!G)return;const n=ejes(),ang=n.map((v,i)=>S.th*v/S.n1*(i%2?-1:1));
+  G.gs.forEach(o=>o.g.setAttribute('transform',`translate(${o.c.x.toFixed(2)} ${o.c.y.toFixed(2)}) rotate(${((ang[o.eje]+o.psi)*180/Math.PI).toFixed(3)})`));
+  const enReto=S.reto&&!S.reto.resuelto;
+  const vu=v=>(Math.floor(v*10)/10).toLocaleString('es-ES',{minimumFractionDigits:1,maximumFractionDigits:1})+' vueltas';
+  G.vu[0].textContent=enReto?'':vu(Math.abs(ang[0])/(2*Math.PI));
+  G.vu[1].textContent=enReto?'':vu(Math.abs(ang[S.et])/(2*Math.PI));
 }
 
-function calcular(){
-  var n=parseFloat(entN.value)||0,m=parseFloat(entM.value)||0;
-  var iTot=1, formStr='i_total = ';
-  for(var i=1;i<=nEtapas;i++){
-    var a=parseFloat(etapasDiv.querySelector('input[data-e="'+i+'"][data-k="a"]').value)||1;
-    var b=parseFloat(etapasDiv.querySelector('input[data-e="'+i+'"][data-k="b"]').value)||1;
-    var ie=a/b;
-    iTot*=ie;
-    document.getElementById('i-et-'+i).innerHTML=ie.toFixed(3)+'<small>i etapa '+i+'</small>';
-    formStr+=(i>1?' × ':'')+a+'/'+b;
+// ------------------------------------------------------------------ panel
+function sliders(){
+  const c=document.getElementById('sliders');c.innerHTML='';
+  for(let e=1;e<=S.et;e++){const A=2*e-1,B=2*e,d=document.createElement('div');d.className='tc-et';
+    d.innerHTML='<h4>Etapa '+e+(e>1?' · la rueda '+A+' va en el eje de la rueda '+(A-1):'')+'</h4>'+
+      '<div class="tc-sl '+(e===1?'a':'')+'"><label for="z'+A+'">Z'+SUB[A]+' conductora</label><input type="range" id="z'+A+'" min="8" max="60" step="1"><span class="v" id="vz'+A+'"></span></div>'+
+      '<div class="tc-sl '+(e===S.et?'b':'')+'"><label for="z'+B+'">Z'+SUB[B]+' conducida</label><input type="range" id="z'+B+'" min="8" max="60" step="1"><span class="v" id="vz'+B+'"></span></div>';
+    c.appendChild(d);}
+  for(let k=1;k<=2*S.et;k++)document.getElementById('z'+k).addEventListener('input',e=>{S.Z[k]=+e.target.value;actualiza();});
+}
+function actualiza(nuevos){
+  if(nuevos)sliders();
+  const N=2*S.et,n=ejes(),i=iTot(),enReto=S.reto&&!S.reto.resuelto,inc=enReto?S.reto.inc:null;
+  document.getElementById('tipo').innerHTML='Tren compuesto de '+S.et+' etapas<small>'+N+' ruedas en '+(S.et+1)+' ejes · las ruedas de un mismo eje giran juntas</small>';
+  document.querySelectorAll('[data-et]').forEach(b=>b.classList.toggle('on',+b.dataset.et===S.et));
+  for(let k=1;k<=N;k++){document.getElementById('z'+k).value=S.Z[k];document.getElementById('vz'+k).textContent=S.Z[k];document.getElementById('z'+k).disabled=!!enReto;}
+  document.getElementById('sn').value=inc==='n1'?6000:S.n1;document.getElementById('vn').textContent=inc==='n1'?'?':fmt(S.n1)+' rpm';
+  ['sn','b-pausa','b-cero'].forEach(id=>document.getElementById(id).disabled=!!enReto);
+  document.querySelectorAll('[data-pre],[data-et]').forEach(b=>b.disabled=!!enReto);
+  const arr=[],abj=[],arrN=[],abjN=[];for(let e=1;e<=S.et;e++){arr.push('Z'+SUB[2*e-1]);abj.push('Z'+SUB[2*e]);arrN.push(S.Z[2*e-1]);abjN.push(S.Z[2*e]);}
+  const ley='<div class="ley">i = <span class="a">'+arr.join(' · ')+'</span> / <span class="b">'+abj.join(' · ')+'</span></div>';
+  const ec=document.getElementById('ec'),est=document.getElementById('est'),nota=document.getElementById('nota');
+  if(enReto){
+    ec.innerHTML=ley+'<div>n<sub>salida</sub> = n₁ · i</div>';est.textContent='Calcula el valor que falta';nota.textContent='';
+  }else{
+    let tab='<table class="tc-tab"><tr><td>Eje 1 · rueda 1</td><td>n₁ = '+fmt(n[0])+' rpm</td></tr>';
+    for(let e=1;e<=S.et;e++){const A=2*e-1,B=2*e,ult=e===S.et;
+      tab+='<tr><td>Eje '+(e+1)+' · rueda'+(ult?' ':'s ')+B+(ult?'':' y '+(B+1))+'</td><td>n'+SUB[B]+' = n'+SUB[A]+' · Z'+SUB[A]+' / Z'+SUB[B]+' = '+fmt(n[e])+' rpm</td></tr>';}
+    tab+='</table>';
+    ec.innerHTML=ley+'<div>i = <span class="a">'+arrN.join(' · ')+'</span> / <span class="b">'+abjN.join(' · ')+'</span> = '+fmt(arrN.reduce((a,b)=>a*b,1))+' / '+fmt(abjN.reduce((a,b)=>a*b,1))+' = <strong>'+fmt(i,4)+'</strong></div>'+
+      '<div><span class="b">n'+SUB[N]+'</span> = <span class="a">n₁</span> · i = '+fmt(S.n1)+' · '+fmt(i,4)+' = <span class="b">'+fmt(n[S.et])+' rpm</span></div><hr>'+tab;
+    est.textContent=Math.abs(i-1)<1e-9?'i = 1 · la salida gira igual que la entrada':(i<1?'Reductor · la salida gira '+fmt(1/i,2)+' veces más despacio':'Multiplicador · la salida gira '+fmt(i,2)+' veces más deprisa');
+    nota.innerHTML='<strong>Sentido de giro de la salida: '+(S.et%2===0?'el mismo que la entrada':'contrario a la entrada')+'</strong> (cada pareja de engranajes invierte el sentido; hay '+S.et+'). '+
+      (i<1?'El par se multiplica por '+fmt(1/i,2)+'.':(i>1?'El par se divide entre '+fmt(i,2)+'.':''));
   }
-  formStr+=' = '+iTot.toFixed(4);
-  iT.textContent=iTot.toFixed(3);
-  vT.textContent=(n*iTot).toFixed(0);
-  mT.textContent=(m/iTot).toFixed(2);
-  forms.textContent=formStr;
-  var msg='';
-  if(Math.abs(iTot-1)<0.05){msg='Las etapas se compensan: la salida gira igual que la entrada.';}
-  else if(iTot<1){var f=1/iTot;msg='<strong>Reductor</strong>: la salida gira <strong>'+f.toFixed(1)+' veces más despacio</strong> que la entrada, pero con <strong>'+f.toFixed(1)+'× más par</strong>.';}
-  else {msg='<strong>Multiplicador</strong>: salida <strong>'+iTot.toFixed(1)+'× más rápida</strong>, par dividido por '+iTot.toFixed(1)+'.';}
-  interpret.innerHTML='📌 '+msg;
+  const vmax=Math.max(...n)/60;S.f=Math.min(1,1/vmax);
+  document.getElementById('lenta').textContent=enReto?'⏸ Animación detenida':(S.f<1?'Animación a cámara lenta (×1/'+fmt(1/S.f,0)+')':'Animación a velocidad real');
+  document.getElementById('b-pausa').textContent=S.pausa?'▶ Seguir':'⏸ Pausa';
+  monta();
 }
 
-document.querySelectorAll('.tc-preset').forEach(function(b){
-  b.addEventListener('click',function(){
-    var p=b.dataset.preset;
-    document.querySelectorAll('.tc-tab').forEach(function(t){t.classList.remove('activa');});
-    if(p==='taladro'){document.querySelector('.tc-tab[data-n="2"]').classList.add('activa');nEtapas=2;pintarEtapas();entN.value=12000;entM.value=0.3;set([{a:10,b:50},{a:12,b:60}]);}
-    if(p==='cinta'){document.querySelector('.tc-tab[data-n="3"]').classList.add('activa');nEtapas=3;pintarEtapas();entN.value=1500;entM.value=2;set([{a:10,b:40},{a:15,b:60},{a:12,b:48}]);}
-    if(p==='coche2a'){document.querySelector('.tc-tab[data-n="2"]').classList.add('activa');nEtapas=2;pintarEtapas();entN.value=4500;entM.value=80;set([{a:20,b:38},{a:18,b:50}]);}
-    calcular();
-  });
-});
-function set(arr){arr.forEach(function(o,i){var e=i+1;etapasDiv.querySelector('input[data-e="'+e+'"][data-k="a"]').value=o.a;etapasDiv.querySelector('input[data-e="'+e+'"][data-k="b"]').value=o.b;});}
+// ------------------------------------------------------------------ controles
+document.querySelectorAll('[data-et]').forEach(b=>b.addEventListener('click',()=>{finReto();S.et=+b.dataset.et;S.th=0;actualiza(true);}));
+document.getElementById('sn').addEventListener('input',e=>{S.n1=+e.target.value;actualiza();});
+document.getElementById('b-pausa').addEventListener('click',()=>{S.pausa=!S.pausa;actualiza();});
+document.getElementById('b-cero').addEventListener('click',()=>{S.th=0;pon();});
+document.querySelectorAll('[data-pre]').forEach(b=>b.addEventListener('click',()=>{const p=PRE[b.dataset.pre];S.et=p.et;S.Z=p.Z.slice();S.n1=p.n1;S.th=0;actualiza(true);}));
 
-[entN,entM].forEach(function(el){el.addEventListener('input',calcular);});
-pintarEtapas();calcular();
+// ------------------------------------------------------------------ retos
+const R_=n=>Math.floor(Math.random()*n);
+function empiezaReto(){
+  finReto();let t=null;
+  for(let it=0;it<5000&&!t;it++){
+    const et=Math.random()<0.65?2:3,Z=[0];for(let k=1;k<=2*et;k++)Z.push(k%2?8+R_(13):20+R_(41));
+    if(Math.random()<0.15){for(let k=1;k<=2*et;k+=2){const a=Z[k];Z[k]=Z[k+1];Z[k+1]=a;}}
+    const tipos=['nf','nf','nm','i','n1'],inc=tipos[R_(tipos.length)];
+    const n1=(1+R_(60))*100;let n=[n1],ok=true;for(let e=1;e<=et;e++){n.push(n[e-1]*Z[2*e-1]/Z[2*e]);}
+    if(n.some(v=>Math.abs(v-Math.round(v))>1e-9||v<1||v>20000))ok=false;
+    if(!ok)continue;let a=1,b=1;for(let e=1;e<=et;e++){a*=Z[2*e-1];b*=Z[2*e];}
+    const i=a/b;if(inc==='i'&&Math.abs(i*10000-Math.round(i*10000))>1e-6)continue;
+    if(n1>12000)continue;
+    t={et,Z,inc,n,i,n1};}
+  if(!t)t={et:2,Z:[0,10,50,12,60,15,45],inc:'nf',n:[1200,240,48],i:0.04,n1:1200};
+  S.et=t.et;S.Z=t.Z.slice();while(S.Z.length<7)S.Z.push(15);S.n1=t.n1;S.th=0;
+  const N=2*t.et;
+  if(t.inc==='nf'){t.sol=t.n[t.et];t.lab='n'+SUB[N];t.u='rpm';t.txt='El motor mueve la rueda 1 a <strong style="color:var(--c1)">n₁ = '+fmt(t.n1)+' rpm</strong>. ¿A qué velocidad gira el eje de salida (rueda '+N+')?';}
+  else if(t.inc==='nm'){t.sol=t.n[1];t.lab='n₂ = n₃';t.u='rpm';t.txt='El motor mueve la rueda 1 a <strong style="color:var(--c1)">n₁ = '+fmt(t.n1)+' rpm</strong>. ¿A qué velocidad gira el eje intermedio de las ruedas 2 y 3?';}
+  else if(t.inc==='i'){t.sol=t.i;t.lab='i';t.u='';t.txt='¿Cuál es la relación de transmisión total <strong>i</strong> de este tren? (Escribe el resultado decimal.)';}
+  else{t.sol=t.n1;t.lab='n₁';t.u='rpm';t.txt='El eje de salida (rueda '+N+') tiene que girar a <strong style="color:var(--c2)">'+fmt(t.n[t.et])+' rpm</strong>. ¿A qué velocidad debe girar el motor (rueda 1)?';}
+  t.resuelto=false;S.reto=t;
+  document.getElementById('reto').classList.add('on');document.getElementById('reto-txt').innerHTML=t.txt;
+  document.getElementById('reto-inc').textContent=t.lab+' =';document.getElementById('reto-ud').textContent=t.u;
+  document.getElementById('reto-in').value='';const fb=document.getElementById('reto-fb');fb.textContent='';fb.className='tc-fb';
+  actualiza(true);document.getElementById('reto-in').focus({preventScroll:true});
+}
+function finReto(){S.reto=null;document.getElementById('reto').classList.remove('on');}
+function explica(t){const N=2*t.et,arr=[],abj=[];for(let e=1;e<=t.et;e++){arr.push(t.Z[2*e-1]);abj.push(t.Z[2*e]);}
+  const ii='i = '+arr.join('·')+' / '+abj.join('·')+' = '+fmt(t.i,4);
+  if(t.inc==='i')return ii;
+  if(t.inc==='nf')return ii+' → n'+SUB[N]+' = '+fmt(t.n1)+' · '+fmt(t.i,4)+' = '+fmt(t.sol)+' rpm';
+  if(t.inc==='nm')return 'n₂ = n₁ · Z₁ / Z₂ = '+fmt(t.n1)+' · '+t.Z[1]+' / '+t.Z[2]+' = '+fmt(t.sol)+' rpm';
+  return ii+' → n₁ = n'+SUB[N]+' / i = '+fmt(t.n[t.et])+' / '+fmt(t.i,4)+' = '+fmt(t.sol)+' rpm';}
+function prueba(v,sol){const t=S.reto;if(!t)return;const fb=document.getElementById('reto-fb');
+  if(sol||Math.abs(v-t.sol)<=0.005*Math.max(Math.abs(t.sol),1e-9)){fb.className='tc-fb ok';fb.textContent=(sol?'Solución: ':'✔ Correcto: ')+explica(t)+'. Pulsa «Reto» para otro.';t.resuelto=true;S.pausa=false;actualiza();}
+  else{fb.className='tc-fb ko';fb.textContent=t.inc==='nm'?'✘ No es correcto. Solo interviene la primera etapa: n₂ = n₁ · Z₁ / Z₂.':'✘ No es correcto. Multiplica las conductoras arriba y las conducidas abajo para hallar i.';}}
+document.getElementById('b-reto').addEventListener('click',empiezaReto);
+document.getElementById('reto-fin').addEventListener('click',()=>{finReto();actualiza();});
+document.getElementById('reto-ok').addEventListener('click',()=>{const v=parseFloat(String(document.getElementById('reto-in').value).replace(',','.'));if(!isNaN(v))prueba(v,false);});
+document.getElementById('reto-in').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('reto-ok').click();});
+document.getElementById('reto-sol').addEventListener('click',()=>prueba(0,true));
+
+// ------------------------------------------------------------------ animación
+function frame(t){
+  if(S.t0!==null){const dt=Math.min(0.1,(t-S.t0)/1000);if(!S.pausa&&!(S.reto&&!S.reto.resuelto)){S.th+=S.n1/60*2*Math.PI*S.f*dt;pon();}}
+  S.t0=t;requestAnimationFrame(frame);}
+actualiza(true);requestAnimationFrame(frame);
+window.__tcS=S;window.__tcAct=actualiza;window.__tcListo=true;
 })();
 </script>
+<script src="../../../assets/js/common.js"></script>
+<script src="../../../assets/js/header.js"></script>
 <script data-goatcounter="https://malonso72.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
