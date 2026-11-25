@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1B4F8A">
+<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<title>Simulador de poleas · U04 · TyD 3º ESO</title>
+<meta name="description" content="Simulador de poleas: polea fija, polea móvil y polipastos de 4 y 6 poleas. Tira de la cuerda y comprueba que F = R / N. TyD 3º ESO.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/common.css">
+<link rel="stylesheet" href="../../../assets/css/unidad.css">
+<style>
+:root{--cF:#c44a3a;--cR:#2c5f8d;--cT:#e07b12;--ok:#1f7a4c;--ko:#c0392b}
+.po-wrap{max-width:1240px;margin:18px auto 50px;padding:0 18px}
+.po-hero{text-align:center;margin-bottom:12px}
+.po-hero h1{font-family:var(--cond);font-size:2rem;color:var(--principal);margin:0 0 4px}
+.po-hero p{color:var(--texto2);margin:0 auto;max-width:860px;line-height:1.5}
+.po-barra{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between;margin:12px 0 10px}
+.po-grupo{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.po-grupo b{font-family:var(--cond);color:var(--texto2);font-weight:600;margin-right:2px}
+.po-btn{font-family:var(--cond);font-size:1.05rem;background:#fff;color:var(--principal);border:1.5px solid var(--principal);border-radius:7px;padding:6px 13px;cursor:pointer}
+.po-btn:hover,.po-btn.on{background:var(--principal);color:#fff}
+.po-btn.verde{border-color:var(--ok);color:var(--ok)}.po-btn.verde:hover{background:var(--ok);color:#fff}
+.po-btn:disabled{opacity:.45;cursor:not-allowed}
+.po-main{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:14px;align-items:start}
+@media(max-width:900px){.po-main{grid-template-columns:1fr}}
+.po-esc{background:linear-gradient(#f7fafd,#eef3f8);border:1px solid var(--borde);border-radius:12px;padding:6px;position:relative}
+.po-esc svg{width:100%;height:auto;display:block;user-select:none}
+.po-tipo{font-family:var(--cond);font-size:1.4rem;font-weight:700;color:#fff;background:var(--principal);padding:6px 14px;border-radius:8px;margin:4px 4px 6px}
+.po-tipo small{display:block;font-family:var(--sans);font-weight:500;font-size:.88rem;opacity:.92}
+.po-lado{display:flex;flex-direction:column;gap:12px}
+.po-card{background:#fff;border:1px solid var(--borde);border-radius:12px;padding:14px 16px}
+.po-card h3{font-family:var(--cond);color:var(--principal);margin:0 0 8px;font-size:1.25rem}
+.po-sl{display:grid;grid-template-columns:150px 1fr 96px;gap:10px;align-items:center;margin:10px 0}
+.po-sl label{font-weight:600}
+.po-sl input[type=range]{width:100%}
+.po-sl .v{font-family:'JetBrains Mono',monospace;font-weight:600;text-align:right;font-size:1.05rem}
+.po-sl.R label,.po-sl.R .v{color:var(--cR)}.po-sl.R input{accent-color:var(--cR)}
+.po-sl.S label,.po-sl.S .v{color:var(--cF)}.po-sl.S input{accent-color:var(--cF)}
+.po-fila{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
+.po-chk{display:flex;gap:6px;align-items:center;font-weight:600;color:var(--cT);cursor:pointer}
+.po-chk input{accent-color:var(--cT);width:18px;height:18px}
+.po-ec{font-family:'JetBrains Mono',monospace;font-size:1.15rem;line-height:1.85;text-align:center}
+.po-ec .ley{font-family:var(--cond);font-size:2rem;color:var(--texto);line-height:1.3}
+.po-ec .f{color:var(--cF);font-weight:600}.po-ec .r{color:var(--cR);font-weight:600}.po-ec .n{color:#333;font-weight:700}
+.po-ec .t{color:var(--cT);font-weight:600}
+.po-ec hr{border:0;border-top:1px dashed var(--borde);margin:6px 0}
+.po-nota{margin-top:8px;color:var(--texto2);font-size:.98rem;line-height:1.45;text-align:center}
+.po-reto{display:none;border:2px solid #e8b647;background:#fffaf0;border-radius:12px;padding:12px 16px}
+.po-reto.on{display:block}
+.po-reto h3{font-family:var(--cond);color:#9a6a00;margin:0 0 6px;font-size:1.25rem}
+.po-reto .fila{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px}
+.po-reto input{font-family:'JetBrains Mono',monospace;font-size:1.1rem;width:120px;padding:6px 8px;border:1.5px solid var(--borde);border-radius:6px}
+.po-fb{font-weight:600;margin-top:8px}.po-fb.ok{color:var(--ok)}.po-fb.ko{color:var(--ko)}
+.t-num{font-family:'Barlow Condensed',sans-serif;font-weight:700}
+.t-val{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:19px}
+.t-cota{font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:600;paint-order:stroke;stroke:#fff;stroke-width:5px;stroke-linejoin:round}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+<header class="curso-hd"><span class="curso-sb">U04 · Mecanismos · Simulador de poleas</span></header>
+<nav class="curso-navcross" role="navigation" aria-label="Navegación de la unidad">
+  <a href="../../../index.html"><span>🏠</span><span class="nc-lbl">Inicio</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../index.html"><span>📋</span><span class="nc-lbl">Hub U04</span></a>
+  <span class="nc-sep">·</span>
+  <a href="../libro-digital.html"><span>📘</span><span class="nc-lbl">Libro digital</span></a>
+  <span class="nc-sep">·</span>
+  <span class="nc-current"><span>🪢</span><span class="nc-lbl">Simulador de poleas</span></span>
+</nav>
+
+<main id="main-content" class="po-wrap">
+  <section class="po-hero">
+    <h1>🪢 Simulador de poleas</h1>
+    <p>Elige el sistema, pon la carga <strong style="color:var(--cR)">R</strong> y tira de la cuerda. En todos los casos la fuerza que hay que hacer es <strong>F = R / N</strong>, donde <strong>N es el número total de poleas</strong>.</p>
+  </section>
+
+  <div class="po-barra">
+    <div class="po-grupo" role="group" aria-label="Sistema de poleas"><b>Sistema</b>
+      <button class="po-btn" data-sis="fija">Polea fija</button>
+      <button class="po-btn" data-sis="movil">Polea móvil</button>
+      <button class="po-btn" data-sis="p4">Polipasto 2 + 2</button>
+      <button class="po-btn" data-sis="p6">Polipasto 3 + 3</button>
+    </div>
+    <div class="po-grupo">
+      <button class="po-btn verde" id="b-tira">▶ Tirar</button>
+      <button class="po-btn" id="b-reto">🎯 Reto</button>
+    </div>
+  </div>
+
+  <div class="po-main">
+    <div class="po-esc">
+      <div class="po-tipo" id="tipo"></div>
+      <svg id="svg" viewBox="0 0 760 790" role="img" aria-label="Sistema de poleas"></svg>
+    </div>
+
+    <div class="po-lado">
+      <div class="po-reto" id="reto" aria-live="polite">
+        <h3>🎯 Reto</h3>
+        <div id="reto-txt"></div>
+        <div class="fila"><span id="reto-inc"></span><input type="number" id="reto-in" step="any" min="0"><span id="reto-ud"></span>
+          <button class="po-btn" id="reto-ok">Comprobar</button><button class="po-btn" id="reto-sol">Ver solución</button><button class="po-btn" id="reto-fin">Salir del reto</button></div>
+        <div class="po-fb" id="reto-fb"></div>
+      </div>
+
+      <div class="po-card">
+        <h3>Valores</h3>
+        <div class="po-sl R"><label for="sR">Carga R</label><input type="range" id="sR" min="60" max="1200" step="60"><span class="v" id="vR"></span></div>
+        <div class="po-sl S"><label for="sS">Tirar de la cuerda</label><input type="range" id="sS" min="0" max="100" step="1"><span class="v" id="vS"></span></div>
+        <div class="po-fila">
+          <label class="po-chk"><input type="checkbox" id="cT" checked> Ver los tramos que sostienen la carga</label>
+        </div>
+      </div>
+
+      <div class="po-card" aria-live="polite">
+        <h3>Ley de las poleas</h3>
+        <div class="po-ec" id="ec"></div>
+        <div class="po-nota" id="nota"></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+(function(){
+const NS='http://www.w3.org/2000/svg',svg=document.getElementById('svg');
+const W=760,H=790,CEIL=28,FLOOR=752,K=2;       // K: píxeles por cm de recorrido
+const LOADH=64,HOOK=26,LINK=24,PAD=8,GAP=4,CX=300;
+const COL={F:'#c44a3a',R:'#2c5f8d',T:'#e07b12',cuerda:'#c99a5b',cuerdaB:'#6b4a22'};
+function el(t,at,p){const e=document.createElementNS(NS,t);for(const k in at)e.setAttribute(k,at[k]);(p||svg).appendChild(e);return e;}
+function tx(x,y,s,cls,at,p){const e=el('text',Object.assign({x,y,class:cls},at||{}),p);e.textContent=s;return e;}
+const fmt=v=>(Math.round(v*100)/100).toString().replace('.',',');
+
+// ------------------------------------------------------------------ sistemas
+const SIS={
+  fija:{N:1,nom:'Polea fija',sub:'1 polea fija · cambia la dirección de la fuerza',hcap:100},
+  movil:{N:2,nom:'Polea móvil',sub:'1 polea móvil + 1 polea fija de reenvío',hcap:80},
+  p4:{N:4,nom:'Polipasto de 4 poleas',sub:'2 poleas fijas + 2 poleas móviles',m:[16,44],f:[30,58],hcap:50},
+  p6:{N:6,nom:'Polipasto de 6 poleas',sub:'3 poleas fijas + 3 poleas móviles',m:[13,31,49],f:[22,40,58],hcap:40}
+};
+const YMB=FLOOR-LOADH-HOOK;                     // parte baja del bloque móvil en reposo
+function apila(top,radios){const ys=[];let y=top+PAD;radios.forEach((r,i)=>{y+=r;ys.push(y);y+=r+GAP;});return ys;}
+function apilaArriba(bot,radios){const ys=[];let y=bot-PAD;radios.forEach(r=>{y-=r;ys.push(y);y-=r+GAP;});return ys;}
+function monta(key){
+  const s=SIS[key],o={key,N:s.N,fix:[],mov:[],ruta:[],marcos:[],D:[0,1]};
+  const top=CEIL+LINK;
+  if(key==='fija'){
+    const r=46,p={x:CX,y:top+PAD+r,r,w:1,n:1,mov:false};o.fix.push(p);o.ruta=[p];
+    o.marcos.push({x:CX,y1:top,y2:p.y+r+PAD,a:r+PAD,mov:false});
+    o.ini={x:CX-r,carga:true};
+  }else if(key==='movil'){
+    const r=40,pf={x:CX+r,y:top+PAD+r,r,w:1,n:2,mov:false},pm={x:CX-r,y:YMB-PAD-r,r,w:-1,n:1,mov:true};
+    o.fix.push(pf);o.mov.push(pm);o.ruta=[pm,pf];o.ini={x:CX-2*r,y:CEIL,fijo:true,techo:true};
+    o.marcos.push({x:pf.x,y1:top,y2:pf.y+r+PAD,a:r+PAD,mov:false});
+    o.marcos.push({x:pm.x,y1:pm.y-r-PAD,y2:YMB,a:r+PAD,mov:true});
+  }else{
+    const fr=s.f.slice().reverse(),mr=s.m.slice().reverse();
+    const fy=apila(top,fr),my=apilaArriba(YMB,mr);
+    const F=s.f.map((r,i)=>({x:CX,y:fy[fr.indexOf(r)],r,w:1,mov:false}));
+    const M=s.m.map((r,i)=>({x:CX,y:my[mr.indexOf(r)],r,w:1,mov:true}));
+    for(let i=0;i<s.m.length;i++){M[i].n=2*i+1;F[i].n=2*i+2;o.ruta.push(M[i],F[i]);}
+    o.fix=F;o.mov=M;
+    const fb=fy[fy.length-1]+fr[fr.length-1]+PAD,mt=my[my.length-1]-mr[mr.length-1]-PAD;
+    o.marcos.push({x:CX,y1:top,y2:fb,a:s.f[s.f.length-1]+PAD,mov:false});
+    o.marcos.push({x:CX,y1:mt,y2:YMB,a:s.m[s.m.length-1]+PAD,mov:true});
+    o.ini={x:CX+s.m[0],y:fb+7,fijo:true,ojo:true};
+    const ang=20*Math.PI/180;o.D=[Math.sin(ang),Math.cos(ang)];
+  }
+  // punto de salida de la cuerda (tangente a la última polea fija en la dirección D)
+  const pl=o.ruta[o.ruta.length-1],n=[o.D[1]*pl.w,-o.D[0]*pl.w];
+  o.Tex={x:pl.x+pl.r*n[0],y:pl.y+pl.r*n[1]};
+  o.L0=140;
+  // subida máxima: que la mano no se salga y que el bloque móvil no choque con el fijo
+  let umax=(Math.min((FLOOR-34-o.Tex.y)/o.D[1],o.D[0]>0?(W-150-o.Tex.x)/o.D[0]:1e9)-o.L0)/o.N;
+  const fb=o.marcos[0].y2;
+  if(key==='fija')umax=Math.min(umax,(FLOOR-LOADH)-(fb+90));
+  else{const mt=o.marcos[o.marcos.length-1].y1;umax=Math.min(umax,mt-fb-60);}
+  o.hmax=Math.min(s.hcap,Math.floor(umax/K/5)*5);o.smax=o.hmax*o.N;
+  return o;
+}
+const LAY={};for(const k in SIS)LAY[k]=monta(k);
+
+// ------------------------------------------------------------------ geometría de la cuerda
+function tangente(A,B){            // A,B: {x,y,r,w}; devuelve [T1,T2]
+  const s1=(A.r||0)*(A.w||1),s2=(B.r||0)*(B.w||1),dx=B.x-A.x,dy=B.y-A.y,L=Math.hypot(dx,dy),ux=dx/L,uy=dy/L;
+  const c=(s1-s2)/L,sn=Math.sqrt(Math.max(0,1-c*c));
+  let mejor=null;
+  for(const sg of [1,-1]){
+    const mx=c*ux-sg*sn*uy,my=c*uy+sg*sn*ux;
+    const T1={x:A.x+s1*mx,y:A.y+s1*my},T2={x:B.x+s2*mx,y:B.y+s2*my};
+    const tx_=T2.x-T1.x,ty_=T2.y-T1.y;
+    let ok=true;
+    if(A.r){const z=(T1.x-A.x)*ty_-(T1.y-A.y)*tx_;ok=ok&&Math.sign(z)===A.w;}
+    if(B.r){const z=(T2.x-B.x)*ty_-(T2.y-B.y)*tx_;ok=ok&&Math.sign(z)===B.w;}
+    if(ok){mejor=[T1,T2];break;}
+  }
+  return mejor||[{x:A.x,y:A.y},{x:B.x,y:B.y}];
+}
+function arco(P,T1,T2){const a1=Math.atan2(T1.y-P.y,T1.x-P.x),a2=Math.atan2(T2.y-P.y,T2.x-P.x);
+  let d=P.w>0?a2-a1:a1-a2;while(d<0)d+=2*Math.PI;while(d>=2*Math.PI)d-=2*Math.PI;
+  return `A ${P.r} ${P.r} 0 ${d>Math.PI?1:0} ${P.w>0?1:0} ${T2.x.toFixed(2)} ${T2.y.toFixed(2)}`;}
+
+function geo(o,u){
+  const mv=p=>p.mov?Object.assign({},p,{y:p.y-u}):p;
+  const ruta=o.ruta.map(mv);
+  const cargaTop=FLOOR-LOADH-u;
+  const ini=o.ini.carga?{x:o.ini.x,y:cargaTop-12}:{x:o.ini.x,y:o.ini.y};
+  const pts=[ini].concat(ruta);
+  const segs=[];let d='M '+ini.x.toFixed(2)+' '+ini.y.toFixed(2),prevT=null;
+  for(let i=0;i<pts.length-1;i++){
+    const [T1,T2]=tangente(pts[i],pts[i+1]);
+    if(i>0)d+=' '+arco(pts[i],prevT,T1);
+    d+=` L ${T2.x.toFixed(2)} ${T2.y.toFixed(2)}`;segs.push([T1,T2]);prevT=T2;
+  }
+  const pl=ruta[ruta.length-1];d+=' '+arco(pl,prevT,o.Tex);
+  const Ls=o.L0+o.N*u,mano={x:o.Tex.x+o.D[0]*Ls,y:o.Tex.y+o.D[1]*Ls};
+  d+=` L ${mano.x.toFixed(2)} ${mano.y.toFixed(2)}`;
+  return {ruta,d,segs,mano,cargaTop,ini,marcos:o.marcos.map(m=>m.mov?Object.assign({},m,{y1:m.y1-u,y2:m.y2-u}):m)};
+}
+
+// ------------------------------------------------------------------ escena fija
+const defs=el('defs',{});
+defs.innerHTML='<pattern id="rayas" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="12" stroke="#8d8475" stroke-width="3"/></pattern>'+
+ '<marker id="flF" markerWidth="5" markerHeight="5" refX="2.5" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 z" fill="#c44a3a"/></marker>'+
+ '<marker id="ctR" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M4,0 L4,8" stroke="#2c5f8d" stroke-width="2"/></marker>'+
+ '<marker id="ctF" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M4,0 L4,8" stroke="#c44a3a" stroke-width="2"/></marker>'+
+ '<radialGradient id="gPol" cx="45%" cy="40%" r="65%"><stop offset="0" stop-color="#eef1f4"/><stop offset="1" stop-color="#aab3bd"/></radialGradient>';
+el('rect',{x:0,y:0,width:W,height:CEIL,fill:'#c9c0b2'});el('rect',{x:0,y:0,width:W,height:CEIL,fill:'url(#rayas)',opacity:.55});
+el('line',{x1:0,y1:CEIL,x2:W,y2:CEIL,stroke:'#6d6456','stroke-width':3});
+el('rect',{x:0,y:FLOOR,width:W,height:H-FLOOR,fill:'#d9c9a3'});el('line',{x1:0,y1:FLOOR,x2:W,y2:FLOOR,stroke:'#a8926a','stroke-width':2});
+const gEsc=el('g',{});
+
+// ------------------------------------------------------------------ estado
+const S={sis:'p4',R:600,s:0,tramos:true,reto:null,anim:null};
+const O=()=>LAY[S.sis];
+
+function dibuja(){
+  const o=O(),u=(S.s/o.N)*K,g=geo(o,u);gEsc.innerHTML='';
+  const enReto=S.reto&&!S.reto.resuelto,inc=enReto?S.reto.inc:null,ocultaN=enReto;
+  // marcos de los bloques (detrás de las poleas)
+  g.marcos.forEach(m=>{
+    if(!m.mov){el('line',{x1:m.x,y1:CEIL,x2:m.x,y2:m.y1+4,stroke:'#4a5058','stroke-width':5},gEsc);
+      el('circle',{cx:m.x,cy:CEIL+LINK/2,r:6,fill:'none',stroke:'#4a5058','stroke-width':3},gEsc);}
+    el('rect',{x:m.x-m.a,y:m.y1,width:2*m.a,height:m.y2-m.y1,rx:Math.min(m.a,18),fill:'#dfe4ea',stroke:'#6b7580','stroke-width':2.5,opacity:.95},gEsc);
+    if(m.mov){ // gancho inferior del que cuelga la carga
+      const yb=m.y2,yc=g.cargaTop-12;
+      el('line',{x1:m.x,y1:yb,x2:m.x,y2:yc+(-1),stroke:'#4a5058','stroke-width':4,'stroke-linecap':'round'},gEsc);
+    }
+  });
+  if(S.sis==='movil'){el('circle',{cx:O().ini.x,cy:CEIL+5,r:5,fill:'#4a5058'},gEsc);}
+  // poleas
+  g.ruta.forEach(p=>{
+    el('circle',{cx:p.x,cy:p.y,r:p.r-2,fill:'url(#gPol)',stroke:'#59626d','stroke-width':2},gEsc);
+    if(p.r>20)el('circle',{cx:p.x,cy:p.y,r:p.r*0.62,fill:'none',stroke:'#8b949e','stroke-width':1.2},gEsc);
+  });
+  // carga (pesa negra) y su posición de partida
+  const w=56+Math.sqrt(S.R)*1.25,ct=g.cargaTop,cxL=S.sis==='fija'?O().ini.x:(S.sis==='movil'?O().mov[0].x:CX);
+  if(u>0)el('path',{d:pesa(cxL,FLOOR-LOADH,w),fill:'none',stroke:'#7a828c','stroke-width':1.5,'stroke-dasharray':'6 5'},gEsc);
+  el('circle',{cx:cxL,cy:ct-6,r:7,fill:'none',stroke:'#23272b','stroke-width':4},gEsc);
+  el('path',{d:pesa(cxL,ct,w),fill:'#23272b',stroke:'#0f1113','stroke-width':2},gEsc);
+  tx(cxL,ct+LOADH/2+9,'R','t-num',{'text-anchor':'middle',fill:'#fff','font-size':26},gEsc);
+  tx(cxL-w/2-14,ct+LOADH/2+7,inc==='R'?'R = ?':'R = '+S.R+' N','t-val',{'text-anchor':'end',fill:COL.R},gEsc);
+  // cuerda
+  el('path',{d:g.d,fill:'none',stroke:COL.cuerdaB,'stroke-width':6,'stroke-linejoin':'round'},gEsc);
+  el('path',{d:g.d,fill:'none',stroke:COL.cuerda,'stroke-width':3.4,'stroke-linejoin':'round'},gEsc);
+  if(O().ini.ojo){el('circle',{cx:O().ini.x,cy:O().ini.y-2,r:5,fill:'none',stroke:'#4a5058','stroke-width':3},gEsc);}
+  // tramos que sostienen la carga
+  const verT=S.tramos&&!ocultaN;
+  if(verT){
+    g.segs.forEach(([a,b])=>el('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:COL.T,'stroke-width':6,'stroke-linecap':'round',opacity:.85},gEsc));
+    const lo=Math.max(...g.segs.map(([a,b])=>Math.min(a.y,b.y))),hi=Math.min(...g.segs.map(([a,b])=>Math.max(a.y,b.y)));
+    const orden=g.segs.map(([a,b],i)=>[(a.x+b.x)/2,i]).sort((p,q)=>p[0]-q[0]).map(p=>p[1]);
+    g.segs.forEach(([a,b],i)=>{
+      const alt=orden.indexOf(i)%2?14:-14;
+      let y=hi-lo>46?(lo+hi)/2+(g.segs.length>1?alt:0):(Math.min(a.y,b.y)+Math.max(a.y,b.y))/2;
+      const t=(y-a.y)/((b.y-a.y)||1),x=a.x+(b.x-a.x)*t;
+      el('circle',{cx:x,cy:y,r:11,fill:COL.T,stroke:'#fff','stroke-width':2},gEsc);
+      tx(x,y+5.5,i+1,'t-num',{'text-anchor':'middle',fill:'#fff','font-size':16},gEsc);});
+  }
+  // números de las poleas
+  if(!ocultaN)g.ruta.forEach(p=>{const rh=Math.min(p.r-3,13);
+    el('circle',{cx:p.x,cy:p.y,r:rh,fill:'#2e343b'},gEsc);
+    tx(p.x,p.y+rh*0.42,p.n,'t-num',{'text-anchor':'middle',fill:'#fff','font-size':Math.round(rh*1.25)},gEsc);});
+  else g.ruta.forEach(p=>el('circle',{cx:p.x,cy:p.y,r:Math.min(p.r-3,6),fill:'#2e343b'},gEsc));
+  // mano y fuerza F
+  const o2=O(),D=o2.D,m=g.mano,Fv=S.R/o2.N,LF=46+Math.min(60,Math.sqrt(Fv)*2.2);
+  el('line',{x1:m.x,y1:m.y,x2:m.x+D[0]*LF,y2:m.y+D[1]*LF,stroke:COL.F,'stroke-width':6,'marker-end':'url(#flF)'},gEsc);
+  el('rect',{x:m.x-9,y:m.y-14,width:18,height:28,rx:7,fill:COL.F,transform:`rotate(${-Math.atan2(D[0],D[1])*180/Math.PI} ${m.x} ${m.y})`},gEsc);
+  tx(m.x+D[0]*LF/2+18,m.y+D[1]*LF/2+6,inc==='F'?'F = ?':'F = '+fmt(Fv)+' N','t-val',{fill:COL.F},gEsc);
+  // cotas: h (subida de la carga) y s (cuerda recogida)
+  const hcm=S.s/o2.N;
+  if(u>0){
+    const xc=cxL-w/2-30,y1=FLOOR,y2=FLOOR-u;
+    el('line',{x1:xc-10,y1:y1,x2:cxL-w/2,y2:y1,stroke:COL.R,'stroke-width':1.2,'stroke-dasharray':'3 3'},gEsc);
+    el('line',{x1:xc-10,y1:y2,x2:cxL-w/2,y2:y2,stroke:COL.R,'stroke-width':1.2,'stroke-dasharray':'3 3'},gEsc);
+    el('line',{x1:xc,y1:y1,x2:xc,y2:y2,stroke:COL.R,'stroke-width':2,'marker-start':'url(#ctR)','marker-end':'url(#ctR)'},gEsc);
+    tx(xc-8,(y1+y2)/2+6,(inc==='h'?'h = ?':'h = '+fmt(hcm)+' cm'),'t-cota',{'text-anchor':'end',fill:COL.R},gEsc);
+    const m0={x:o2.Tex.x+D[0]*o2.L0,y:o2.Tex.y+D[1]*o2.L0},nx=D[1],ny=-D[0],off=34;
+    const a={x:m0.x+nx*off,y:m0.y+ny*off},b={x:m.x+nx*off,y:m.y+ny*off};
+    el('line',{x1:m0.x-nx*8,y1:m0.y-ny*8,x2:m0.x+nx*(off+8),y2:m0.y+ny*(off+8),stroke:COL.F,'stroke-width':1.2,'stroke-dasharray':'3 3'},gEsc);
+    el('line',{x1:m.x+nx*12,y1:m.y+ny*12,x2:m.x+nx*(off+8),y2:m.y+ny*(off+8),stroke:COL.F,'stroke-width':1.2,'stroke-dasharray':'3 3'},gEsc);
+    el('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:COL.F,'stroke-width':2,'marker-start':'url(#ctF)','marker-end':'url(#ctF)'},gEsc);
+    tx((a.x+b.x)/2+nx*10,(a.y+b.y)/2+ny*10+7,(inc==='s'?'s = ?':'s = '+fmt(S.s)+' cm'),'t-cota',{'text-anchor':'start',fill:COL.F},gEsc);
+  }
+}
+function pesa(x,y,w){const t=w*0.72;return `M ${x-t/2} ${y} L ${x+t/2} ${y} L ${x+w/2} ${y+LOADH} L ${x-w/2} ${y+LOADH} Z`;}
+
+// ------------------------------------------------------------------ panel
+function actualiza(){
+  const o=O(),s=SIS[S.sis],N=o.N,F=S.R/N,h=S.s/N;
+  const enReto=S.reto&&!S.reto.resuelto,inc=enReto?S.reto.inc:null;
+  document.getElementById('tipo').innerHTML=s.nom+'<small>'+(enReto?'Cuenta las poleas':s.sub)+'</small>';
+  document.querySelectorAll('[data-sis]').forEach(b=>b.classList.toggle('on',b.dataset.sis===S.sis));
+  document.getElementById('vR').textContent=(inc==='R'?'?':S.R)+' N';
+  document.getElementById('vS').textContent=(enReto&&(inc==='s'||inc==='h')?'?':S.s)+' cm';
+  const sS=document.getElementById('sS');sS.max=o.smax;sS.step=N;sS.value=S.s;
+  document.getElementById('sR').value=S.R;
+  ['sR','sS','b-tira'].forEach(id=>document.getElementById(id).disabled=!!enReto);
+  const ec=document.getElementById('ec');
+  if(enReto){
+    ec.innerHTML='<div class="ley"><span class="f">F</span> = <span class="r">R</span> / <span class="n">N</span></div><div>N = ? poleas</div><hr><div><span class="f">s</span> = <span class="n">N</span> · <span class="r">h</span></div>';
+    document.getElementById('nota').textContent='Cuenta las poleas del dibujo y calcula el valor que falta.';
+  }else{
+    ec.innerHTML='<div class="ley"><span class="f">F</span> = <span class="r">R</span> / <span class="n">N</span></div>'+
+      '<div><span class="n">N = '+N+(N===1?' polea':' poleas')+'</span></div>'+
+      '<div><span class="f">F</span> = <span class="r">'+S.R+'</span> / <span class="n">'+N+'</span> = <span class="f">'+fmt(F)+' N</span></div>'+
+      (S.tramos?'<div class="t" style="font-size:.95rem">Comprobación: '+N+(N===1?' tramo sostiene':' tramos sostienen')+' la carga</div>':'')+
+      '<hr><div style="font-size:1rem;color:var(--texto2)">Recorridos: <span class="f">s</span> = <span class="n">N</span> · <span class="r">h</span></div>'+
+      '<div><span class="f">'+fmt(S.s)+' cm</span> = <span class="n">'+N+'</span> · <span class="r">'+fmt(h)+' cm</span></div>';
+    document.getElementById('nota').innerHTML=N===1?
+      'La polea fija <strong>no reduce la fuerza</strong> (F = R): sirve para cambiar su dirección y tirar hacia abajo, que es más cómodo. La cuerda recorre lo mismo que sube la carga.':
+      'La fuerza se divide entre '+N+', pero hay que recoger <strong>'+N+' veces más cuerda</strong> de lo que sube la carga: lo que se gana en fuerza se pierde en recorrido.';
+  }
+  dibuja();
+}
+
+// ------------------------------------------------------------------ controles
+function ponSis(k){S.sis=k;S.s=0;paraAnim();actualiza();}
+document.querySelectorAll('[data-sis]').forEach(b=>b.addEventListener('click',()=>{finReto();ponSis(b.dataset.sis);}));
+document.getElementById('sR').addEventListener('input',e=>{S.R=+e.target.value;actualiza();});
+document.getElementById('sS').addEventListener('input',e=>{paraAnim();S.s=+e.target.value;actualiza();});
+document.getElementById('cT').addEventListener('change',e=>{S.tramos=e.target.checked;actualiza();});
+function paraAnim(){if(S.anim){cancelAnimationFrame(S.anim.id);S.anim=null;}document.getElementById('b-tira').textContent=S.s>=O().smax?'◀ Soltar':'▶ Tirar';}
+function anima(destino,fin){
+  paraAnim();const o=O(),s0=S.s,dur=Math.max(700,Math.abs(destino-s0)/o.smax*3200),t0=performance.now();
+  const paso=t=>{const k=Math.min(1,(t-t0)/dur),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
+    S.s=Math.round((s0+(destino-s0)*e)*100)/100;actualiza();
+    if(k<1)S.anim.id=requestAnimationFrame(paso);else{S.s=destino;S.anim=null;actualiza();paraAnim();if(fin)fin();}};
+  S.anim={id:requestAnimationFrame(paso)};document.getElementById('b-tira').textContent='⏸ Parar';}
+document.getElementById('b-tira').addEventListener('click',()=>{if(S.anim){paraAnim();return;}const o=O();anima(S.s>=o.smax?0:o.smax);});
+
+// ------------------------------------------------------------------ retos
+const R_=n=>Math.floor(Math.random()*n);
+function empiezaReto(){
+  finReto();const claves=['fija','movil','movil','p4','p4','p6','p6'],k=claves[R_(claves.length)],o=LAY[k],N=o.N,tipos=['F','F','R','s','h'],inc=tipos[R_(tipos.length)];
+  S.sis=k;S.s=0;paraAnim();
+  const t={inc,resuelto:false,sis:k};
+  if(inc==='F'){t.R=60*(1+R_(20));t.sol=t.R/N;S.R=t.R;
+    t.txt='¿Qué <strong style="color:var(--cF)">fuerza F</strong> hay que hacer para levantar una carga de <strong style="color:var(--cR)">'+t.R+' N</strong> con este sistema?';t.ud='N';}
+  else if(inc==='R'){const maxF=Math.floor(1200/N/10);t.F=10*(2+R_(Math.max(1,maxF-1)));t.sol=t.F*N;S.R=t.sol;
+    t.txt='Puedes tirar con una <strong style="color:var(--cF)">fuerza de '+t.F+' N</strong>. ¿Qué <strong style="color:var(--cR)">carga R</strong> puedes levantar con este sistema?';t.ud='N';}
+  else{const h=5*(1+R_(o.hmax/5));t.h=h;t.s=N*h;
+    if(inc==='s'){t.sol=t.s;t.txt='Quieres subir la carga <strong style="color:var(--cR)">h = '+h+' cm</strong>. ¿Cuántos centímetros de cuerda <strong style="color:var(--cF)">s</strong> tienes que recoger?';}
+    else{t.sol=h;t.txt='Has recogido <strong style="color:var(--cF)">s = '+t.s+' cm</strong> de cuerda. ¿Cuántos centímetros <strong style="color:var(--cR)">h</strong> ha subido la carga?';}
+    t.ud='cm';}
+  S.reto=t;
+  document.getElementById('reto').classList.add('on');
+  document.getElementById('reto-txt').innerHTML=t.txt;
+  document.getElementById('reto-inc').textContent=inc+' =';document.getElementById('reto-ud').textContent=t.ud;
+  document.getElementById('reto-in').value='';const fb=document.getElementById('reto-fb');fb.textContent='';fb.className='po-fb';
+  actualiza();document.getElementById('reto-in').focus();
+}
+function finReto(){S.reto=null;document.getElementById('reto').classList.remove('on');}
+function explica(t){const N=LAY[t.sis].N,n=N+(N===1?' polea':' poleas');
+  if(t.inc==='F')return 'N = '+n+' → F = '+t.R+' / '+N+' = '+fmt(t.sol)+' N';
+  if(t.inc==='R')return 'N = '+n+' → R = F · N = '+t.F+' · '+N+' = '+t.sol+' N';
+  if(t.inc==='s')return 'N = '+n+' → s = N · h = '+N+' · '+t.h+' = '+t.s+' cm';
+  return 'N = '+n+' → h = s / N = '+t.s+' / '+N+' = '+t.h+' cm';}
+function resuelve(t){t.resuelto=true;actualiza();anima(t.inc==='s'||t.inc==='h'?t.s:LAY[t.sis].smax);}
+function prueba(v,sol){const t=S.reto;if(!t)return;const fb=document.getElementById('reto-fb');
+  if(sol){fb.className='po-fb ok';fb.textContent='Solución: '+explica(t)+'. Pulsa «Reto» para otro.';resuelve(t);return;}
+  if(Math.abs(v-t.sol)<=0.005*Math.max(1,t.sol)){fb.className='po-fb ok';fb.textContent='✔ Correcto: '+explica(t)+'. Pulsa «Reto» para otro.';resuelve(t);}
+  else{fb.className='po-fb ko';fb.textContent=(t.inc==='F'||t.inc==='R')?'✘ No es correcto. Cuenta las poleas y aplica F = R / N.':'✘ No es correcto. Cuenta las poleas: la cuerda recorre N veces lo que sube la carga (s = N · h).';}}
+document.getElementById('b-reto').addEventListener('click',empiezaReto);
+document.getElementById('reto-fin').addEventListener('click',()=>{finReto();actualiza();});
+document.getElementById('reto-ok').addEventListener('click',()=>{const v=parseFloat(String(document.getElementById('reto-in').value).replace(',','.'));if(isNaN(v))return;prueba(v,false);});
+document.getElementById('reto-in').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('reto-ok').click();});
+document.getElementById('reto-sol').addEventListener('click',()=>prueba(0,true));
+
+actualiza();paraAnim();
+window.__poLAY=LAY;window.__poS=S;window.__poAct=actualiza;
+window.__poListo=true;
+})();
+</script>
+<script src="../../../assets/js/common.js"></script>
+<script src="../../../assets/js/header.js"></script>
+<script data-goatcounter="https://malonso72.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
